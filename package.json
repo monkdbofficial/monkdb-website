@@ -1,6 +1,6 @@
 {
-  "name": "solid-nextjs",
-  "version": "0.3.0",
+  "name": "monkdb-website",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -25,7 +25,7 @@
     "react-dom": "19.0.0",
     "react-hot-toast": "^2.4.1",
     "react-pageflip": "^2.0.3",
-    "react-pdf": "^7.1.2",
+    "react-pdf": "^9.1.1",
     "resend": "^4.5.1",
     "swiper": "^9.3.2"
   },
