@@ -1,5 +1,4 @@
 "use client";
-import BlogData from "@/components/Blog/blogData";
 import { notFound, useRouter } from "next/navigation";
 import Image from "next/image";
 import { Calendar, Clock, User, Tag, Video, FileText, Mail, ArrowLeft } from "lucide-react";
@@ -10,6 +9,7 @@ import { useState, use, useEffect } from "react";
 import Link from "next/link";
 import Script from "next/script";
 import { generateArticleSchema, generateVideoSchema, generateBreadcrumbSchema } from "@/lib/seo";
+import { Blog } from "@/types/blog";
 
 
 // Helper function to extract YouTube video ID
@@ -34,8 +34,68 @@ export default function BlogDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const [isSubscribeModalOpen, setIsSubscribeModalOpen] = useState(false);
+  const [blog, setBlog] = useState<any>(null);
+  const [relatedPosts, setRelatedPosts] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
   const { slug } = use(params);
-  const blog = BlogData.find((blog) => blog.slug === slug);
+
+  useEffect(() => {
+    fetchBlog();
+  }, [slug]);
+
+  // Update page title and meta dynamically
+  useEffect(() => {
+    if (blog) {
+      document.title = `${blog.title} | MonkDB Blog`;
+      const metaDescription = document.querySelector('meta[name="description"]');
+      if (metaDescription) {
+        metaDescription.setAttribute("content", blog.description || blog.title);
+      }
+    }
+  }, [blog]);
+
+  const fetchBlog = async () => {
+    try {
+      const response = await fetch(`/api/blogs/slug/${slug}`);
+      const data = await response.json();
+
+      if (data.success) {
+        setBlog(data.data);
+        fetchRelatedBlogs(data.data.tags);
+      } else {
+        setBlog(null);
+      }
+    } catch (error) {
+      console.error("Error fetching blog:", error);
+      setBlog(null);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchRelatedBlogs = async (tags: string[]) => {
+    try {
+      const response = await fetch("/api/blogs?published=true&limit=6");
+      const data = await response.json();
+
+      if (data.success) {
+        const related = data.data
+          .filter((b: any) => b.slug !== slug && b.tags.some((tag: string) => tags.includes(tag)))
+          .slice(0, 3);
+        setRelatedPosts(related);
+      }
+    } catch (error) {
+      console.error("Error fetching related blogs:", error);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
 
   if (!blog) {
     notFound();
@@ -48,13 +108,6 @@ export default function BlogDetailPage({
     ? getGoogleDriveEmbedUrl(blog.googleDriveUrl)
     : null;
 
-  // Get related posts (same tags, different post)
-  const relatedPosts = BlogData.filter(
-    (post) =>
-      post._id !== blog._id &&
-      post.tags?.some((tag) => blog.tags?.includes(tag))
-  ).slice(0, 3);
-
   // Generate structured data
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: "Home", url: "/" },
@@ -65,10 +118,10 @@ export default function BlogDetailPage({
   const articleSchema = generateArticleSchema({
     title: blog.title,
     description: blog.description || blog.title,
-    image: blog.mainImage || "/images/og-image.png",
-    datePublished: blog.publishedAt || new Date().toISOString(),
-    dateModified: blog.publishedAt || new Date().toISOString(),
-    author: blog.author?.name || "MonkDB Team",
+    image: blog.coverImage || "/images/og-image.png",
+    datePublished: blog.publishedAt || blog.createdAt || new Date().toISOString(),
+    dateModified: blog.publishedAt || blog.createdAt || new Date().toISOString(),
+    author: blog.author || "MonkDB Team",
     url: `/blog/${blog.slug}`,
   });
 
@@ -78,19 +131,10 @@ export default function BlogDetailPage({
           name: blog.title,
           description: blog.description || blog.title,
           thumbnailUrl: `https://i.ytimg.com/vi/${youtubeVideoId}/maxresdefault.jpg`,
-          uploadDate: blog.publishedAt || new Date().toISOString(),
+          uploadDate: blog.publishedAt || blog.createdAt || new Date().toISOString(),
           contentUrl: blog.youtubeUrl,
         })
       : null;
-
-  // Update page title and meta dynamically
-  useEffect(() => {
-    document.title = `${blog.title} | MonkDB Blog`;
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-      metaDescription.setAttribute("content", blog.description || blog.title);
-    }
-  }, [blog.title, blog.description]);
 
   return (
     <>
@@ -155,17 +199,14 @@ export default function BlogDetailPage({
               {blog.author && (
                 <div className="flex items-center gap-2">
                   <User className="h-4 w-4" />
-                  <span>{blog.author.name}</span>
-                  {blog.author.role && (
-                    <span className="text-gray-400">• {blog.author.role}</span>
-                  )}
+                  <span>{blog.author}</span>
                 </div>
               )}
-              {blog.publishedAt && (
+              {(blog.publishedAt || blog.createdAt) && (
                 <div className="flex items-center gap-2">
                   <Calendar className="h-4 w-4" />
                   <span>
-                    {new Date(blog.publishedAt).toLocaleDateString("en-US", {
+                    {new Date(blog.publishedAt || blog.createdAt).toLocaleDateString("en-US", {
                       year: "numeric",
                       month: "long",
                       day: "numeric",
@@ -226,6 +267,20 @@ export default function BlogDetailPage({
               </div>
             )}
 
+            {/* Uploaded Video Player */}
+            {(blog as any).videoFile && !blog.youtubeUrl && (
+              <div className="mb-12 overflow-hidden rounded-2xl shadow-2xl bg-black">
+                <video
+                  className="w-full"
+                  controls
+                  controlsList="nodownload"
+                >
+                  <source src={(blog as any).videoFile} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            )}
+
             {/* Google Drive PDF Viewer */}
             {googleDriveEmbedUrl && (
               <div className="mb-12 overflow-hidden rounded-2xl shadow-2xl">
@@ -253,11 +308,43 @@ export default function BlogDetailPage({
               </div>
             )}
 
+            {/* Uploaded PDF Viewer */}
+            {(blog as any).documentFile && !blog.googleDriveUrl && (
+              <div className="mb-12 overflow-hidden rounded-2xl shadow-2xl">
+                <div className="relative bg-gray-100 dark:bg-gray-800" style={{ minHeight: "800px" }}>
+                  <iframe
+                    className="h-full w-full border-0"
+                    src={`${(blog as any).documentFile}#toolbar=1&navpanes=1&scrollbar=1`}
+                    title={blog.title}
+                    style={{ minHeight: "800px" }}
+                    allow="fullscreen"
+                  />
+                </div>
+                <div className="bg-gray-50 p-4 dark:bg-gray-900 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <FileText className="h-4 w-4 text-gray-600 dark:text-gray-400" />
+                    <span className="text-sm text-gray-600 dark:text-gray-400">
+                      Having trouble viewing?
+                    </span>
+                  </div>
+                  <a
+                    href={(blog as any).documentFile}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary/90 transition"
+                  >
+                    <FileText className="h-4 w-4" />
+                    Open PDF Directly
+                  </a>
+                </div>
+              </div>
+            )}
+
             {/* Body Content */}
-            {blog.body && (
+            {blog.content && (
               <div
                 className="prose prose-lg max-w-none dark:prose-invert"
-                dangerouslySetInnerHTML={{ __html: blog.body }}
+                dangerouslySetInnerHTML={{ __html: blog.content }}
               />
             )}
 

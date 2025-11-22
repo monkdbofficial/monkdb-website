@@ -2,7 +2,7 @@
 
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import ScrollToTop from "@/components/ScrollToTop";
+import Chatbot from "@/components/Chatbot";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import { ThemeProvider } from "next-themes";
 import { Inter } from "next/font/google";
@@ -10,6 +10,7 @@ import "../globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 import ToasterContext from "../context/ToastContext";
+import Providers from "../providers";
 import {
   generateOrganizationSchema,
   generateSoftwareProductSchema,
@@ -30,7 +31,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className="scroll-smooth">
       <head>
         {/* SEO Meta Tags */}
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
@@ -55,8 +56,6 @@ export default function RootLayout({
         />
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
-
-        <link rel="preload" href="/critical-styles.css" as="style" />
 
         {/* Favicon */}
         <link rel="icon" href="/favicon.ico" sizes="any" />
@@ -83,17 +82,19 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <GoogleAnalytics />
-        <ThemeProvider
-          enableSystem={true}
-          attribute="class"
-          defaultTheme="system"
-        >
-          <Header />
-          <ToasterContext />
-          {children}
-          <Footer />
-          <ScrollToTop />
-        </ThemeProvider>
+        <Providers>
+          <ThemeProvider
+            enableSystem={true}
+            attribute="class"
+            defaultTheme="system"
+          >
+            <Header />
+            <ToasterContext />
+            {children}
+            <Footer />
+            <Chatbot />
+          </ThemeProvider>
+        </Providers>
       </body>
     </html>
   );

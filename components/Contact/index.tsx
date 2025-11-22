@@ -2,10 +2,17 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import React from "react";
+import { getCountryCallingCode } from 'react-phone-number-input';
+import en from 'react-phone-number-input/locale/en.json';
+import { isValidPhoneNumber } from 'libphonenumber-js';
+import CountrySelector from '@/components/PhoneInput/CountrySelector';
 
 const Contact = () => {
   const [hasMounted, setHasMounted] = React.useState(false);
   const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [countryCode, setCountryCode] = React.useState<any>("IN"); // Default to India
+  const [phoneValue, setPhoneValue] = React.useState<string>("");
+  const [phoneError, setPhoneError] = React.useState<string>("");
   const [submitStatus, setSubmitStatus] = React.useState<{
     success: boolean;
     message: string;
@@ -18,8 +25,38 @@ const Contact = () => {
     return null;
   }
 
+  const validatePhone = () => {
+    if (!phoneValue) {
+      setPhoneError("");
+      return true; // Phone is optional
+    }
+
+    const callingCode = getCountryCallingCode(countryCode);
+    const fullPhoneNumber = `+${callingCode}${phoneValue}`;
+
+    try {
+      const valid = isValidPhoneNumber(fullPhoneNumber, countryCode);
+      if (!valid) {
+        setPhoneError(`Invalid phone number for ${en[countryCode]}`);
+        return false;
+      }
+      setPhoneError("");
+      return true;
+    } catch (error) {
+      setPhoneError("Invalid phone number");
+      return false;
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // Validate phone before submitting
+    if (!validatePhone()) {
+      setIsSubmitting(false);
+      return;
+    }
+
     setIsSubmitting(true);
     setSubmitStatus(null);
 
@@ -30,11 +67,14 @@ const Contact = () => {
     const acceptCommunications =
       checkbox instanceof HTMLInputElement ? checkbox.checked : false;
 
+    const callingCode = getCountryCallingCode(countryCode);
+    const fullPhoneNumber = phoneValue ? `+${callingCode} ${phoneValue}` : 'Not provided';
+
     const data = {
       name: formData.get("name"),
       email: formData.get("email"),
       company: formData.get("company"),
-      phone: formData.get("phone"),
+      phone: fullPhoneNumber,
       message: formData.get("message"),
       acceptCommunications,
     };
@@ -57,6 +97,7 @@ const Contact = () => {
         message: "Thank you! Your message has been sent successfully.",
       });
       form.reset();
+      setPhoneValue("");
     } catch (error) {
       setSubmitStatus({
         success: false,
@@ -138,13 +179,34 @@ const Contact = () => {
                     className="w-full rounded-full border border-gray-300 bg-white p-3 focus:border-blue-500 focus:outline-none dark:border-strokedark dark:bg-gray-800 dark:focus:border-blue-500"
                   />
 
-                  <input
-                    name="phone"
-                    type="text"
-                    placeholder="Phone Number"
-                    required
-                    className="w-full rounded-full border border-gray-300 bg-white p-3 focus:border-blue-500 focus:outline-none dark:border-strokedark dark:bg-gray-800 dark:focus:border-blue-500"
-                  />
+                  <div className="w-full">
+                    <div className="flex gap-2">
+                      {/* Country Code Selector - Professional Searchable */}
+                      <CountrySelector
+                        value={countryCode}
+                        onChange={(country) => setCountryCode(country)}
+                        className="w-32"
+                        variant="pill"
+                      />
+
+                      {/* Phone Number Input */}
+                      <input
+                        type="tel"
+                        value={phoneValue}
+                        onChange={(e) => {
+                          const value = e.target.value.replace(/\D/g, ''); // Only allow digits
+                          setPhoneValue(value);
+                          setPhoneError("");
+                        }}
+                        onBlur={validatePhone}
+                        placeholder="Phone Number"
+                        className="flex-1 rounded-full border border-gray-300 bg-white p-3 text-sm focus:border-blue-500 focus:outline-none dark:border-strokedark dark:bg-gray-800 dark:text-white dark:focus:border-blue-500"
+                      />
+                    </div>
+                    {phoneError && (
+                      <p className="mt-2 text-xs text-red-600 dark:text-red-400">{phoneError}</p>
+                    )}
+                  </div>
                 </div>
 
                 <div className="mb-11.5 flex">

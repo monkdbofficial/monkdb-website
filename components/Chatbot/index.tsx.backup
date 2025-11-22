@@ -1,0 +1,413 @@
+"use client";
+import { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { TbMessageChatbotFilled } from "react-icons/tb";
+import { IoClose } from "react-icons/io5";
+
+interface Message {
+  id: string;
+  text: string;
+  sender: "user" | "bot";
+  timestamp: Date;
+  options?: QuickReply[];
+}
+
+interface QuickReply {
+  label: string;
+  value: string;
+}
+
+const Chatbot = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      id: "1",
+      text: "Hello! I'm your MonkDB assistant. How can I help you today?",
+      sender: "bot",
+      timestamp: new Date(),
+      options: [
+        { label: "View Pricing", value: "pricing" },
+        { label: "Explore Features", value: "features" },
+        { label: "Get Started", value: "getting started" },
+        { label: "Contact Support", value: "support" },
+      ],
+    },
+  ]);
+  const [inputValue, setInputValue] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const chatboxRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  useEffect(() => {
+    if (isOpen && inputRef.current) {
+      setTimeout(() => inputRef.current?.focus(), 100);
+    }
+  }, [isOpen]);
+
+  // Close chatbot when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (chatboxRef.current && !chatboxRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
+
+  const getBotResponse = (userMessage: string): { text: string; options?: QuickReply[] } => {
+    const message = userMessage.toLowerCase();
+
+    // Pricing queries
+    if (message.includes("price") || message.includes("pricing") || message.includes("cost") || message.includes("plan")) {
+      if (message.includes("small") || message.includes("10") || message.includes("basic")) {
+        return {
+          text: "Small Pack - $10/month\n\nPerfect for startups and small projects.\n\nIncludes:\n• 300 GB Storage\n• Unlimited Photos & Videos\n• Email Support (24h response)\n• Community Access\n• Basic Analytics\n\nIdeal for developers and small teams getting started with MonkDB.",
+          options: [
+            { label: "View Medium Pack", value: "medium pack" },
+            { label: "View Large Pack", value: "large pack" },
+            { label: "Compare All Plans", value: "compare plans" },
+          ],
+        };
+      } else if (message.includes("medium") || message.includes("59") || message.includes("popular")) {
+        return {
+          text: "Medium Pack - $59/month\nMost Popular Choice\n\nBest value for growing businesses.\n\nIncludes:\n• 300 GB Storage\n• Unlimited Photos & Videos\n• Priority Support (4h response)\n• Advanced Analytics Dashboard\n• API Access with Higher Limits\n• Team Collaboration Tools\n• Custom Integrations\n\nPerfect for scaling applications and teams.",
+          options: [
+            { label: "View Small Pack", value: "small pack" },
+            { label: "View Large Pack", value: "large pack" },
+            { label: "Get Started", value: "getting started" },
+          ],
+        };
+      } else if (message.includes("large") || message.includes("189") || message.includes("enterprise")) {
+        return {
+          text: "Large Pack - $189/month\nEnterprise Solution\n\nEnterprise-grade platform with full support.\n\nIncludes:\n• 300 GB Storage\n• Unlimited Photos & Videos\n• 24/7 Dedicated Support\n• Custom Branding & White-label\n• Dedicated Account Manager\n• SLA Guarantees (99.99% uptime)\n• Advanced Security & Compliance\n• Priority Feature Requests\n• Professional Onboarding & Training\n\nIdeal for mission-critical applications and large enterprises.",
+          options: [
+            { label: "View Medium Pack", value: "medium pack" },
+            { label: "Contact Sales", value: "contact support" },
+            { label: "Compare Plans", value: "compare plans" },
+          ],
+        };
+      } else if (message.includes("compare")) {
+        return {
+          text: "MonkDB Pricing Comparison\n\nSmall Pack - $10/month\nBest for: Startups & Individual Developers\nSupport: Email (24h response)\n\nMedium Pack - $59/month (Most Popular)\nBest for: Growing Businesses\nSupport: Priority (4h response)\n\nLarge Pack - $189/month\nBest for: Enterprise Solutions\nSupport: 24/7 Dedicated\n\nAll plans include our core AI-native unified database platform with 6 database types.",
+          options: [
+            { label: "Small Pack", value: "small pack" },
+            { label: "Medium Pack", value: "medium pack" },
+            { label: "Large Pack", value: "large pack" },
+          ],
+        };
+      } else {
+        return {
+          text: "Choose Your Perfect Plan\n\nWe offer three flexible pricing tiers:\n\nSmall Pack - $10/month\nMedium Pack - $59/month (Most Popular)\nLarge Pack - $189/month\n\nWhich plan would you like to learn more about?",
+          options: [
+            { label: "Small Pack", value: "small pack" },
+            { label: "Medium Pack", value: "medium pack" },
+            { label: "Large Pack", value: "large pack" },
+            { label: "Compare All", value: "compare plans" },
+          ],
+        };
+      }
+    }
+
+    // Features queries
+    if (message.includes("feature") || message.includes("what can") || message.includes("capabilities")) {
+      return {
+        text: "MonkDB: AI-Native Unified Database Platform\n\nOur platform includes 6 integrated database types:\n\n• Vector Database - AI/ML embeddings & similarity search\n• Time-Series Database - Real-time temporal data\n• Geo-Spatial Database - Location-based queries\n• Document Database - Flexible JSON schemas\n• Full-Text Search - Advanced text indexing\n• Streaming SQL - Real-time analytics\n\nAll seamlessly integrated with enterprise-grade performance.",
+        options: [
+          { label: "Learn More", value: "vector database" },
+          { label: "View Pricing", value: "pricing" },
+          { label: "Get Started", value: "getting started" },
+        ],
+      };
+    }
+
+    // Support queries
+    if (message.includes("support") || message.includes("contact")) {
+      return {
+        text: "We're Here to Help\n\nContact Options:\n\nEmail Support\nResponse within 24 hours\nsupport@monkdb.com\n\nDocumentation\nComprehensive guides & tutorials\n\nLive Chat\nBusiness hours: 9 AM - 6 PM EST\n\nPriority Support\nAvailable for Medium & Large plans\n4h response (Medium) | 24/7 support (Large)",
+        options: [
+          { label: "View Documentation", value: "documentation" },
+          { label: "Upgrade Plan", value: "pricing" },
+          { label: "Back to Menu", value: "hello" },
+        ],
+      };
+    }
+
+    // Getting started
+    if (message.includes("start") || message.includes("begin") || message.includes("install") || message.includes("setup")) {
+      return {
+        text: "Getting Started with MonkDB\n\n5 Simple Steps:\n\n1. Choose Your Plan\n   Select the perfect tier for your needs\n\n2. Create Your Account\n   Quick 2-minute signup\n\n3. Configure Your Database\n   Intuitive setup wizard\n\n4. Connect Your Application\n   SDK support for all major languages\n\n5. Start Building\n   Deploy in minutes\n\nAverage onboarding time: 5 minutes",
+        options: [
+          { label: "View Pricing", value: "pricing" },
+          { label: "Documentation", value: "documentation" },
+          { label: "Contact Sales", value: "support" },
+        ],
+      };
+    }
+
+    // Vector database
+    if (message.includes("vector")) {
+      return {
+        text: "Vector Database for AI/ML\n\nPower your AI applications with MonkDB:\n\n• High-dimensional vector storage (up to 2048 dimensions)\n• Semantic similarity search\n• Support for OpenAI, Cohere, HuggingFace embeddings\n• Fast ANN algorithms (HNSW, IVF, PQ)\n\nUse Cases:\n• RAG applications\n• Recommendation engines\n• Semantic search\n• Image/video similarity\n\nBuilt for modern AI workloads with sub-millisecond latency.",
+        options: [
+          { label: "All Features", value: "features" },
+          { label: "Pricing", value: "pricing" },
+          { label: "Get Started", value: "getting started" },
+        ],
+      };
+    }
+
+    // Documentation
+    if (message.includes("doc") || message.includes("guide")) {
+      return {
+        text: "MonkDB Documentation\n\nComprehensive Resources:\n\n• Quick Start Guide - Get running in 5 minutes\n• API Reference - Complete endpoint docs\n• Best Practices - Production-ready patterns\n• Tutorials & Examples - Real-world use cases\n• Architecture Guides - System design & optimization\n• Performance Guides - Scaling tips\n\nEverything you need to master MonkDB.",
+        options: [
+          { label: "Get Started", value: "getting started" },
+          { label: "Features", value: "features" },
+          { label: "Main Menu", value: "hello" },
+        ],
+      };
+    }
+
+    // Comparison queries
+    if (message.includes("vs") || message.includes("compare") || message.includes("difference") || message.includes("better")) {
+      return {
+        text: "Why Choose MonkDB?\n\nKey Advantages:\n\n• Unified Platform - 6 databases in one\n• AI-Native - Built for AI/ML workloads\n• Enterprise Performance - Sub-ms latency, 99.99% uptime\n• Scalability - Seamlessly grows with your data\n• Cost-Effective - 70% lower TCO\n• Developer-Friendly - Simple APIs, great docs\n• Production-Ready - Trusted by Fortune 500\n\nOne platform, infinite possibilities.",
+        options: [
+          { label: "Features", value: "features" },
+          { label: "Pricing", value: "pricing" },
+          { label: "Get Started", value: "getting started" },
+        ],
+      };
+    }
+
+    // Greetings
+    if (message.includes("hi") || message.includes("hello") || message.includes("hey")) {
+      return {
+        text: "Welcome to MonkDB!\n\nI'm here to help you explore our unified database platform.\n\nWhether you're building AI applications, analytics platforms, or modern web apps, I can help you find the right solution.\n\nWhat would you like to know?",
+        options: [
+          { label: "View Pricing", value: "pricing" },
+          { label: "Explore Features", value: "features" },
+          { label: "Get Started", value: "getting started" },
+          { label: "Contact Support", value: "support" },
+        ],
+      };
+    }
+
+    // Thank you
+    if (message.includes("thank") || message.includes("thanks")) {
+      return {
+        text: "You're welcome!\n\nI'm here to help with any questions about MonkDB.\n\nFeel free to explore more or reach out anytime.\n\nWhat else would you like to know?",
+        options: [
+          { label: "Pricing", value: "pricing" },
+          { label: "Features", value: "features" },
+          { label: "Main Menu", value: "hello" },
+        ],
+      };
+    }
+
+    // Default response
+    return {
+      text: "How can I help you today?\n\nI can assist you with:\n\n• Pricing plans and comparisons\n• Features and capabilities\n• Getting started guides\n• Support options\n• Platform comparisons\n\nWhat would you like to know?",
+      options: [
+        { label: "View Pricing", value: "pricing" },
+        { label: "Explore Features", value: "features" },
+        { label: "Get Started", value: "getting started" },
+        { label: "Contact Support", value: "support" },
+      ],
+    };
+  };
+
+  const handleSendMessage = (customMessage?: string) => {
+    const messageText = customMessage || inputValue;
+    if (!messageText.trim()) return;
+
+    const userMessage: Message = {
+      id: Date.now().toString(),
+      text: messageText,
+      sender: "user",
+      timestamp: new Date(),
+    };
+
+    setMessages((prev) => [...prev, userMessage]);
+    setInputValue("");
+    setIsTyping(true);
+
+    setTimeout(() => {
+      const response = getBotResponse(messageText);
+      const botResponse: Message = {
+        id: (Date.now() + 1).toString(),
+        text: response.text,
+        sender: "bot",
+        timestamp: new Date(),
+        options: response.options,
+      };
+      setMessages((prev) => [...prev, botResponse]);
+      setIsTyping(false);
+    }, 600);
+  };
+
+  const handleQuickReply = (value: string) => {
+    handleSendMessage(value);
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSendMessage();
+    }
+  };
+
+  return (
+    <div ref={chatboxRef} className="fixed bottom-8 right-8 z-[99]">
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.2 }}
+            className="mb-4 flex h-[600px] w-[400px] flex-col overflow-hidden rounded-lg bg-white shadow-xl dark:bg-gray-900"
+          >
+            {/* Clean Professional Header */}
+            <div className="flex items-center gap-3 border-b border-gray-200 bg-white px-5 py-4 dark:border-gray-700 dark:bg-gray-900">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-primary/80">
+                <TbMessageChatbotFilled className="h-6 w-6 text-white" />
+              </div>
+              <div>
+                <h3 className="text-sm font-semibold text-gray-900 dark:text-white">
+                  MonkDB Assistant
+                </h3>
+                <p className="text-xs text-gray-500 dark:text-gray-400">We typically reply instantly</p>
+              </div>
+            </div>
+
+            {/* Messages Area */}
+            <div className="flex-1 overflow-y-auto bg-gray-50 p-4 dark:bg-gray-950">
+              <div className="space-y-4">
+                {messages.map((message) => (
+                  <div
+                    key={message.id}
+                    className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"}`}
+                  >
+                    <div className={`flex max-w-[85%] flex-col ${message.sender === "user" ? "items-end" : "items-start"}`}>
+                      {/* Message Bubble */}
+                      <div
+                        className={`rounded-lg px-4 py-2.5 ${
+                          message.sender === "user"
+                            ? "bg-primary text-white"
+                            : "bg-white text-gray-900 shadow-sm dark:bg-gray-800 dark:text-white"
+                        }`}
+                      >
+                        <p className="text-sm leading-relaxed whitespace-pre-line">
+                          {message.text}
+                        </p>
+                      </div>
+
+                      {/* Quick Reply Buttons */}
+                      {message.sender === "bot" && message.options && (
+                        <div className="mt-2 flex flex-wrap gap-2">
+                          {message.options.map((option, idx) => (
+                            <button
+                              key={idx}
+                              onClick={() => handleQuickReply(option.value)}
+                              className="rounded-md border border-gray-300 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
+                            >
+                              {option.label}
+                            </button>
+                          ))}
+                        </div>
+                      )}
+
+                      {/* Timestamp */}
+                      <span className="mt-1 text-xs text-gray-400">
+                        {message.timestamp.toLocaleTimeString([], {
+                          hour: '2-digit',
+                          minute: '2-digit'
+                        })}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+
+                {/* Typing Indicator */}
+                {isTyping && (
+                  <div className="flex justify-start">
+                    <div className="rounded-lg bg-white px-4 py-3 shadow-sm dark:bg-gray-800">
+                      <div className="flex space-x-1">
+                        <div className="h-2 w-2 animate-bounce rounded-full bg-gray-400" style={{ animationDelay: '0ms' }}></div>
+                        <div className="h-2 w-2 animate-bounce rounded-full bg-gray-400" style={{ animationDelay: '150ms' }}></div>
+                        <div className="h-2 w-2 animate-bounce rounded-full bg-gray-400" style={{ animationDelay: '300ms' }}></div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                <div ref={messagesEndRef} />
+              </div>
+            </div>
+
+            {/* Input Area */}
+            <div className="border-t border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-900">
+              <div className="flex gap-2">
+                <input
+                  ref={inputRef}
+                  type="text"
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                  placeholder="Type your message..."
+                  className="flex-1 rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-primary"
+                />
+                <button
+                  onClick={() => handleSendMessage()}
+                  disabled={!inputValue.trim()}
+                  className="rounded-lg bg-primary px-4 py-2.5 text-white hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50"
+                  aria-label="Send message"
+                >
+                  <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Clean Floating Button */}
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="group flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-primary to-primary/80 text-white shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
+        aria-label={isOpen ? "Close chat" : "Open chat"}
+      >
+        {isOpen ? (
+          <IoClose className="h-7 w-7 transition-transform duration-300 group-hover:rotate-90" />
+        ) : (
+          <TbMessageChatbotFilled className="h-7 w-7 transition-transform duration-300 group-hover:scale-110" />
+        )}
+        {!isOpen && (
+          <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs font-bold text-white">
+            1
+          </span>
+        )}
+      </button>
+    </div>
+  );
+};
+
+export default Chatbot;

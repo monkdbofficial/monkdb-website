@@ -3,10 +3,18 @@ import { Blog } from "@/types/blog";
 import Image from "next/image";
 import Link from "next/link";
 import { Video, FileText, Calendar, Clock } from "lucide-react";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 
 const BlogItem = ({ blog }: { blog: Blog }) => {
   const { thumbnail, title, description, slug, contentType, publishedAt, readTime, tags, youtubeUrl, googleDriveUrl } = blog;
+  const [imageError, setImageError] = useState(false);
+
+  // Use publishedAt if available, otherwise fall back to createdAt
+  const dateToShow = (blog as any).publishedAt || (blog as any).createdAt || publishedAt;
+
+  // Get uploaded video file URL
+  const videoFile = (blog as any).videoFile;
+  const documentFile = (blog as any).documentFile;
 
   // Generate thumbnail dynamically - memoized to prevent recalculation
   const imageSrc = useMemo(() => {
@@ -18,39 +26,99 @@ const BlogItem = ({ blog }: { blog: Blog }) => {
       const videoIdMatch = youtubeUrl.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\s]+)/);
       if (videoIdMatch) {
         const videoId = videoIdMatch[1];
-        // Use maxresdefault for highest quality
-        return `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
+        return `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
       }
     }
 
-    // For Google Drive PDFs, use Google Drive thumbnail API
+    // For PDFs with Google Drive, try to get thumbnail
     if (contentType === "pdf" && googleDriveUrl) {
       const fileIdMatch = googleDriveUrl.match(/\/d\/([a-zA-Z0-9_-]+)/);
       if (fileIdMatch) {
         const fileId = fileIdMatch[1];
-        return `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`;
+        return `https://drive.google.com/thumbnail?id=${fileId}&sz=w800`;
       }
+    }
+
+    // For uploaded files, return null to show special preview
+    if (videoFile || documentFile) {
+      return null;
     }
 
     // Fallback
     return null;
-  }, [thumbnail, contentType, youtubeUrl, googleDriveUrl]);
+  }, [thumbnail, contentType, youtubeUrl, googleDriveUrl, videoFile, documentFile]);
 
   // Check if using fallback
-  const isFallback = !imageSrc;
+  const isFallback = !imageSrc || imageError;
 
   return (
     <div className="group rounded-xl bg-white shadow-solid-8 transition-all duration-300 hover:shadow-solid-9 dark:bg-blacksection">
         <Link href={`/blog/${slug}`} className="relative block aspect-[368/239] overflow-hidden rounded-t-xl">
           {isFallback ? (
-            // Fallback: Show professional icon instead of image
-            <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-primary/20 to-blue-500/20 dark:from-primary/10 dark:to-blue-500/10">
-              {contentType === "youtube" ? (
-                <Video className="h-20 w-20 text-red-600 dark:text-red-500" strokeWidth={1.5} />
-              ) : contentType === "pdf" ? (
-                <FileText className="h-20 w-20 text-blue-600 dark:text-blue-500" strokeWidth={1.5} />
-              ) : (
-                <FileText className="h-20 w-20 text-primary dark:text-primary" strokeWidth={1.5} />
+            // Fallback: Show professional styled thumbnail or video preview
+            <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
+              {/* Uploaded Video Preview */}
+              {videoFile && contentType === "youtube" && (
+                <div className="relative w-full h-full bg-black">
+                  <video
+                    className="w-full h-full object-cover"
+                    src={videoFile}
+                    muted
+                    playsInline
+                    preload="metadata"
+                    onLoadedMetadata={(e) => {
+                      // Seek to 1 second to show a preview frame
+                      const video = e.target as HTMLVideoElement;
+                      video.currentTime = 1;
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none" />
+                  <div className="absolute top-4 left-4">
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-red-600 px-3 py-1.5 text-xs font-medium text-white shadow-lg">
+                      <Video className="h-3 w-3" />
+                      Video
+                    </span>
+                  </div>
+                </div>
+              )}
+              {/* Uploaded PDF or Google Drive PDF */}
+              {(documentFile || (contentType === "pdf" && !videoFile)) && (
+                <>
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20" />
+                  <div className="absolute inset-0" style={{
+                    backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 10px, rgba(59, 130, 246, 0.1) 10px, rgba(59, 130, 246, 0.1) 11px)',
+                  }} />
+                  <div className="relative z-10 flex flex-col items-center gap-3">
+                    <FileText className="h-16 w-16 text-blue-600 dark:text-blue-400" strokeWidth={1.5} />
+                    <span className="text-xs font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider">
+                      PDF Document
+                    </span>
+                  </div>
+                </>
+              )}
+              {/* YouTube fallback (if thumbnail fails) */}
+              {contentType === "youtube" && !videoFile && (
+                <>
+                  <div className="absolute inset-0 bg-gradient-to-br from-red-50 to-red-100 dark:from-red-900/20 dark:to-red-800/20" />
+                  <div className="relative z-10 flex flex-col items-center gap-3">
+                    <Video className="h-16 w-16 text-red-600 dark:text-red-400" strokeWidth={1.5} />
+                    <span className="text-xs font-semibold text-red-600 dark:text-red-400 uppercase tracking-wider">
+                      Video
+                    </span>
+                  </div>
+                </>
+              )}
+              {/* Article fallback */}
+              {contentType !== "youtube" && contentType !== "pdf" && !videoFile && !documentFile && (
+                <>
+                  <div className="absolute inset-0 bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20" />
+                  <div className="relative z-10 flex flex-col items-center gap-3">
+                    <FileText className="h-16 w-16 text-green-600 dark:text-green-400" strokeWidth={1.5} />
+                    <span className="text-xs font-semibold text-green-600 dark:text-green-400 uppercase tracking-wider">
+                      Article
+                    </span>
+                  </div>
+                </>
               )}
             </div>
           ) : (
@@ -62,6 +130,7 @@ const BlogItem = ({ blog }: { blog: Blog }) => {
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               priority={false}
               quality={85}
+              onError={() => setImageError(true)}
             />
           )}
           {/* Content Type Badge */}
@@ -113,13 +182,14 @@ const BlogItem = ({ blog }: { blog: Blog }) => {
           {/* Meta Info */}
           <div className="flex items-center justify-between border-t border-gray-100 pt-4 dark:border-gray-800">
             <div className="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
-              {publishedAt && (
+              {dateToShow && (
                 <div className="flex items-center gap-1">
                   <Calendar className="h-3.5 w-3.5" />
                   <span>
-                    {new Date(publishedAt).toLocaleDateString("en-US", {
+                    {new Date(dateToShow).toLocaleDateString("en-US", {
                       month: "short",
                       day: "numeric",
+                      year: "numeric",
                     })}
                   </span>
                 </div>
