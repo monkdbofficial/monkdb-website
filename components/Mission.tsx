@@ -10,29 +10,23 @@ export default function Mission() {
   return (
     <section
       ref={ref}
-      className="bg-white dark:bg-[#0f1623] overflow-hidden section-grid"
-      style={{ padding: '72px 12%' }}
+      className="bg-white dark:bg-[#0f1623] overflow-hidden section-grid px-5 sm:px-[6%] lg:px-[12%] py-10 sm:py-14 lg:py-[72px]"
     >
       <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: '42% 1fr',
-          gap: '40px',
-          alignItems: 'center',
-        }}
+        className="grid grid-cols-1 lg:grid-cols-[42%_1fr] gap-8 lg:gap-10 items-center"
       >
         {/* ── LEFT: organic concentric ovals ── */}
         <motion.div
           initial={{ opacity: 0, scale: 0.85 }}
           animate={isInView ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] as const }}
-          style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+          className="flex items-center justify-center"
         >
           <svg
             viewBox="0 0 560 600"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            style={{ width: '100%', maxWidth: '460px', height: 'auto' }}
+            className="w-full max-w-[260px] sm:max-w-[340px] lg:max-w-[460px] h-auto"
           >
             {/* Outer — perfect circle */}
             <motion.circle
@@ -74,7 +68,7 @@ export default function Mission() {
         >
           <p
             className="text-gray-900 dark:text-white leading-tight"
-            style={{ fontSize: 'clamp(28px, 3.2vw, 48px)', fontWeight: 400 }}
+            style={{ fontSize: 'clamp(22px, 3.2vw, 48px)', fontWeight: 400 }}
           >
             At Movibase,{' '}
             <span style={{ color: '#1A38E8' }}>

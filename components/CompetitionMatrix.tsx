@@ -53,85 +53,96 @@ export default function CompetitionMatrix() {
     <section
       id="competition"
       ref={ref}
-      style={{ padding: '72px 6%', backgroundColor: '#F5F0E8' }}
+      className="px-5 sm:px-[6%] py-10 sm:py-14 lg:py-[72px]"
+      style={{ backgroundColor: '#F5F0E8' }}
     >
       <motion.h2
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.6 }}
         className="font-bold text-center"
-        style={{ fontSize: 'clamp(28px, 3vw, 42px)', color: '#0A2280', marginBottom: '40px' }}
+        style={{ fontSize: 'clamp(24px, 3vw, 42px)', color: '#0A2280', marginBottom: '40px' }}
       >
         The Competition Matrix
       </motion.h2>
 
+      {/* Full-bleed scroll wrapper — extends edge-to-edge on every screen size */}
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.7, delay: 0.15 }}
-        style={{
-          background: '#fff',
-          borderRadius: '20px',
-          overflow: 'hidden',
-          border: '1px solid #e5e7eb',
-          boxShadow: '0 4px 24px rgba(0,0,0,0.06)',
-        }}
+        className="-mx-5 sm:-mx-[6%] overflow-x-auto pb-1"
       >
-        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-          <thead>
-            <tr style={{ background: '#0A2280' }}>
-              {columns.map((col, i) => (
-                <th
-                  key={col}
-                  style={{
-                    padding: '16px 20px',
-                    textAlign: 'left',
-                    color: '#fff',
-                    fontWeight: 600,
-                    fontSize: '0.9rem',
-                    borderRight: i < columns.length - 1 ? '1px solid rgba(255,255,255,0.1)' : 'none',
-                  }}
-                >
-                  {col}
-                </th>
-              ))}
-            </tr>
-          </thead>
-
-          <tbody>
-            {rows.map((row, rowIdx) => (
-              <motion.tr
-                key={row.feature}
-                initial={{ opacity: 0, x: -12 }}
-                animate={isInView ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.4, delay: 0.3 + rowIdx * 0.07, ease: 'easeOut' }}
-                style={{ borderTop: '1px solid #f0f0f0' }}
-              >
-                <td style={{ padding: '18px 20px', fontSize: '0.9rem', color: '#111', fontWeight: 400, whiteSpace: 'nowrap' }}>
-                  {row.feature}
-                </td>
-                {row.values.map((value, colIdx) => {
-                  const color = cellColor(rowIdx, colIdx)
-                  return (
-                    <td
-                      key={colIdx}
+        <div className="px-5 sm:px-[6%]">
+          <div
+            style={{
+              background: '#fff',
+              borderRadius: '20px',
+              overflow: 'hidden',
+              border: '1px solid #e5e7eb',
+              boxShadow: '0 4px 24px rgba(0,0,0,0.06)',
+              minWidth: '700px',
+            }}
+          >
+            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+              <thead>
+                <tr style={{ background: '#0A2280' }}>
+                  {columns.map((col, i) => (
+                    <th
+                      key={col}
                       style={{
-                        padding: '18px 20px',
-                        fontSize: '0.88rem',
-                        color: color ?? '#374151',
-                        fontWeight: color ? 500 : 400,
-                        borderLeft: '1px solid #f0f0f0',
-                        verticalAlign: 'top',
+                        padding: '12px 14px',
+                        textAlign: 'left',
+                        color: '#fff',
+                        fontWeight: 600,
+                        fontSize: '0.82rem',
+                        borderRight: i < columns.length - 1 ? '1px solid rgba(255,255,255,0.1)' : 'none',
+                        whiteSpace: 'nowrap',
                       }}
                     >
-                      {value}
+                      {col}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+
+              <tbody>
+                {rows.map((row, rowIdx) => (
+                  <motion.tr
+                    key={row.feature}
+                    initial={{ opacity: 0, x: -12 }}
+                    animate={isInView ? { opacity: 1, x: 0 } : {}}
+                    transition={{ duration: 0.4, delay: 0.3 + rowIdx * 0.07, ease: 'easeOut' }}
+                    style={{ borderTop: '1px solid #f0f0f0' }}
+                  >
+                    <td style={{ padding: '12px 14px', fontSize: '0.82rem', color: '#111', fontWeight: 600, whiteSpace: 'nowrap' }}>
+                      {row.feature}
                     </td>
-                  )
-                })}
-              </motion.tr>
-            ))}
-          </tbody>
-        </table>
+                    {row.values.map((value, colIdx) => {
+                      const color = cellColor(rowIdx, colIdx)
+                      return (
+                        <td
+                          key={colIdx}
+                          style={{
+                            padding: '12px 14px',
+                            fontSize: '0.78rem',
+                            color: color ?? '#374151',
+                            fontWeight: color ? 500 : 400,
+                            borderLeft: '1px solid #f0f0f0',
+                            verticalAlign: 'top',
+                            lineHeight: 1.45,
+                          }}
+                        >
+                          {value}
+                        </td>
+                      )
+                    })}
+                  </motion.tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </motion.div>
 
       <motion.p

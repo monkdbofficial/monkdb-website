@@ -82,7 +82,7 @@ export default function Hero() {
           {/* H1 */}
           <h1
             className="font-bold text-white leading-[1.06] mb-7"
-            style={{ fontSize: 'clamp(52px, 6.5vw, 88px)' }}
+            style={{ fontSize: 'clamp(36px, 6.5vw, 88px)' }}
           >
             <span className="block overflow-hidden">
               {['The', 'AI-Native'].map((w, i) => (
@@ -98,7 +98,7 @@ export default function Hero() {
                 </motion.span>
               ))}
             </span>
-            <span className="block overflow-hidden whitespace-nowrap">
+            <span className="block overflow-hidden">
               {['Unified', 'Database'].map((w, i) => (
                 <motion.span
                   key={w}

@@ -27,10 +27,9 @@ export default function ROI() {
     <section
       id="roi"
       ref={ref}
-      className="bg-white dark:bg-[#0f1623] section-grid"
-      style={{ padding: '72px 6%' }}
+      className="bg-white dark:bg-[#0f1623] section-grid px-5 sm:px-[6%] py-10 sm:py-14 lg:py-[72px]"
     >
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 0.6fr', gap: '48px', alignItems: 'center' }}>
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_0.6fr] gap-8 lg:gap-12 items-center">
 
         {/* Left: title */}
         <motion.h2
@@ -38,20 +37,21 @@ export default function ROI() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
           className="font-bold text-egyptian-blue dark:text-white leading-tight"
-          style={{ fontSize: 'clamp(28px, 3vw, 42px)' }}
+          style={{ fontSize: 'clamp(24px, 3vw, 42px)' }}
         >
           Return on<br />Investment with<br />MonkDB
         </motion.h2>
 
         {/* Right: two cards */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0' }}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-0">
 
           {/* Before card */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.15 }}
-            style={{ background: '#EDE8D8', borderRadius: '16px 0 0 16px', padding: '32px 28px' }}
+            className="rounded-t-2xl sm:rounded-t-none sm:rounded-tl-2xl sm:rounded-bl-2xl rounded-b-none sm:rounded-br-none"
+            style={{ background: '#EDE8D8', borderRadius: undefined, padding: 'clamp(20px, 3vw, 32px) clamp(16px, 2.5vw, 28px)' }}
           >
             <h3 className="font-bold text-egyptian-blue" style={{ fontSize: '1.1rem', marginBottom: '20px' }}>
               Key Differentiators
@@ -63,7 +63,7 @@ export default function ROI() {
                   initial={{ opacity: 0, x: -10 }}
                   animate={isInView ? { opacity: 1, x: 0 } : {}}
                   transition={{ duration: 0.35, delay: 0.3 + i * 0.07, ease: 'easeOut' }}
-                  style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '0.9rem', color: '#374151' }}
+                  style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: 'clamp(0.82rem, 1vw, 0.9rem)', color: '#374151' }}
                 >
                   <span style={{ color: '#374151', marginTop: '2px', flexShrink: 0 }}>·</span>
                   {item}
@@ -77,7 +77,7 @@ export default function ROI() {
             initial={{ opacity: 0, y: 24 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.3 }}
-            style={{ background: '#0A2280', borderRadius: '16px', padding: '32px 28px', position: 'relative', zIndex: 1 }}
+            style={{ background: '#0A2280', borderRadius: '16px', padding: 'clamp(20px, 3vw, 32px) clamp(16px, 2.5vw, 28px)', position: 'relative', zIndex: 1 }}
           >
             <h3 className="font-bold text-white" style={{ fontSize: '1.1rem', marginBottom: '20px' }}>
               After MonkDB
@@ -89,7 +89,7 @@ export default function ROI() {
                   initial={{ opacity: 0, x: -10 }}
                   animate={isInView ? { opacity: 1, x: 0 } : {}}
                   transition={{ duration: 0.35, delay: 0.45 + i * 0.07, ease: 'easeOut' }}
-                  style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '0.9rem', color: 'rgba(255,255,255,0.88)' }}
+                  style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: 'clamp(0.82rem, 1vw, 0.9rem)', color: 'rgba(255,255,255,0.88)' }}
                 >
                   <span style={{ color: 'rgba(255,255,255,0.6)', marginTop: '2px', flexShrink: 0 }}>·</span>
                   {item}

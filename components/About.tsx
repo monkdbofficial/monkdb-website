@@ -37,12 +37,10 @@ export default function About() {
     <section
       id="about"
       ref={ref}
-      className="bg-white dark:bg-[#0f1623] section-grid"
-      style={{ padding: '72px 12%' }}
+      className="bg-white dark:bg-[#0f1623] section-grid px-5 sm:px-[6%] lg:px-[12%] py-10 sm:py-14 lg:py-[72px]"
     >
       <div
-        style={{ display: 'grid', gridTemplateColumns: '42% 1fr', gap: '24px', alignItems: 'center' }}
-        className="grid-cols-1 lg:grid"
+        className="grid grid-cols-1 lg:grid-cols-[42%_1fr] gap-8 lg:gap-6 items-center"
       >
         {/* ── LEFT COLUMN ── */}
         <motion.div
@@ -59,7 +57,7 @@ export default function About() {
 
           <h2
             className="text-gray-900 dark:text-white leading-[1.12]"
-            style={{ fontSize: 'clamp(34px, 3.6vw, 52px)', marginBottom: '28px', fontWeight: 400 }}
+            style={{ fontSize: 'clamp(28px, 3.6vw, 52px)', marginBottom: '28px', fontWeight: 400 }}
           >
             What Makes MonkDB<br />
             The Best Choice For<br />
@@ -71,7 +69,7 @@ export default function About() {
             <span
               className="font-bold"
               style={{
-                fontSize: 'clamp(64px, 7vw, 96px)',
+                fontSize: 'clamp(52px, 7vw, 96px)',
                 lineHeight: 1,
                 letterSpacing: '-3px',
                 color: 'transparent',
@@ -83,7 +81,7 @@ export default function About() {
             </span>
             <span
               className="text-gray-900 dark:text-white font-medium leading-snug"
-              style={{ fontSize: 'clamp(15px, 1.2vw, 17px)', flexShrink: 0 }}
+              style={{ fontSize: 'clamp(14px, 1.2vw, 17px)', flexShrink: 0 }}
             >
               Ai Solution<br />for our clients
             </span>
@@ -97,7 +95,7 @@ export default function About() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.15, ease: [0.25, 0.46, 0.45, 0.94] as const }}
             className="text-gray-600 dark:text-gray-300 leading-relaxed"
-            style={{ fontSize: 'clamp(16px, 1.35vw, 19px)', margin: 0 }}
+            style={{ fontSize: 'clamp(15px, 1.35vw, 19px)', margin: 0 }}
           >
             At Movibase, our journey is deeply personal — born from decades of experience in enterprise systems, data
             management, and AI. We&apos;ve seen firsthand how fragmented data infrastructure holds back innovation.
@@ -108,7 +106,7 @@ export default function About() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.28, ease: [0.25, 0.46, 0.45, 0.94] as const }}
             className="text-gray-600 dark:text-gray-300 leading-relaxed"
-            style={{ fontSize: 'clamp(16px, 1.35vw, 19px)', margin: 0 }}
+            style={{ fontSize: 'clamp(15px, 1.35vw, 19px)', margin: 0 }}
           >
             At Movibase, our journey is deeply personal — born from decades of experience in enterprise systems, data
             management, and AI. We&apos;ve seen firsthand how fragmented data infrastructure holds back innovation.

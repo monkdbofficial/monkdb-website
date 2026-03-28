@@ -29,16 +29,17 @@ export default function Footer() {
 
   return (
     <footer id="footer" ref={ref} className="bg-white dark:bg-[#0f1623] section-grid" style={{ borderTop: '1px solid #e5e7eb' }}>
-      <div style={{ padding: '56px 6% 32px' }}>
+      <div className="px-5 sm:px-[6%] pt-10 sm:pt-14 lg:pt-[56px] pb-8 sm:pb-10 lg:pb-[32px]">
 
-        {/* Main grid — staggered columns */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr 1fr 1fr 1.6fr', gap: '40px', marginBottom: '48px' }}>
+        {/* Main grid — responsive columns */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr_1.6fr] gap-8 lg:gap-10 mb-10 lg:mb-12">
 
           {/* Col 1 — Company */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0 }}
+            className="sm:col-span-2 lg:col-span-1"
           >
             <div className="font-bold text-gray-900 dark:text-white" style={{ fontSize: '0.95rem', marginBottom: '16px' }}>
               Movibase Platform PVT. LTD
@@ -59,7 +60,7 @@ export default function Footer() {
                 <a href="#" className="hover:text-gray-900 transition-colors">www.monkdb.com</a>
               </span>
             </div>
-            <div style={{ display: 'flex', gap: '8px' }}>
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
               {socialIcons.map(({ label, path }) => (
                 <motion.a
                   key={label}
@@ -136,6 +137,7 @@ export default function Footer() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.4 }}
+            className="sm:col-span-2 lg:col-span-1"
           >
             <div className="font-bold text-gray-900 dark:text-white" style={{ fontSize: '0.95rem', marginBottom: '16px' }}>Stay Updated</div>
             <form onSubmit={handleSubscribe} style={{ marginBottom: '16px' }}>
@@ -171,12 +173,13 @@ export default function Footer() {
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.5, delay: 0.5 }}
-          style={{ borderTop: '1px solid #e5e7eb', paddingTop: '20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
+          className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0"
+          style={{ borderTop: '1px solid #e5e7eb', paddingTop: '20px' }}
         >
           <p className="text-gray-400" style={{ fontSize: '0.78rem' }}>
             &copy; {new Date().getFullYear()} Movibase Platform PVT. LTD. All rights reserved.
           </p>
-          <div style={{ display: 'flex', gap: '20px' }}>
+          <div className="flex flex-wrap gap-4 sm:gap-5">
             {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map((link) => (
               <a key={link} href="#" className="text-gray-400 hover:text-gray-700 transition-colors" style={{ fontSize: '0.78rem' }}>
                 {link}

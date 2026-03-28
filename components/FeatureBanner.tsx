@@ -20,7 +20,7 @@ export default function FeatureBanner() {
     <section
       ref={ref}
       id="features-banner"
-      className="py-10 bg-white dark:bg-[#0f1623]"
+      className="py-10 sm:py-14 bg-white dark:bg-[#0f1623]"
     >
 
       <div className="w-full px-5 sm:px-8 lg:px-12">
@@ -99,22 +99,22 @@ export default function FeatureBanner() {
             </div>
 
             {/* Tags — absolutely positioned top right */}
-            <div className="absolute top-6 right-6 z-20 flex gap-2">
+            <div className="absolute top-3 right-3 sm:top-6 sm:right-6 z-20 flex gap-1.5 sm:gap-2">
               {['Ai Solution', 'Ai Services'].map((tag) => (
-                <span key={tag} className="px-4 py-1.5 rounded-full bg-white text-gray-900 text-xs font-medium whitespace-nowrap">
+                <span key={tag} className="px-2.5 sm:px-4 py-1 sm:py-1.5 rounded-full bg-white text-gray-900 text-[10px] sm:text-xs font-medium whitespace-nowrap">
                   {tag}
                 </span>
               ))}
             </div>
 
             {/* Content — vertically centered */}
-            <div className="absolute inset-0 z-10 flex flex-col justify-between p-6">
+            <div className="absolute inset-0 z-10 flex flex-col justify-between p-4 sm:p-6">
               {/* Spacer to push content down from top */}
               <div />
 
               {/* Heading — centered vertically */}
               <div style={{ maxWidth: '60%' }}>
-                <p className="text-white font-light leading-snug" style={{ fontSize: 'clamp(1rem, 2vw, 1.6rem)' }}>
+                <p className="text-white font-light leading-snug" style={{ fontSize: 'clamp(0.75rem, 2vw, 1.6rem)' }}>
                   At MonkDB, our journey is deeply personal — born from decades of experience in
                   enterprise systems, data management, and AI.
                 </p>
@@ -149,7 +149,7 @@ export default function FeatureBanner() {
                 boxShadow: '0 4px 20px rgba(0,0,0,0.4)',
               }}
             >
-              <ArrowUpRight size={34} className="text-white" />
+              <ArrowUpRight className="text-white w-[40%] h-[40%]" />
             </motion.button>
           </motion.div>
 
@@ -160,9 +160,10 @@ export default function FeatureBanner() {
             initial={{ opacity: 0, y: 50 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.15, ease: 'easeOut' }}
-            className="relative rounded-3xl overflow-hidden min-h-[360px] flex flex-col"
+            className="relative rounded-3xl overflow-hidden flex flex-col"
             style={{
               background: 'linear-gradient(145deg, #1230CC 0%, #1540E0 35%, #1A50F0 65%, #2060FF 100%)',
+              minHeight: 'clamp(280px, 40vw, 400px)',
             }}
           >
             {/* Wave SVG — right side decorative element */}
@@ -176,43 +177,43 @@ export default function FeatureBanner() {
             />
 
             {/* White arrow button — top right */}
-            <div className="absolute top-5 right-5 z-10">
+            <div className="absolute top-4 right-4 sm:top-5 sm:right-5 z-10">
               <motion.button
                 whileHover={{ scale: 1.08 }}
                 whileTap={{ scale: 0.95 }}
-                className="w-12 h-12 rounded-full flex items-center justify-center bg-white"
+                className="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center bg-white"
               >
-                <ArrowUpRight size={20} className="text-blue-700" />
+                <ArrowUpRight size={18} className="text-blue-700" />
               </motion.button>
             </div>
 
-            <div className="relative z-10 p-7 flex flex-col h-full justify-between">
+            <div className="relative z-10 p-5 sm:p-7 flex flex-col h-full justify-between">
               {/* Spacer — matches Card 1 layout rhythm */}
               <div />
 
               <div style={{ maxWidth: '75%' }}>
-                <h3 className="text-white font-semibold text-[1.75rem] leading-tight mb-4">
+                <h3 className="text-white font-semibold leading-tight mb-3 sm:mb-4" style={{ fontSize: 'clamp(1.2rem, 2.5vw, 1.75rem)' }}>
                   Let&apos;s Build the Future of Data Infrastructure—Together
                 </h3>
-                <p className="text-white/65 text-base leading-relaxed">
+                <p className="text-white/65 leading-relaxed" style={{ fontSize: 'clamp(0.82rem, 1.2vw, 1rem)' }}>
                   At MonkDB, our journey is deeply personal — born from decades of experience in
                   enterprise systems, data management, and AI.
                 </p>
               </div>
 
-              <div className="flex items-center gap-3 mt-6">
+              <div className="flex items-center gap-3 mt-4 sm:mt-6">
                 <div className="flex -space-x-2.5">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src="https://i.pravatar.cc/80?img=11" alt="User" width={40} height={40}
-                    className="w-10 h-10 rounded-full border-[2.5px] border-white object-cover flex-shrink-0" />
+                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border-[2.5px] border-white object-cover flex-shrink-0" />
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src="https://i.pravatar.cc/80?img=33" alt="User" width={40} height={40}
-                    className="w-10 h-10 rounded-full border-[2.5px] border-white object-cover flex-shrink-0" />
+                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border-[2.5px] border-white object-cover flex-shrink-0" />
                 </div>
                 <div>
                   <div className="flex gap-0.5 mb-0.5">
                     {[1, 2, 3, 4, 5].map((s) => (
-                      <svg key={s} className="w-3.5 h-3.5 fill-yellow-400" viewBox="0 0 24 24">
+                      <svg key={s} className="w-3 h-3 sm:w-3.5 sm:h-3.5 fill-yellow-400" viewBox="0 0 24 24">
                         <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                       </svg>
                     ))}
@@ -230,8 +231,11 @@ export default function FeatureBanner() {
             initial={{ opacity: 0, y: 50 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.3, ease: 'easeOut' }}
-            className="relative rounded-3xl overflow-hidden min-h-[360px] flex flex-col"
-            style={{ background: '#1230CC' }}
+            className="relative rounded-3xl overflow-hidden flex flex-col"
+            style={{
+              background: '#1230CC',
+              minHeight: 'clamp(280px, 40vw, 400px)',
+            }}
           >
             {/* Dot grid */}
             <div className="absolute inset-0 pointer-events-none"
@@ -240,10 +244,10 @@ export default function FeatureBanner() {
                 backgroundSize: '18px 18px',
               }} />
 
-            <div className="relative z-10 p-7 flex flex-col h-full justify-between">
+            <div className="relative z-10 p-5 sm:p-7 flex flex-col h-full justify-between">
               <div>
-                <h3 className="text-white font-bold text-3xl mb-6">After MonkDB</h3>
-                <ul className="space-y-4">
+                <h3 className="text-white font-bold mb-4 sm:mb-6" style={{ fontSize: 'clamp(1.4rem, 2.5vw, 1.875rem)' }}>After MonkDB</h3>
+                <ul className="space-y-3 sm:space-y-4">
                   {afterItems.map((item, i) => (
                     <motion.li key={item}
                       initial={{ opacity: 0, x: -8 }}
@@ -251,8 +255,8 @@ export default function FeatureBanner() {
                       transition={{ delay: 0.45 + i * 0.09, duration: 0.45 }}
                       className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
-                        <span className="text-white/80 text-base leading-none flex-shrink-0">•</span>
-                        <span className="text-white text-base font-medium">{item}</span>
+                        <span className="text-white/80 leading-none flex-shrink-0" style={{ fontSize: 'clamp(0.82rem, 1.2vw, 1rem)' }}>•</span>
+                        <span className="text-white font-medium" style={{ fontSize: 'clamp(0.82rem, 1.2vw, 1rem)' }}>{item}</span>
                       </div>
                       <div className="flex gap-[5px] flex-shrink-0 ml-3">
                         {[0, 1, 2, 3].map((d) => (
@@ -264,10 +268,10 @@ export default function FeatureBanner() {
                 </ul>
               </div>
 
-              <div className="flex justify-end mt-5">
+              <div className="flex justify-end mt-4 sm:mt-5">
                 <motion.button whileHover={{ scale: 1.1 }}
-                  className="w-11 h-11 rounded-full border border-white/30 bg-white/10 flex items-center justify-center backdrop-blur-sm">
-                  <Clock size={19} className="text-white/90" />
+                  className="w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-white/30 bg-white/10 flex items-center justify-center backdrop-blur-sm">
+                  <Clock size={17} className="text-white/90" />
                 </motion.button>
               </div>
             </div>
