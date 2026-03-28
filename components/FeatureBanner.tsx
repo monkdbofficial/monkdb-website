@@ -23,8 +23,8 @@ export default function FeatureBanner() {
       className="py-10 sm:py-14 bg-white dark:bg-[#0f1623]"
     >
 
-      <div className="w-full px-5 sm:px-8 lg:px-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="w-full px-5 sm:px-[6%]">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-5">
 
           {/* ══════════════════════════════
               CARD 1 — Pixel-perfect from Figma node 246:710.
@@ -38,7 +38,7 @@ export default function FeatureBanner() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0, ease: 'easeOut' }}
             className="relative"
-            style={{ aspectRatio: '63 / 40' }}
+            style={{ minHeight: 'clamp(280px, 40vw, 400px)' }}
           >
             {/* Exact Figma card shape — transparent notch area shows page background through */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
