@@ -1,8 +1,33 @@
 'use client'
 
-import { motion, useInView } from 'framer-motion'
-import { useRef } from 'react'
+import { motion, useInView, useMotionValue, useSpring, animate } from 'framer-motion'
+import { useRef, useEffect } from 'react'
 import { ArrowUpRight } from 'lucide-react'
+
+function Counter({ to }: { to: number }) {
+  const ref = useRef<HTMLSpanElement>(null)
+  const inViewRef = useRef(null)
+  const isInView = useInView(inViewRef, { once: true, margin: '-80px' })
+
+  useEffect(() => {
+    if (!isInView || !ref.current) return
+    const controls = animate(0, to, {
+      duration: 2,
+      ease: [0.16, 1, 0.3, 1],
+      onUpdate(val) {
+        if (ref.current) ref.current.textContent = Math.floor(val) + 'k'
+      },
+    })
+    return () => controls.stop()
+  }, [isInView, to])
+
+  return (
+    <>
+      <span ref={inViewRef} style={{ position: 'absolute', pointerEvents: 'none' }} />
+      <span ref={ref}>0k</span>
+    </>
+  )
+}
 
 export default function About() {
   const ref = useRef(null)
@@ -12,19 +37,13 @@ export default function About() {
     <section
       id="about"
       ref={ref}
-      className="bg-white dark:bg-[#0f1623]"
+      className="bg-white dark:bg-[#0f1623] section-grid"
       style={{ padding: '72px 12%' }}
     >
       <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: '42% 1fr',
-          gap: '24px',
-          alignItems: 'center',
-        }}
+        style={{ display: 'grid', gridTemplateColumns: '42% 1fr', gap: '24px', alignItems: 'center' }}
         className="grid-cols-1 lg:grid"
       >
-
         {/* ── LEFT COLUMN ── */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -47,6 +66,7 @@ export default function About() {
             Your Enterprise
           </h2>
 
+          {/* 270k — animated counter */}
           <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', flexWrap: 'nowrap', gap: '20px' }}>
             <span
               className="font-bold"
@@ -59,7 +79,7 @@ export default function About() {
                 flexShrink: 0,
               }}
             >
-              270k
+              <Counter to={270} />
             </span>
             <span
               className="text-gray-900 dark:text-white font-medium leading-snug"
@@ -71,21 +91,22 @@ export default function About() {
         </motion.div>
 
         {/* ── RIGHT COLUMN ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.15, ease: [0.25, 0.46, 0.45, 0.94] as const }}
-          style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}
-        >
-          <p
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.15, ease: [0.25, 0.46, 0.45, 0.94] as const }}
             className="text-gray-600 dark:text-gray-300 leading-relaxed"
             style={{ fontSize: 'clamp(16px, 1.35vw, 19px)', margin: 0 }}
           >
             At Movibase, our journey is deeply personal — born from decades of experience in enterprise systems, data
             management, and AI. We&apos;ve seen firsthand how fragmented data infrastructure holds back innovation.
-          </p>
+          </motion.p>
 
-          <p
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.28, ease: [0.25, 0.46, 0.45, 0.94] as const }}
             className="text-gray-600 dark:text-gray-300 leading-relaxed"
             style={{ fontSize: 'clamp(16px, 1.35vw, 19px)', margin: 0 }}
           >
@@ -93,26 +114,32 @@ export default function About() {
             management, and AI. We&apos;ve seen firsthand how fragmented data infrastructure holds back innovation.
             MonkDB is our answer: a unified, AI-native database platform built to simplify, consolidate, and empower. At
             Movibase, our journey is deeply personal — born from decades of experience in enterprise systems.
-          </p>
+          </motion.p>
 
-          <motion.a
-            href="#features"
-            whileHover={{ scale: 1.02, y: -1 }}
-            whileTap={{ scale: 0.98 }}
-            className="inline-flex items-center gap-2 text-gray-900 dark:text-white font-medium self-start"
-            style={{
-              border: '1.5px solid #d1d5db',
-              borderRadius: '999px',
-              padding: '10px 22px',
-              fontSize: '0.88rem',
-              textDecoration: 'none',
-              marginTop: '4px',
-            }}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] as const }}
           >
-            Explore more
-            <ArrowUpRight size={14} />
-          </motion.a>
-        </motion.div>
+            <motion.a
+              href="#features"
+              whileHover={{ scale: 1.02, y: -1 }}
+              whileTap={{ scale: 0.98 }}
+              className="inline-flex items-center gap-2 text-gray-900 dark:text-white font-medium self-start"
+              style={{
+                border: '1.5px solid #d1d5db',
+                borderRadius: '999px',
+                padding: '10px 22px',
+                fontSize: '0.88rem',
+                textDecoration: 'none',
+                marginTop: '4px',
+              }}
+            >
+              Explore more
+              <ArrowUpRight size={14} />
+            </motion.a>
+          </motion.div>
+        </div>
 
       </div>
     </section>

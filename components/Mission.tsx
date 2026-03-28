@@ -10,7 +10,7 @@ export default function Mission() {
   return (
     <section
       ref={ref}
-      className="bg-white dark:bg-[#0f1623] overflow-hidden"
+      className="bg-white dark:bg-[#0f1623] overflow-hidden section-grid"
       style={{ padding: '72px 12%' }}
     >
       <div

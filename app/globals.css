@@ -83,6 +83,18 @@
   }
 }
 
+
+/* ── Azure-style subtle dot grid on light sections ── */
+.section-grid {
+  background-image: radial-gradient(circle, rgba(10, 20, 120, 0.09) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.dark .section-grid {
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
 @layer utilities {
   .text-gradient {
     background: linear-gradient(135deg, #0033A0, #1E8AFF);

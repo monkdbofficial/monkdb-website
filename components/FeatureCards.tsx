@@ -34,7 +34,7 @@ export default function FeatureCards() {
     <section
       id="features"
       ref={ref}
-      className="bg-white dark:bg-[#0f1623]"
+      className="bg-white dark:bg-[#0f1623] section-grid"
       style={{ padding: '72px 12%' }}
     >
       <div
@@ -50,18 +50,21 @@ export default function FeatureCards() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: i * 0.08, ease: [0.25, 0.46, 0.45, 0.94] as const }}
-            style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}
+            whileHover={{ y: -4, transition: { duration: 0.2 } }}
+            style={{ display: 'flex', flexDirection: 'column', gap: '14px', cursor: 'default' }}
           >
-            {/* Sphere icon */}
-            <div style={{ width: 56, height: 56 }}>
+            {/* Icon with hover scale */}
+            <motion.div
+              style={{ width: 56, height: 56 }}
+              whileHover={{ scale: 1.08, transition: { duration: 0.2 } }}
+            >
               <img
                 src="/Group.svg"
                 alt=""
                 style={{ width: '100%', height: '100%', objectFit: 'contain' }}
               />
-            </div>
+            </motion.div>
 
-            {/* Title */}
             <h3
               className="font-bold text-gray-900 dark:text-white leading-snug"
               style={{ fontSize: 'clamp(16px, 1.3vw, 18px)' }}
@@ -69,7 +72,6 @@ export default function FeatureCards() {
               {feature.title}
             </h3>
 
-            {/* Description */}
             <p
               className="text-gray-500 dark:text-gray-400 leading-relaxed"
               style={{ fontSize: 'clamp(14px, 1.1vw, 16px)', margin: 0 }}

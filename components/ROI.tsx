@@ -27,10 +27,10 @@ export default function ROI() {
     <section
       id="roi"
       ref={ref}
-      className="bg-white dark:bg-[#0f1623]"
+      className="bg-white dark:bg-[#0f1623] section-grid"
       style={{ padding: '72px 6%' }}
     >
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 0.85fr', gap: '48px', alignItems: 'center' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 0.6fr', gap: '48px', alignItems: 'center' }}>
 
         {/* Left: title */}
         <motion.h2
@@ -46,52 +46,54 @@ export default function ROI() {
         {/* Right: two cards */}
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0' }}>
 
-          {/* Before card — cream */}
+          {/* Before card */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.15 }}
-            style={{
-              background: '#EDE8D8',
-              borderRadius: '16px 0 0 16px',
-              padding: '32px 28px',
-            }}
+            style={{ background: '#EDE8D8', borderRadius: '16px 0 0 16px', padding: '32px 28px' }}
           >
             <h3 className="font-bold text-egyptian-blue" style={{ fontSize: '1.1rem', marginBottom: '20px' }}>
               Key Differentiators
             </h3>
             <ul style={{ display: 'flex', flexDirection: 'column', gap: '14px', listStyle: 'none', padding: 0, margin: 0 }}>
-              {beforeItems.map((item) => (
-                <li key={item} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '0.9rem', color: '#374151' }}>
+              {beforeItems.map((item, i) => (
+                <motion.li
+                  key={item}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={isInView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ duration: 0.35, delay: 0.3 + i * 0.07, ease: 'easeOut' }}
+                  style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '0.9rem', color: '#374151' }}
+                >
                   <span style={{ color: '#374151', marginTop: '2px', flexShrink: 0 }}>·</span>
                   {item}
-                </li>
+                </motion.li>
               ))}
             </ul>
           </motion.div>
 
-          {/* After card — navy */}
+          {/* After card */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.3 }}
-            style={{
-              background: '#0A2280',
-              borderRadius: '16px',
-              padding: '32px 28px',
-              position: 'relative',
-              zIndex: 1,
-            }}
+            style={{ background: '#0A2280', borderRadius: '16px', padding: '32px 28px', position: 'relative', zIndex: 1 }}
           >
             <h3 className="font-bold text-white" style={{ fontSize: '1.1rem', marginBottom: '20px' }}>
               After MonkDB
             </h3>
             <ul style={{ display: 'flex', flexDirection: 'column', gap: '14px', listStyle: 'none', padding: 0, margin: 0 }}>
-              {afterItems.map((item) => (
-                <li key={item} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '0.9rem', color: 'rgba(255,255,255,0.88)' }}>
+              {afterItems.map((item, i) => (
+                <motion.li
+                  key={item}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={isInView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ duration: 0.35, delay: 0.45 + i * 0.07, ease: 'easeOut' }}
+                  style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '0.9rem', color: 'rgba(255,255,255,0.88)' }}
+                >
                   <span style={{ color: 'rgba(255,255,255,0.6)', marginTop: '2px', flexShrink: 0 }}>·</span>
                   {item}
-                </li>
+                </motion.li>
               ))}
             </ul>
           </motion.div>

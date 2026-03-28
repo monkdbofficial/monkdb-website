@@ -38,7 +38,7 @@ const rows = [
   },
 ]
 
-function cellColor(rowIdx: number, colIdx: number, value: string) {
+function cellColor(rowIdx: number, colIdx: number) {
   const row = rows[rowIdx]
   if (row.red?.includes(colIdx)) return '#ef4444'
   if (row.green?.includes(colIdx)) return '#16a34a'
@@ -55,7 +55,6 @@ export default function CompetitionMatrix() {
       ref={ref}
       style={{ padding: '72px 6%', backgroundColor: '#F5F0E8' }}
     >
-      {/* Header */}
       <motion.h2
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -66,7 +65,6 @@ export default function CompetitionMatrix() {
         The Competition Matrix
       </motion.h2>
 
-      {/* Table card */}
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -80,7 +78,6 @@ export default function CompetitionMatrix() {
         }}
       >
         <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-          {/* Header row */}
           <thead>
             <tr style={{ background: '#0A2280' }}>
               {columns.map((col, i) => (
@@ -101,20 +98,20 @@ export default function CompetitionMatrix() {
             </tr>
           </thead>
 
-          {/* Body rows */}
           <tbody>
             {rows.map((row, rowIdx) => (
-              <tr
+              <motion.tr
                 key={row.feature}
+                initial={{ opacity: 0, x: -12 }}
+                animate={isInView ? { opacity: 1, x: 0 } : {}}
+                transition={{ duration: 0.4, delay: 0.3 + rowIdx * 0.07, ease: 'easeOut' }}
                 style={{ borderTop: '1px solid #f0f0f0' }}
               >
-                {/* Feature label */}
                 <td style={{ padding: '18px 20px', fontSize: '0.9rem', color: '#111', fontWeight: 400, whiteSpace: 'nowrap' }}>
                   {row.feature}
                 </td>
-                {/* Values */}
                 {row.values.map((value, colIdx) => {
-                  const color = cellColor(rowIdx, colIdx, value)
+                  const color = cellColor(rowIdx, colIdx)
                   return (
                     <td
                       key={colIdx}
@@ -131,17 +128,16 @@ export default function CompetitionMatrix() {
                     </td>
                   )
                 })}
-              </tr>
+              </motion.tr>
             ))}
           </tbody>
         </table>
       </motion.div>
 
-      {/* Footnote */}
       <motion.p
         initial={{ opacity: 0 }}
         animate={isInView ? { opacity: 1 } : {}}
-        transition={{ duration: 0.6, delay: 0.4 }}
+        transition={{ duration: 0.6, delay: 0.7 }}
         style={{ marginTop: '24px', fontSize: '0.8rem', color: '#9ca3af', textAlign: 'center' }}
       >
         *Multi-model: Vector (V), Timeseries (TS), Geospatial (GIS), Full Text Search (FTS), Document JSON (DOC), Streaming SQL (SQL), Blob (BLOB), Key-Value (KV), Graph (G)
