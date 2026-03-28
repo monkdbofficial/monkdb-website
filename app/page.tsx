@@ -4,7 +4,6 @@ import FeatureBanner from '@/components/FeatureBanner'
 import About from '@/components/About'
 import FeatureCards from '@/components/FeatureCards'
 import Mission from '@/components/Mission'
-import LogoMarquee from '@/components/LogoMarquee'
 import CompetitionMatrix from '@/components/CompetitionMatrix'
 import ROI from '@/components/ROI'
 import Footer from '@/components/Footer'
@@ -19,7 +18,6 @@ export default function Home() {
       <About />
       <FeatureCards />
       <Mission />
-      <LogoMarquee />
       <CompetitionMatrix />
       <ROI />
       <Footer />

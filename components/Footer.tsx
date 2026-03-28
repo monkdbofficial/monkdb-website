@@ -2,19 +2,34 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
-import { Facebook, Twitter, Youtube, Linkedin, Instagram, ArrowRight } from 'lucide-react'
+import { Send } from 'lucide-react'
 
-const socialLinks = [
-  { icon: Facebook, label: 'Facebook', href: '#' },
-  { icon: Twitter, label: 'Twitter', href: '#' },
-  { icon: Youtube, label: 'YouTube', href: '#' },
-  { icon: Linkedin, label: 'LinkedIn', href: '#' },
-  { icon: Instagram, label: 'Instagram', href: '#' },
+const menuLinks = ['Home', 'About Us', 'Product', 'Architecture', 'Careers']
+const supportLinks = ['Company', 'Press Media', 'Our Blog', 'Contact Us', 'Case Study']
+const socialTextLinks = ['Facebook', 'Instagram', 'Twitter', 'LinkedIn', 'Youtube']
+
+const socialIcons = [
+  {
+    label: 'Facebook',
+    path: 'M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z',
+  },
+  {
+    label: 'Twitter',
+    path: 'M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z',
+  },
+  {
+    label: 'LinkedIn',
+    path: 'M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z M4 6a2 2 0 100-4 2 2 0 000 4z',
+  },
+  {
+    label: 'YouTube',
+    path: 'M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58zM9.75 15.02V8.98L15.5 12l-5.75 3.02z',
+  },
+  {
+    label: 'Instagram',
+    path: 'M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 01-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 017.8 2z',
+  },
 ]
-
-const menuLinks = ['Home', 'About Us', 'Product', 'Careers']
-const supportLinks = ['Company', 'Press Media', 'Go Blog', 'Contact Us', 'Case Study']
-const socialTextLinks = ['Facebook', 'Instagram', 'Twitter', 'LinkedIn', 'YouTube']
 
 export default function Footer() {
   const [email, setEmail] = useState('')
@@ -25,67 +40,62 @@ export default function Footer() {
   }
 
   return (
-    <footer id="footer" className="bg-[#0f1623] text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8">
+    <footer id="footer" className="bg-white dark:bg-[#0f1623]" style={{ borderTop: '1px solid #e5e7eb' }}>
+      <div style={{ padding: '56px 6% 32px' }}>
+
         {/* Main grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 mb-14">
-          {/* Column 1 - Company */}
-          <div className="lg:col-span-1">
-            <div className="mb-5">
-              <Image
-                src="/logo.png"
-                alt="MonkDB"
-                width={130}
-                height={36}
-                className="h-9 w-auto object-contain brightness-0 invert"
-              />
+        <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr 1fr 1fr 1.6fr', gap: '40px', marginBottom: '48px' }}>
+
+          {/* Col 1 — Company */}
+          <div>
+            <div className="font-bold text-gray-900 dark:text-white" style={{ fontSize: '0.95rem', marginBottom: '16px' }}>
+              Movibase Platform PVT. LTD
             </div>
-            <div className="text-xs text-gray-400 mb-4 leading-relaxed">
-              <div className="font-semibold text-white mb-1">Movibase Platform PVT. LTD</div>
-              <address className="not-italic text-gray-400 text-xs leading-relaxed">
-                Branch Roliya Himachal, 78 Wing 12,
-                <br />
-                Habsiguda Park, Madhavpur,
-                <br />
-                Hyderabad 500082, Telangana, India
-              </address>
+            <address className="not-italic" style={{ fontSize: '0.82rem', color: '#6b7280', lineHeight: 1.7, marginBottom: '12px' }}>
+              <span style={{ display: 'flex', gap: '6px', alignItems: 'flex-start' }}>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ flexShrink: 0, marginTop: '3px' }}><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <span>Wework Raheja Mindspace Building 9, Floor 13 Mindspace IT Park, Madhapur Hyderabad 500081, Telangana India</span>
+              </span>
+            </address>
+            <div style={{ fontSize: '0.82rem', color: '#6b7280', marginBottom: '16px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                <a href="mailto:support@monkdb.com" className="hover:text-gray-900 transition-colors">support@monkdb.com</a>
+              </span>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+                <a href="#" className="hover:text-gray-900 transition-colors">www.monkdb.com</a>
+              </span>
             </div>
-            <div className="text-xs text-gray-400 space-y-1 mb-5">
-              <div>
-                <a href="mailto:support@monkdb.com" className="hover:text-white transition-colors">
-                  support@monkdb.com
-                </a>
-              </div>
-              <div>
-                <a href="https://www.monkdb.com" className="hover:text-white transition-colors">
-                  www.monkdb.com
-                </a>
-              </div>
-            </div>
-            <div className="flex gap-3">
-              {socialLinks.map(({ icon: Icon, label, href }) => (
+            {/* Social icon buttons */}
+            <div style={{ display: 'flex', gap: '8px' }}>
+              {socialIcons.map(({ label, path }) => (
                 <a
                   key={label}
-                  href={href}
+                  href="#"
                   aria-label={label}
-                  className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-egyptian-blue transition-colors"
+                  style={{
+                    width: 32, height: 32, borderRadius: 8,
+                    background: '#1A38E8',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    flexShrink: 0,
+                  }}
                 >
-                  <Icon size={14} />
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d={path} />
+                  </svg>
                 </a>
               ))}
             </div>
           </div>
 
-          {/* Column 2 - Menu */}
+          {/* Col 2 — Menu */}
           <div>
-            <h4 className="font-semibold text-white mb-4 text-sm">Menu</h4>
-            <ul className="space-y-2.5">
+            <div className="font-bold text-gray-900 dark:text-white" style={{ fontSize: '0.95rem', marginBottom: '16px' }}>Menu</div>
+            <ul style={{ display: 'flex', flexDirection: 'column', gap: '12px', listStyle: 'none', padding: 0, margin: 0 }}>
               {menuLinks.map((link) => (
                 <li key={link}>
-                  <a
-                    href="#"
-                    className="text-gray-400 text-sm hover:text-white transition-colors"
-                  >
+                  <a href="#" className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" style={{ fontSize: '0.88rem' }}>
                     {link}
                   </a>
                 </li>
@@ -93,16 +103,13 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 3 - Support */}
+          {/* Col 3 — Support */}
           <div>
-            <h4 className="font-semibold text-white mb-4 text-sm">Support</h4>
-            <ul className="space-y-2.5">
+            <div className="font-bold text-gray-900 dark:text-white" style={{ fontSize: '0.95rem', marginBottom: '16px' }}>Support</div>
+            <ul style={{ display: 'flex', flexDirection: 'column', gap: '12px', listStyle: 'none', padding: 0, margin: 0 }}>
               {supportLinks.map((link) => (
                 <li key={link}>
-                  <a
-                    href="#"
-                    className="text-gray-400 text-sm hover:text-white transition-colors"
-                  >
+                  <a href="#" className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" style={{ fontSize: '0.88rem' }}>
                     {link}
                   </a>
                 </li>
@@ -110,16 +117,13 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 4 - Stay Connected */}
+          {/* Col 4 — Stay Connected */}
           <div>
-            <h4 className="font-semibold text-white mb-4 text-sm">Stay Connected</h4>
-            <ul className="space-y-2.5">
+            <div className="font-bold text-gray-900 dark:text-white" style={{ fontSize: '0.95rem', marginBottom: '16px' }}>Stay Connected</div>
+            <ul style={{ display: 'flex', flexDirection: 'column', gap: '12px', listStyle: 'none', padding: 0, margin: 0 }}>
               {socialTextLinks.map((link) => (
                 <li key={link}>
-                  <a
-                    href="#"
-                    className="text-gray-400 text-sm hover:text-white transition-colors"
-                  >
+                  <a href="#" className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" style={{ fontSize: '0.88rem' }}>
                     {link}
                   </a>
                 </li>
@@ -127,46 +131,49 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 5 - Stay Updated */}
+          {/* Col 5 — Stay Updated */}
           <div>
-            <h4 className="font-semibold text-white mb-4 text-sm">Stay Updated</h4>
-            <form onSubmit={handleSubscribe} className="mb-5">
-              <div className="flex rounded-xl overflow-hidden border border-white/20">
+            <div className="font-bold text-gray-900 dark:text-white" style={{ fontSize: '0.95rem', marginBottom: '16px' }}>Stay Updated</div>
+            <form onSubmit={handleSubscribe} style={{ marginBottom: '16px' }}>
+              <div style={{ display: 'flex', borderRadius: '8px', overflow: 'hidden', border: '1px solid #e5e7eb' }}>
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email"
-                  className="flex-1 bg-white/5 px-3 py-2.5 text-sm text-white placeholder-gray-500 outline-none min-w-0"
                   required
+                  className="bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white placeholder-gray-400"
+                  style={{ flex: 1, padding: '10px 14px', fontSize: '0.85rem', outline: 'none', border: 'none', minWidth: 0 }}
                 />
                 <button
                   type="submit"
-                  className="bg-egyptian-blue px-3 py-2.5 flex items-center justify-center hover:bg-blue-energy transition-colors flex-shrink-0"
-                  aria-label="Subscribe"
+                  style={{ background: '#1A38E8', padding: '10px 14px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: 'none', cursor: 'pointer', flexShrink: 0 }}
                 >
-                  <ArrowRight size={16} />
+                  <Send size={14} color="white" />
                 </button>
               </div>
             </form>
-            <p className="text-gray-400 text-xs leading-relaxed">
-              MonkDB is an AI-native Unified Database designed to transform data management,
-              empowering organizations to harness artificial intelligence from diverse data types.
+            <p className="text-gray-500 dark:text-gray-400" style={{ fontSize: '0.82rem', lineHeight: 1.65 }}>
+              <strong className="text-gray-900 dark:text-white">MonkDB</strong> is an AI-Native Unified Database designed to transform data management, empowering organizations to harness unified intelligence from diverse data types.
             </p>
           </div>
+
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-gray-500 text-xs">
+        <div style={{ borderTop: '1px solid #e5e7eb', paddingTop: '20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <p className="text-gray-400" style={{ fontSize: '0.78rem' }}>
             &copy; {new Date().getFullYear()} Movibase Platform PVT. LTD. All rights reserved.
           </p>
-          <div className="flex gap-5 text-gray-500 text-xs">
-            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
-            <a href="#" className="hover:text-white transition-colors">Cookie Policy</a>
+          <div style={{ display: 'flex', gap: '20px' }}>
+            {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map((link) => (
+              <a key={link} href="#" className="text-gray-400 hover:text-gray-700 transition-colors" style={{ fontSize: '0.78rem' }}>
+                {link}
+              </a>
+            ))}
           </div>
         </div>
+
       </div>
     </footer>
   )

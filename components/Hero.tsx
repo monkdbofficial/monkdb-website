@@ -2,18 +2,19 @@
 
 import { motion } from 'framer-motion'
 
-const word = {
-  hidden: { opacity: 0, y: 20, filter: 'blur(8px)' },
+const wordReveal = {
+  hidden: { opacity: 0, y: 40 },
   visible: (i: number) => ({
-    opacity: 1, y: 0, filter: 'blur(0px)',
-    transition: { duration: 0.65, delay: 0.3 + i * 0.12, ease: 'easeOut' as const },
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, delay: 0.3 + i * 0.12, ease: [0.25, 0.46, 0.45, 0.94] as const },
   }),
 }
 
 const fadeUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 30, filter: 'blur(6px)' },
-  animate: { opacity: 1, y: 0, filter: 'blur(0px)' },
-  transition: { duration: 0.8, delay, ease: 'easeOut' as const },
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.7, delay, ease: [0.25, 0.46, 0.45, 0.94] as const },
 })
 
 export default function Hero() {
@@ -36,7 +37,7 @@ export default function Hero() {
         }}
       />
 
-      {/* ── MASK GROUP SVG — fills transparent corners with blue, then luminosity-blends wave texture ── */}
+      {/* ── MASK GROUP SVG ── */}
       <div
         className="absolute inset-0 pointer-events-none overflow-hidden"
         style={{ backgroundColor: '#1A38E8' }}
@@ -58,14 +59,10 @@ export default function Hero() {
         />
       </div>
 
-      {/* ── BLUE COLOR OVERLAY — restores blue tone after luminosity blend ── */}
+      {/* ── BLUE COLOR OVERLAY ── */}
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundColor: '#1535CC',
-          mixBlendMode: 'color',
-          opacity: 0.72,
-        }}
+        style={{ backgroundColor: '#1535CC', mixBlendMode: 'color', opacity: 0.72 }}
       />
 
       {/* ── MAIN CONTENT ── */}
@@ -92,7 +89,7 @@ export default function Hero() {
                 <motion.span
                   key={w}
                   custom={i}
-                  variants={word}
+                  variants={wordReveal}
                   initial="hidden"
                   animate="visible"
                   className="inline-block mr-[0.25em]"
@@ -106,7 +103,7 @@ export default function Hero() {
                 <motion.span
                   key={w}
                   custom={i + 2}
-                  variants={word}
+                  variants={wordReveal}
                   initial="hidden"
                   animate="visible"
                   className="inline-block mr-[0.25em]"
@@ -151,9 +148,9 @@ export default function Hero() {
 
       {/* ── DISCOVER MONKDB CARD ── */}
       <motion.div
-        initial={{ opacity: 0, y: 40, scale: 0.94 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.9, delay: 1.2, ease: 'easeOut' as const }}
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 1.2, ease: [0.25, 0.46, 0.45, 0.94] as const }}
         className="absolute right-8 lg:right-14 hidden lg:flex items-center gap-5 bg-white rounded-2xl p-4 shadow-2xl"
         style={{ bottom: '8%', maxWidth: '420px' }}
       >
@@ -165,17 +162,17 @@ export default function Hero() {
           />
           <div className="absolute inset-0 flex items-center justify-center gap-3">
             <button className="text-white/90 hover:text-white transition-colors">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z" /></svg>
             </button>
             <motion.button
               className="w-8 h-8 rounded-full bg-white/25 flex items-center justify-center backdrop-blur-sm border border-white/40 text-white"
               animate={{ scale: [1, 1.1, 1] }}
               transition={{ duration: 2, repeat: Infinity }}
             >
-              <svg width="10" height="12" viewBox="0 0 9 11" fill="currentColor"><path d="M1 1l7 4.5-7 4.5V1z"/></svg>
+              <svg width="10" height="12" viewBox="0 0 9 11" fill="currentColor"><path d="M1 1l7 4.5-7 4.5V1z" /></svg>
             </motion.button>
             <button className="text-white/90 hover:text-white transition-colors">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zm2-8.14 5.02 2.14L8 14.14V9.86z"/></svg>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zm2-8.14 5.02 2.14L8 14.14V9.86z" /></svg>
             </button>
           </div>
         </div>

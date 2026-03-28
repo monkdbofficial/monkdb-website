@@ -2,7 +2,6 @@
 
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
-import { X, CheckCircle2 } from 'lucide-react'
 
 const beforeItems = [
   'Multiple specialized databases',
@@ -28,101 +27,75 @@ export default function ROI() {
     <section
       id="roi"
       ref={ref}
-      className="py-24 bg-white dark:bg-[#111827] px-4 sm:px-6 lg:px-8"
+      className="bg-white dark:bg-[#0f1623]"
+      style={{ padding: '72px 6%' }}
     >
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 items-start">
-          {/* Left: Title */}
-          <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.7 }}
-            className="lg:pr-8"
-          >
-            <span className="inline-block text-egyptian-blue dark:text-blue-energy font-mono text-sm font-semibold mb-4 tracking-wider uppercase">
-              Business Impact
-            </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-egyptian-blue dark:text-white leading-tight">
-              Return on Investment with MonkDB
-            </h2>
-            <p className="mt-6 text-gray-600 dark:text-powder-blue leading-relaxed">
-              Consolidating your data infrastructure onto MonkDB delivers measurable ROI from day
-              one — fewer vendors, simpler architecture, faster AI delivery.
-            </p>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 0.85fr', gap: '48px', alignItems: 'center' }}>
 
-            {/* Arrow visual */}
-            <div className="hidden lg:flex items-center gap-3 mt-10">
-              <div className="h-px flex-1 bg-gradient-to-r from-transparent to-egyptian-blue/40" />
-              <div className="w-8 h-8 rounded-full bg-egyptian-blue flex items-center justify-center">
-                <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                </svg>
-              </div>
-            </div>
-          </motion.div>
+        {/* Left: title */}
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="font-bold text-egyptian-blue dark:text-white leading-tight"
+          style={{ fontSize: 'clamp(28px, 3vw, 42px)' }}
+        >
+          Return on<br />Investment with<br />MonkDB
+        </motion.h2>
 
-          {/* Middle card: Before (Key Differentiators / Pain Points) */}
+        {/* Right: two cards */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0' }}>
+
+          {/* Before card — cream */}
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 24 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.15 }}
-            className="bg-parchment dark:bg-[#1a2535] border border-gray-200 dark:border-white/10 rounded-2xl p-7"
+            transition={{ duration: 0.6, delay: 0.15 }}
+            style={{
+              background: '#EDE8D8',
+              borderRadius: '16px 0 0 16px',
+              padding: '32px 28px',
+            }}
           >
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center">
-                <X size={16} className="text-red-500" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white">Key Differentiators</h3>
-            </div>
-            <p className="text-sm text-gray-500 dark:text-powder-blue mb-5">Without MonkDB, enterprises face:</p>
-            <ul className="space-y-3">
+            <h3 className="font-bold text-egyptian-blue" style={{ fontSize: '1.1rem', marginBottom: '20px' }}>
+              Key Differentiators
+            </h3>
+            <ul style={{ display: 'flex', flexDirection: 'column', gap: '14px', listStyle: 'none', padding: 0, margin: 0 }}>
               {beforeItems.map((item) => (
-                <li key={item} className="flex items-center gap-3">
-                  <div className="w-5 h-5 rounded-full bg-red-100 dark:bg-red-900/20 flex items-center justify-center flex-shrink-0">
-                    <X size={11} className="text-red-500" />
-                  </div>
-                  <span className="text-sm text-gray-700 dark:text-gray-300">{item}</span>
+                <li key={item} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '0.9rem', color: '#374151' }}>
+                  <span style={{ color: '#374151', marginTop: '2px', flexShrink: 0 }}>·</span>
+                  {item}
                 </li>
               ))}
             </ul>
-            <div className="mt-6 pt-5 border-t border-gray-200 dark:border-white/10">
-              <div className="text-xs text-gray-400 dark:text-powder-blue/60">
-                Average enterprises maintain 5-12 separate database systems for these workloads.
-              </div>
-            </div>
           </motion.div>
 
-          {/* Right card: After MonkDB */}
+          {/* After card — navy */}
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 24 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.3 }}
-            className="bg-oxford-navy rounded-2xl p-7 text-white"
+            transition={{ duration: 0.6, delay: 0.3 }}
+            style={{
+              background: '#0A2280',
+              borderRadius: '16px',
+              padding: '32px 28px',
+              position: 'relative',
+              zIndex: 1,
+            }}
           >
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-8 h-8 rounded-full bg-green-500/20 flex items-center justify-center">
-                <CheckCircle2 size={16} className="text-green-400" />
-              </div>
-              <h3 className="text-xl font-bold">After MonkDB</h3>
-            </div>
-            <p className="text-sm text-powder-blue mb-5">MonkDB transforms your data stack:</p>
-            <ul className="space-y-3">
+            <h3 className="font-bold text-white" style={{ fontSize: '1.1rem', marginBottom: '20px' }}>
+              After MonkDB
+            </h3>
+            <ul style={{ display: 'flex', flexDirection: 'column', gap: '14px', listStyle: 'none', padding: 0, margin: 0 }}>
               {afterItems.map((item) => (
-                <li key={item} className="flex items-center gap-3">
-                  <div className="w-5 h-5 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0">
-                    <CheckCircle2 size={11} className="text-green-400" />
-                  </div>
-                  <span className="text-sm text-white/90">{item}</span>
+                <li key={item} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '0.9rem', color: 'rgba(255,255,255,0.88)' }}>
+                  <span style={{ color: 'rgba(255,255,255,0.6)', marginTop: '2px', flexShrink: 0 }}>·</span>
+                  {item}
                 </li>
               ))}
             </ul>
-            <div className="mt-6 pt-5 border-t border-white/10">
-              <div className="text-xs text-powder-blue/80">
-                Customers report up to 60% reduction in data infrastructure costs after migrating
-                to MonkDB.
-              </div>
-            </div>
           </motion.div>
+
         </div>
       </div>
     </section>
