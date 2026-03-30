@@ -40,7 +40,7 @@ export default function About() {
       className="bg-white dark:bg-[#0f1623] section-grid px-5 sm:px-[6%] lg:px-[12%] py-10 sm:py-14 lg:py-[72px]"
     >
       <div
-        className="grid grid-cols-1 lg:grid-cols-[42%_1fr] gap-8 lg:gap-6 items-center"
+        className="grid grid-cols-1 lg:grid-cols-[42%_1fr] gap-10 lg:gap-16 items-center"
       >
         {/* ── LEFT COLUMN ── */}
         <motion.div

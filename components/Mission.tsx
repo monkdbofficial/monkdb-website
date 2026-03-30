@@ -15,49 +15,22 @@ export default function Mission() {
       <div
         className="grid grid-cols-1 lg:grid-cols-[42%_1fr] gap-8 lg:gap-10 items-center"
       >
-        {/* ── LEFT: organic concentric ovals ── */}
+        {/* ── LEFT: Vector.svg with animated float ── */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.85 }}
+          initial={{ opacity: 0, scale: 0.88 }}
           animate={isInView ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] as const }}
           className="flex items-center justify-center"
         >
-          <svg
-            viewBox="0 0 560 600"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-full max-w-[260px] sm:max-w-[340px] lg:max-w-[460px] h-auto"
-          >
-            {/* Outer — perfect circle */}
-            <motion.circle
-              cx="278" cy="302"
-              r="252"
-              stroke="#1A38E8"
-              strokeWidth="1.5"
-              fill="none"
-              pathLength="1"
-              strokeDasharray="1"
-              initial={{ strokeDashoffset: 1, opacity: 0 }}
-              animate={isInView ? { strokeDashoffset: 0, opacity: 1 } : {}}
-              transition={{ duration: 2, ease: [0.4, 0, 0.2, 1] as const }}
-            />
-            {/* Inner — organic rotated blob */}
-            <motion.path
-              d="M 228 158
-                 C 278 128, 398 172, 424 278
-                 C 450 384, 392 468, 298 472
-                 C 204 476, 132 402, 142 304
-                 C 152 210, 178 188, 228 158 Z"
-              stroke="#1A38E8"
-              strokeWidth="1.5"
-              fill="none"
-              pathLength="1"
-              strokeDasharray="1"
-              initial={{ strokeDashoffset: 1, opacity: 0 }}
-              animate={isInView ? { strokeDashoffset: 0, opacity: 1 } : {}}
-              transition={{ duration: 2, delay: 0.5, ease: [0.4, 0, 0.2, 1] as const }}
-            />
-          </svg>
+          <motion.img
+            src="/Vector.svg"
+            alt=""
+            animate={isInView ? {
+              rotate: [0, 360],
+            } : {}}
+            transition={{ duration: 18, repeat: Infinity, ease: 'linear' }}
+            className="w-full max-w-[220px] sm:max-w-[300px] lg:max-w-[420px] h-auto"
+          />
         </motion.div>
 
         {/* ── RIGHT: quote text ── */}

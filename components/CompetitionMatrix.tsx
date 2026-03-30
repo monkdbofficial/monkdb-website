@@ -53,15 +53,15 @@ export default function CompetitionMatrix() {
     <section
       id="competition"
       ref={ref}
-      className="px-5 sm:px-[6%] py-10 sm:py-14 lg:py-[72px]"
+      className="px-5 sm:px-[6%] lg:px-[12%] py-10 sm:py-14 lg:py-[72px]"
       style={{ backgroundColor: '#F5F0E8' }}
     >
       <motion.h2
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.6 }}
-        className="font-bold text-center"
-        style={{ fontSize: 'clamp(24px, 3vw, 42px)', color: '#0A2280', marginBottom: '40px' }}
+        className="font-bold text-center mb-8 sm:mb-10 lg:mb-12"
+        style={{ fontSize: 'clamp(24px, 3vw, 42px)', color: '#0A2280' }}
       >
         The Competition Matrix
       </motion.h2>
@@ -71,9 +71,9 @@ export default function CompetitionMatrix() {
         initial={{ opacity: 0, y: 24 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.7, delay: 0.15 }}
-        className="-mx-5 sm:-mx-[6%] overflow-x-auto pb-1"
+        className="-mx-5 sm:-mx-[6%] lg:-mx-[12%] overflow-x-auto pb-1"
       >
-        <div className="px-5 sm:px-[6%]">
+        <div className="px-5 sm:px-[6%] lg:px-[12%]">
           <div
             style={{
               background: '#fff',
@@ -87,16 +87,15 @@ export default function CompetitionMatrix() {
             <table style={{ width: '100%', borderCollapse: 'collapse' }}>
               <thead>
                 <tr style={{ background: '#0A2280' }}>
-                  {columns.map((col, i) => (
+                  {columns.map((col) => (
                     <th
                       key={col}
                       style={{
-                        padding: '12px 14px',
+                        padding: '14px 18px',
                         textAlign: 'left',
                         color: '#fff',
                         fontWeight: 600,
                         fontSize: '0.82rem',
-                        borderRight: i < columns.length - 1 ? '1px solid rgba(255,255,255,0.1)' : 'none',
                         whiteSpace: 'nowrap',
                       }}
                     >
@@ -113,9 +112,9 @@ export default function CompetitionMatrix() {
                     initial={{ opacity: 0, x: -12 }}
                     animate={isInView ? { opacity: 1, x: 0 } : {}}
                     transition={{ duration: 0.4, delay: 0.3 + rowIdx * 0.07, ease: 'easeOut' }}
-                    style={{ borderTop: '1px solid #f0f0f0' }}
+                    style={{ background: rowIdx % 2 === 0 ? '#ffffff' : '#f9fafb' }}
                   >
-                    <td style={{ padding: '12px 14px', fontSize: '0.82rem', color: '#111', fontWeight: 600, whiteSpace: 'nowrap' }}>
+                    <td style={{ padding: '14px 18px', fontSize: '0.82rem', color: '#111', fontWeight: 600, whiteSpace: 'nowrap' }}>
                       {row.feature}
                     </td>
                     {row.values.map((value, colIdx) => {
@@ -124,13 +123,12 @@ export default function CompetitionMatrix() {
                         <td
                           key={colIdx}
                           style={{
-                            padding: '12px 14px',
+                            padding: '14px 18px',
                             fontSize: '0.78rem',
                             color: color ?? '#374151',
-                            fontWeight: color ? 500 : 400,
-                            borderLeft: '1px solid #f0f0f0',
+                            fontWeight: color ? 600 : 400,
                             verticalAlign: 'top',
-                            lineHeight: 1.45,
+                            lineHeight: 1.5,
                           }}
                         >
                           {value}
@@ -149,7 +147,8 @@ export default function CompetitionMatrix() {
         initial={{ opacity: 0 }}
         animate={isInView ? { opacity: 1 } : {}}
         transition={{ duration: 0.6, delay: 0.7 }}
-        style={{ marginTop: '24px', fontSize: '0.8rem', color: '#9ca3af', textAlign: 'center' }}
+        className="mt-6 text-center"
+        style={{ fontSize: '0.8rem', color: '#9ca3af' }}
       >
         *Multi-model: Vector (V), Timeseries (TS), Geospatial (GIS), Full Text Search (FTS), Document JSON (DOC), Streaming SQL (SQL), Blob (BLOB), Key-Value (KV), Graph (G)
       </motion.p>

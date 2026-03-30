@@ -88,11 +88,42 @@
 .section-grid {
   background-image: radial-gradient(circle, rgba(10, 20, 120, 0.09) 1px, transparent 1px);
   background-size: 28px 28px;
+  animation: grid-drift 14s linear infinite;
 }
 
 .dark .section-grid {
   background-image: radial-gradient(circle, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
   background-size: 28px 28px;
+  animation: grid-drift 14s linear infinite;
+}
+
+@keyframes grid-drift {
+  0%   { background-position: 0 0; }
+  100% { background-position: 28px 28px; }
+}
+
+/* ── Hero-specific particle rise ── */
+@keyframes particle-rise {
+  0%   { transform: translateY(0);      opacity: 0; }
+  10%  { opacity: 0.6; }
+  90%  { opacity: 0.4; }
+  100% { transform: translateY(-110vh); opacity: 0; }
+}
+
+/* ── Orb drift keyframes ── */
+@keyframes orb-a {
+  0%, 100% { transform: translate(0, 0)   scale(1);    }
+  30%       { transform: translate(80px, 60px) scale(1.08); }
+  65%       { transform: translate(-40px, 110px) scale(0.95); }
+}
+@keyframes orb-b {
+  0%, 100% { transform: translate(0, 0)    scale(1);    }
+  40%       { transform: translate(-90px, -70px) scale(1.12); }
+  70%       { transform: translate(50px, -30px) scale(0.92); }
+}
+@keyframes orb-c {
+  0%, 100% { transform: translate(0, 0)  scale(1);    }
+  50%       { transform: translate(60px, -80px) scale(1.06); }
 }
 
 @layer utilities {

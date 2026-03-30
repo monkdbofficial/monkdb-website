@@ -27,7 +27,7 @@ export default function ROI() {
     <section
       id="roi"
       ref={ref}
-      className="bg-white dark:bg-[#0f1623] section-grid px-5 sm:px-[6%] py-10 sm:py-14 lg:py-[72px]"
+      className="bg-white dark:bg-[#0f1623] section-grid px-5 sm:px-[6%] lg:px-[12%] py-10 sm:py-14 lg:py-[72px]"
     >
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_0.6fr] gap-8 lg:gap-12 items-center">
 
@@ -39,19 +39,19 @@ export default function ROI() {
           className="font-bold text-egyptian-blue dark:text-white leading-tight"
           style={{ fontSize: 'clamp(24px, 3vw, 42px)' }}
         >
-          Return on<br />Investment with<br />MonkDB
+          Return on Investment<br className="hidden lg:block" /> with MonkDB
         </motion.h2>
 
         {/* Right: two cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-0">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-0">
 
           {/* Before card */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.15 }}
-            className="rounded-t-2xl sm:rounded-t-none sm:rounded-tl-2xl sm:rounded-bl-2xl rounded-b-none sm:rounded-br-none"
-            style={{ background: '#EDE8D8', borderRadius: undefined, padding: 'clamp(20px, 3vw, 32px) clamp(16px, 2.5vw, 28px)' }}
+            className="rounded-2xl sm:rounded-r-none"
+            style={{ background: '#EDE8D8', padding: 'clamp(20px, 3vw, 32px) clamp(16px, 2.5vw, 28px)' }}
           >
             <h3 className="font-bold text-egyptian-blue" style={{ fontSize: '1.1rem', marginBottom: '20px' }}>
               Key Differentiators
@@ -77,7 +77,8 @@ export default function ROI() {
             initial={{ opacity: 0, y: 24 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.3 }}
-            style={{ background: '#0A2280', borderRadius: '16px', padding: 'clamp(20px, 3vw, 32px) clamp(16px, 2.5vw, 28px)', position: 'relative', zIndex: 1 }}
+            className="rounded-2xl sm:rounded-l-none"
+            style={{ background: '#0A2280', padding: 'clamp(20px, 3vw, 32px) clamp(16px, 2.5vw, 28px)', position: 'relative', zIndex: 1 }}
           >
             <h3 className="font-bold text-white" style={{ fontSize: '1.1rem', marginBottom: '20px' }}>
               After MonkDB

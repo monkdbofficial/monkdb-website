@@ -48,10 +48,12 @@ export default function FeatureCards() {
             whileHover={{ y: -4, transition: { duration: 0.2 } }}
             style={{ display: 'flex', flexDirection: 'column', gap: '14px', cursor: 'default' }}
           >
-            {/* Icon with hover scale */}
+            {/* Icon — slow spin + hover scale */}
             <motion.div
               style={{ width: 56, height: 56 }}
-              whileHover={{ scale: 1.08, transition: { duration: 0.2 } }}
+              animate={{ rotate: 360 }}
+              transition={{ duration: 32, repeat: Infinity, ease: 'linear' }}
+              whileHover={{ scale: 1.1, transition: { duration: 0.2, ease: 'easeOut' } }}
             >
               <img
                 src="/Group.svg"

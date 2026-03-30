@@ -17,6 +17,22 @@ const fadeUp = (delay = 0) => ({
   transition: { duration: 0.7, delay, ease: [0.25, 0.46, 0.45, 0.94] as const },
 })
 
+// Pre-defined particles — no Math.random to avoid hydration issues
+const PARTICLES = [
+  { left: '5%',  delay: 0,   dur: 14, size: 3   },
+  { left: '13%', delay: 2.8, dur: 11, size: 2.5 },
+  { left: '24%', delay: 0.6, dur: 16, size: 4   },
+  { left: '38%', delay: 3.2, dur: 13, size: 2   },
+  { left: '50%', delay: 1.4, dur: 15, size: 3   },
+  { left: '62%', delay: 4.1, dur: 12, size: 2.5 },
+  { left: '74%', delay: 0.9, dur: 14, size: 3   },
+  { left: '86%', delay: 2.2, dur: 11, size: 2   },
+  { left: '30%', delay: 5.0, dur: 13, size: 2.5 },
+  { left: '79%', delay: 3.7, dur: 16, size: 3   },
+  { left: '45%', delay: 6.2, dur: 12, size: 2   },
+  { left: '92%', delay: 1.8, dur: 15, size: 4   },
+]
+
 export default function Hero() {
   return (
     <section
@@ -37,14 +53,52 @@ export default function Hero() {
         }}
       />
 
-      {/* ── MASK GROUP SVG ── */}
+      {/* ── ANIMATED GRADIENT ORBS ── */}
+      <div
+        className="absolute pointer-events-none rounded-full"
+        style={{
+          width: 700, height: 700,
+          background: 'radial-gradient(circle, rgba(60,120,255,0.42) 0%, transparent 60%)',
+          filter: 'blur(80px)',
+          top: '-30%', left: '-18%',
+          animation: 'orb-a 22s ease-in-out infinite',
+        }}
+      />
+      <div
+        className="absolute pointer-events-none rounded-full"
+        style={{
+          width: 550, height: 550,
+          background: 'radial-gradient(circle, rgba(80,40,200,0.35) 0%, transparent 60%)',
+          filter: 'blur(70px)',
+          bottom: '-25%', right: '-12%',
+          animation: 'orb-b 18s ease-in-out infinite',
+        }}
+      />
+      <div
+        className="absolute pointer-events-none rounded-full"
+        style={{
+          width: 380, height: 380,
+          background: 'radial-gradient(circle, rgba(100,160,255,0.32) 0%, transparent 65%)',
+          filter: 'blur(50px)',
+          top: '15%', right: '22%',
+          animation: 'orb-c 14s ease-in-out infinite',
+        }}
+      />
+
+      {/* ── MASK GROUP SVG (Sree's pattern) — animated float ── */}
       <div
         className="absolute inset-0 pointer-events-none overflow-hidden"
         style={{ backgroundColor: '#1A38E8' }}
       >
-        <img
+        <motion.img
           src="/Mask group.svg"
           alt=""
+          initial={{ scale: 1.05 }}
+          animate={{
+            y: [0, -18, 0],
+            scale: [1.05, 1.08, 1.05],
+          }}
+          transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
           style={{
             position: 'absolute',
             top: '0',
@@ -65,10 +119,39 @@ export default function Hero() {
         style={{ backgroundColor: '#1535CC', mixBlendMode: 'color', opacity: 0.72 }}
       />
 
+      {/* ── ANIMATED DOT GRID OVERLAY (hero version — white dots) ── */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.18) 1.5px, transparent 1.5px)',
+          backgroundSize: '32px 32px',
+          animation: 'grid-drift 10s linear infinite',
+        }}
+      />
+
+      {/* ── RISING PARTICLES ── */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {PARTICLES.map((p, i) => (
+          <div
+            key={i}
+            className="absolute rounded-full"
+            style={{
+              left: p.left,
+              bottom: '-8px',
+              width: p.size,
+              height: p.size,
+              background: 'rgba(255,255,255,0.9)',
+              boxShadow: '0 0 8px rgba(255,255,255,0.7), 0 0 16px rgba(180,200,255,0.4)',
+              animation: `particle-rise ${p.dur}s ${p.delay}s linear infinite`,
+            }}
+          />
+        ))}
+      </div>
+
       {/* ── MAIN CONTENT ── */}
       <div
-        className="relative z-10 w-full"
-        style={{ paddingLeft: '7%', paddingRight: '7%', paddingTop: '80px', paddingBottom: '60px' }}
+        className="relative z-10 w-full px-5 sm:px-[6%] lg:px-[12%]"
+        style={{ paddingTop: '100px', paddingBottom: '80px' }}
       >
         <div style={{ maxWidth: '750px' }}>
 
@@ -151,8 +234,8 @@ export default function Hero() {
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 1.2, ease: [0.25, 0.46, 0.45, 0.94] as const }}
-        className="absolute right-8 lg:right-14 hidden lg:flex items-center gap-5 bg-white rounded-2xl p-4 shadow-2xl"
-        style={{ bottom: '8%', maxWidth: '420px' }}
+        className="absolute hidden lg:flex items-center gap-5 bg-white rounded-2xl p-4 shadow-2xl"
+        style={{ bottom: '8%', right: '6%', maxWidth: '420px' }}
       >
         <div className="flex-shrink-0 w-[130px] h-[100px] rounded-xl overflow-hidden relative" style={{ background: '#060818' }}>
           <img
@@ -166,8 +249,8 @@ export default function Hero() {
             </button>
             <motion.button
               className="w-8 h-8 rounded-full bg-white/25 flex items-center justify-center backdrop-blur-sm border border-white/40 text-white"
-              animate={{ scale: [1, 1.1, 1] }}
-              transition={{ duration: 2, repeat: Infinity }}
+              animate={{ scale: [1, 1.12, 1] }}
+              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
             >
               <svg width="10" height="12" viewBox="0 0 9 11" fill="currentColor"><path d="M1 1l7 4.5-7 4.5V1z" /></svg>
             </motion.button>

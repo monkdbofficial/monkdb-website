@@ -20,11 +20,11 @@ export default function FeatureBanner() {
     <section
       ref={ref}
       id="features-banner"
-      className="py-10 sm:py-14 bg-white dark:bg-[#0f1623]"
+      className="py-10 sm:py-14 bg-white dark:bg-[#0f1623] overflow-hidden"
     >
 
-      <div className="w-full px-5 sm:px-[6%]">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-5">
+      <div className="w-full px-5 sm:px-[6%] lg:px-[12%]">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-5">
 
           {/* ══════════════════════════════
               CARD 1 — Pixel-perfect from Figma node 246:710.
@@ -38,7 +38,7 @@ export default function FeatureBanner() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0, ease: 'easeOut' }}
             className="relative"
-            style={{ minHeight: 'clamp(280px, 40vw, 400px)' }}
+            style={{ minHeight: 'clamp(320px, 35vw, 420px)' }}
           >
             {/* Exact Figma card shape — transparent notch area shows page background through */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -163,7 +163,7 @@ export default function FeatureBanner() {
             className="relative rounded-3xl overflow-hidden flex flex-col"
             style={{
               background: 'linear-gradient(145deg, #1230CC 0%, #1540E0 35%, #1A50F0 65%, #2060FF 100%)',
-              minHeight: 'clamp(280px, 40vw, 400px)',
+              minHeight: 'clamp(320px, 35vw, 420px)',
             }}
           >
             {/* Wave SVG — right side decorative element */}
@@ -234,7 +234,7 @@ export default function FeatureBanner() {
             className="relative rounded-3xl overflow-hidden flex flex-col"
             style={{
               background: '#1230CC',
-              minHeight: 'clamp(280px, 40vw, 400px)',
+              minHeight: 'clamp(320px, 35vw, 420px)',
             }}
           >
             {/* Dot grid */}
