@@ -37,8 +37,9 @@ export default function About() {
     <section
       id="about"
       ref={ref}
-      className="bg-white dark:bg-[#0f1623] section-grid px-5 sm:px-[6%] lg:px-[12%] py-10 sm:py-14 lg:py-[72px]"
+      className="bg-white dark:bg-[#0f1623] section-grid py-10 sm:py-14 lg:py-[72px]"
     >
+      <div className="max-w-[1400px] mx-auto px-5 sm:px-10 lg:px-16">
       <div
         className="grid grid-cols-1 lg:grid-cols-[42%_1fr] gap-10 lg:gap-16 items-center"
       >
@@ -154,6 +155,7 @@ export default function About() {
           </motion.div>
         </div>
 
+      </div>
       </div>
     </section>
   )

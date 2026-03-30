@@ -178,7 +178,7 @@ export default function Hero() {
 
       {/* ── MAIN CONTENT ── */}
       <div
-        className="relative z-10 w-full px-5 sm:px-[6%] lg:px-[12%]"
+        className="relative z-10 w-full max-w-[1400px] mx-auto px-5 sm:px-10 lg:px-16"
         style={{ paddingTop: '100px', paddingBottom: '80px' }}
       >
         <div style={{ maxWidth: '750px' }}>
@@ -295,7 +295,7 @@ export default function Hero() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 1.2, ease: [0.25, 0.46, 0.45, 0.94] as const }}
         className="absolute hidden lg:flex items-center gap-5 bg-white rounded-2xl p-4 shadow-2xl"
-        style={{ bottom: '8%', right: '6%', maxWidth: '420px' }}
+        style={{ bottom: '8%', right: '40px', maxWidth: '420px' }}
       >
         <div className="flex-shrink-0 w-[130px] h-[100px] rounded-xl overflow-hidden relative" style={{ background: '#060818' }}>
           <img

@@ -10,8 +10,9 @@ export default function Mission() {
   return (
     <section
       ref={ref}
-      className="bg-white dark:bg-[#0f1623] overflow-hidden section-grid px-5 sm:px-[6%] lg:px-[12%] py-10 sm:py-14 lg:py-[72px]"
+      className="bg-white dark:bg-[#0f1623] overflow-hidden section-grid py-10 sm:py-14 lg:py-[72px]"
     >
+      <div className="max-w-[1400px] mx-auto px-5 sm:px-10 lg:px-16">
       <div className="grid grid-cols-1 lg:grid-cols-[42%_1fr] gap-8 lg:gap-10 items-center">
 
         {/* ── LEFT: Vector.svg + pulsing sonar rings ── */}
@@ -51,6 +52,7 @@ export default function Mission() {
             {' '}— born from decades of experience in enterprise systems, data management, and AI.
           </p>
         </motion.div>
+      </div>
       </div>
     </section>
   )

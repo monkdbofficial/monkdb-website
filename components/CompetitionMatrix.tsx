@@ -53,27 +53,29 @@ export default function CompetitionMatrix() {
     <section
       id="competition"
       ref={ref}
-      className="px-5 sm:px-[6%] lg:px-[12%] py-10 sm:py-14 lg:py-[72px]"
+      className="py-10 sm:py-14 lg:py-[72px]"
       style={{ backgroundColor: '#F5F0E8' }}
     >
-      <motion.h2
-        initial={{ opacity: 0, y: 20 }}
-        animate={isInView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.6 }}
-        className="font-bold text-center mb-8 sm:mb-10 lg:mb-12"
-        style={{ fontSize: 'clamp(24px, 3vw, 42px)' }}
-      >
-        <span className="gradient-text-animate">The Competition Matrix</span>
-      </motion.h2>
+      <div className="max-w-[1400px] mx-auto px-5 sm:px-10 lg:px-16">
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="font-bold text-center mb-8 sm:mb-10 lg:mb-12"
+          style={{ fontSize: 'clamp(24px, 3vw, 42px)' }}
+        >
+          <span className="gradient-text-animate">The Competition Matrix</span>
+        </motion.h2>
+      </div>
 
-      {/* Full-bleed scroll wrapper — extends edge-to-edge on every screen size */}
+      {/* Scroll wrapper */}
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.7, delay: 0.15 }}
-        className="-mx-5 sm:-mx-[6%] lg:-mx-[12%] overflow-x-auto pb-1"
+        className="overflow-x-auto pb-1"
       >
-        <div className="px-5 sm:px-[6%] lg:px-[12%]">
+        <div className="max-w-[1400px] mx-auto px-5 sm:px-10 lg:px-16">
           <div
             style={{
               background: '#fff',
@@ -154,15 +156,17 @@ export default function CompetitionMatrix() {
         </div>
       </motion.div>
 
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={isInView ? { opacity: 1 } : {}}
-        transition={{ duration: 0.6, delay: 0.7 }}
-        className="mt-6 text-center"
-        style={{ fontSize: '0.8rem', color: '#9ca3af' }}
-      >
-        *Multi-model: Vector (V), Timeseries (TS), Geospatial (GIS), Full Text Search (FTS), Document JSON (DOC), Streaming SQL (SQL), Blob (BLOB), Key-Value (KV), Graph (G)
-      </motion.p>
+      <div className="max-w-[1400px] mx-auto px-5 sm:px-10 lg:px-16">
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.6, delay: 0.7 }}
+          className="mt-6 text-center"
+          style={{ fontSize: '0.8rem', color: '#9ca3af' }}
+        >
+          *Multi-model: Vector (V), Timeseries (TS), Geospatial (GIS), Full Text Search (FTS), Document JSON (DOC), Streaming SQL (SQL), Blob (BLOB), Key-Value (KV), Graph (G)
+        </motion.p>
+      </div>
     </section>
   )
 }

@@ -29,7 +29,7 @@ export default function Footer() {
 
   return (
     <footer id="footer" ref={ref} className="bg-white dark:bg-[#0f1623] section-grid" style={{ borderTop: '1px solid #e5e7eb' }}>
-      <div className="px-5 sm:px-[6%] lg:px-[12%] pt-10 sm:pt-14 lg:pt-[56px] pb-8 sm:pb-10 lg:pb-[32px]">
+      <div className="max-w-[1400px] mx-auto px-5 sm:px-10 lg:px-16 pt-10 sm:pt-14 lg:pt-[56px] pb-8 sm:pb-10 lg:pb-[32px]">
 
         {/* Main grid — responsive columns */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr_1.6fr] gap-x-8 gap-y-10 lg:gap-x-10 lg:gap-y-0 mb-10 lg:mb-12">

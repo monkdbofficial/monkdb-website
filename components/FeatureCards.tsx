@@ -39,8 +39,9 @@ export default function FeatureCards() {
     <section
       id="features"
       ref={ref}
-      className="bg-white dark:bg-[#0f1623] section-grid px-5 sm:px-[6%] lg:px-[12%] py-10 sm:py-14 lg:py-[72px]"
+      className="bg-white dark:bg-[#0f1623] section-grid py-10 sm:py-14 lg:py-[72px]"
     >
+      <div className="max-w-[1400px] mx-auto px-5 sm:px-10 lg:px-16">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 sm:gap-8">
         {features.map((feature, i) => (
           <motion.div
@@ -82,6 +83,7 @@ export default function FeatureCards() {
             </p>
           </motion.div>
         ))}
+      </div>
       </div>
     </section>
   )
