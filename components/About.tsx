@@ -58,7 +58,7 @@ export default function About() {
 
           <h2
             className="leading-[1.12]"
-            style={{ fontSize: 'clamp(28px, 3.6vw, 52px)', marginBottom: '28px', fontWeight: 400 }}
+            style={{ fontSize: 'clamp(24px, 2.8vw, 44px)', marginBottom: '28px', fontWeight: 400 }}
           >
             <span className="text-gray-900 dark:text-white">What Makes </span>
             <span className="gradient-text-animate font-semibold">MonkDB</span>
@@ -85,7 +85,7 @@ export default function About() {
               <span
                 className="relative font-bold"
                 style={{
-                  fontSize: 'clamp(52px, 7vw, 96px)',
+                  fontSize: 'clamp(40px, 5vw, 76px)',
                   lineHeight: 1,
                   letterSpacing: '-3px',
                   color: 'transparent',

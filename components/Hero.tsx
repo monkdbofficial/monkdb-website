@@ -193,7 +193,7 @@ export default function Hero() {
           {/* H1 */}
           <h1
             className="font-bold text-white leading-[1.06] mb-7"
-            style={{ fontSize: 'clamp(36px, 6.5vw, 88px)' }}
+            style={{ fontSize: 'clamp(32px, 4.5vw, 68px)' }}
           >
             <span className="block overflow-hidden">
               {['The', 'AI-Native'].map((w, i) => (

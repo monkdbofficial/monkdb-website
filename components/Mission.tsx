@@ -43,7 +43,7 @@ export default function Mission() {
         >
           <p
             className="text-gray-900 dark:text-white leading-tight"
-            style={{ fontSize: 'clamp(22px, 3.2vw, 48px)', fontWeight: 400 }}
+            style={{ fontSize: 'clamp(20px, 2.5vw, 40px)', fontWeight: 400 }}
           >
             At Movibase,{' '}
             <span style={{ color: '#1A38E8' }}>

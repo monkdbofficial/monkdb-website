@@ -61,7 +61,7 @@ export default function ROI() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
             className="font-bold leading-tight"
-            style={{ fontSize: 'clamp(24px, 3vw, 42px)', marginBottom: '32px' }}
+            style={{ fontSize: 'clamp(22px, 2.2vw, 36px)', marginBottom: '32px' }}
           >
             <span className="text-egyptian-blue dark:text-white">Return on Investment</span>
             <br className="hidden lg:block" />

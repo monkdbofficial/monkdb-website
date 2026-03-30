@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { IBM_Plex_Sans, IBM_Plex_Mono } from 'next/font/google'
 import './globals.css'
 import { Providers } from './providers'
@@ -16,6 +16,11 @@ const ibmPlexMono = IBM_Plex_Mono({
   display: 'swap',
   variable: '--font-ibm-plex-mono',
 })
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+}
 
 export const metadata: Metadata = {
   title: 'MonkDB - The AI-Native Unified Database',

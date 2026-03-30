@@ -62,7 +62,7 @@ export default function CompetitionMatrix() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
           className="font-bold text-center mb-8 sm:mb-10 lg:mb-12"
-          style={{ fontSize: 'clamp(24px, 3vw, 42px)' }}
+          style={{ fontSize: 'clamp(22px, 2.2vw, 36px)' }}
         >
           <span className="gradient-text-animate">The Competition Matrix</span>
         </motion.h2>
