@@ -56,7 +56,7 @@ export default function CompetitionMatrix() {
       className="py-10 sm:py-14 lg:py-[72px]"
       style={{ backgroundColor: '#F5F0E8' }}
     >
-      <div className="max-w-[1400px] mx-auto px-5 sm:px-10 lg:px-16">
+      <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -75,7 +75,7 @@ export default function CompetitionMatrix() {
         transition={{ duration: 0.7, delay: 0.15 }}
         className="overflow-x-auto pb-1"
       >
-        <div className="max-w-[1400px] mx-auto px-5 sm:px-10 lg:px-16">
+        <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <div
             style={{
               background: '#fff',
@@ -156,7 +156,7 @@ export default function CompetitionMatrix() {
         </div>
       </motion.div>
 
-      <div className="max-w-[1400px] mx-auto px-5 sm:px-10 lg:px-16">
+      <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
         <motion.p
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}

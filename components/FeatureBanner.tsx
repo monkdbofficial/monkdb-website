@@ -23,7 +23,7 @@ export default function FeatureBanner() {
       className="py-10 sm:py-14 bg-white dark:bg-[#0f1623] overflow-hidden"
     >
 
-      <div className="max-w-[1400px] mx-auto px-5 sm:px-10 lg:px-16">
+      <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-5">
 
           {/* ══════════════════════════════

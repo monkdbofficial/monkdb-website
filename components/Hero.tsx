@@ -178,7 +178,7 @@ export default function Hero() {
 
       {/* ── MAIN CONTENT ── */}
       <div
-        className="relative z-10 w-full max-w-[1400px] mx-auto px-5 sm:px-10 lg:px-16"
+        className="relative z-10 w-full max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28"
         style={{ paddingTop: '100px', paddingBottom: '80px' }}
       >
         <div style={{ maxWidth: '750px' }}>

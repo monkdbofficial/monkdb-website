@@ -12,7 +12,7 @@ export default function Mission() {
       ref={ref}
       className="bg-white dark:bg-[#0f1623] overflow-hidden section-grid py-10 sm:py-14 lg:py-[72px]"
     >
-      <div className="max-w-[1400px] mx-auto px-5 sm:px-10 lg:px-16">
+      <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
       <div className="grid grid-cols-1 lg:grid-cols-[42%_1fr] gap-8 lg:gap-10 items-center">
 
         {/* ── LEFT: Vector.svg + pulsing sonar rings ── */}
