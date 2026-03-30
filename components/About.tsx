@@ -56,29 +56,44 @@ export default function About() {
           </span>
 
           <h2
-            className="text-gray-900 dark:text-white leading-[1.12]"
+            className="leading-[1.12]"
             style={{ fontSize: 'clamp(28px, 3.6vw, 52px)', marginBottom: '28px', fontWeight: 400 }}
           >
-            What Makes MonkDB<br />
-            The Best Choice For<br />
-            Your Enterprise
+            <span className="text-gray-900 dark:text-white">What Makes </span>
+            <span className="gradient-text-animate font-semibold">MonkDB</span>
+            <br />
+            <span className="text-gray-900 dark:text-white">The Best Choice For</span>
+            <br />
+            <span className="text-gray-900 dark:text-white">Your Enterprise</span>
           </h2>
 
           {/* 270k — animated counter */}
           <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', flexWrap: 'nowrap', gap: '20px' }}>
-            <span
-              className="font-bold"
-              style={{
-                fontSize: 'clamp(52px, 7vw, 96px)',
-                lineHeight: 1,
-                letterSpacing: '-3px',
-                color: 'transparent',
-                WebkitTextStroke: '3px #1A38E8',
-                flexShrink: 0,
-              }}
-            >
-              <Counter to={270} />
-            </span>
+            <div className="relative" style={{ flexShrink: 0 }}>
+              {/* Halo glow behind number */}
+              <motion.div
+                className="absolute rounded-full pointer-events-none"
+                style={{
+                  inset: '-12px',
+                  background: 'radial-gradient(circle, rgba(26,56,232,0.12) 0%, transparent 70%)',
+                  filter: 'blur(16px)',
+                }}
+                animate={{ scale: [1, 1.15, 1], opacity: [0.7, 1, 0.7] }}
+                transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+              />
+              <span
+                className="relative font-bold"
+                style={{
+                  fontSize: 'clamp(52px, 7vw, 96px)',
+                  lineHeight: 1,
+                  letterSpacing: '-3px',
+                  color: 'transparent',
+                  WebkitTextStroke: '3px #1A38E8',
+                }}
+              >
+                <Counter to={270} />
+              </span>
+            </div>
             <span
               className="text-gray-900 dark:text-white font-medium leading-snug"
               style={{ fontSize: 'clamp(14px, 1.2vw, 17px)', flexShrink: 0 }}

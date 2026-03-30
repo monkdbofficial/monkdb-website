@@ -110,6 +110,35 @@
   100% { transform: translateY(-110vh); opacity: 0; }
 }
 
+/* ── Shimmer sweep ── */
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* ── Glow pulse ── */
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 16px rgba(26,56,232,0.25); }
+  50%       { box-shadow: 0 0 32px rgba(26,56,232,0.5), 0 0 60px rgba(30,138,255,0.2); }
+}
+
+/* ── Gradient animated text ── */
+.gradient-text-animate {
+  background: linear-gradient(135deg, #0033A0, #1A38E8, #1E8AFF, #0033A0);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 5s linear infinite;
+}
+
+/* ── Float gentle ── */
+@keyframes float-gentle {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33%       { transform: translateY(-8px) rotate(0.5deg); }
+  66%       { transform: translateY(-4px) rotate(-0.5deg); }
+}
+
 /* ── Orb drift keyframes ── */
 @keyframes orb-a {
   0%, 100% { transform: translate(0, 0)   scale(1);    }

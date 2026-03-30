@@ -160,6 +160,7 @@ export default function FeatureBanner() {
             initial={{ opacity: 0, y: 50 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.15, ease: 'easeOut' }}
+            whileHover={{ boxShadow: '0 0 0 1.5px rgba(30,138,255,0.5), 0 16px 48px rgba(26,56,232,0.3)', transition: { duration: 0.25 } }}
             className="relative rounded-3xl overflow-hidden flex flex-col"
             style={{
               background: 'linear-gradient(145deg, #1230CC 0%, #1540E0 35%, #1A50F0 65%, #2060FF 100%)',
@@ -237,11 +238,12 @@ export default function FeatureBanner() {
               minHeight: 'clamp(320px, 35vw, 420px)',
             }}
           >
-            {/* Dot grid */}
+            {/* Dot grid — animated drift */}
             <div className="absolute inset-0 pointer-events-none"
               style={{
                 backgroundImage: 'radial-gradient(rgba(255,255,255,0.18) 1.5px, transparent 1.5px)',
                 backgroundSize: '18px 18px',
+                animation: 'grid-drift 8s linear infinite',
               }} />
 
             <div className="relative z-10 p-5 sm:p-7 flex flex-col h-full justify-between">

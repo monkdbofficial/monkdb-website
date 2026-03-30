@@ -162,7 +162,13 @@ export default function Footer() {
               </div>
             </form>
             <p className="text-gray-500 dark:text-gray-400" style={{ fontSize: '0.82rem', lineHeight: 1.65 }}>
-              <strong className="text-gray-900 dark:text-white">MonkDB</strong> is an AI-Native Unified Database designed to transform data management, empowering organizations to harness unified intelligence from diverse data types.
+              <strong style={{
+                fontWeight: 800,
+                background: 'linear-gradient(135deg, #0033A0 0%, #1A38E8 50%, #1E8AFF 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}>MonkDB</strong> is an AI-Native Unified Database designed to transform data management, empowering organizations to harness unified intelligence from diverse data types.
             </p>
           </motion.div>
 

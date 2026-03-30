@@ -1,5 +1,8 @@
 'use client'
 
+import { motion, useInView } from 'framer-motion'
+import { useRef } from 'react'
+
 const pillItems = [
   { label: 'monkdb', variant: 'filled' },
   { label: 'monkdb', variant: 'outlined' },
@@ -56,8 +59,17 @@ function Pill({ label, variant }: { label: string; variant: string }) {
 }
 
 export default function LogoMarquee() {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: '-40px' })
+
   return (
-    <section className="py-16 bg-white dark:bg-[#111827] overflow-hidden border-y border-gray-100 dark:border-white/5">
+    <motion.section
+      ref={ref}
+      initial={{ opacity: 0, y: 16 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+      className="py-16 bg-white dark:bg-[#111827] overflow-hidden border-y border-gray-100 dark:border-white/5"
+    >
       <div className="mb-4 text-center">
         <span className="text-sm font-mono text-gray-400 dark:text-powder-blue/60 tracking-widest uppercase">
           Powered by Movibase Platform
@@ -87,6 +99,6 @@ export default function LogoMarquee() {
           ))}
         </div>
       </div>
-    </section>
+    </motion.section>
   )
 }

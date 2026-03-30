@@ -61,9 +61,9 @@ export default function CompetitionMatrix() {
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.6 }}
         className="font-bold text-center mb-8 sm:mb-10 lg:mb-12"
-        style={{ fontSize: 'clamp(24px, 3vw, 42px)', color: '#0A2280' }}
+        style={{ fontSize: 'clamp(24px, 3vw, 42px)' }}
       >
-        The Competition Matrix
+        <span className="gradient-text-animate">The Competition Matrix</span>
       </motion.h2>
 
       {/* Full-bleed scroll wrapper — extends edge-to-edge on every screen size */}
@@ -87,7 +87,7 @@ export default function CompetitionMatrix() {
             <table style={{ width: '100%', borderCollapse: 'collapse' }}>
               <thead>
                 <tr style={{ background: '#0A2280' }}>
-                  {columns.map((col) => (
+                  {columns.map((col, colIdx) => (
                     <th
                       key={col}
                       style={{
@@ -97,9 +97,19 @@ export default function CompetitionMatrix() {
                         fontWeight: 600,
                         fontSize: '0.82rem',
                         whiteSpace: 'nowrap',
+                        background: colIdx === 1 ? 'rgba(30,138,255,0.3)' : undefined,
                       }}
                     >
-                      {col}
+                      {colIdx === 1 ? (
+                        <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                          {col}
+                          <span style={{
+                            fontSize: '0.6rem', fontWeight: 700, padding: '1px 6px',
+                            borderRadius: '999px', background: '#1E8AFF', color: '#fff',
+                            letterSpacing: '0.03em',
+                          }}>★ Best</span>
+                        </span>
+                      ) : col}
                     </th>
                   ))}
                 </tr>
@@ -125,10 +135,11 @@ export default function CompetitionMatrix() {
                           style={{
                             padding: '14px 18px',
                             fontSize: '0.78rem',
-                            color: color ?? '#374151',
-                            fontWeight: color ? 600 : 400,
+                            color: color ?? (colIdx === 0 ? '#1A38E8' : '#374151'),
+                            fontWeight: color ? 600 : (colIdx === 0 ? 600 : 400),
                             verticalAlign: 'top',
                             lineHeight: 1.5,
+                            background: colIdx === 0 ? 'rgba(26,56,232,0.04)' : undefined,
                           }}
                         >
                           {value}

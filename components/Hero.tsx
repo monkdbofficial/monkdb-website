@@ -17,6 +17,10 @@ const fadeUp = (delay = 0) => ({
   transition: { duration: 0.7, delay, ease: [0.25, 0.46, 0.45, 0.94] as const },
 })
 
+const CHIPS = [
+  'Vector DB', 'Time-Series', 'Geospatial', 'Full-Text Search', 'Streaming SQL', 'Blob Storage', 'Multi-Modal AI',
+]
+
 // Pre-defined particles — no Math.random to avoid hydration issues
 const PARTICLES = [
   { left: '5%',  delay: 0,   dur: 14, size: 3   },
@@ -39,6 +43,30 @@ export default function Hero() {
       className="relative w-full overflow-hidden flex items-center"
       style={{ minHeight: '100vh' }}
     >
+      {/* ── LIGHT BEAM ── */}
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          top: '-10%', left: '30%',
+          width: '2px', height: '140%',
+          background: 'linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.12) 40%, rgba(255,255,255,0.18) 55%, rgba(255,255,255,0.06) 80%, transparent 100%)',
+          transform: 'rotate(-20deg)',
+          filter: 'blur(6px)',
+          animation: 'orb-c 16s ease-in-out infinite',
+        }}
+      />
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          top: '-10%', left: '55%',
+          width: '1px', height: '120%',
+          background: 'linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.08) 35%, rgba(255,255,255,0.14) 55%, transparent 100%)',
+          transform: 'rotate(15deg)',
+          filter: 'blur(4px)',
+          animation: 'orb-a 20s ease-in-out infinite',
+        }}
+      />
+
       {/* ── BLUE BASE GRADIENT ── */}
       <div
         className="absolute inset-0"
@@ -225,6 +253,38 @@ export default function Hero() {
             >
               Explore Product
             </motion.a>
+          </motion.div>
+
+          {/* Capability chips */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.4, duration: 0.6 }}
+            className="flex flex-wrap gap-2 mt-8"
+          >
+            {CHIPS.map((chip, i) => (
+              <motion.span
+                key={chip}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.5 + i * 0.08, duration: 0.4 }}
+                whileHover={{ y: -2, scale: 1.04 }}
+                className="inline-flex items-center gap-1.5 text-white/75 hover:text-white transition-colors cursor-default"
+                style={{
+                  fontSize: '0.75rem',
+                  fontWeight: 500,
+                  padding: '5px 12px',
+                  borderRadius: '999px',
+                  border: '1px solid rgba(255,255,255,0.18)',
+                  background: 'rgba(255,255,255,0.07)',
+                  backdropFilter: 'blur(8px)',
+                  letterSpacing: '0.02em',
+                }}
+              >
+                <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#1E8AFF', display: 'inline-block', flexShrink: 0 }} />
+                {chip}
+              </motion.span>
+            ))}
           </motion.div>
         </div>
       </div>

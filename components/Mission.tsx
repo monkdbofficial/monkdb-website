@@ -12,25 +12,26 @@ export default function Mission() {
       ref={ref}
       className="bg-white dark:bg-[#0f1623] overflow-hidden section-grid px-5 sm:px-[6%] lg:px-[12%] py-10 sm:py-14 lg:py-[72px]"
     >
-      <div
-        className="grid grid-cols-1 lg:grid-cols-[42%_1fr] gap-8 lg:gap-10 items-center"
-      >
-        {/* ── LEFT: Vector.svg with animated float ── */}
+      <div className="grid grid-cols-1 lg:grid-cols-[42%_1fr] gap-8 lg:gap-10 items-center">
+
+        {/* ── LEFT: Vector.svg + pulsing sonar rings ── */}
         <motion.div
           initial={{ opacity: 0, scale: 0.88 }}
           animate={isInView ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] as const }}
           className="flex items-center justify-center"
         >
-          <motion.img
-            src="/Vector.svg"
-            alt=""
-            animate={isInView ? {
-              rotate: [0, 360],
-            } : {}}
-            transition={{ duration: 18, repeat: Infinity, ease: 'linear' }}
-            className="w-full max-w-[220px] sm:max-w-[300px] lg:max-w-[420px] h-auto"
-          />
+          <div className="relative flex items-center justify-center w-full max-w-[220px] sm:max-w-[300px] lg:max-w-[420px]">
+
+            {/* Vector.svg — slow spin */}
+            <motion.img
+              src="/Vector.svg"
+              alt=""
+              animate={isInView ? { rotate: [0, 360] } : {}}
+              transition={{ duration: 18, repeat: Infinity, ease: 'linear' }}
+              className="relative w-full h-auto"
+            />
+          </div>
         </motion.div>
 
         {/* ── RIGHT: quote text ── */}
