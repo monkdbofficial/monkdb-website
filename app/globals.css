@@ -64,6 +64,7 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
 
   body {
@@ -92,12 +93,14 @@
   background-image: radial-gradient(circle, rgba(10, 20, 120, 0.09) 1px, transparent 1px);
   background-size: 28px 28px;
   animation: grid-drift 14s linear infinite;
+  will-change: background-position;
 }
 
 .dark .section-grid {
   background-image: radial-gradient(circle, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
   background-size: 28px 28px;
   animation: grid-drift 14s linear infinite;
+  will-change: background-position;
 }
 
 @keyframes grid-drift {

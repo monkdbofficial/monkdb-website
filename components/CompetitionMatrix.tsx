@@ -1,5 +1,6 @@
 'use client'
 
+import React from 'react'
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 
@@ -53,7 +54,7 @@ export default function CompetitionMatrix() {
     <section
       id="competition"
       ref={ref}
-      className="py-10 sm:py-14 lg:py-[72px]"
+      className="py-10 sm:py-14 lg:py-16"
       style={{ backgroundColor: '#F5F0E8' }}
     >
       <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
@@ -68,13 +69,20 @@ export default function CompetitionMatrix() {
         </motion.h2>
       </div>
 
-      {/* Scroll wrapper */}
+      {/* Scroll wrapper — right-fade hint signals horizontal scroll on mobile */}
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.7, delay: 0.15 }}
-        className="overflow-x-auto pb-1"
+        className="relative overflow-x-auto pb-2 scrollbar-hide"
+        style={{ WebkitOverflowScrolling: 'touch' } as React.CSSProperties}
       >
+        {/* Right-edge fade — visible only on mobile when content overflows */}
+        <div
+          className="pointer-events-none absolute top-0 right-0 bottom-0 w-10 z-10 lg:hidden"
+          style={{ background: 'linear-gradient(to right, transparent, #F5F0E8)' }}
+          aria-hidden="true"
+        />
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <div
             style={{

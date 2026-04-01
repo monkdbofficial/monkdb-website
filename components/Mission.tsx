@@ -10,7 +10,7 @@ export default function Mission() {
   return (
     <section
       ref={ref}
-      className="bg-white dark:bg-[#0f1623] overflow-hidden section-grid py-10 sm:py-14 lg:py-[72px]"
+      className="bg-white dark:bg-[#0f1623] overflow-hidden section-grid py-10 sm:py-14 lg:py-16"
     >
       <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
       <div className="grid grid-cols-1 lg:grid-cols-[42%_1fr] gap-8 lg:gap-10 items-center">
@@ -22,7 +22,7 @@ export default function Mission() {
           transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] as const }}
           className="flex items-center justify-center"
         >
-          <div className="relative flex items-center justify-center w-full max-w-[220px] sm:max-w-[300px] lg:max-w-[420px]">
+          <div className="relative flex items-center justify-center w-full max-w-[220px] sm:max-w-[300px] lg:max-w-[420px] mx-auto">
 
             {/* Vector.svg — slow spin */}
             <motion.img

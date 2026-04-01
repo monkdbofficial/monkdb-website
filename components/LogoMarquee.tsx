@@ -44,14 +44,14 @@ const row2Items = [
 function Pill({ label, variant }: { label: string; variant: string }) {
   if (variant === 'filled') {
     return (
-      <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-egyptian-blue text-white font-semibold text-sm font-mono whitespace-nowrap flex-shrink-0">
+      <span className="inline-flex items-center gap-2 px-3 py-2 sm:px-5 sm:py-2.5 rounded-full bg-egyptian-blue text-white font-semibold text-sm font-mono whitespace-nowrap flex-shrink-0">
         <span className="w-2 h-2 rounded-full bg-blue-energy inline-block" />
         {label}
       </span>
     )
   }
   return (
-    <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border-2 border-egyptian-blue dark:border-powder-blue text-egyptian-blue dark:text-powder-blue font-semibold text-sm font-mono whitespace-nowrap flex-shrink-0 bg-transparent">
+    <span className="inline-flex items-center gap-2 px-3 py-2 sm:px-5 sm:py-2.5 rounded-full border-2 border-egyptian-blue dark:border-powder-blue text-egyptian-blue dark:text-powder-blue font-semibold text-sm font-mono whitespace-nowrap flex-shrink-0 bg-transparent">
       <span className="w-2 h-2 rounded-full border border-egyptian-blue dark:border-powder-blue inline-block" />
       {label}
     </span>
@@ -68,7 +68,7 @@ export default function LogoMarquee() {
       initial={{ opacity: 0, y: 16 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
-      className="py-16 bg-white dark:bg-[#111827] overflow-hidden border-y border-gray-100 dark:border-white/5"
+      className="py-10 sm:py-14 lg:py-16 bg-white dark:bg-[#111827] overflow-hidden border-y border-gray-100 dark:border-white/5"
     >
       <div className="mb-4 text-center">
         <span className="text-sm font-mono text-gray-400 dark:text-powder-blue/60 tracking-widest uppercase">

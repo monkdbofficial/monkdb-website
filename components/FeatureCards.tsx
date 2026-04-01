@@ -39,10 +39,10 @@ export default function FeatureCards() {
     <section
       id="features"
       ref={ref}
-      className="bg-white dark:bg-[#0f1623] section-grid py-10 sm:py-14 lg:py-[72px]"
+      className="bg-white dark:bg-[#0f1623] section-grid py-10 sm:py-14 lg:py-16"
     >
       <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 sm:gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-5 gap-6 sm:gap-8">
         {features.map((feature, i) => (
           <motion.div
             key={feature.title}
@@ -70,7 +70,7 @@ export default function FeatureCards() {
 
             <h3
               className="font-bold text-gray-900 dark:text-white leading-snug"
-              style={{ fontSize: 'clamp(15px, 1.3vw, 18px)' }}
+              style={{ fontSize: 'clamp(14px, 1.1vw, 16px)' }}
             >
               {feature.title}
             </h3>

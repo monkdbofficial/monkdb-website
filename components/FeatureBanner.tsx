@@ -20,7 +20,7 @@ export default function FeatureBanner() {
     <section
       ref={ref}
       id="features-banner"
-      className="py-10 sm:py-14 bg-white dark:bg-[#0f1623] overflow-hidden"
+      className="py-10 sm:py-14 lg:py-16 bg-white dark:bg-[#0f1623] overflow-hidden"
     >
 
       <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
@@ -113,8 +113,8 @@ export default function FeatureBanner() {
               <div />
 
               {/* Heading — centered vertically */}
-              <div style={{ maxWidth: '60%' }}>
-                <p className="text-white font-light leading-snug" style={{ fontSize: 'clamp(0.75rem, 2vw, 1.6rem)' }}>
+              <div style={{ maxWidth: '65%' }}>
+                <p className="text-white font-light leading-snug" style={{ fontSize: 'clamp(0.8rem, 1.2vw, 1rem)' }}>
                   At MonkDB, our journey is deeply personal — born from decades of experience in
                   enterprise systems, data management, and AI.
                 </p>
@@ -142,7 +142,7 @@ export default function FeatureBanner() {
               whileTap={{ scale: 0.95 }}
               className="absolute bottom-0 right-0 flex items-center justify-center"
               style={{
-                width: '15%',
+                width: 'clamp(48px, 15%, 72px)',
                 aspectRatio: '1 / 1',
                 borderRadius: '32px',
                 background: '#0D2DC0',
@@ -192,11 +192,11 @@ export default function FeatureBanner() {
               {/* Spacer — matches Card 1 layout rhythm */}
               <div />
 
-              <div style={{ maxWidth: '75%' }}>
-                <h3 className="text-white font-semibold leading-tight mb-3 sm:mb-4" style={{ fontSize: 'clamp(1.2rem, 2.5vw, 1.75rem)' }}>
+              <div style={{ maxWidth: '80%' }}>
+                <h3 className="text-white font-semibold leading-tight mb-3 sm:mb-4" style={{ fontSize: 'clamp(1rem, 1.8vw, 1.4rem)' }}>
                   Let&apos;s Build the Future of Data Infrastructure—Together
                 </h3>
-                <p className="text-white/65 leading-relaxed" style={{ fontSize: 'clamp(0.82rem, 1.2vw, 1rem)' }}>
+                <p className="text-white/65 leading-relaxed" style={{ fontSize: 'clamp(0.8rem, 1.2vw, 1rem)' }}>
                   At MonkDB, our journey is deeply personal — born from decades of experience in
                   enterprise systems, data management, and AI.
                 </p>
@@ -248,7 +248,7 @@ export default function FeatureBanner() {
 
             <div className="relative z-10 p-5 sm:p-7 flex flex-col h-full justify-between">
               <div>
-                <h3 className="text-white font-bold mb-4 sm:mb-6" style={{ fontSize: 'clamp(1.4rem, 2.5vw, 1.875rem)' }}>After MonkDB</h3>
+                <h3 className="text-white font-bold mb-4 sm:mb-6" style={{ fontSize: 'clamp(1.05rem, 1.8vw, 1.5rem)' }}>After MonkDB</h3>
                 <ul className="space-y-3 sm:space-y-4">
                   {afterItems.map((item, i) => (
                     <motion.li key={item}
@@ -257,8 +257,8 @@ export default function FeatureBanner() {
                       transition={{ delay: 0.45 + i * 0.09, duration: 0.45 }}
                       className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
-                        <span className="text-white/80 leading-none flex-shrink-0" style={{ fontSize: 'clamp(0.82rem, 1.2vw, 1rem)' }}>•</span>
-                        <span className="text-white font-medium" style={{ fontSize: 'clamp(0.82rem, 1.2vw, 1rem)' }}>{item}</span>
+                        <span className="text-white/80 leading-none flex-shrink-0" style={{ fontSize: 'clamp(0.8rem, 1.2vw, 1rem)' }}>•</span>
+                        <span className="text-white font-medium" style={{ fontSize: 'clamp(0.8rem, 1.2vw, 1rem)' }}>{item}</span>
                       </div>
                       <div className="flex gap-[5px] flex-shrink-0 ml-3">
                         {[0, 1, 2, 3].map((d) => (

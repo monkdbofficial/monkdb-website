@@ -62,7 +62,7 @@ export default function Navbar() {
   return (
     <>
       <header
-        className="fixed top-0 left-0 right-0 z-50 flex items-center h-[68px] transition-all duration-300"
+        className="fixed top-0 left-0 right-0 z-50 flex items-center h-[60px] transition-all duration-300"
         style={{
           backgroundColor: onHero ? 'transparent' : (theme === 'dark' ? '#0d1526' : '#ffffff'),
           boxShadow: onHero ? 'none' : '0 1px 12px rgba(0,0,0,0.08)',
@@ -72,7 +72,7 @@ export default function Navbar() {
         {/* Logo */}
         <a
           href="#"
-          className="flex-shrink-0 flex items-center h-full bg-white px-7 transition-all duration-300"
+          className="flex-shrink-0 flex items-center h-full bg-white px-4 sm:px-5 transition-all duration-300"
           style={{ borderBottomRightRadius: '1.5rem' }}
         >
           <Image
@@ -80,13 +80,13 @@ export default function Navbar() {
             alt="MonkDB"
             width={130}
             height={36}
-            className="h-9 w-auto object-contain"
+            className="h-7 sm:h-8 w-auto object-contain"
             priority
           />
         </a>
 
         {/* Nav links */}
-        <nav className="hidden md:flex flex-1 items-center justify-center gap-8">
+        <nav className="hidden md:flex flex-1 items-center justify-center gap-4 lg:gap-8">
           {navLinks.map((link, i) => {
             const active = isActive(link.sectionId)
             return (
@@ -96,7 +96,7 @@ export default function Navbar() {
                 initial={{ opacity: 0, y: -8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 0.1 + i * 0.07, ease: 'easeOut' }}
-                className="relative text-[17px] font-medium transition-all duration-200 whitespace-nowrap group px-3 py-1"
+                className="relative text-[13px] lg:text-[14px] font-medium transition-all duration-200 whitespace-nowrap group px-2 lg:px-3 py-1"
                 style={{
                   color: active
                     ? activeColor
@@ -131,7 +131,7 @@ export default function Navbar() {
 
         {/* Right icons */}
         <motion.div
-          className="flex items-center gap-4 px-6"
+          className="flex items-center gap-4 px-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.6 }}
@@ -180,7 +180,7 @@ export default function Navbar() {
           initial={{ opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.2 }}
-          className="fixed top-[68px] left-0 right-0 z-40 backdrop-blur-md border-t border-white/10"
+          className="fixed top-[60px] left-0 right-0 z-40 backdrop-blur-md border-t border-white/10"
           style={{ backgroundColor: onHero ? 'rgba(0,51,160,0.95)' : (theme === 'dark' ? 'rgba(13,21,38,0.97)' : 'rgba(255,255,255,0.97)') }}
         >
           <nav className="px-5 py-4 flex flex-col gap-1">

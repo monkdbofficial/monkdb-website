@@ -37,7 +37,7 @@ export default function About() {
     <section
       id="about"
       ref={ref}
-      className="bg-white dark:bg-[#0f1623] section-grid py-10 sm:py-14 lg:py-[72px]"
+      className="bg-white dark:bg-[#0f1623] section-grid py-10 sm:py-14 lg:py-16"
     >
       <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
       <div
@@ -51,7 +51,7 @@ export default function About() {
         >
           <span
             className="font-semibold text-egyptian-blue"
-            style={{ fontSize: '1.1rem', display: 'block', marginBottom: '8px' }}
+            style={{ fontSize: '0.95rem', display: 'block', marginBottom: '8px' }}
           >
             [About]
           </span>
@@ -69,15 +69,15 @@ export default function About() {
           </h2>
 
           {/* 270k — animated counter */}
-          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', flexWrap: 'nowrap', gap: '20px' }}>
-            <div className="relative" style={{ flexShrink: 0 }}>
+          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap', gap: '16px', rowGap: '8px' }}>
+            <div className="relative overflow-visible" style={{ flexShrink: 0 }}>
               {/* Halo glow behind number */}
               <motion.div
                 className="absolute rounded-full pointer-events-none"
                 style={{
-                  inset: '-12px',
+                  inset: '-8px',
                   background: 'radial-gradient(circle, rgba(26,56,232,0.12) 0%, transparent 70%)',
-                  filter: 'blur(16px)',
+                  filter: 'blur(14px)',
                 }}
                 animate={{ scale: [1, 1.15, 1], opacity: [0.7, 1, 0.7] }}
                 transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
@@ -87,9 +87,9 @@ export default function About() {
                 style={{
                   fontSize: 'clamp(40px, 5vw, 76px)',
                   lineHeight: 1,
-                  letterSpacing: '-3px',
+                  letterSpacing: '-1.5px',
                   color: 'transparent',
-                  WebkitTextStroke: '3px #1A38E8',
+                  WebkitTextStroke: 'clamp(2px, 0.25vw, 3px) #1A38E8',
                 }}
               >
                 <Counter to={270} />
@@ -97,7 +97,7 @@ export default function About() {
             </div>
             <span
               className="text-gray-900 dark:text-white font-medium leading-snug"
-              style={{ fontSize: 'clamp(14px, 1.2vw, 17px)', flexShrink: 0 }}
+              style={{ fontSize: 'clamp(13px, 1.2vw, 17px)', flexShrink: 0 }}
             >
               Ai Solution<br />for our clients
             </span>
@@ -111,7 +111,7 @@ export default function About() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.15, ease: [0.25, 0.46, 0.45, 0.94] as const }}
             className="text-gray-600 dark:text-gray-300 leading-relaxed"
-            style={{ fontSize: 'clamp(15px, 1.35vw, 19px)', margin: 0 }}
+            style={{ fontSize: 'clamp(14px, 1.2vw, 17px)', margin: 0 }}
           >
             At Movibase, our journey is deeply personal — born from decades of experience in enterprise systems, data
             management, and AI. We&apos;ve seen firsthand how fragmented data infrastructure holds back innovation.
@@ -122,7 +122,7 @@ export default function About() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.28, ease: [0.25, 0.46, 0.45, 0.94] as const }}
             className="text-gray-600 dark:text-gray-300 leading-relaxed"
-            style={{ fontSize: 'clamp(15px, 1.35vw, 19px)', margin: 0 }}
+            style={{ fontSize: 'clamp(14px, 1.2vw, 17px)', margin: 0 }}
           >
             At Movibase, our journey is deeply personal — born from decades of experience in enterprise systems, data
             management, and AI. We&apos;ve seen firsthand how fragmented data infrastructure holds back innovation.
@@ -144,7 +144,7 @@ export default function About() {
                 border: '1.5px solid #d1d5db',
                 borderRadius: '999px',
                 padding: '10px 22px',
-                fontSize: '0.88rem',
+                fontSize: '0.82rem',
                 textDecoration: 'none',
                 marginTop: '4px',
               }}

@@ -49,7 +49,7 @@ export default function ROI() {
     <section
       id="roi"
       ref={ref}
-      className="bg-white dark:bg-[#0f1623] section-grid py-10 sm:py-14 lg:py-[72px]"
+      className="bg-white dark:bg-[#0f1623] section-grid py-10 sm:py-14 lg:py-16 overflow-hidden"
     >
       <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_0.6fr] gap-8 lg:gap-12 items-center">
@@ -70,7 +70,7 @@ export default function ROI() {
           </motion.h2>
 
           {/* Stat pills */}
-          <div className="flex flex-wrap gap-4">
+          <div className="flex flex-wrap gap-3 sm:gap-4">
             {stats.map((s, i) => (
               <motion.div
                 key={s.label}
@@ -80,7 +80,7 @@ export default function ROI() {
                 whileHover={{ y: -3, transition: { duration: 0.2 } }}
                 style={{
                   display: 'flex', flexDirection: 'column', alignItems: 'center',
-                  padding: '14px 24px', borderRadius: '14px',
+                  padding: 'clamp(10px, 1.2vw, 14px) clamp(16px, 2vw, 24px)', borderRadius: '14px',
                   border: '1.5px solid rgba(26,56,232,0.15)',
                   background: 'linear-gradient(135deg, rgba(26,56,232,0.04) 0%, rgba(30,138,255,0.07) 100%)',
                   boxShadow: '0 2px 12px rgba(26,56,232,0.06)',
@@ -89,11 +89,11 @@ export default function ROI() {
               >
                 <span
                   className="font-bold"
-                  style={{ fontSize: 'clamp(20px, 2.5vw, 28px)', color: '#1A38E8', lineHeight: 1.1, letterSpacing: '-1px' }}
+                  style={{ fontSize: 'clamp(18px, 2vw, 24px)', color: '#1A38E8', lineHeight: 1.1, letterSpacing: '-0.5px' }}
                 >
                   {s.value}
                 </span>
-                <span className="text-gray-500 dark:text-gray-400" style={{ fontSize: '0.75rem', marginTop: '4px', whiteSpace: 'nowrap' }}>
+                <span className="text-gray-500 dark:text-gray-400" style={{ fontSize: 'clamp(0.7rem, 0.9vw, 0.75rem)', marginTop: '4px', whiteSpace: 'nowrap' }}>
                   {s.label}
                 </span>
               </motion.div>
@@ -102,17 +102,17 @@ export default function ROI() {
         </div>
 
         {/* Right: two cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-0">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-0">
 
           {/* Before card */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.15 }}
-            className="rounded-2xl sm:rounded-r-none"
-            style={{ background: '#EDE8D8', padding: 'clamp(20px, 3vw, 32px) clamp(16px, 2.5vw, 28px)' }}
+            className="rounded-2xl lg:rounded-r-none"
+            style={{ background: '#EDE8D8', padding: 'clamp(18px, 2.5vw, 32px) clamp(16px, 2vw, 28px)' }}
           >
-            <h3 className="font-bold text-egyptian-blue" style={{ fontSize: '1.1rem', marginBottom: '20px' }}>
+            <h3 className="font-bold text-egyptian-blue" style={{ fontSize: '1rem', marginBottom: '20px' }}>
               Key Differentiators
             </h3>
             <ul style={{ display: 'flex', flexDirection: 'column', gap: '14px', listStyle: 'none', padding: 0, margin: 0 }}>
@@ -136,8 +136,8 @@ export default function ROI() {
             initial={{ opacity: 0, y: 24 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="rounded-2xl sm:rounded-l-none"
-            style={{ background: '#0A2280', padding: 'clamp(20px, 3vw, 32px) clamp(16px, 2.5vw, 28px)', position: 'relative', zIndex: 1, overflow: 'hidden' }}
+            className="rounded-2xl lg:rounded-l-none"
+            style={{ background: '#0A2280', padding: 'clamp(18px, 2.5vw, 32px) clamp(16px, 2vw, 28px)', position: 'relative', zIndex: 1, overflow: 'hidden' }}
           >
             {/* Subtle radial glow */}
             <div style={{
@@ -146,7 +146,7 @@ export default function ROI() {
               background: 'radial-gradient(circle, rgba(30,138,255,0.25) 0%, transparent 65%)',
               filter: 'blur(30px)', pointerEvents: 'none',
             }} />
-            <h3 className="font-bold text-white" style={{ fontSize: '1.1rem', marginBottom: '20px' }}>
+            <h3 className="font-bold text-white" style={{ fontSize: '1rem', marginBottom: '20px' }}>
               After MonkDB
             </h3>
             <ul style={{ display: 'flex', flexDirection: 'column', gap: '14px', listStyle: 'none', padding: 0, margin: 0 }}>

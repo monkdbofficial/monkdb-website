@@ -41,7 +41,7 @@ export default function Footer() {
             transition={{ duration: 0.5, delay: 0 }}
             className="sm:col-span-2 lg:col-span-1"
           >
-            <div className="font-bold text-gray-900 dark:text-white" style={{ fontSize: '0.95rem', marginBottom: '16px' }}>
+            <div className="font-bold text-gray-900 dark:text-white" style={{ fontSize: '0.85rem', marginBottom: '16px' }}>
               Movibase Platform PVT. LTD
             </div>
             <address className="not-italic" style={{ fontSize: '0.82rem', color: '#6b7280', lineHeight: 1.7, marginBottom: '12px' }}>
@@ -84,11 +84,11 @@ export default function Footer() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            <div className="font-bold text-gray-900 dark:text-white" style={{ fontSize: '0.95rem', marginBottom: '16px' }}>Menu</div>
+            <div className="font-bold text-gray-900 dark:text-white" style={{ fontSize: '0.85rem', marginBottom: '16px' }}>Menu</div>
             <ul style={{ display: 'flex', flexDirection: 'column', gap: '12px', listStyle: 'none', padding: 0, margin: 0 }}>
               {menuLinks.map((link) => (
                 <li key={link}>
-                  <a href="#" className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" style={{ fontSize: '0.88rem' }}>
+                  <a href="#" className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" style={{ fontSize: '0.82rem' }}>
                     {link}
                   </a>
                 </li>
@@ -102,11 +102,11 @@ export default function Footer() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <div className="font-bold text-gray-900 dark:text-white" style={{ fontSize: '0.95rem', marginBottom: '16px' }}>Support</div>
+            <div className="font-bold text-gray-900 dark:text-white" style={{ fontSize: '0.85rem', marginBottom: '16px' }}>Support</div>
             <ul style={{ display: 'flex', flexDirection: 'column', gap: '12px', listStyle: 'none', padding: 0, margin: 0 }}>
               {supportLinks.map((link) => (
                 <li key={link}>
-                  <a href="#" className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" style={{ fontSize: '0.88rem' }}>
+                  <a href="#" className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" style={{ fontSize: '0.82rem' }}>
                     {link}
                   </a>
                 </li>
@@ -120,11 +120,11 @@ export default function Footer() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            <div className="font-bold text-gray-900 dark:text-white" style={{ fontSize: '0.95rem', marginBottom: '16px' }}>Stay Connected</div>
+            <div className="font-bold text-gray-900 dark:text-white" style={{ fontSize: '0.85rem', marginBottom: '16px' }}>Stay Connected</div>
             <ul style={{ display: 'flex', flexDirection: 'column', gap: '12px', listStyle: 'none', padding: 0, margin: 0 }}>
               {socialTextLinks.map((link) => (
                 <li key={link}>
-                  <a href="#" className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" style={{ fontSize: '0.88rem' }}>
+                  <a href="#" className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" style={{ fontSize: '0.82rem' }}>
                     {link}
                   </a>
                 </li>
@@ -139,7 +139,7 @@ export default function Footer() {
             transition={{ duration: 0.5, delay: 0.4 }}
             className="lg:col-span-1"
           >
-            <div className="font-bold text-gray-900 dark:text-white" style={{ fontSize: '0.95rem', marginBottom: '16px' }}>Stay Updated</div>
+            <div className="font-bold text-gray-900 dark:text-white" style={{ fontSize: '0.85rem', marginBottom: '16px' }}>Stay Updated</div>
             <form onSubmit={handleSubscribe} style={{ marginBottom: '16px' }}>
               <div style={{ display: 'flex', borderRadius: '8px', overflow: 'hidden', border: '1px solid #e5e7eb' }}>
                 <input

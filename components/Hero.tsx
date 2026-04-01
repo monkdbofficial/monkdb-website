@@ -178,22 +178,21 @@ export default function Hero() {
 
       {/* ── MAIN CONTENT ── */}
       <div
-        className="relative z-10 w-full max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28"
-        style={{ paddingTop: '100px', paddingBottom: '80px' }}
+        className="relative z-10 w-full max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28 pt-[80px] sm:pt-[90px] lg:pt-[100px] pb-[60px] sm:pb-[70px] lg:pb-[80px]"
       >
         <div style={{ maxWidth: '750px' }}>
 
           {/* Badge */}
           <motion.div {...fadeUp(0.1)} className="mb-5">
-            <span className="text-white/85 font-medium" style={{ fontSize: '1.05rem' }}>
+            <span className="text-white/85 font-medium" style={{ fontSize: '0.9rem' }}>
               AI-Native Unified Database
             </span>
           </motion.div>
 
           {/* H1 */}
           <h1
-            className="font-bold text-white leading-[1.06] mb-7"
-            style={{ fontSize: 'clamp(32px, 4.5vw, 68px)' }}
+            className="font-bold text-white leading-[1.06] mb-5 sm:mb-7"
+            style={{ fontSize: 'clamp(28px, 4.5vw, 68px)' }}
           >
             <span className="block overflow-hidden">
               {['The', 'AI-Native'].map((w, i) => (
@@ -228,7 +227,7 @@ export default function Hero() {
           {/* Subtitle */}
           <motion.p
             {...fadeUp(0.72)}
-            className="text-white/75 leading-relaxed mb-10"
+            className="text-white/75 leading-relaxed mb-8 sm:mb-10 w-full"
             style={{ fontSize: 'clamp(15px, 1.3vw, 18px)', maxWidth: '540px' }}
           >
             Vector. Time-Series. Geospatial. Document. Blob.{' '}
@@ -236,12 +235,12 @@ export default function Hero() {
           </motion.p>
 
           {/* CTA Buttons */}
-          <motion.div {...fadeUp(1.0)} className="flex flex-wrap gap-4">
+          <motion.div {...fadeUp(1.0)} className="flex flex-wrap gap-3 sm:gap-4">
             <motion.a
               href="#about"
               whileHover={{ scale: 1.03, y: -2 }}
               whileTap={{ scale: 0.97 }}
-              style={{ backgroundColor: '#EDE8D8', color: '#0A2280', borderRadius: '999px', padding: '14px 36px', fontWeight: 700, fontSize: '0.9rem', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 24px rgba(0,0,0,0.18)', textDecoration: 'none' }}
+              style={{ backgroundColor: '#EDE8D8', color: '#0A2280', borderRadius: '999px', padding: '11px 24px', fontWeight: 700, fontSize: 'clamp(0.82rem, 1.1vw, 0.9rem)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 24px rgba(0,0,0,0.18)', textDecoration: 'none', whiteSpace: 'nowrap' }}
             >
               Request Demo
             </motion.a>
@@ -249,7 +248,7 @@ export default function Hero() {
               href="#features"
               whileHover={{ scale: 1.03, y: -2 }}
               whileTap={{ scale: 0.97 }}
-              style={{ backgroundColor: '#FFFFFF', color: '#0A2280', borderRadius: '999px', padding: '14px 36px', fontWeight: 700, fontSize: '0.9rem', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 24px rgba(0,0,0,0.18)', textDecoration: 'none' }}
+              style={{ backgroundColor: '#FFFFFF', color: '#0A2280', borderRadius: '999px', padding: '11px 24px', fontWeight: 700, fontSize: 'clamp(0.82rem, 1.1vw, 0.9rem)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 24px rgba(0,0,0,0.18)', textDecoration: 'none', whiteSpace: 'nowrap' }}
             >
               Explore Product
             </motion.a>
@@ -260,7 +259,7 @@ export default function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.4, duration: 0.6 }}
-            className="flex flex-wrap gap-2 mt-8"
+            className="flex flex-wrap gap-2 mt-6 sm:mt-8"
           >
             {CHIPS.map((chip, i) => (
               <motion.span
