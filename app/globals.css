@@ -29,6 +29,7 @@
     to { transform: translateX(0); }
   }
 
+
   @keyframes fadeInUp {
     from { opacity: 0; transform: translateY(30px); }
     to { opacity: 1; transform: translateY(0); }
@@ -64,7 +65,6 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    overflow-x: hidden;
   }
 
   body {
@@ -107,6 +107,27 @@
   0%   { background-position: 0 0; }
   100% { background-position: 28px 28px; }
 }
+
+/* ── Holographic wave continuous scroll ── */
+@keyframes waveScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ── Parallax wave (About banner) ── */
+@keyframes wave-move-forever {
+  0%   { transform: translate3d(-90px, 0, 0); }
+  100% { transform: translate3d(85px,  0, 0); }
+}
+.wave-parallax > use {
+  animation: wave-move-forever 25s cubic-bezier(.55,.5,.45,.5) infinite;
+}
+.wave-parallax > use:nth-child(1) { animation-delay: -2s;  animation-duration: 7s;  }
+.wave-parallax > use:nth-child(2) { animation-delay: -3s;  animation-duration: 10s; }
+.wave-parallax > use:nth-child(3) { animation-delay: -4s;  animation-duration: 13s; }
+.wave-parallax > use:nth-child(4) { animation-delay: -5s;  animation-duration: 18s; }
+.wave-parallax > use:nth-child(5) { animation-delay: -6s;  animation-duration: 22s; }
+.wave-parallax > use:nth-child(6) { animation-delay: -7s;  animation-duration: 28s; }
 
 /* ── Hero-specific particle rise ── */
 @keyframes particle-rise {

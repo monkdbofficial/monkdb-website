@@ -55,7 +55,7 @@ export default function CompetitionMatrix() {
       id="competition"
       ref={ref}
       className="py-10 sm:py-14 lg:py-16"
-      style={{ backgroundColor: '#F5F0E8' }}
+      style={{ backgroundColor: '#ffffff' }}
     >
       <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
         <motion.h2
@@ -80,7 +80,7 @@ export default function CompetitionMatrix() {
         {/* Right-edge fade — visible only on mobile when content overflows */}
         <div
           className="pointer-events-none absolute top-0 right-0 bottom-0 w-10 z-10 lg:hidden"
-          style={{ background: 'linear-gradient(to right, transparent, #F5F0E8)' }}
+          style={{ background: 'linear-gradient(to right, transparent, #ffffff)' }}
           aria-hidden="true"
         />
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">

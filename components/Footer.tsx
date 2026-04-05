@@ -5,7 +5,13 @@ import { Send } from 'lucide-react'
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 
-const menuLinks = ['Home', 'About Us', 'Product', 'Architecture', 'Careers']
+const menuLinks = [
+  { label: 'Home', href: '/' },
+  { label: 'About Us', href: '/about' },
+  { label: 'Product', href: '/#features' },
+  { label: 'Architecture', href: '/#competition' },
+  { label: 'Careers', href: '#' },
+]
 const supportLinks = ['Company', 'Press Media', 'Our Blog', 'Contact Us', 'Case Study']
 const socialTextLinks = ['Facebook', 'Instagram', 'Twitter', 'LinkedIn', 'Youtube']
 
@@ -87,9 +93,9 @@ export default function Footer() {
             <div className="font-bold text-gray-900 dark:text-white" style={{ fontSize: '0.85rem', marginBottom: '16px' }}>Menu</div>
             <ul style={{ display: 'flex', flexDirection: 'column', gap: '12px', listStyle: 'none', padding: 0, margin: 0 }}>
               {menuLinks.map((link) => (
-                <li key={link}>
-                  <a href="#" className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" style={{ fontSize: '0.82rem' }}>
-                    {link}
+                <li key={link.label}>
+                  <a href={link.href} className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" style={{ fontSize: '0.82rem' }}>
+                    {link.label}
                   </a>
                 </li>
               ))}
