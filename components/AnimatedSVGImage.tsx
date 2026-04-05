@@ -90,6 +90,14 @@ export default function AnimatedSVGImage({
     const ro = new ResizeObserver(resize);
     ro.observe(wrap);
 
+    /* pause when scrolled off-screen */
+    let visible = false;
+    const io = new IntersectionObserver(
+      ([entry]) => { visible = entry.isIntersecting; },
+      { threshold: 0 }
+    );
+    io.observe(wrap);
+
     /* state */
     const bolts: Bolt[] = [];
     const particles: Particle[] = [];
@@ -141,7 +149,8 @@ export default function AnimatedSVGImage({
     let frameCount = 0;
 
     function loop() {
-      if (!canvas || !ctx) return;
+      rafRef.current = requestAnimationFrame(loop);
+      if (!canvas || !ctx || !visible) return;
       const { width: W, height: H } = canvas;
 
       /* ── image motion (synced to same clock) ───────────────────────── */
@@ -203,7 +212,6 @@ export default function AnimatedSVGImage({
       ctx.arc(cx, cy, Math.min(W, H) * 0.48, 0, Math.PI * 2);
       ctx.fill();
 
-      rafRef.current = requestAnimationFrame(loop);
     }
 
     rafRef.current = requestAnimationFrame(loop);
@@ -211,6 +219,7 @@ export default function AnimatedSVGImage({
     return () => {
       cancelAnimationFrame(rafRef.current);
       ro.disconnect();
+      io.disconnect();
     };
   }, []);
 

@@ -358,14 +358,12 @@ export default function AboutPage() {
               className="flex items-center justify-center order-2 lg:order-1"
             >
               <div className="relative flex items-center justify-center w-full max-w-[180px] sm:max-w-[260px] lg:max-w-[400px] mx-auto">
-                <motion.img
+                <img
                   src="/Vector.svg"
                   alt=""
                   aria-hidden="true"
-                  animate={storyInView ? { rotate: [0, 360] } : {}}
-                  transition={{ duration: 18, repeat: Infinity, ease: 'linear' }}
                   className="w-full h-auto"
-                  style={{ willChange: 'transform' }}
+                  style={{ willChange: 'transform', animation: storyInView ? 'spin-slow 18s linear infinite' : 'none' }}
                 />
               </div>
             </motion.div>
@@ -881,12 +879,10 @@ export default function AboutPage() {
                 border: '1px solid rgba(26,56,232,0.2)',
               }}
             >
-              {/* Animated glow orb */}
-              <motion.div
+              {/* Animated glow orb — CSS animation for compositor thread */}
+              <div
                 className="absolute pointer-events-none"
-                style={{ bottom: '-20%', right: '-10%', width: '65%', height: '65%', borderRadius: '50%', background: 'radial-gradient(circle, rgba(26,56,232,0.3) 0%, transparent 65%)', filter: 'blur(44px)' }}
-                animate={{ scale: [1, 1.18, 1], opacity: [0.5, 0.9, 0.5] }}
-                transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+                style={{ bottom: '-20%', right: '-10%', width: '65%', height: '65%', borderRadius: '50%', background: 'radial-gradient(circle, rgba(26,56,232,0.3) 0%, transparent 65%)', filter: 'blur(44px)', animation: 'achiev-orb-pulse 6s ease-in-out infinite' }}
               />
               {/* Dot-grid texture */}
               <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true" style={{ opacity: 0.18 }}>
@@ -937,11 +933,9 @@ export default function AboutPage() {
                 style={{ background: 'radial-gradient(ellipse at 50% 0%, rgba(26,56,232,0.06) 0%, transparent 65%)' }} />
               {/* Pulsing glow behind number */}
               <div className="relative overflow-visible mb-4">
-                <motion.div
+                <div
                   className="absolute rounded-full pointer-events-none"
-                  style={{ inset: '-12px', background: 'radial-gradient(circle, rgba(26,56,232,0.10) 0%, transparent 70%)', filter: 'blur(18px)' }}
-                  animate={{ scale: [1, 1.14, 1], opacity: [0.4, 0.9, 0.4] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+                  style={{ inset: '-12px', background: 'radial-gradient(circle, rgba(26,56,232,0.10) 0%, transparent 70%)', filter: 'blur(18px)', animation: 'achiev-stat-pulse 4s ease-in-out infinite' }}
                 />
                 <span
                   className="relative font-bold leading-none"
@@ -981,11 +975,9 @@ export default function AboutPage() {
                 style={{ background: 'radial-gradient(ellipse at 50% 0%, rgba(26,56,232,0.06) 0%, transparent 65%)' }} />
               {/* Pulsing glow behind number */}
               <div className="relative overflow-visible mb-4">
-                <motion.div
+                <div
                   className="absolute rounded-full pointer-events-none"
-                  style={{ inset: '-12px', background: 'radial-gradient(circle, rgba(26,56,232,0.10) 0%, transparent 70%)', filter: 'blur(18px)' }}
-                  animate={{ scale: [1, 1.14, 1], opacity: [0.4, 0.9, 0.4] }}
-                  transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut', delay: 0.6 }}
+                  style={{ inset: '-12px', background: 'radial-gradient(circle, rgba(26,56,232,0.10) 0%, transparent 70%)', filter: 'blur(18px)', animation: 'achiev-stat-pulse 4.5s ease-in-out 0.6s infinite' }}
                 />
                 <span
                   className="relative font-bold leading-none"
