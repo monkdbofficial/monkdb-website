@@ -69,6 +69,7 @@ export default function PageBanner({ title }: { title: string }) {
     if (!canvas || !wrap) return
     const ctx = canvas.getContext('2d')
     if (!ctx) return
+    const draw = ctx
 
     let W = 0, H = 0
 
@@ -98,12 +99,12 @@ export default function PageBanner({ title }: { title: string }) {
 
     /* Draw a filled polygon */
     function poly(pts: [number, number][], color: string) {
-      ctx.fillStyle = color
-      ctx.beginPath()
-      ctx.moveTo(pts[0][0], pts[0][1])
-      for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0], pts[i][1])
-      ctx.closePath()
-      ctx.fill()
+      draw.fillStyle = color
+      draw.beginPath()
+      draw.moveTo(pts[0][0], pts[0][1])
+      for (let i = 1; i < pts.length; i++) draw.lineTo(pts[i][0], pts[i][1])
+      draw.closePath()
+      draw.fill()
     }
 
     function loop(ts: number) {
@@ -114,8 +115,8 @@ export default function PageBanner({ title }: { title: string }) {
       const t = (ts - startTime) / 1000   // seconds
 
       /* Background */
-      ctx.fillStyle = BG_C
-      ctx.fillRect(0, 0, W, H)
+      draw.fillStyle = BG_C
+      draw.fillRect(0, 0, W, H)
 
       /* Canvas origin = banner center (matches CSS top:50% left:50%) */
       const ox = W / 2
