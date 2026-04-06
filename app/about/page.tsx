@@ -174,10 +174,10 @@ export default function AboutPage() {
       ══════════════════════════════════════════ */}
       <section
         ref={heroRef}
-        className="section-grid bg-white dark:bg-[#0f1623] pt-[100px] sm:pt-[110px] lg:pt-[130px] pb-14 sm:pb-20 lg:pb-24"
+        className="section-grid bg-white dark:bg-[#0f1623] pt-10 sm:pt-14 lg:pt-20 pb-10 sm:pb-16 lg:pb-20"
       >
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
-          <div className="grid grid-cols-1 lg:grid-cols-[48%_1fr] gap-10 lg:gap-20 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-[48%_1fr] gap-6 sm:gap-10 lg:gap-20 items-center">
 
             {/* Left */}
             <motion.div
@@ -187,19 +187,15 @@ export default function AboutPage() {
             >
               <span
                 className="font-semibold text-egyptian-blue dark:text-blue-400"
-                style={{ fontSize: '0.8rem', display: 'block', marginBottom: '14px', letterSpacing: '0.08em', textTransform: 'uppercase' }}
+                style={{ fontSize: '0.75rem', display: 'block', marginBottom: '10px', letterSpacing: '0.08em', textTransform: 'uppercase' }}
               >
                 [About Us]
               </span>
               <h1
                 className="text-gray-900 dark:text-white leading-[1.08]"
-                style={{ fontSize: 'clamp(32px, 4vw, 64px)', fontWeight: 700, marginBottom: 0 }}
+                style={{ fontSize: 'clamp(22px, 4vw, 64px)', fontWeight: 700, marginBottom: 0 }}
               >
-                What Makes MonkDB
-                <br />
-                The Best Choice For
-                <br />
-                Your Enterprise
+                What Makes MonkDB The Best Choice For Your Enterprise
               </h1>
             </motion.div>
 
@@ -208,11 +204,11 @@ export default function AboutPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={heroInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.65, delay: 0.18, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="flex flex-col gap-7"
+              className="flex flex-col gap-4 sm:gap-6"
             >
               <p
                 className="text-gray-600 dark:text-gray-300 leading-relaxed"
-                style={{ fontSize: 'clamp(15px, 1.3vw, 18px)', margin: 0 }}
+                style={{ fontSize: 'clamp(14px, 1.3vw, 18px)', margin: 0 }}
               >
                 At Movibase, our journey is deeply personal — born from decades of experience
                 in enterprise systems, data management, and AI. We&apos;ve seen firsthand how
@@ -222,20 +218,19 @@ export default function AboutPage() {
                 href="#story"
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.97 }}
-                className="inline-flex items-center justify-between text-white font-semibold self-start"
+                className="inline-flex items-center text-white font-semibold self-start"
                 style={{
                   background: '#1A38E8',
-                  borderRadius: '14px',
-                  padding: '16px 32px',
-                  fontSize: 'clamp(0.88rem, 1vw, 1rem)',
+                  borderRadius: '12px',
+                  padding: 'clamp(12px, 1.2vw, 16px) clamp(20px, 2vw, 32px)',
+                  fontSize: 'clamp(0.82rem, 1vw, 1rem)',
                   textDecoration: 'none',
-                  minWidth: '200px',
-                  gap: '32px',
+                  gap: 'clamp(12px, 2vw, 28px)',
                   boxShadow: '0 8px 24px rgba(26,56,232,0.25)',
                 }}
               >
                 Discover
-                <ArrowUpRight size={18} />
+                <ArrowUpRight size={16} />
               </motion.a>
             </motion.div>
           </div>
@@ -245,7 +240,7 @@ export default function AboutPage() {
       {/* ══════════════════════════════════════════
           SECTION 2 — BANNER (sky blue card + animated wave)
       ══════════════════════════════════════════ */}
-      <section className="py-8 sm:py-12 lg:py-14 bg-white dark:bg-[#0f1623]">
+      <section className="py-6 sm:py-10 lg:py-14 bg-white dark:bg-[#0f1623]">
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <div className="relative">
 
@@ -256,7 +251,7 @@ export default function AboutPage() {
                 viewport={{ once: true, margin: '-60px' }}
                 transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
                 className="relative overflow-hidden"
-                style={{ minHeight: 'clamp(360px, 46vw, 580px)', borderRadius: 'clamp(16px, 1.6vw, 28px)', background: 'linear-gradient(180deg, #1A8FFF 0%, #2196FF 40%, #3AACFF 100%)' }}
+                style={{ minHeight: 'clamp(240px, 42vw, 580px)', borderRadius: 'clamp(16px, 1.6vw, 28px)', background: 'linear-gradient(180deg, #1A8FFF 0%, #2196FF 40%, #3AACFF 100%)' }}
               >
                 {/* Background wave image */}
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -279,28 +274,26 @@ export default function AboutPage() {
                 {/* Content layer — top texts + Disco at bottom */}
                 <div className="absolute inset-0 flex flex-col justify-between" style={{ zIndex: 2 }}>
                   {/* Top two-column text */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4" style={{ padding: 'clamp(24px, 3.5vw, 52px)' }}>
+                  <div className="grid grid-cols-2 gap-3 sm:gap-4" style={{ padding: 'clamp(16px, 3.5vw, 52px)' }}>
                     <p
                       className="leading-snug"
-                      style={{ fontSize: 'clamp(14px, 1.5vw, 22px)', fontWeight: 400, color: 'rgba(255,255,255,0.95)' }}
+                      style={{ fontSize: 'clamp(12px, 1.4vw, 20px)', fontWeight: 400, color: 'rgba(255,255,255,0.95)' }}
                     >
-                      Let&apos;s Build the Future of<br />
-                      Data Infrastructure—Together
+                      Let&apos;s Build the Future of Data Infrastructure—Together
                     </p>
                     <p
                       className="leading-snug"
-                      style={{ fontSize: 'clamp(14px, 1.5vw, 22px)', fontWeight: 400, color: 'rgba(255,255,255,0.95)' }}
+                      style={{ fontSize: 'clamp(12px, 1.4vw, 20px)', fontWeight: 400, color: 'rgba(255,255,255,0.95)' }}
                     >
-                      Too Many Options<br />
-                      Too Little Trust!
+                      Too Many Options Too Little Trust!
                     </p>
                   </div>
 
                   {/* Disco — inside card, anchored to bottom */}
-                  <div style={{ paddingLeft: 'clamp(24px, 3.5vw, 52px)', lineHeight: 1 }}>
+                  <div style={{ paddingLeft: 'clamp(16px, 3.5vw, 52px)', lineHeight: 1 }}>
                     <span
                       className="font-bold select-none block"
-                      style={{ fontSize: 'clamp(90px, 18vw, 240px)', lineHeight: 0.88, letterSpacing: '-2px', color: '#ffffff' }}
+                      style={{ fontSize: 'clamp(36px, 11vw, 220px)', lineHeight: 0.88, letterSpacing: '-2px', color: '#ffffff' }}
                     >
                       Disco
                     </span>
@@ -345,10 +338,10 @@ export default function AboutPage() {
       <section
         id="story"
         ref={storyRef}
-        className="section-grid bg-white dark:bg-[#0f1623] py-14 sm:py-20 lg:py-24"
+        className="section-grid bg-white dark:bg-[#0f1623] py-10 sm:py-14 lg:py-20"
       >
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
-          <div className="grid grid-cols-1 lg:grid-cols-[45%_1fr] gap-12 lg:gap-20 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-[45%_1fr] gap-8 sm:gap-12 lg:gap-20 items-center">
 
             {/* Left: spinning ring */}
             <motion.div
@@ -378,13 +371,13 @@ export default function AboutPage() {
               <div className="flex flex-col gap-3">
                 <span
                   className="font-semibold text-egyptian-blue dark:text-blue-400"
-                  style={{ fontSize: '0.8rem', letterSpacing: '0.08em', textTransform: 'uppercase' }}
+                  style={{ fontSize: '0.75rem', letterSpacing: '0.08em', textTransform: 'uppercase' }}
                 >
                   [Our Story]
                 </span>
                 <p
                   className="text-gray-900 dark:text-white leading-tight"
-                  style={{ fontSize: 'clamp(22px, 2.8vw, 48px)', fontWeight: 700, margin: 0 }}
+                  style={{ fontSize: 'clamp(18px, 2.8vw, 48px)', fontWeight: 700, margin: 0 }}
                 >
                   At Movibase,{' '}
                   <span className="text-[#1A38E8] dark:text-blue-400">
@@ -417,7 +410,7 @@ export default function AboutPage() {
       {/* ══════════════════════════════════════════
           SECTION 6 — SERVICES
       ══════════════════════════════════════════ */}
-      <section className="section-grid py-14 sm:py-20 lg:py-24 bg-white dark:bg-[#0f1623]">
+      <section className="section-grid py-10 sm:py-14 lg:py-20 bg-white dark:bg-[#0f1623]">
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
 
           {/* Header row */}
@@ -426,22 +419,20 @@ export default function AboutPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10 lg:mb-14"
+            className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 sm:gap-6 mb-6 sm:mb-10 lg:mb-14"
           >
             <div>
               <span
                 className="font-semibold text-egyptian-blue dark:text-blue-400"
-                style={{ fontSize: '0.8rem', display: 'block', marginBottom: '12px', letterSpacing: '0.08em', textTransform: 'uppercase' }}
+                style={{ fontSize: '0.75rem', display: 'block', marginBottom: '10px', letterSpacing: '0.08em', textTransform: 'uppercase' }}
               >
                 [Services]
               </span>
               <h2
                 className="text-gray-900 dark:text-white leading-tight"
-                style={{ fontSize: 'clamp(24px, 2.8vw, 44px)', fontWeight: 700, maxWidth: '480px' }}
+                style={{ fontSize: 'clamp(20px, 2.8vw, 44px)', fontWeight: 700 }}
               >
-                Special database features
-                <br />
-                for your services
+                Special database features for your services
               </h2>
             </div>
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 lg:pb-2">
@@ -489,7 +480,7 @@ export default function AboutPage() {
               viewport={{ once: true, margin: '-60px' }}
               transition={{ duration: 0.6, delay: 0.05, ease: [0.25, 0.46, 0.45, 0.94] }}
               className="relative sm:col-span-1 lg:row-span-2"
-              style={{ minHeight: 'clamp(300px, 38vw, 480px)' }}
+              style={{ minHeight: 'clamp(200px, 30vw, 460px)' }}
             >
               <div
                 className="absolute inset-0 flex flex-col overflow-hidden"
@@ -533,7 +524,7 @@ export default function AboutPage() {
               viewport={{ once: true, margin: '-60px' }}
               transition={{ duration: 0.6, delay: 0.14, ease: [0.25, 0.46, 0.45, 0.94] }}
               className="relative sm:col-span-1 lg:row-span-2"
-              style={{ minHeight: 'clamp(300px, 38vw, 480px)' }}
+              style={{ minHeight: 'clamp(200px, 30vw, 460px)' }}
             >
               <div
                 className="absolute inset-0 overflow-hidden"
@@ -584,7 +575,7 @@ export default function AboutPage() {
               className="relative rounded-[24px] flex flex-col justify-center overflow-hidden"
               style={{
                 background: 'linear-gradient(135deg, #1A72D8 0%, #3A9AF0 100%)',
-                minHeight: 'clamp(120px, 13vw, 170px)',
+                minHeight: 'clamp(100px, 12vw, 170px)',
                 padding: 'clamp(20px, 2.5vw, 32px)',
               }}
             >
@@ -602,7 +593,7 @@ export default function AboutPage() {
               className="relative rounded-[24px] overflow-hidden flex flex-col justify-between"
               style={{
                 background: 'linear-gradient(160deg, #1A38E8 0%, #1E60F0 100%)',
-                minHeight: 'clamp(220px, 28vw, 360px)',
+                minHeight: 'clamp(160px, 22vw, 340px)',
                 padding: 'clamp(20px, 2.5vw, 32px)',
               }}
             >
@@ -634,7 +625,7 @@ export default function AboutPage() {
       {/* ══════════════════════════════════════════
           SECTION 6B — KEY DIFFERENTIATORS COMPARISON
       ══════════════════════════════════════════ */}
-      <section className="py-12 sm:py-16 lg:py-20 bg-white dark:bg-[#0f1623]">
+      <section className="py-8 sm:py-12 lg:py-16 bg-white dark:bg-[#0f1623]">
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
 
           {/* Section heading */}
@@ -647,13 +638,13 @@ export default function AboutPage() {
           >
             <h2
               className="dark:text-white font-bold"
-              style={{ fontSize: 'clamp(24px, 2.8vw, 44px)', marginBottom: '12px', color: '#0A2280' }}
+              style={{ fontSize: 'clamp(20px, 2.8vw, 44px)', marginBottom: '10px', color: '#0A2280' }}
             >
               Why MonkDB
             </h2>
             <p
               className="text-gray-500 dark:text-gray-400"
-              style={{ fontSize: 'clamp(14px, 1.2vw, 18px)', margin: 0 }}
+              style={{ fontSize: 'clamp(13px, 1.2vw, 18px)', margin: 0 }}
             >
               A unified alternative to fragmented database ecosystems.
             </p>
@@ -742,11 +733,11 @@ export default function AboutPage() {
       {/* ══════════════════════════════════════════
           SECTION 7 — FEATURES
       ══════════════════════════════════════════ */}
-      <section className="section-grid py-14 sm:py-20 lg:py-24 bg-white dark:bg-[#0f1623]">
+      <section className="section-grid py-10 sm:py-14 lg:py-20 bg-white dark:bg-[#0f1623]">
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
 
           {/* Header */}
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10 lg:mb-16">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 mb-6 sm:mb-10 lg:mb-16">
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -755,13 +746,13 @@ export default function AboutPage() {
             >
               <span
                 className="font-semibold text-egyptian-blue dark:text-blue-400"
-                style={{ fontSize: '0.8rem', display: 'block', marginBottom: '12px', letterSpacing: '0.08em', textTransform: 'uppercase' }}
+                style={{ fontSize: '0.75rem', display: 'block', marginBottom: '10px', letterSpacing: '0.08em', textTransform: 'uppercase' }}
               >
                 [Features]
               </span>
               <h2
                 className="text-gray-900 dark:text-white leading-[1.1]"
-                style={{ fontSize: 'clamp(24px, 2.8vw, 44px)', fontWeight: 700, maxWidth: '520px' }}
+                style={{ fontSize: 'clamp(20px, 2.8vw, 44px)', fontWeight: 700 }}
               >
                 The unique selling points &amp; advantages of our service
               </h2>
@@ -769,7 +760,7 @@ export default function AboutPage() {
           </div>
 
           {/* Feature columns */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-12">
             {[
               {
                 title: 'AI-Native by Design',
@@ -806,14 +797,14 @@ export default function AboutPage() {
 
                 <h3
                   className="text-gray-900 dark:text-white font-bold leading-snug"
-                  style={{ fontSize: 'clamp(15px, 1.2vw, 18px)', margin: 0 }}
+                  style={{ fontSize: 'clamp(14px, 1.1vw, 16px)', margin: 0 }}
                 >
                   {feature.title}
                 </h3>
 
                 <p
                   className="text-gray-500 dark:text-gray-400 leading-relaxed"
-                  style={{ fontSize: 'clamp(13px, 1.0vw, 15px)', margin: 0 }}
+                  style={{ fontSize: 'clamp(13px, 1.1vw, 15px)', margin: 0 }}
                 >
                   {feature.description}
                 </p>
@@ -826,11 +817,11 @@ export default function AboutPage() {
       {/* ══════════════════════════════════════════
           SECTION 8 — ACHIEVEMENTS
       ══════════════════════════════════════════ */}
-      <section className="section-grid py-14 sm:py-20 lg:py-24 bg-white dark:bg-[#0f1623]">
+      <section className="section-grid py-10 sm:py-14 lg:py-20 bg-white dark:bg-[#0f1623]">
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
 
           {/* Header row */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 mb-10 lg:mb-16 items-end">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-8 lg:gap-20 mb-6 sm:mb-10 lg:mb-16 items-end">
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -839,13 +830,13 @@ export default function AboutPage() {
             >
               <span
                 className="font-semibold text-egyptian-blue dark:text-blue-400"
-                style={{ fontSize: '0.8rem', display: 'block', marginBottom: '12px', letterSpacing: '0.08em', textTransform: 'uppercase' }}
+                style={{ fontSize: '0.75rem', display: 'block', marginBottom: '10px', letterSpacing: '0.08em', textTransform: 'uppercase' }}
               >
                 [Achievements]
               </span>
               <h2
                 className="text-gray-900 dark:text-white leading-[1.1]"
-                style={{ fontSize: 'clamp(24px, 2.8vw, 44px)', fontWeight: 700 }}
+                style={{ fontSize: 'clamp(20px, 2.8vw, 44px)', fontWeight: 700 }}
               >
                 Numbers that speak for themselves
               </h2>
@@ -874,8 +865,8 @@ export default function AboutPage() {
               className="relative rounded-[24px] overflow-hidden flex flex-col justify-between sm:col-span-2 lg:col-span-1"
               style={{
                 background: 'linear-gradient(145deg, #0d1117 0%, #0a1628 100%)',
-                minHeight: 'clamp(280px, 30vw, 380px)',
-                padding: 'clamp(28px, 3vw, 44px)',
+                minHeight: 'clamp(180px, 22vw, 340px)',
+                padding: 'clamp(20px, 3vw, 44px)',
                 border: '1px solid rgba(26,56,232,0.2)',
               }}
             >
@@ -899,9 +890,9 @@ export default function AboutPage() {
                   <span
                     className="font-bold leading-none"
                     style={{
-                      fontSize: 'clamp(68px, 9.5vw, 128px)',
+                      fontSize: 'clamp(36px, 5.5vw, 96px)',
                       color: 'transparent',
-                      WebkitTextStroke: 'clamp(1.5px, 0.18vw, 2px) #1A38E8',
+                      WebkitTextStroke: 'clamp(1.5px, 0.16vw, 2px) #1A38E8',
                       letterSpacing: '-3px',
                     }}
                   >
@@ -909,10 +900,10 @@ export default function AboutPage() {
                   </span>
                 </div>
                 <div style={{ height: '1px', background: 'rgba(26,56,232,0.35)', marginBottom: '18px' }} />
-                <span className="text-white font-bold leading-snug block mb-4" style={{ fontSize: 'clamp(14px, 1.2vw, 17px)' }}>
+                <span className="text-white font-bold leading-snug block mb-3" style={{ fontSize: 'clamp(13px, 1.2vw, 17px)' }}>
                   AI Solutions<br />for our clients
                 </span>
-                <p className="text-gray-400 leading-relaxed mt-auto" style={{ fontSize: 'clamp(12px, 0.95vw, 14px)', margin: 0 }}>
+                <p className="text-gray-400 leading-relaxed mt-auto" style={{ fontSize: 'clamp(12px, 0.95vw, 14px)', margin: 0, lineHeight: 1.6 }}>
                   At MonkDB, our journey is deeply personal — born from decades of experience in enterprise systems.
                 </p>
               </div>
@@ -951,10 +942,10 @@ export default function AboutPage() {
               </div>
               <div className="border-t border-gray-200 dark:border-white/10" style={{ marginBottom: '20px' }} />
               <div className="flex flex-col gap-2.5 mt-auto">
-                <h3 className="text-gray-900 dark:text-white font-bold" style={{ fontSize: 'clamp(15px, 1.25vw, 18px)' }}>
+                <h3 className="text-gray-900 dark:text-white font-bold" style={{ fontSize: 'clamp(14px, 1.25vw, 18px)' }}>
                   Enterprise Uptime SLA
                 </h3>
-                <p className="text-gray-500 dark:text-gray-400 leading-relaxed" style={{ fontSize: 'clamp(12px, 0.95vw, 14px)', margin: 0 }}>
+                <p className="text-gray-500 dark:text-gray-400 leading-relaxed" style={{ fontSize: 'clamp(12px, 0.95vw, 14px)', margin: 0, lineHeight: 1.6 }}>
                   Guaranteed 99.97% availability with automatic failover and zero-downtime deployments across all regions.
                 </p>
               </div>
@@ -993,10 +984,10 @@ export default function AboutPage() {
               </div>
               <div className="border-t border-gray-200 dark:border-white/10" style={{ marginBottom: '20px' }} />
               <div className="flex flex-col gap-2.5 mt-auto">
-                <h3 className="text-gray-900 dark:text-white font-bold" style={{ fontSize: 'clamp(15px, 1.25vw, 18px)' }}>
+                <h3 className="text-gray-900 dark:text-white font-bold" style={{ fontSize: 'clamp(14px, 1.25vw, 18px)' }}>
                   Enterprise Deployments
                 </h3>
-                <p className="text-gray-500 dark:text-gray-400 leading-relaxed" style={{ fontSize: 'clamp(12px, 0.95vw, 14px)', margin: 0 }}>
+                <p className="text-gray-500 dark:text-gray-400 leading-relaxed" style={{ fontSize: 'clamp(12px, 0.95vw, 14px)', margin: 0, lineHeight: 1.6 }}>
                   Trusted by 2,000+ enterprise teams across finance, healthcare, logistics, and government sectors globally.
                 </p>
               </div>
