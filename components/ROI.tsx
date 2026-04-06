@@ -60,8 +60,8 @@ export default function ROI() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
-            className="font-bold leading-tight"
-            style={{ fontSize: 'clamp(22px, 2.2vw, 36px)', marginBottom: '32px' }}
+            className="leading-tight"
+            style={{ fontSize: 'clamp(26px, 3.5vw, 52px)', fontWeight: 300, letterSpacing: '-0.01em', marginBottom: '32px' }}
           >
             <span className="text-egyptian-blue dark:text-white">Return on Investment</span>
             <br className="hidden lg:block" />
@@ -88,8 +88,7 @@ export default function ROI() {
                 }}
               >
                 <span
-                  className="font-bold"
-                  style={{ fontSize: 'clamp(18px, 2vw, 24px)', color: '#1A38E8', lineHeight: 1.1, letterSpacing: '-0.5px' }}
+                  style={{ fontSize: 'clamp(20px, 2.2vw, 28px)', fontWeight: 600, color: '#1A38E8', lineHeight: 1.1, letterSpacing: '-0.5px' }}
                 >
                   {s.value}
                 </span>
@@ -112,7 +111,7 @@ export default function ROI() {
             className="rounded-2xl lg:rounded-r-none"
             style={{ background: '#EDE8D8', padding: 'clamp(18px, 2.5vw, 32px) clamp(16px, 2vw, 28px)' }}
           >
-            <h3 className="font-bold text-egyptian-blue" style={{ fontSize: '1rem', marginBottom: '20px' }}>
+            <h3 className="text-egyptian-blue" style={{ fontSize: 'clamp(13px, 1.1vw, 15px)', fontWeight: 500, marginBottom: '20px', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
               Key Differentiators
             </h3>
             <ul style={{ display: 'flex', flexDirection: 'column', gap: '14px', listStyle: 'none', padding: 0, margin: 0 }}>
@@ -146,7 +145,7 @@ export default function ROI() {
               background: 'radial-gradient(circle, rgba(30,138,255,0.25) 0%, transparent 65%)',
               filter: 'blur(30px)', pointerEvents: 'none',
             }} />
-            <h3 className="font-bold text-white" style={{ fontSize: '1rem', marginBottom: '20px' }}>
+            <h3 className="text-white" style={{ fontSize: 'clamp(13px, 1.1vw, 15px)', fontWeight: 500, marginBottom: '20px', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
               After MonkDB
             </h3>
             <ul style={{ display: 'flex', flexDirection: 'column', gap: '14px', listStyle: 'none', padding: 0, margin: 0 }}>

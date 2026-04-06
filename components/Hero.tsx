@@ -191,8 +191,8 @@ export default function Hero() {
 
           {/* H1 */}
           <h1
-            className="font-bold text-white leading-[1.06] mb-5 sm:mb-7"
-            style={{ fontSize: 'clamp(28px, 4.5vw, 68px)' }}
+            className="text-white mb-5 sm:mb-7"
+            style={{ fontSize: 'clamp(36px, 6vw, 88px)', fontWeight: 300, lineHeight: 1.06, letterSpacing: '-0.02em' }}
           >
             <span className="block overflow-hidden">
               {['The', 'AI-Native'].map((w, i) => (
@@ -240,7 +240,7 @@ export default function Hero() {
               href="#about"
               whileHover={{ scale: 1.03, y: -2 }}
               whileTap={{ scale: 0.97 }}
-              style={{ backgroundColor: '#EDE8D8', color: '#0A2280', borderRadius: '999px', padding: '11px 24px', fontWeight: 700, fontSize: 'clamp(0.82rem, 1.1vw, 0.9rem)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 24px rgba(0,0,0,0.18)', textDecoration: 'none', whiteSpace: 'nowrap' }}
+              style={{ backgroundColor: '#EDE8D8', color: '#0A2280', borderRadius: '999px', padding: '11px 24px', fontWeight: 600, fontSize: 'clamp(0.82rem, 1.1vw, 0.9rem)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 24px rgba(0,0,0,0.18)', textDecoration: 'none', whiteSpace: 'nowrap' }}
             >
               Request Demo
             </motion.a>
@@ -248,7 +248,7 @@ export default function Hero() {
               href="#features"
               whileHover={{ scale: 1.03, y: -2 }}
               whileTap={{ scale: 0.97 }}
-              style={{ backgroundColor: '#FFFFFF', color: '#0A2280', borderRadius: '999px', padding: '11px 24px', fontWeight: 700, fontSize: 'clamp(0.82rem, 1.1vw, 0.9rem)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 24px rgba(0,0,0,0.18)', textDecoration: 'none', whiteSpace: 'nowrap' }}
+              style={{ backgroundColor: '#FFFFFF', color: '#0A2280', borderRadius: '999px', padding: '11px 24px', fontWeight: 600, fontSize: 'clamp(0.82rem, 1.1vw, 0.9rem)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 24px rgba(0,0,0,0.18)', textDecoration: 'none', whiteSpace: 'nowrap' }}
             >
               Explore Product
             </motion.a>
@@ -319,7 +319,7 @@ export default function Hero() {
           </div>
         </div>
         <div className="flex-1 min-w-0">
-          <p className="text-[#0033A0] font-bold text-base mb-1.5 leading-tight">Discover MonkDB</p>
+          <p className="text-[#0033A0] text-base mb-1.5 leading-tight" style={{ fontWeight: 500 }}>Discover MonkDB</p>
           <p className="text-gray-500 text-sm leading-relaxed">
             MonkDB is your AI-native solution for seamless data integration and actionable insights.
           </p>

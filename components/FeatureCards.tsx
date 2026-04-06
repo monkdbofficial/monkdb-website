@@ -69,8 +69,8 @@ export default function FeatureCards() {
             </motion.div>
 
             <h3
-              className="font-bold text-gray-900 dark:text-white leading-snug"
-              style={{ fontSize: 'clamp(14px, 1.1vw, 16px)' }}
+              className="text-gray-900 dark:text-white leading-snug"
+              style={{ fontSize: 'clamp(15px, 1.2vw, 18px)', fontWeight: 400 }}
             >
               {feature.title}
             </h3>

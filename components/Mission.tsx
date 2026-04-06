@@ -42,8 +42,8 @@ export default function Mission() {
           transition={{ duration: 0.7, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] as const }}
         >
           <p
-            className="text-gray-900 dark:text-white leading-tight"
-            style={{ fontSize: 'clamp(20px, 2.5vw, 40px)', fontWeight: 400 }}
+            className="text-gray-900 dark:text-white"
+            style={{ fontSize: 'clamp(22px, 3vw, 46px)', fontWeight: 300, lineHeight: 1.25, letterSpacing: '-0.01em' }}
           >
             At Movibase,{' '}
             <span style={{ color: '#1A38E8' }}>

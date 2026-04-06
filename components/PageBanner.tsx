@@ -187,7 +187,7 @@ export default function PageBanner({ title }: { title: string }) {
       style={{
         position: 'relative',
         width: '100%',
-        height: 'clamp(300px, 30vw, 380px)',
+        height: 'clamp(160px, 28vw, 380px)',
         overflow: 'hidden',
         background: BG_C,
       }}
@@ -210,7 +210,7 @@ export default function PageBanner({ title }: { title: string }) {
           textAlign: 'center',
           color: '#ffffff',
           fontFamily: 'var(--font-sans, sans-serif)',
-          fontSize: 'clamp(32px, 4.5vw, 72px)',
+          fontSize: 'clamp(22px, 4.5vw, 72px)',
           fontWeight: 300,
           letterSpacing: '0.01em',
           textShadow: '0 2px 32px rgba(0,0,0,0.45)',

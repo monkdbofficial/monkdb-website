@@ -2,7 +2,7 @@
 
 import { motion, useInView, animate } from 'framer-motion'
 import { useRef, useEffect } from 'react'
-import { ArrowUpRight, TimerReset } from 'lucide-react'
+import { ArrowUpRight, TimerReset, CirclePlay } from 'lucide-react'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import ScrollProgressBar from '@/components/ScrollProgressBar'
@@ -124,6 +124,112 @@ function ParticleNetworkBg() {
   )
 }
 
+/* ─── Spider-net canvas animation ─────────────────────────────────────── */
+function SpiderNetBg() {
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
+
+    const resize = () => {
+      const rect = canvas.getBoundingClientRect()
+      const dpr = window.devicePixelRatio || 1
+      canvas.width = rect.width * dpr
+      canvas.height = rect.height * dpr
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+    }
+    resize()
+    const ro = new ResizeObserver(resize)
+    ro.observe(canvas)
+
+    let visible = true
+    const io = new IntersectionObserver(([e]) => { visible = e.isIntersecting }, { threshold: 0 })
+    io.observe(canvas)
+
+    interface Node { x: number; y: number; vx: number; vy: number }
+    const nodes: Node[] = []
+
+    const init = () => {
+      nodes.length = 0
+      const rect = canvas.getBoundingClientRect()
+      for (let i = 0; i < 55; i++) {
+        nodes.push({
+          x: Math.random() * rect.width,
+          y: Math.random() * rect.height,
+          vx: (Math.random() - 0.5) * 0.28,
+          vy: (Math.random() - 0.5) * 0.28,
+        })
+      }
+    }
+    init()
+
+    let rafId: number
+    const draw = () => {
+      rafId = requestAnimationFrame(draw)
+      if (!visible) return
+      const rect = canvas.getBoundingClientRect()
+      const w = rect.width
+      const h = rect.height
+
+      ctx.clearRect(0, 0, w, h)
+
+      for (const n of nodes) {
+        n.x += n.vx
+        n.y += n.vy
+        if (n.x < 0) n.x = w
+        if (n.x > w) n.x = 0
+        if (n.y < 0) n.y = h
+        if (n.y > h) n.y = 0
+      }
+
+      // Draw connecting lines — crisp, thin, elegant
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const dx = nodes[i].x - nodes[j].x
+          const dy = nodes[i].y - nodes[j].y
+          const dist = Math.sqrt(dx * dx + dy * dy)
+          if (dist > 180) continue
+          const alpha = (1 - dist / 180) * 0.25
+          ctx.beginPath()
+          ctx.strokeStyle = `rgba(180,220,255,${alpha})`
+          ctx.lineWidth = 0.6
+          ctx.moveTo(nodes[i].x, nodes[i].y)
+          ctx.lineTo(nodes[j].x, nodes[j].y)
+          ctx.stroke()
+        }
+      }
+
+      // Draw nodes — small glowing dots
+      for (const n of nodes) {
+        // outer glow ring
+        ctx.beginPath()
+        ctx.arc(n.x, n.y, 4, 0, Math.PI * 2)
+        ctx.fillStyle = 'rgba(180,220,255,0.06)'
+        ctx.fill()
+        // inner bright dot
+        ctx.beginPath()
+        ctx.arc(n.x, n.y, 1.5, 0, Math.PI * 2)
+        ctx.fillStyle = 'rgba(220,240,255,0.55)'
+        ctx.fill()
+      }
+    }
+
+    draw()
+    return () => { cancelAnimationFrame(rafId); ro.disconnect(); io.disconnect() }
+  }, [])
+
+  return (
+    <canvas
+      ref={canvasRef}
+      aria-hidden="true"
+      style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none' }}
+    />
+  )
+}
+
 /* ─── Animated counter ─────────────────────────────────────────────────── */
 function Counter({ to, suffix = '' }: { to: number; suffix?: string }) {
   const ref = useRef<HTMLSpanElement>(null)
@@ -192,8 +298,8 @@ export default function AboutPage() {
                 [About Us]
               </span>
               <h1
-                className="text-gray-900 dark:text-white leading-[1.08]"
-                style={{ fontSize: 'clamp(22px, 4vw, 64px)', fontWeight: 700, marginBottom: 0 }}
+                className="text-gray-900 dark:text-white"
+                style={{ fontSize: 'clamp(28px, 4.5vw, 68px)', fontWeight: 300, lineHeight: 1.12, marginBottom: 0, textDecoration: 'none', letterSpacing: '-0.01em' }}
               >
                 What Makes MonkDB The Best Choice For Your Enterprise
               </h1>
@@ -240,95 +346,107 @@ export default function AboutPage() {
       {/* ══════════════════════════════════════════
           SECTION 2 — BANNER (sky blue card + animated wave)
       ══════════════════════════════════════════ */}
-      <section className="py-6 sm:py-10 lg:py-14 bg-white dark:bg-[#0f1623]">
+      <section className="py-6 sm:py-10 lg:py-14 bg-[#F8F4F0] dark:bg-[#0f1623]">
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
-          <div className="relative">
 
-              {/* ── Main blue card ── */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-60px' }}
-                transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-                className="relative overflow-hidden"
-                style={{ minHeight: 'clamp(240px, 42vw, 580px)', borderRadius: 'clamp(16px, 1.6vw, 28px)', background: 'linear-gradient(180deg, #1A8FFF 0%, #2196FF 40%, #3AACFF 100%)' }}
-              >
-                {/* Background wave image */}
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/AdobeStock_6193331721.svg"
-                  alt=""
-                  aria-hidden="true"
-                  style={{
-                    position: 'absolute', inset: 0,
-                    width: '100%', height: '100%',
-                    objectFit: 'cover',
-                    objectPosition: 'center 70%',
-                    mixBlendMode: 'screen',
-                    opacity: 0.95,
-                    filter: 'saturate(1.4) brightness(1.05)',
-                    pointerEvents: 'none',
-                  }}
-                />
+          {/* Outer container — parchment base, clips everything inside */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="relative overflow-hidden"
+            style={{
+              minHeight: 'clamp(240px, 42vw, 580px)',
+              borderRadius: 'clamp(16px, 1.6vw, 28px)',
+              background: '#F8F4F0',
+            }}
+          >
+            {/* Blue gradient layer — fills entire card */}
+            <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, #1A8FFF 0%, #2196FF 40%, #3AACFF 100%)' }}>
+              {/* Background wave image */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/AdobeStock_6193331721.svg"
+                alt=""
+                aria-hidden="true"
+                style={{
+                  position: 'absolute', inset: 0,
+                  width: '100%', height: '100%',
+                  objectFit: 'cover',
+                  objectPosition: 'center 70%',
+                  mixBlendMode: 'screen',
+                  opacity: 0.95,
+                  filter: 'saturate(1.4) brightness(1.05)',
+                  pointerEvents: 'none',
+                }}
+              />
+            </div>
 
-                {/* Content layer — top texts + Disco at bottom */}
-                <div className="absolute inset-0 flex flex-col justify-between" style={{ zIndex: 2 }}>
-                  {/* Top two-column text */}
-                  <div className="grid grid-cols-2 gap-3 sm:gap-4" style={{ padding: 'clamp(16px, 3.5vw, 52px)' }}>
-                    <p
-                      className="leading-snug"
-                      style={{ fontSize: 'clamp(12px, 1.4vw, 20px)', fontWeight: 400, color: 'rgba(255,255,255,0.95)' }}
-                    >
-                      Let&apos;s Build the Future of Data Infrastructure—Together
-                    </p>
-                    <p
-                      className="leading-snug"
-                      style={{ fontSize: 'clamp(12px, 1.4vw, 20px)', fontWeight: 400, color: 'rgba(255,255,255,0.95)' }}
-                    >
-                      Too Many Options Too Little Trust!
-                    </p>
-                  </div>
-
-                  {/* Disco — inside card, anchored to bottom */}
-                  <div style={{ paddingLeft: 'clamp(16px, 3.5vw, 52px)', lineHeight: 1 }}>
-                    <span
-                      className="font-bold select-none block"
-                      style={{ fontSize: 'clamp(36px, 11vw, 220px)', lineHeight: 0.88, letterSpacing: '-2px', color: '#ffffff' }}
-                    >
-                      Disco
-                    </span>
-                  </div>
-                </div>
-
-                {/* ── Request Demo button ── */}
-                <motion.a
-                  href="/"
-                  whileHover={{ scale: 1.02, y: -2 }}
-                  whileTap={{ scale: 0.97 }}
-                  className="absolute flex items-center justify-center gap-3 sm:gap-4"
-                  style={{
-                    bottom: 0,
-                    right: 0,
-                    padding: 'clamp(14px, 2.5vw, 38px) clamp(16px, 3vw, 48px)',
-                    textDecoration: 'none',
-                    zIndex: 10,
-                    borderRadius: 'clamp(12px, 1.4vw, 22px) clamp(12px, 1.4vw, 22px) clamp(8px,1vw,16px) clamp(12px, 1.4vw, 22px)',
-                    background: '#ffffff',
-                  }}
+            {/* Content layer — top texts + Disco at bottom */}
+            <div className="absolute inset-0 flex flex-col justify-between" style={{ zIndex: 2 }}>
+              {/* Top two-column text */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4" style={{ padding: 'clamp(16px, 3.5vw, 52px)' }}>
+                <p
+                  className="leading-snug"
+                  style={{ fontSize: 'clamp(12px, 1.4vw, 20px)', fontWeight: 400, color: 'rgba(255,255,255,0.95)' }}
                 >
-                  <div style={{ width: 'clamp(32px, 3.5vw, 54px)', height: 'clamp(32px, 3.5vw, 54px)', borderRadius: '50%', border: '1.5px solid #9ca3af', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                    <svg viewBox="0 0 24 24" fill="none" style={{ width: '46%', height: '46%', marginLeft: '2px' }}>
-                      <polygon fill="#6b7280" points="9,7 18,12 9,17" />
-                    </svg>
-                  </div>
-                  <span className="text-gray-700" style={{ fontSize: 'clamp(13px, 1.4vw, 20px)', whiteSpace: 'nowrap', fontWeight: 500 }}>
-                    Request Demo
-                  </span>
-                </motion.a>
+                  Let&apos;s Build the Future of Data Infrastructure—Together
+                </p>
+                <p
+                  className="leading-snug"
+                  style={{ fontSize: 'clamp(12px, 1.4vw, 20px)', fontWeight: 400, color: 'rgba(255,255,255,0.95)' }}
+                >
+                  Too Many Options Too Little Trust!
+                </p>
+              </div>
 
-              </motion.div>
+              {/* Disco — inside card, anchored to bottom-left */}
+              <div style={{ paddingLeft: 'clamp(16px, 3.5vw, 52px)', paddingBottom: 'clamp(16px, 2vw, 32px)', lineHeight: 1 }}>
+                <span
+                  className="font-bold select-none block"
+                  style={{ fontSize: 'clamp(36px, 11vw, 220px)', lineHeight: 0.88, letterSpacing: '-2px', color: '#ffffff' }}
+                >
+                  Disco
+                </span>
+              </div>
+            </div>
 
-          </div>
+            {/* Parchment overlay — concave tab at bottom-right */}
+            <div
+              aria-hidden="true"
+              className="absolute bottom-0 right-0 dark:bg-[#0f1623]"
+              style={{
+                width: 'clamp(220px, 30%, 440px)',
+                height: 'clamp(76px, 17%, 120px)',
+                background: '#F8F4F0',
+                borderRadius: 'clamp(18px, 2vw, 34px) 0 0 0',
+                zIndex: 3,
+              }}
+            />
+
+            {/* Request Demo button — centred in the parchment tab */}
+            <motion.a
+              href="/"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              className="absolute bottom-0 right-0 flex items-center gap-3"
+              style={{
+                width: 'clamp(220px, 30%, 440px)',
+                height: 'clamp(76px, 17%, 120px)',
+                justifyContent: 'center',
+                textDecoration: 'none',
+                zIndex: 4,
+              }}
+            >
+              <CirclePlay size={28} color="#374151" strokeWidth={1.5} />
+              <span style={{ fontSize: 'clamp(15px, 1.4vw, 22px)', whiteSpace: 'nowrap', fontWeight: 600, color: '#374151' }}>
+                Request Demo
+              </span>
+            </motion.a>
+
+          </motion.div>
+
         </div>
       </section>
 
@@ -376,8 +494,8 @@ export default function AboutPage() {
                   [Our Story]
                 </span>
                 <p
-                  className="text-gray-900 dark:text-white leading-tight"
-                  style={{ fontSize: 'clamp(18px, 2.8vw, 48px)', fontWeight: 700, margin: 0 }}
+                  className="text-gray-900 dark:text-white"
+                  style={{ fontSize: 'clamp(18px, 2.4vw, 38px)', fontWeight: 300, lineHeight: 1.2, margin: 0, letterSpacing: '-0.01em' }}
                 >
                   At Movibase,{' '}
                   <span className="text-[#1A38E8] dark:text-blue-400">
@@ -429,8 +547,8 @@ export default function AboutPage() {
                 [Services]
               </span>
               <h2
-                className="text-gray-900 dark:text-white leading-tight"
-                style={{ fontSize: 'clamp(20px, 2.8vw, 44px)', fontWeight: 700 }}
+                className="text-gray-900 dark:text-white"
+                style={{ fontSize: 'clamp(22px, 3vw, 48px)', fontWeight: 300, lineHeight: 1.15, letterSpacing: '-0.01em' }}
               >
                 Special database features for your services
               </h2>
@@ -460,109 +578,88 @@ export default function AboutPage() {
             </div>
           </motion.div>
 
-          {/* Shared L-notch clip-path (same shape as FeatureBanner card1-bg.svg)
-              objectBoundingBox coords: raw path ÷ (630 wide, 400 tall) */}
-          <svg width="0" height="0" aria-hidden="true" style={{ position: 'absolute', overflow: 'hidden' }}>
-            <defs>
-              <clipPath id="svc-notch-clip" clipPathUnits="objectBoundingBox">
-                <path d="M1 0.6125 C1 0.660825 0.974333 0.7 0.944444 0.7 H0.865079 C0.834397 0.7 0.809524 0.739175 0.809524 0.7875 V0.9125 C0.809524 0.960825 0.784651 1 0.753968 1 H0.055556 C0.024873 1 0 0.960825 0 0.9125 V0.0875 C0 0.039175 0.024873 0 0.055556 0 H0.944444 C0.974333 0 1 0.039175 1 0.0875 V0.6125 Z" />
-              </clipPath>
-            </defs>
-          </svg>
-
           {/* Bento grid — 3 cols, right col has 2 stacked rows */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5">
 
-            {/* CARD 1 — dark navy, AdobeStock globe, notch + black button */}
+            {/* CARD 1 — dark navy, globe image */}
             <motion.div
               initial={{ opacity: 0, y: 28 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-60px' }}
               transition={{ duration: 0.6, delay: 0.05, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="relative sm:col-span-1 lg:row-span-2"
-              style={{ minHeight: 'clamp(200px, 30vw, 460px)' }}
+              className="relative sm:col-span-1 lg:row-span-2 rounded-[20px] overflow-hidden flex flex-col"
+              style={{ minHeight: 'clamp(200px, 30vw, 460px)', background: '#1535CC' }}
             >
-              <div
-                className="absolute inset-0 flex flex-col overflow-hidden"
-                style={{
-                  clipPath: 'url(#svc-notch-clip)',
-                  background: '#1535CC',
-                  padding: `0 clamp(20px, 2.5vw, 32px) clamp(20px, 2.5vw, 32px)`,
-                }}
-              >
-                <div className="flex-1 flex items-start justify-center pointer-events-none" style={{ overflow: 'hidden' }}>
-                  <AnimatedSVGImage
-                    src="/AdobeStock_588310019 1.svg"
-                    style={{ width: '90%', height: 'auto', objectFit: 'contain', display: 'block', marginTop: '-5%' }}
-                  />
-                </div>
-                <div style={{ paddingRight: 'clamp(52px, 8%, 80px)' }}>
-                  <h3 className="text-white font-bold leading-snug" style={{ fontSize: 'clamp(15px, 1.4vw, 20px)', marginBottom: '8px' }}>
-                    Unified Data Platform
-                  </h3>
-                  <p className="text-blue-200 leading-relaxed" style={{ fontSize: 'clamp(11px, 1vw, 14px)', margin: 0 }}>
-                    Custom design and deployment of multi-model database architectures tailored to your specific business needs.
-                  </p>
-                </div>
+              <div className="flex-1 flex items-start justify-center pointer-events-none" style={{ overflow: 'hidden' }}>
+                <AnimatedSVGImage
+                  src="/AdobeStock_588310019 1.svg"
+                  style={{ width: '90%', height: 'auto', objectFit: 'contain', display: 'block', marginTop: '-5%' }}
+                />
               </div>
+              <div style={{ padding: `0 clamp(20px, 2.5vw, 32px) clamp(20px, 2.5vw, 32px)`, paddingRight: 'clamp(80px, 20%, 110px)' }}>
+                <h3 className="text-white leading-snug" style={{ fontSize: 'clamp(18px, 1.8vw, 26px)', fontWeight: 400, marginBottom: '8px' }}>
+                  Unified Data Platform
+                </h3>
+                <p className="text-blue-200 leading-relaxed" style={{ fontSize: 'clamp(13px, 1.1vw, 15px)', margin: 0, opacity: 0.85 }}>
+                  Custom design and deployment of multi-model database architectures tailored to your specific business needs.
+                </p>
+              </div>
+              {/* Notch mask — background div with concave top-left corner */}
+              <div
+                aria-hidden="true"
+                className="absolute bottom-0 right-0 pointer-events-none bg-white dark:bg-[#0f1623]"
+                style={{ width: 90, height: 90, borderRadius: '22px 0 0 0' }}
+              />
+              {/* Button centred in the notch */}
               <motion.a
                 href="/"
                 aria-label="Learn more about Unified Data Platform"
-                whileHover={{ scale: 1.07 }}
+                whileHover={{ scale: 1.06 }}
                 whileTap={{ scale: 0.95 }}
                 className="absolute bottom-0 right-0 flex items-center justify-center"
-                style={{ width: 'clamp(52px, 14%, 72px)', aspectRatio: '1/1', borderRadius: '20px', background: '#111', textDecoration: 'none', zIndex: 10 }}
+                style={{ width: 68, height: 68, margin: 11, borderRadius: '18px', background: '#111', textDecoration: 'none', zIndex: 10 }}
               >
-                <ArrowUpRight size={20} color="#fff" />
+                <ArrowUpRight size={24} color="#fff" />
               </motion.a>
             </motion.div>
 
-            {/* CARD 2 — medium blue, title+desc top, large ring lower, notch + black button */}
+            {/* CARD 2 — medium blue, title+desc top, ring decoration */}
             <motion.div
               initial={{ opacity: 0, y: 28 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-60px' }}
               transition={{ duration: 0.6, delay: 0.14, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="relative sm:col-span-1 lg:row-span-2"
-              style={{ minHeight: 'clamp(200px, 30vw, 460px)' }}
+              className="relative sm:col-span-1 lg:row-span-2 rounded-[20px] overflow-hidden"
+              style={{ minHeight: 'clamp(200px, 30vw, 460px)', background: 'linear-gradient(160deg, #1A72D8 0%, #3A9AF0 100%)' }}
             >
-              <div
-                className="absolute inset-0 overflow-hidden"
-                style={{
-                  clipPath: 'url(#svc-notch-clip)',
-                  background: 'linear-gradient(160deg, #1A72D8 0%, #3A9AF0 100%)',
-                  padding: 'clamp(20px, 2.5vw, 32px)',
-                }}
-              >
-                <h3 className="text-white font-bold leading-snug" style={{ fontSize: 'clamp(15px, 1.4vw, 20px)', marginBottom: '8px' }}>
+              <div style={{ padding: 'clamp(24px, 3vw, 40px)' }}>
+                <h3 className="text-white leading-snug" style={{ fontSize: 'clamp(20px, 2.2vw, 32px)', fontWeight: 300, marginBottom: '12px', letterSpacing: '-0.01em' }}>
                   AI &amp; ML Integration
                 </h3>
-                <p className="text-blue-100 leading-relaxed" style={{ fontSize: 'clamp(11px, 1vw, 14px)', margin: 0, maxWidth: '85%' }}>
+                <p className="text-blue-100 leading-relaxed" style={{ fontSize: 'clamp(13px, 1.2vw, 16px)', margin: 0, maxWidth: '80%', opacity: 0.9, lineHeight: 1.65 }}>
                   Fine-tuning vector search and embedding pipelines using advanced algorithms to achieve maximum performance and accuracy.
                 </p>
-                {/* Intersect SVG — static, fills lower half of card */}
-                <div
-                  className="absolute pointer-events-none"
-                  style={{ bottom: '-18%', left: '-15%', width: '65%' }}
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="/Intersect.svg"
-                    alt=""
-                    aria-hidden="true"
-                    style={{ width: '100%', height: 'auto', display: 'block' }}
-                  />
-                </div>
               </div>
+              <div className="absolute pointer-events-none" style={{ bottom: '-18%', left: '-15%', width: '65%' }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/Intersect.svg" alt="" aria-hidden="true" style={{ width: '100%', height: 'auto', display: 'block' }} />
+              </div>
+              {/* Notch mask */}
+              <div
+                aria-hidden="true"
+                className="absolute bottom-0 right-0 pointer-events-none bg-white dark:bg-[#0f1623]"
+                style={{ width: 90, height: 90, borderRadius: '22px 0 0 0' }}
+              />
+              {/* Button */}
               <motion.a
                 href="/"
                 aria-label="Learn more about AI & ML Integration"
-                whileHover={{ scale: 1.07 }}
+                whileHover={{ scale: 1.06 }}
                 whileTap={{ scale: 0.95 }}
                 className="absolute bottom-0 right-0 flex items-center justify-center"
-                style={{ width: 'clamp(52px, 14%, 72px)', aspectRatio: '1/1', borderRadius: '20px', background: '#111', textDecoration: 'none', zIndex: 10 }}
+                style={{ width: 68, height: 68, margin: 11, borderRadius: '18px', background: '#111', textDecoration: 'none', zIndex: 10 }}
               >
-                <ArrowUpRight size={20} color="#fff" />
+                <ArrowUpRight size={24} color="#fff" />
               </motion.a>
             </motion.div>
 
@@ -579,7 +676,7 @@ export default function AboutPage() {
                 padding: 'clamp(20px, 2.5vw, 32px)',
               }}
             >
-              <h3 className="text-white font-bold leading-snug" style={{ fontSize: 'clamp(16px, 1.6vw, 24px)' }}>
+              <h3 className="text-white leading-snug" style={{ fontSize: 'clamp(20px, 2vw, 28px)', fontWeight: 300, letterSpacing: '-0.01em' }}>
                 Neural Network<br />Integration
               </h3>
             </motion.div>
@@ -608,10 +705,10 @@ export default function AboutPage() {
               <div className="relative z-10 flex flex-col justify-between h-full gap-4">
                 <TimerReset size={44} color="#fff" strokeWidth={1.5} />
                 <div>
-                  <h3 className="text-white font-bold leading-tight" style={{ fontSize: 'clamp(20px, 2.2vw, 32px)', marginBottom: '10px' }}>
+                  <h3 className="text-white leading-tight" style={{ fontSize: 'clamp(22px, 2.5vw, 36px)', fontWeight: 300, marginBottom: '10px', letterSpacing: '-0.01em' }}>
                     Neural Network<br />Consulting
                   </h3>
-                  <p className="text-white leading-relaxed" style={{ fontSize: 'clamp(13px, 1.2vw, 17px)', margin: 0, opacity: 0.85 }}>
+                  <p className="text-white leading-relaxed" style={{ fontSize: 'clamp(13px, 1.2vw, 16px)', margin: 0, opacity: 0.8, lineHeight: 1.65 }}>
                     Expert guidance and strategic advice on integrating neural networks into your existing systems
                   </p>
                 </div>
@@ -637,8 +734,8 @@ export default function AboutPage() {
             className="text-center mb-8 sm:mb-10 lg:mb-12"
           >
             <h2
-              className="dark:text-white font-bold"
-              style={{ fontSize: 'clamp(20px, 2.8vw, 44px)', marginBottom: '10px', color: '#0A2280' }}
+              className="dark:text-white"
+              style={{ fontSize: 'clamp(22px, 3vw, 48px)', fontWeight: 300, lineHeight: 1.15, letterSpacing: '-0.01em', marginBottom: '10px', color: '#0A2280' }}
             >
               Why MonkDB
             </h2>
@@ -655,33 +752,41 @@ export default function AboutPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.65, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="relative overflow-hidden rounded-[20px] sm:rounded-[24px]"
+            className="relative overflow-hidden rounded-[16px] sm:rounded-[20px]"
             style={{
-              background: 'radial-gradient(ellipse at 30% 50%, #3060F0 0%, #1A40E8 40%, #1535CC 100%)',
-              padding: 'clamp(20px, 3.5vw, 48px)',
+              background: 'linear-gradient(135deg, #1650F0 0%, #1040E0 45%, #0D30C0 100%)',
+              padding: 'clamp(28px, 4vw, 56px) clamp(40px, 6vw, 80px)',
+              border: '1px solid rgba(100,180,255,0.35)',
+              boxShadow: '0 0 40px rgba(30,100,255,0.2), inset 0 0 60px rgba(60,140,255,0.06)',
             }}
           >
-            {/* Canvas — particle network, extremely subtle */}
-            <ParticleNetworkBg />
+            {/* Spider-net animation */}
+            <SpiderNetBg />
+            {/* Ambient glow blob */}
+            <div aria-hidden="true" className="absolute pointer-events-none" style={{
+              top: '10%', left: '15%', width: '50%', height: '80%',
+              background: 'radial-gradient(ellipse, rgba(80,160,255,0.18) 0%, transparent 65%)',
+              filter: 'blur(40px)',
+            }} />
 
             {/* Table */}
-            <div className="relative z-10 overflow-x-auto -mx-1 px-1">
+            <div className="relative z-10 overflow-x-auto">
 
               {/* Header row */}
-              <div className="flex items-center mb-2" style={{ paddingBottom: '10px', minWidth: '320px' }}>
-                <div className="flex-1 text-white font-bold" style={{ fontSize: 'clamp(14px, 1.4vw, 18px)' }}>
+              <div className="relative flex items-center" style={{ paddingBottom: 'clamp(14px, 2vw, 22px)', minWidth: '360px' }}>
+                <div className="flex-1 text-white" style={{ fontSize: 'clamp(15px, 1.6vw, 20px)', fontWeight: 700 }}>
                   Key Differentiators
                 </div>
-                <div className="text-white font-bold text-center" style={{ width: 'clamp(80px, 10vw, 140px)', fontSize: 'clamp(12px, 1.2vw, 17px)' }}>
+                <div className="text-white text-center flex-shrink-0" style={{ width: 'clamp(100px, 13vw, 180px)', fontSize: 'clamp(14px, 1.5vw, 19px)', fontWeight: 700 }}>
                   MonkDB
                 </div>
-                <div className="text-white font-bold text-center" style={{ width: 'clamp(90px, 12vw, 160px)', fontSize: 'clamp(12px, 1.2vw, 17px)' }}>
+                <div className="text-white text-center flex-shrink-0" style={{ width: 'clamp(120px, 15vw, 200px)', fontSize: 'clamp(14px, 1.5vw, 19px)', fontWeight: 700 }}>
                   Legacy Systems
                 </div>
               </div>
 
               {/* Divider */}
-              <div style={{ height: '1px', background: 'rgba(255,255,255,0.3)', marginBottom: '2px', minWidth: '320px' }} />
+              <div style={{ height: '1px', background: 'rgba(255,255,255,0.25)', marginBottom: '0', minWidth: '360px' }} />
 
               {/* Feature rows */}
               {[
@@ -697,28 +802,28 @@ export default function AboutPage() {
                   initial={{ opacity: 0, x: -12 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, margin: '-40px' }}
-                  transition={{ duration: 0.4, delay: i * 0.06, ease: 'easeOut' }}
+                  transition={{ duration: 0.4, delay: i * 0.07, ease: 'easeOut' }}
                   className="flex items-center"
                   style={{
-                    borderBottom: i < 5 ? '1px solid rgba(255,255,255,0.12)' : 'none',
-                    padding: 'clamp(10px, 1.3vw, 17px) 0',
-                    minWidth: '320px',
+                    borderBottom: i < 5 ? '1px solid rgba(255,255,255,0.1)' : 'none',
+                    padding: 'clamp(14px, 1.8vw, 22px) 0',
+                    minWidth: '360px',
                   }}
                 >
-                  <span className="flex-1 text-white/80 pr-4" style={{ fontSize: 'clamp(12px, 1vw, 15px)' }}>
+                  <span className="flex-1 pr-4" style={{ fontSize: 'clamp(13px, 1.2vw, 16px)', color: 'rgba(255,255,255,0.85)', fontWeight: 400 }}>
                     {feature}
                   </span>
-                  {/* MonkDB — green check */}
-                  <div className="flex justify-center flex-shrink-0" style={{ width: 'clamp(80px, 10vw, 140px)' }}>
-                    <svg width="24" height="24" viewBox="0 0 28 28" fill="none" aria-hidden="true">
-                      <circle cx="14" cy="14" r="12" stroke="#22c55e" strokeWidth="1.5" fill="none" />
-                      <path d="M9 14.5l3.5 3.5 6-7" stroke="#22c55e" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                  {/* MonkDB — green outline circle + green check (matches reference) */}
+                  <div className="flex justify-center flex-shrink-0" style={{ width: 'clamp(100px, 13vw, 180px)' }}>
+                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+                      <circle cx="14" cy="14" r="12" stroke="#22c55e" strokeWidth="1.8" fill="none" />
+                      <path d="M9 14.5l3.5 3.5 6.5-7" stroke="#22c55e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </div>
-                  {/* Legacy — X */}
-                  <div className="flex justify-center flex-shrink-0" style={{ width: 'clamp(90px, 12vw, 160px)' }}>
-                    <svg width="24" height="24" viewBox="0 0 28 28" fill="none" aria-hidden="true">
-                      <circle cx="14" cy="14" r="12" stroke="rgba(255,255,255,0.5)" strokeWidth="1.5" fill="none" />
+                  {/* Legacy — white outline circle with X */}
+                  <div className="flex justify-center flex-shrink-0" style={{ width: 'clamp(120px, 15vw, 200px)' }}>
+                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+                      <circle cx="14" cy="14" r="12" stroke="rgba(255,255,255,0.5)" strokeWidth="1.8" fill="none" />
                       <path d="M10 10l8 8M18 10l-8 8" stroke="rgba(255,255,255,0.65)" strokeWidth="1.8" strokeLinecap="round" />
                     </svg>
                   </div>
@@ -751,8 +856,8 @@ export default function AboutPage() {
                 [Features]
               </span>
               <h2
-                className="text-gray-900 dark:text-white leading-[1.1]"
-                style={{ fontSize: 'clamp(20px, 2.8vw, 44px)', fontWeight: 700 }}
+                className="text-gray-900 dark:text-white"
+                style={{ fontSize: 'clamp(22px, 3vw, 48px)', fontWeight: 300, lineHeight: 1.15, letterSpacing: '-0.01em' }}
               >
                 The unique selling points &amp; advantages of our service
               </h2>
@@ -785,7 +890,7 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-60px' }}
                 transition={{ duration: 0.6, delay: i * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
-                className="flex flex-col gap-4 pt-6 border-t border-gray-200 dark:border-white/10"
+                className="flex flex-col gap-4"
               >
                 {/* Icon */}
                 <img
@@ -796,8 +901,8 @@ export default function AboutPage() {
                 />
 
                 <h3
-                  className="text-gray-900 dark:text-white font-bold leading-snug"
-                  style={{ fontSize: 'clamp(14px, 1.1vw, 16px)', margin: 0 }}
+                  className="text-gray-900 dark:text-white leading-snug"
+                  style={{ fontSize: 'clamp(15px, 1.2vw, 18px)', fontWeight: 400, margin: 0 }}
                 >
                   {feature.title}
                 </h3>
@@ -835,8 +940,8 @@ export default function AboutPage() {
                 [Achievements]
               </span>
               <h2
-                className="text-gray-900 dark:text-white leading-[1.1]"
-                style={{ fontSize: 'clamp(20px, 2.8vw, 44px)', fontWeight: 700 }}
+                className="text-gray-900 dark:text-white"
+                style={{ fontSize: 'clamp(22px, 3vw, 48px)', fontWeight: 300, lineHeight: 1.15, letterSpacing: '-0.01em' }}
               >
                 Numbers that speak for themselves
               </h2>
@@ -900,7 +1005,7 @@ export default function AboutPage() {
                   </span>
                 </div>
                 <div style={{ height: '1px', background: 'rgba(26,56,232,0.35)', marginBottom: '18px' }} />
-                <span className="text-white font-bold leading-snug block mb-3" style={{ fontSize: 'clamp(13px, 1.2vw, 17px)' }}>
+                <span className="text-white leading-snug block mb-3" style={{ fontSize: 'clamp(13px, 1.2vw, 17px)', fontWeight: 400 }}>
                   AI Solutions<br />for our clients
                 </span>
                 <p className="text-gray-400 leading-relaxed mt-auto" style={{ fontSize: 'clamp(12px, 0.95vw, 14px)', margin: 0, lineHeight: 1.6 }}>
@@ -942,7 +1047,7 @@ export default function AboutPage() {
               </div>
               <div className="border-t border-gray-200 dark:border-white/10" style={{ marginBottom: '20px' }} />
               <div className="flex flex-col gap-2.5 mt-auto">
-                <h3 className="text-gray-900 dark:text-white font-bold" style={{ fontSize: 'clamp(14px, 1.25vw, 18px)' }}>
+                <h3 className="text-gray-900 dark:text-white" style={{ fontSize: 'clamp(14px, 1.25vw, 18px)', fontWeight: 400 }}>
                   Enterprise Uptime SLA
                 </h3>
                 <p className="text-gray-500 dark:text-gray-400 leading-relaxed" style={{ fontSize: 'clamp(12px, 0.95vw, 14px)', margin: 0, lineHeight: 1.6 }}>
@@ -984,7 +1089,7 @@ export default function AboutPage() {
               </div>
               <div className="border-t border-gray-200 dark:border-white/10" style={{ marginBottom: '20px' }} />
               <div className="flex flex-col gap-2.5 mt-auto">
-                <h3 className="text-gray-900 dark:text-white font-bold" style={{ fontSize: 'clamp(14px, 1.25vw, 18px)' }}>
+                <h3 className="text-gray-900 dark:text-white" style={{ fontSize: 'clamp(14px, 1.25vw, 18px)', fontWeight: 400 }}>
                   Enterprise Deployments
                 </h3>
                 <p className="text-gray-500 dark:text-gray-400 leading-relaxed" style={{ fontSize: 'clamp(12px, 0.95vw, 14px)', margin: 0, lineHeight: 1.6 }}>

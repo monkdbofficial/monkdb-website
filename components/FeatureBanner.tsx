@@ -24,7 +24,7 @@ export default function FeatureBanner() {
     >
 
       <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
 
           {/* ══════════════════════════════
               CARD 1 — Pixel-perfect from Figma node 246:710.
@@ -37,7 +37,7 @@ export default function FeatureBanner() {
             initial={{ opacity: 0, y: 50 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0, ease: 'easeOut' }}
-            className="relative"
+            className="relative overflow-hidden min-w-0 rounded-3xl"
             style={{ minHeight: 'clamp(320px, 35vw, 420px)' }}
           >
             {/* Exact Figma card shape — transparent notch area shows page background through */}
@@ -161,7 +161,7 @@ export default function FeatureBanner() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.15, ease: 'easeOut' }}
             whileHover={{ boxShadow: '0 0 0 1.5px rgba(30,138,255,0.5), 0 16px 48px rgba(26,56,232,0.3)', transition: { duration: 0.25 } }}
-            className="relative rounded-3xl overflow-hidden flex flex-col"
+            className="relative rounded-3xl overflow-hidden flex flex-col min-w-0"
             style={{
               background: 'linear-gradient(145deg, #1230CC 0%, #1540E0 35%, #1A50F0 65%, #2060FF 100%)',
               minHeight: 'clamp(320px, 35vw, 420px)',
@@ -174,7 +174,7 @@ export default function FeatureBanner() {
               alt=""
               aria-hidden="true"
               className="absolute pointer-events-none"
-              style={{ right: 0, top: 0, height: '100%', width: 'auto', filter: 'url(#card2-wave-tint) brightness(1.1)' }}
+              style={{ right: 0, top: 0, height: '100%', width: 'auto', maxWidth: '70%', objectFit: 'cover', filter: 'url(#card2-wave-tint) brightness(1.1)' }}
             />
 
             {/* White arrow button — top right */}
@@ -232,7 +232,7 @@ export default function FeatureBanner() {
             initial={{ opacity: 0, y: 50 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.3, ease: 'easeOut' }}
-            className="relative rounded-3xl overflow-hidden flex flex-col"
+            className="relative rounded-3xl overflow-hidden flex flex-col min-w-0 md:col-span-2 xl:col-span-1"
             style={{
               background: '#1230CC',
               minHeight: 'clamp(320px, 35vw, 420px)',

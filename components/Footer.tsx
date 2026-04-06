@@ -5,23 +5,109 @@ import { Send } from 'lucide-react'
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 
-const menuLinks = [
-  { label: 'Home', href: '/' },
-  { label: 'About Us', href: '/about' },
-  { label: 'Product', href: '/#features' },
-  { label: 'Architecture', href: '/#competition' },
-  { label: 'Careers', href: '#' },
+const products = [
+  { label: 'dbend Cloud', href: '#' },
+  { label: 'dbend Enterprise', href: '#' },
+  { label: 'dbend Community', href: '#' },
+  { label: 'Register', href: '#' },
+  { label: 'Pricing', href: '#' },
+  { label: 'Comparisons', href: '#' },
+  { label: 'Security', href: '#' },
 ]
-const supportLinks = ['Company', 'Press Media', 'Our Blog', 'Contact Us', 'Case Study']
-const socialTextLinks = ['Facebook', 'Instagram', 'Twitter', 'LinkedIn', 'Youtube']
+
+const solutions = [
+  { label: 'Use Cases', href: '#' },
+  { label: 'Solutions for Game Industry', href: '#' },
+  { label: 'Solution for Crypto industry', href: '#' },
+  { label: 'Solution for E-commerce Industry', href: '#' },
+  { label: 'Solutions for Banking Industry', href: '#' },
+]
+
+const resources = [
+  { label: 'Documentation', href: '#' },
+  { label: 'Blogs', href: '#' },
+  { label: 'Videos', href: '#' },
+  { label: 'Downloads', href: '#' },
+  { label: 'MCP', href: '#' },
+]
+
+const community = [
+  { label: 'GitHub', href: '#' },
+  { label: 'Contributing', href: '#' },
+  { label: 'Slack', href: '#' },
+  { label: 'Linkedin', href: '#' },
+  { label: 'Youtube', href: '#' },
+  { label: 'X', href: '#' },
+  { label: 'Bluesky', href: '#' },
+]
+
+const partners = [
+  { label: 'Greptime', href: '#' },
+  { label: 'AutoMQ', href: '#' },
+]
+
+const company = [
+  { label: 'About Us', href: '/about' },
+  { label: 'Contact Us', href: '#' },
+  { label: 'Careers', href: '#' },
+  { label: 'Brand', href: '#' },
+]
+
+const SOCIAL_BG = '#1A38E8'
 
 const socialIcons = [
-  { label: 'Facebook', path: 'M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z' },
-  { label: 'Twitter', path: 'M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z' },
-  { label: 'LinkedIn', path: 'M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z M4 6a2 2 0 100-4 2 2 0 000 4z' },
-  { label: 'YouTube', path: 'M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58zM9.75 15.02V8.98L15.5 12l-5.75 3.02z' },
-  { label: 'Instagram', path: 'M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 01-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 017.8 2z' },
+  {
+    label: 'Facebook',
+    bg: SOCIAL_BG,
+    path: 'M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z',
+  },
+  {
+    label: 'Twitter',
+    bg: SOCIAL_BG,
+    path: 'M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z',
+  },
+  {
+    label: 'LinkedIn',
+    bg: SOCIAL_BG,
+    path: 'M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z M4 6a2 2 0 100-4 2 2 0 000 4z',
+  },
+  {
+    label: 'YouTube',
+    bg: SOCIAL_BG,
+    path: 'M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58zM9.75 15.02V8.98L15.5 12l-5.75 3.02z',
+  },
+  {
+    label: 'Instagram',
+    bg: SOCIAL_BG,
+    path: 'M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 01-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 017.8 2z',
+  },
 ]
+
+function FooterHeading({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="text-gray-900 dark:text-white" style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '16px' }}>
+      {children}
+    </div>
+  )
+}
+
+function FooterLinks({ links }: { links: { label: string; href: string }[] }) {
+  return (
+    <ul style={{ display: 'flex', flexDirection: 'column', gap: '10px', listStyle: 'none', padding: 0, margin: 0 }}>
+      {links.map((link) => (
+        <li key={link.label}>
+          <a
+            href={link.href}
+            className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+            style={{ fontSize: '0.85rem', textDecoration: 'none' }}
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  )
+}
 
 export default function Footer() {
   const [email, setEmail] = useState('')
@@ -34,49 +120,61 @@ export default function Footer() {
   }
 
   return (
-    <footer id="footer" ref={ref} className="bg-white dark:bg-[#0f1623] section-grid" style={{ borderTop: '1px solid #e5e7eb' }}>
-      <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28 pt-10 sm:pt-14 lg:pt-[56px] pb-8 sm:pb-10 lg:pb-[32px]">
+    <footer
+      id="footer"
+      ref={ref}
+      className="bg-white dark:bg-[#0f1623]"
+      style={{ borderTop: '1px solid #e5e7eb' }}
+    >
+      <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28 pt-10 sm:pt-14 lg:pt-16 pb-8">
 
-        {/* Main grid — responsive columns */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr_1.6fr] gap-x-8 gap-y-10 lg:gap-x-10 lg:gap-y-0 mb-10 lg:mb-12">
+        {/* Main grid — 6 columns on desktop */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_0.9fr_1fr_0.85fr_1.5fr] gap-x-8 gap-y-10 lg:gap-y-0 mb-10 lg:mb-12">
 
-          {/* Col 1 — Company */}
+          {/* Col 1 — Company info */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0 }}
             className="sm:col-span-2 lg:col-span-1"
           >
-            <div className="font-bold text-gray-900 dark:text-white" style={{ fontSize: '0.85rem', marginBottom: '16px' }}>
+            <div className="text-gray-900 dark:text-white" style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '14px' }}>
               Movibase Platform PVT. LTD
             </div>
-            <address className="not-italic" style={{ fontSize: '0.82rem', color: '#6b7280', lineHeight: 1.7, marginBottom: '12px' }}>
-              <span style={{ display: 'flex', gap: '6px', alignItems: 'flex-start' }}>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ flexShrink: 0, marginTop: '3px' }}><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                <span>Wework Raheja Mindspace Building 9, Floor 13 Mindspace IT Park, Madhapur Hyderabad 500081, Telangana India</span>
+            <address className="not-italic" style={{ fontSize: '0.82rem', color: '#6b7280', lineHeight: 1.75, marginBottom: '12px' }}>
+              <span style={{ display: 'flex', gap: '7px', alignItems: 'flex-start' }}>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ flexShrink: 0, marginTop: '3px', color: '#9ca3af' }}>
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+                </svg>
+                <span>Wework Raheja Mindspace Building 9, Floor 13<br />Mindspace IT Park, Madhapur<br />Hyderabad 500081, Telangana<br />India</span>
               </span>
             </address>
-            <div style={{ fontSize: '0.82rem', color: '#6b7280', marginBottom: '16px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
-              <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                <a href="mailto:support@monkdb.com" className="hover:text-gray-900 transition-colors">support@monkdb.com</a>
+            <div style={{ fontSize: '0.82rem', color: '#6b7280', marginBottom: '18px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="2">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+                </svg>
+                <a href="mailto:support@monkdb.com" className="hover:text-gray-900 transition-colors" style={{ textDecoration: 'none' }}>support@monkdb.com</a>
               </span>
-              <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
-                <a href="#" className="hover:text-gray-900 transition-colors">www.monkdb.com</a>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="2">
+                  <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
+                </svg>
+                <a href="#" className="hover:text-gray-900 transition-colors" style={{ textDecoration: 'none' }}>www.monkdb.com</a>
               </span>
             </div>
+            {/* Social icons — rounded squares */}
             <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-              {socialIcons.map(({ label, path }) => (
+              {socialIcons.map(({ label, bg, path }) => (
                 <motion.a
                   key={label}
                   href="#"
                   aria-label={label}
-                  whileHover={{ scale: 1.1, y: -2 }}
+                  whileHover={{ scale: 1.08, y: -2 }}
                   whileTap={{ scale: 0.95 }}
-                  style={{ width: 32, height: 32, borderRadius: 8, background: '#1A38E8', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}
+                  style={{ width: 36, height: 36, borderRadius: '10px', background: bg, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, textDecoration: 'none' }}
                 >
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d={path} />
                   </svg>
                 </motion.a>
@@ -84,69 +182,70 @@ export default function Footer() {
             </div>
           </motion.div>
 
-          {/* Col 2 — Menu */}
+          {/* Col 2 — Products + Solutions */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.1 }}
+            transition={{ duration: 0.5, delay: 0.08 }}
+            className="flex flex-col gap-8"
           >
-            <div className="font-bold text-gray-900 dark:text-white" style={{ fontSize: '0.85rem', marginBottom: '16px' }}>Menu</div>
-            <ul style={{ display: 'flex', flexDirection: 'column', gap: '12px', listStyle: 'none', padding: 0, margin: 0 }}>
-              {menuLinks.map((link) => (
-                <li key={link.label}>
-                  <a href={link.href} className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" style={{ fontSize: '0.82rem' }}>
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
+            <div>
+              <FooterHeading>Products</FooterHeading>
+              <FooterLinks links={products} />
+            </div>
+            <div>
+              <FooterHeading>Solutions</FooterHeading>
+              <FooterLinks links={solutions} />
+            </div>
           </motion.div>
 
-          {/* Col 3 — Support */}
+          {/* Col 3 — Resources */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.14 }}
+          >
+            <FooterHeading>Resources</FooterHeading>
+            <FooterLinks links={resources} />
+          </motion.div>
+
+          {/* Col 4 — Community + Partners */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.2 }}
+            className="flex flex-col gap-8"
           >
-            <div className="font-bold text-gray-900 dark:text-white" style={{ fontSize: '0.85rem', marginBottom: '16px' }}>Support</div>
-            <ul style={{ display: 'flex', flexDirection: 'column', gap: '12px', listStyle: 'none', padding: 0, margin: 0 }}>
-              {supportLinks.map((link) => (
-                <li key={link}>
-                  <a href="#" className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" style={{ fontSize: '0.82rem' }}>
-                    {link}
-                  </a>
-                </li>
-              ))}
-            </ul>
+            <div>
+              <FooterHeading>Community</FooterHeading>
+              <FooterLinks links={community} />
+            </div>
+            <div>
+              <FooterHeading>Partners</FooterHeading>
+              <FooterLinks links={partners} />
+            </div>
           </motion.div>
 
-          {/* Col 4 — Stay Connected */}
+          {/* Col 5 — Company */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.3 }}
+            transition={{ duration: 0.5, delay: 0.26 }}
           >
-            <div className="font-bold text-gray-900 dark:text-white" style={{ fontSize: '0.85rem', marginBottom: '16px' }}>Stay Connected</div>
-            <ul style={{ display: 'flex', flexDirection: 'column', gap: '12px', listStyle: 'none', padding: 0, margin: 0 }}>
-              {socialTextLinks.map((link) => (
-                <li key={link}>
-                  <a href="#" className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" style={{ fontSize: '0.82rem' }}>
-                    {link}
-                  </a>
-                </li>
-              ))}
-            </ul>
+            <FooterHeading>Company</FooterHeading>
+            <FooterLinks links={company} />
           </motion.div>
 
-          {/* Col 5 — Stay Updated */}
+          {/* Col 6 — Stay Updated */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="lg:col-span-1"
+            transition={{ duration: 0.5, delay: 0.32 }}
           >
-            <div className="font-bold text-gray-900 dark:text-white" style={{ fontSize: '0.85rem', marginBottom: '16px' }}>Stay Updated</div>
-            <form onSubmit={handleSubscribe} style={{ marginBottom: '16px' }}>
+            <FooterHeading>Stay Updated</FooterHeading>
+
+            {/* Email form */}
+            <form onSubmit={handleSubscribe} style={{ marginBottom: '14px' }}>
               <div style={{ display: 'flex', borderRadius: '8px', overflow: 'hidden', border: '1px solid #e5e7eb' }}>
                 <input
                   type="email"
@@ -155,27 +254,56 @@ export default function Footer() {
                   placeholder="Enter your email"
                   required
                   className="bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white placeholder-gray-400"
-                  style={{ flex: 1, padding: '10px 14px', fontSize: '0.85rem', outline: 'none', border: 'none', minWidth: 0 }}
+                  style={{ flex: 1, padding: '10px 14px', fontSize: '0.82rem', outline: 'none', border: 'none', minWidth: 0 }}
                 />
                 <motion.button
                   type="submit"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  style={{ background: '#1A38E8', padding: '10px 14px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: 'none', cursor: 'pointer', flexShrink: 0 }}
+                  style={{ background: '#1A38E8', padding: '10px 16px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: 'none', cursor: 'pointer', flexShrink: 0 }}
                 >
                   <Send size={14} color="white" />
                 </motion.button>
               </div>
             </form>
-            <p className="text-gray-500 dark:text-gray-400" style={{ fontSize: '0.82rem', lineHeight: 1.65 }}>
-              <strong style={{
-                fontWeight: 800,
-                background: 'linear-gradient(135deg, #0033A0 0%, #1A38E8 50%, #1E8AFF 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-              }}>MonkDB</strong> is an AI-Native Unified Database designed to transform data management, empowering organizations to harness unified intelligence from diverse data types.
+
+            {/* Description */}
+            <p className="text-gray-500 dark:text-gray-400" style={{ fontSize: '0.82rem', lineHeight: 1.7, marginBottom: '18px' }}>
+              <strong className="text-gray-900 dark:text-white" style={{ fontWeight: 600 }}>MonkDB</strong> is an AI-Native Unified Database designed to transform data management, empowering organizations to harness unified intelligence from diverse data types.
             </p>
+
+            {/* Slack + Discord badges */}
+            <div style={{ display: 'flex', gap: '10px', marginBottom: '18px', flexWrap: 'wrap' }}>
+              <a
+                href="#"
+                style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '12px 20px', borderRadius: '12px', textDecoration: 'none', background: '#F5F0E8' }}
+                className="hover:shadow-sm transition-shadow"
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M5.042 15.165a2.528 2.528 0 01-2.52 2.523A2.528 2.528 0 010 15.165a2.527 2.527 0 012.522-2.52h2.52v2.52zm1.271 0a2.527 2.527 0 012.521-2.52 2.527 2.527 0 012.521 2.52v6.313A2.528 2.528 0 018.834 24a2.528 2.528 0 01-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 01-2.521-2.52A2.528 2.528 0 018.834 0a2.527 2.527 0 012.521 2.522v2.52H8.834zm0 1.271a2.527 2.527 0 012.521 2.521 2.527 2.527 0 01-2.521 2.521H2.522A2.528 2.528 0 010 8.834a2.528 2.528 0 012.522-2.521h6.312zm10.122 2.521a2.528 2.528 0 012.522-2.521A2.528 2.528 0 0124 8.834a2.527 2.527 0 01-2.522 2.521h-2.522V8.834zm-1.268 0a2.527 2.527 0 01-2.521 2.521 2.527 2.527 0 01-2.522-2.521V2.522A2.528 2.528 0 0115.167 0a2.528 2.528 0 012.521 2.522v6.312zm-2.521 10.122a2.528 2.528 0 012.521 2.522A2.528 2.528 0 0115.167 24a2.527 2.527 0 01-2.521-2.522v-2.522h2.521zm0-1.268a2.527 2.527 0 01-2.521-2.521 2.527 2.527 0 012.521-2.522h6.313A2.528 2.528 0 0124 15.167a2.528 2.528 0 01-2.522 2.521h-6.313z" fill="#E01E5A"/>
+                </svg>
+                <span style={{ fontSize: '1rem', fontWeight: 700, color: '#1a1a1a' }}>slack</span>
+              </a>
+              <a
+                href="#"
+                style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '12px 20px', borderRadius: '12px', textDecoration: 'none', background: '#F5F0E8' }}
+                className="hover:shadow-sm transition-shadow"
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="#5865F2">
+                  <path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03z"/>
+                </svg>
+                <span style={{ fontSize: '1rem', fontWeight: 700, color: '#5865F2' }}>Discord</span>
+              </a>
+            </div>
+
+            {/* AWS Partner badge */}
+            <a href="#" style={{ display: 'inline-flex', textDecoration: 'none' }}>
+              <img
+                src="/aws-partner-marketplace-seller 1.svg"
+                alt="AWS Partner Marketplace Seller"
+                style={{ height: '90px', width: 'auto', objectFit: 'contain' }}
+              />
+            </a>
           </motion.div>
 
         </div>
@@ -185,15 +313,15 @@ export default function Footer() {
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.5, delay: 0.5 }}
-          className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0"
+          className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3"
           style={{ borderTop: '1px solid #e5e7eb', paddingTop: '20px' }}
         >
-          <p className="text-gray-400" style={{ fontSize: '0.78rem' }}>
+          <p className="text-gray-400 dark:text-gray-500" style={{ fontSize: '0.78rem' }}>
             &copy; {new Date().getFullYear()} Movibase Platform PVT. LTD. All rights reserved.
           </p>
           <div className="flex flex-wrap gap-4 sm:gap-5">
             {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map((link) => (
-              <a key={link} href="#" className="text-gray-400 hover:text-gray-700 transition-colors" style={{ fontSize: '0.78rem' }}>
+              <a key={link} href="#" className="text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors" style={{ fontSize: '0.78rem', textDecoration: 'none' }}>
                 {link}
               </a>
             ))}
