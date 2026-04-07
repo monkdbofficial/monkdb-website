@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Send } from 'lucide-react'
+import { Mail, ArrowRight } from 'lucide-react'
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 
@@ -246,23 +246,25 @@ export default function Footer() {
 
             {/* Email form */}
             <form onSubmit={handleSubscribe} style={{ marginBottom: '14px' }}>
-              <div style={{ display: 'flex', borderRadius: '8px', overflow: 'hidden', border: '1px solid #e5e7eb' }}>
+              <div className="flex items-center rounded-[10px] p-1 gap-1 border border-gray-200 bg-gray-50 dark:bg-white/5 dark:border-white/10 focus-within:border-blue-500/40 dark:focus-within:border-blue-500/40 transition-colors">
+                <Mail size={13} className="ml-2 shrink-0 text-gray-400 dark:text-gray-500" />
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter your email"
+                  placeholder="your@email.com"
                   required
-                  className="bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white placeholder-gray-400"
-                  style={{ flex: 1, padding: '10px 14px', fontSize: '0.82rem', outline: 'none', border: 'none', minWidth: 0 }}
+                  className="flex-1 bg-transparent border-none outline-none text-gray-900 dark:text-white/85 placeholder-gray-400 dark:placeholder-gray-500 min-w-0"
+                  style={{ padding: '7px 8px', fontSize: '0.8rem' }}
                 />
                 <motion.button
                   type="submit"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  style={{ background: '#1A38E8', padding: '10px 16px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: 'none', cursor: 'pointer', flexShrink: 0 }}
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
+                  className="shrink-0 bg-[#1A38E8] text-white font-semibold rounded-[7px] cursor-pointer border-none"
+                  style={{ padding: '7px 13px', fontSize: '0.75rem', letterSpacing: '0.02em' }}
                 >
-                  <Send size={14} color="white" />
+                  Subscribe
                 </motion.button>
               </div>
             </form>
