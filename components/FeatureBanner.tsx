@@ -134,19 +134,19 @@ export default function FeatureBanner() {
               </div>
             </div>
 
-            {/* Arrow button — sized to fill the L-notch at bottom-right */}
+            {/* Arrow button — sits flush at bottom-right corner of the notch */}
             <motion.button
               whileHover={{ scale: 1.06 }}
               whileTap={{ scale: 0.95 }}
               className="absolute bottom-0 right-0 flex items-center justify-center"
               style={{
-                width: 'clamp(68px, 13.5%, 96px)',
+                width: '13.5%',
                 aspectRatio: '1 / 1',
-                borderRadius: '20px',
+                borderRadius: '22%',
                 background: '#0D2DC0',
               }}
             >
-              <ArrowUpRight className="text-white w-[34%] h-[34%]" />
+              <ArrowUpRight className="text-white w-[38%] h-[38%]" />
             </motion.button>
           </motion.div>
 
