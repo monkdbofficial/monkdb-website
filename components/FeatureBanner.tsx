@@ -24,7 +24,10 @@ export default function FeatureBanner() {
     >
 
       <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+        <div
+          className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5"
+          style={{ gridAutoRows: 'clamp(320px, 32vw, 460px)' }}
+        >
 
           {/* ══════════════════════════════
               CARD 1 — Pixel-perfect from Figma node 246:710.
@@ -38,7 +41,6 @@ export default function FeatureBanner() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0, ease: 'easeOut' }}
             className="relative overflow-hidden min-w-0 rounded-3xl"
-            style={{ minHeight: 'clamp(320px, 35vw, 420px)' }}
           >
             {/* Exact Figma card shape — transparent notch area shows page background through */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -99,22 +101,21 @@ export default function FeatureBanner() {
             </div>
 
             {/* Tags — absolutely positioned top right */}
-            <div className="absolute top-3 right-3 sm:top-6 sm:right-6 z-20 flex gap-1.5 sm:gap-2">
+            <div className="absolute top-3 right-3 sm:top-5 sm:right-5 z-20 flex flex-wrap justify-end gap-1.5">
               {['Ai Solution', 'Ai Services'].map((tag) => (
-                <span key={tag} className="px-2.5 sm:px-4 py-1 sm:py-1.5 rounded-full bg-white text-gray-900 text-[10px] sm:text-xs font-medium whitespace-nowrap">
+                <span key={tag} className="px-3 py-1 rounded-full bg-white text-gray-900 text-[10px] sm:text-xs font-medium whitespace-nowrap">
                   {tag}
                 </span>
               ))}
             </div>
 
-            {/* Content — vertically centered */}
-            <div className="absolute inset-0 z-10 flex flex-col justify-between p-4 sm:p-6">
-              {/* Spacer to push content down from top */}
+            {/* Content */}
+            <div className="absolute inset-0 z-10 flex flex-col justify-between p-5 sm:p-7">
               <div />
 
-              {/* Heading — centered vertically */}
-              <div style={{ maxWidth: '65%' }}>
-                <p className="text-white font-light leading-snug" style={{ fontSize: 'clamp(0.8rem, 1.2vw, 1rem)' }}>
+              {/* Text — constrained so it doesn't bleed into the image area */}
+              <div style={{ maxWidth: '58%' }}>
+                <p className="text-white font-light leading-snug" style={{ fontSize: 'clamp(0.82rem, 1.2vw, 1rem)' }}>
                   At MonkDB, our journey is deeply personal — born from decades of experience in
                   enterprise systems, data management, and AI.
                 </p>
@@ -133,23 +134,19 @@ export default function FeatureBanner() {
               </div>
             </div>
 
-            {/* Arrow button — flush at bottom-right corner.
-                The L-shaped notch (transparent) naturally shows the page background
-                above and to the left of the button, creating the white gap in Image #3.
-                Width ~13% so the button fills most of the notch's lower rect. */}
+            {/* Arrow button — sized to fill the L-notch at bottom-right */}
             <motion.button
-              whileHover={{ scale: 1.07 }}
+              whileHover={{ scale: 1.06 }}
               whileTap={{ scale: 0.95 }}
               className="absolute bottom-0 right-0 flex items-center justify-center"
               style={{
-                width: 'clamp(48px, 15%, 72px)',
+                width: 'clamp(68px, 13.5%, 96px)',
                 aspectRatio: '1 / 1',
-                borderRadius: '32px',
+                borderRadius: '20px',
                 background: '#0D2DC0',
-                boxShadow: '0 4px 20px rgba(0,0,0,0.4)',
               }}
             >
-              <ArrowUpRight className="text-white w-[40%] h-[40%]" />
+              <ArrowUpRight className="text-white w-[34%] h-[34%]" />
             </motion.button>
           </motion.div>
 
@@ -164,7 +161,6 @@ export default function FeatureBanner() {
             className="relative rounded-3xl overflow-hidden flex flex-col min-w-0"
             style={{
               background: 'linear-gradient(145deg, #1230CC 0%, #1540E0 35%, #1A50F0 65%, #2060FF 100%)',
-              minHeight: 'clamp(320px, 35vw, 420px)',
             }}
           >
             {/* Wave SVG — right side decorative element */}
@@ -235,7 +231,6 @@ export default function FeatureBanner() {
             className="relative rounded-3xl overflow-hidden flex flex-col min-w-0 md:col-span-2 xl:col-span-1"
             style={{
               background: '#1230CC',
-              minHeight: 'clamp(320px, 35vw, 420px)',
             }}
           >
             {/* Dot grid — animated drift */}
