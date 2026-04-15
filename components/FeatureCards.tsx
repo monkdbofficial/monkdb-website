@@ -5,29 +5,24 @@ import { useRef } from 'react'
 
 const features = [
   {
-    title: 'AI-Native by Design',
-    description: 'Built ground-up to support AI workloads — not retrofitted. Native vector + traditional data.',
+    title: 'Keep Architecture Simple at Scale',
+    description: 'As organizations grow, data architecture often becomes unnecessarily complex — slowing innovation and increasing costs. MonkDB simplifies data infrastructure by removing architectural clutter and enabling scalable, efficient systems that grow with your business.',
     accent: '#1A38E8',
   },
   {
-    title: 'Unified & Multi-Modal',
-    description: 'One platform for vector, time-series, geospatial, document, and streaming data.',
+    title: 'Modern Data Strategy for an AI Agent-Driven World',
+    description: 'Today’s data ecosystems are dynamic — powered by AI agents, distributed workflows, and diverse consumers. MonkDB provides seamless ingestion, transformation, and storage, making real-time, reliable data instantly accessible across your entire stack.',
     accent: '#0EA5E9',
   },
   {
-    title: 'Blazing Fast & Scalable',
-    description: 'Sub-millisecond queries at any scale — from edge deployments to petabyte warehouses.',
+    title: 'Real-Time Systems Over Static Infrastructure',
+    description: 'Autonomous systems and AI applications generate massive volumes of data continuously. MonkDB enables real-time data processing and streaming, helping you move from raw data to actionable insights — and revenue — faster than ever.',
     accent: '#6366F1',
   },
   {
-    title: 'Enterprise-Ready',
-    description: 'SOC 2, RBAC, audit logging, and flexible EULA licensing built in from day one.',
+    title: 'Built for AI-First Data Infrastructure',
+    description: 'Modern AI systems need event-driven infrastructure that ingests, processes, and stores data at scale. MonkDB is designed for AI-first environments, with built-in governance, observability, and traceability for reliable, compliant pipelines.',
     accent: '#0033A0',
-  },
-  {
-    title: 'No More Tech Sprawl',
-    description: 'Replace 5+ specialized databases with one unified platform. Less cost, less ops.',
-    accent: '#1E8AFF',
   },
 ]
 
@@ -42,7 +37,7 @@ export default function FeatureCards() {
       className="bg-white dark:bg-[#0f1623] section-grid py-10 sm:py-14 lg:py-16"
     >
       <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-5 gap-6 sm:gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
         {features.map((feature, i) => (
           <motion.div
             key={feature.title}

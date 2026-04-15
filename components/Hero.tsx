@@ -185,7 +185,7 @@ export default function Hero() {
           {/* Badge */}
           <motion.div {...fadeUp(0.1)} className="mb-5">
             <span className="text-white/85 font-medium" style={{ fontSize: '0.9rem' }}>
-              AI-Native Unified Database
+              AI-Native Sovereign Data Plane
             </span>
           </motion.div>
 
@@ -195,7 +195,7 @@ export default function Hero() {
             style={{ fontSize: 'clamp(36px, 6vw, 88px)', fontWeight: 300, lineHeight: 1.06, letterSpacing: '-0.02em' }}
           >
             <span className="block overflow-hidden">
-              {['The', 'AI-Native'].map((w, i) => (
+              {['Your', 'AI', 'Native'].map((w, i) => (
                 <motion.span
                   key={w}
                   custom={i}
@@ -209,10 +209,10 @@ export default function Hero() {
               ))}
             </span>
             <span className="block overflow-hidden">
-              {['Unified', 'Database'].map((w, i) => (
+              {['Sovereign', 'Data', 'Plane'].map((w, i) => (
                 <motion.span
                   key={w}
-                  custom={i + 2}
+                  custom={i + 3}
                   variants={wordReveal}
                   initial="hidden"
                   animate="visible"
@@ -224,35 +224,26 @@ export default function Hero() {
             </span>
           </h1>
 
-          {/* Subtitle */}
-          <motion.p
-            {...fadeUp(0.72)}
-            className="text-white/75 leading-relaxed mb-8 sm:mb-10 w-full"
-            style={{ fontSize: 'clamp(15px, 1.3vw, 18px)', maxWidth: '540px' }}
-          >
-            Vector. Time-Series. Geospatial. Document. Blob.{' '}
-            Full-Text Search. Streaming SQL.
-          </motion.p>
-
           {/* CTA Buttons */}
-          <motion.div {...fadeUp(1.0)} className="flex flex-wrap gap-3 sm:gap-4">
+          <motion.div {...fadeUp(0.72)} className="flex flex-wrap gap-3 sm:gap-4 mb-6 sm:mb-7">
             <motion.a
               href="#about"
               whileHover={{ scale: 1.03, y: -2 }}
               whileTap={{ scale: 0.97 }}
               style={{ backgroundColor: '#EDE8D8', color: '#0A2280', borderRadius: '999px', padding: '11px 24px', fontWeight: 600, fontSize: 'clamp(0.82rem, 1.1vw, 0.9rem)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 24px rgba(0,0,0,0.18)', textDecoration: 'none', whiteSpace: 'nowrap' }}
             >
-              Request Demo
-            </motion.a>
-            <motion.a
-              href="#features"
-              whileHover={{ scale: 1.03, y: -2 }}
-              whileTap={{ scale: 0.97 }}
-              style={{ backgroundColor: '#FFFFFF', color: '#0A2280', borderRadius: '999px', padding: '11px 24px', fontWeight: 600, fontSize: 'clamp(0.82rem, 1.1vw, 0.9rem)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 24px rgba(0,0,0,0.18)', textDecoration: 'none', whiteSpace: 'nowrap' }}
-            >
-              Explore Product
+              Schedule a Demo
             </motion.a>
           </motion.div>
+
+          {/* Subtitle (line beneath the CTA) */}
+          <motion.p
+            {...fadeUp(1.0)}
+            className="text-white/75 leading-relaxed mb-8 sm:mb-10 w-full"
+            style={{ fontSize: 'clamp(15px, 1.3vw, 18px)', maxWidth: '620px' }}
+          >
+            Provide your services and agents with comprehensive context derived from all of your data, ensuring there are no compromises on control, scalability, or performance.
+          </motion.p>
 
           {/* Capability chips */}
           <motion.div

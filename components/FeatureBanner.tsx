@@ -5,11 +5,10 @@ import { useRef } from 'react'
 import { ArrowUpRight, Clock } from 'lucide-react'
 
 const afterItems = [
-  'Unified multi-modal platform',
-  'Reduced infrastructure footprint',
-  'Simplified DevOps',
-  'Native AI integration',
-  'Consolidated licensing',
+  'Simple — single binary, zero ops',
+  'Efficient — high-performance C++ engine',
+  'Interoperable — every protocol & format',
+  'Safe — sovereignty, governance, traceability',
 ]
 
 export default function FeatureBanner() {
@@ -102,7 +101,7 @@ export default function FeatureBanner() {
 
             {/* Tags — absolutely positioned top right */}
             <div className="absolute top-3 right-3 sm:top-5 sm:right-5 z-20 flex flex-wrap justify-end gap-1.5">
-              {['Ai Solution', 'Ai Services'].map((tag) => (
+              {['AI Solution', 'AI Services'].map((tag) => (
                 <span key={tag} className="px-3 py-1 rounded-full bg-white text-gray-900 text-[10px] sm:text-xs font-medium whitespace-nowrap">
                   {tag}
                 </span>
@@ -116,8 +115,8 @@ export default function FeatureBanner() {
               {/* Text — constrained so it doesn't bleed into the image area */}
               <div style={{ maxWidth: '58%' }}>
                 <p className="text-white font-light leading-snug" style={{ fontSize: 'clamp(0.82rem, 1.2vw, 1rem)' }}>
-                  At MonkDB, our journey is deeply personal — born from decades of experience in
-                  enterprise systems, data management, and AI.
+                  Keep AI ecosystems grounded in continuous data context — connecting streams,
+                  databases, applications, and models into one secure layer.
                 </p>
               </div>
 
@@ -189,12 +188,12 @@ export default function FeatureBanner() {
               <div />
 
               <div style={{ maxWidth: '80%' }}>
-                <h3 className="text-white font-semibold leading-tight mb-3 sm:mb-4" style={{ fontSize: 'clamp(1rem, 1.8vw, 1.4rem)' }}>
+                <h3 className="text-white leading-tight mb-3 sm:mb-4" style={{ fontSize: 'clamp(1rem, 1.8vw, 1.4rem)', fontWeight: 400 }}>
                   Let&apos;s Build the Future of Data Infrastructure—Together
                 </h3>
                 <p className="text-white/65 leading-relaxed" style={{ fontSize: 'clamp(0.8rem, 1.2vw, 1rem)' }}>
-                  At MonkDB, our journey is deeply personal — born from decades of experience in
-                  enterprise systems, data management, and AI.
+                  Power AI ecosystems and agents with seamless access to real-time and
+                  historical data — through a single, unified query experience.
                 </p>
               </div>
 
@@ -243,7 +242,7 @@ export default function FeatureBanner() {
 
             <div className="relative z-10 p-5 sm:p-7 flex flex-col h-full justify-between">
               <div>
-                <h3 className="text-white font-bold mb-4 sm:mb-6" style={{ fontSize: 'clamp(1.05rem, 1.8vw, 1.5rem)' }}>After MonkDB</h3>
+                <h3 className="text-white mb-4 sm:mb-6" style={{ fontSize: 'clamp(1.05rem, 1.8vw, 1.5rem)', fontWeight: 400 }}>MonkDB is AI Ready</h3>
                 <ul className="space-y-3 sm:space-y-4">
                   {afterItems.map((item, i) => (
                     <motion.li key={item}

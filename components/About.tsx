@@ -60,12 +60,9 @@ export default function About() {
             className="leading-[1.12]"
             style={{ fontSize: 'clamp(28px, 4vw, 62px)', marginBottom: '28px', fontWeight: 300, letterSpacing: '-0.01em', textDecoration: 'none' }}
           >
-            <span className="text-gray-900 dark:text-white">What Makes </span>
-            <span className="gradient-text-animate" style={{ fontWeight: 400 }}>MonkDB</span>
-            <br />
-            <span className="text-gray-900 dark:text-white">The Best Choice For</span>
-            <br />
-            <span className="text-gray-900 dark:text-white">Your Enterprise</span>
+            <span className="text-gray-900 dark:text-white">Your complete </span>
+            <span className="gradient-text-animate" style={{ fontWeight: 400 }}>data sovereignty</span>
+            <span className="text-gray-900 dark:text-white">; secure and intact for an AI-first world</span>
           </h2>
 
           {/* 270k — animated counter */}
@@ -99,7 +96,7 @@ export default function About() {
               className="text-gray-900 dark:text-white font-medium leading-snug"
               style={{ fontSize: 'clamp(13px, 1.2vw, 17px)', flexShrink: 0 }}
             >
-              Ai Solution<br />for our clients
+              AI-Native Solutions<br />Delivered to Clients
             </span>
           </div>
         </motion.div>
@@ -113,8 +110,8 @@ export default function About() {
             className="text-gray-600 dark:text-gray-300 leading-relaxed"
             style={{ fontSize: 'clamp(14px, 1.2vw, 17px)', margin: 0 }}
           >
-            At Movibase, our journey is deeply personal — born from decades of experience in enterprise systems, data
-            management, and AI. We&apos;ve seen firsthand how fragmented data infrastructure holds back innovation.
+            The existing data infrastructure is excessively cumbersome, sluggish, and complex,
+            making it unsuitable for constructing an AI-native sovereign Data Plane. MonkDB is prepared.
           </motion.p>
 
           <motion.p
@@ -124,10 +121,10 @@ export default function About() {
             className="text-gray-600 dark:text-gray-300 leading-relaxed"
             style={{ fontSize: 'clamp(14px, 1.2vw, 17px)', margin: 0 }}
           >
-            At Movibase, our journey is deeply personal — born from decades of experience in enterprise systems, data
-            management, and AI. We&apos;ve seen firsthand how fragmented data infrastructure holds back innovation.
-            MonkDB is our answer: a unified, AI-native database platform built to simplify, consolidate, and empower. At
-            Movibase, our journey is deeply personal — born from decades of experience in enterprise systems.
+            MonkDB unifies streams, databases, applications, and models into a single secure data layer —
+            with built-in governance, identity, and policy enforcement. Every agent action is authorized
+            and compliant before it is executed, giving you full visibility, traceability, and control
+            across your AI ecosystem.
           </motion.p>
 
           <motion.div

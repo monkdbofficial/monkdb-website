@@ -5,18 +5,18 @@ import { useRef } from 'react'
 
 const beforeItems = [
   'Multiple specialized databases',
-  'Complex data pipelines',
-  'Higher licensing costs',
+  'Complex, brittle data pipelines',
+  'Static infrastructure, no real-time',
   'Increased DevOps overhead',
-  'Fragmented AI integration',
+  'Fragmented AI & governance',
 ]
 
 const afterItems = [
-  'Unified multi-modal platform',
-  'Reduced infrastructure footprint',
-  'Simplified DevOps',
-  'Native AI integration',
-  'Consolidated licensing',
+  'Simple — single binary, zero ops',
+  'Efficient — high-performance C++ engine',
+  'Interoperable — every protocol & format',
+  'Safe — sovereignty & traceability built in',
+  'AI-ready — agent-grade context layer',
 ]
 
 const stats = [

@@ -10,11 +10,11 @@ import { motion } from 'framer-motion'
 
 const navLinks = [
   { label: 'Home', href: '/' },
-  { label: 'Features', href: '/features' },
-  { label: 'About', href: '/about' },
-  { label: 'Why Choose Us', href: '/why-choose-us' },
-  { label: 'Architecture', href: '/architecture' },
-  { label: 'Resources', href: '/resources' },
+  { label: 'Core Systems', href: '/features' },
+  { label: 'Solutions', href: '/why-choose-us' },
+  { label: 'Industries', href: '/architecture' },
+  { label: 'Learn', href: '/resources' },
+  { label: 'Company', href: '/about' },
 ]
 
 export default function Navbar() {

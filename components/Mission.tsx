@@ -45,11 +45,19 @@ export default function Mission() {
             className="text-gray-900 dark:text-white"
             style={{ fontSize: 'clamp(22px, 3vw, 46px)', fontWeight: 300, lineHeight: 1.25, letterSpacing: '-0.01em' }}
           >
-            At Movibase,{' '}
+            AI transformed every aspect of enterprise data.{' '}
             <span style={{ color: '#1A38E8' }}>
-              our journey is deeply personal
+              Therefore, we constructed the platform they operate on.
             </span>
-            {' '}— born from decades of experience in enterprise systems, data management, and AI.
+          </p>
+
+          <p
+            className="text-gray-600 dark:text-gray-300 leading-relaxed"
+            style={{ fontSize: 'clamp(14px, 1.2vw, 17px)', marginTop: '20px' }}
+          >
+            The AI Native Sovereign Data Platform represents MonkDB&apos;s answer to the era of AI and agency.
+            It features a regulated access layer that integrates data systems to facilitate secure,
+            contextual, and real-time AI.
           </p>
         </motion.div>
       </div>
