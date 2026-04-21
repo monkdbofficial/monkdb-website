@@ -1,8 +1,8 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react'
-import { motion, useInView, animate as animateValue, type Variants } from 'framer-motion'
-import { ArrowUpRight } from 'lucide-react'
+import { useState, useRef } from 'react'
+import { motion, useInView, type Variants } from 'framer-motion'
+import { ArrowUpRight, Linkedin } from 'lucide-react'
 import Navbar from '@/components/Navbar'
 import PageBanner from '@/components/PageBanner'
 import Footer from '@/components/Footer'
@@ -23,23 +23,6 @@ const stagger = (delay = 0.1): Variants => ({
   hidden: {},
   show: { transition: { staggerChildren: delay, delayChildren: 0.05 } },
 })
-
-/* ─────────────────────────────────────────────────────────────────────────────
-   ANIMATED COUNTER HOOK
-───────────────────────────────────────────────────────────────────────────── */
-function useCounter(target: number, inView: boolean) {
-  const [count, setCount] = useState(0)
-  useEffect(() => {
-    if (!inView) return
-    const controls = animateValue(0, target, {
-      duration: 1.8,
-      ease: [0.16, 1, 0.3, 1],
-      onUpdate: (v) => setCount(Math.round(v)),
-    })
-    return () => controls.stop()
-  }, [inView, target])
-  return count
-}
 
 /* ─────────────────────────────────────────────────────────────────────────────
    WORD-BY-WORD ANIMATED TEXT
@@ -123,95 +106,6 @@ const FEATURES = [
     imgFilter: 'sepia(1) hue-rotate(200deg) saturate(4) brightness(1.05)',
   },
 ]
-
-/* ─────────────────────────────────────────────────────────────────────────────
-   TEAM MEMBERS DATA
-───────────────────────────────────────────────────────────────────────────── */
-const TEAM = [
-  { name: 'Krishna Challa', role: 'CEO MonkDB' },
-  { name: 'Arjun Reddy', role: 'CTO MonkDB' },
-  { name: 'Priya Sharma', role: 'VP Engineering' },
-  { name: 'Rahul Verma', role: 'Head of AI' },
-  { name: 'Sneha Patel', role: 'Head of Product' },
-]
-
-/* ─────────────────────────────────────────────────────────────────────────────
-   LINKEDIN ICON
-───────────────────────────────────────────────────────────────────────────── */
-function LinkedInIcon() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
-      <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z" />
-      <circle cx="4" cy="4" r="2" fill="white" />
-    </svg>
-  )
-}
-
-/* ─────────────────────────────────────────────────────────────────────────────
-   TEAM CARD COMPONENT
-───────────────────────────────────────────────────────────────────────────── */
-function TeamCard({ member, delay }: { member: (typeof TEAM)[0]; delay: number }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-30px' }}
-      transition={{ duration: 0.5, delay, ease: [0.25, 0.46, 0.45, 0.94] }}
-      whileHover={{ y: -6, boxShadow: '0 16px 40px rgba(0,0,0,0.13)', transition: { duration: 0.25 } }}
-      style={{
-        borderRadius: '16px',
-        overflow: 'hidden',
-        background: '#fff',
-        border: '1px solid #e8e8e8',
-        boxShadow: '0 2px 10px rgba(0,0,0,0.06)',
-        cursor: 'pointer',
-      }}
-    >
-      {/* Photo */}
-      <div
-        style={{
-          position: 'relative',
-          height: 'clamp(160px, 22vw, 280px)',
-          backgroundImage: 'url("/Mask group (1).svg")',
-          backgroundSize: 'contain',
-          backgroundRepeat: 'no-repeat',
-          backgroundPosition: 'center top',
-          backgroundColor: '#f0ece6',
-          overflow: 'hidden',
-        }}
-      >
-        {/* LinkedIn badge */}
-        <motion.div
-          whileHover={{ scale: 1.1 }}
-          style={{
-            position: 'absolute',
-            bottom: 10,
-            left: 10,
-            width: 36,
-            height: 36,
-            background: '#111',
-            borderRadius: '10px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
-          }}
-        >
-          <LinkedInIcon />
-        </motion.div>
-      </div>
-      {/* Info */}
-      <div style={{ padding: '10px 12px 12px' }}>
-        <p style={{ fontSize: '0.65rem', color: '#9ca3af', letterSpacing: '0.05em', marginBottom: '2px', margin: 0 }}>
-          / {member.role} /
-        </p>
-        <p style={{ fontSize: '0.85rem', fontWeight: 600, color: '#1A38E8', margin: 0 }}>
-          {member.name}
-        </p>
-      </div>
-    </motion.div>
-  )
-}
 
 /* ─────────────────────────────────────────────────────────────────────────────
    FEATURE ROW COMPONENT
@@ -353,10 +247,6 @@ export default function WhyChooseUsPage() {
 
   const introRef    = useRef(null)
   const introInView = useInView(introRef, { once: true, margin: '-60px' })
-
-  const statRef    = useRef(null)
-  const statInView = useInView(statRef, { once: true, margin: '-40px' })
-  const count      = useCounter(500, statInView)
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -501,88 +391,123 @@ export default function WhyChooseUsPage() {
       ══════════════════════════════════════════════════════════════════════ */}
       <section className="section-grid bg-white dark:bg-[#0f1623] py-10 sm:py-14 lg:py-20">
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
-          <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start">
 
-            {/* Left — text block with staggered children */}
-            <motion.div
-              variants={stagger(0.13)}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, margin: '-60px' }}
-              className="w-full lg:w-[260px] flex-shrink-0"
+          {/* Header — center-aligned */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.6, ease }}
+            className="mb-8 sm:mb-12 lg:mb-14 max-w-6xl mx-auto text-center flex flex-col items-center"
+          >
+            <span
+              className="inline-flex items-center gap-2 font-semibold text-egyptian-blue dark:text-blue-400"
+              style={{ fontSize: '0.75rem', marginBottom: '14px', letterSpacing: '0.08em', textTransform: 'uppercase' }}
             >
-              <motion.span variants={fadeUp} style={{ fontSize: '0.75rem', fontWeight: 500, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#1A38E8', display: 'block', marginBottom: '10px' }}>
-                [Team]
-              </motion.span>
+              <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#1A38E8', display: 'inline-block' }} />
+              Team
+            </span>
+            <h2
+              className="text-gray-900 dark:text-white"
+              style={{ fontSize: 'clamp(28px, 4vw, 62px)', fontWeight: 300, lineHeight: 1.12, letterSpacing: '-0.01em', marginBottom: '14px' }}
+            >
+              Meet the <span className="gradient-text-animate" style={{ fontWeight: 400 }}>MonkDB</span> team
+            </h2>
+            <p
+              className="text-gray-500 dark:text-gray-400 leading-relaxed"
+              style={{ fontSize: 'clamp(14px, 1.2vw, 17px)', maxWidth: '560px', margin: 0 }}
+            >
+              Meet the talented individuals who drive our company&apos;s success with their
+              dedication, expertise, and passion for innovation.
+            </p>
+          </motion.div>
 
-              <motion.h2
-                variants={fadeUp}
-                className="text-gray-900 dark:text-white"
-                style={{ fontSize: 'clamp(22px, 3vw, 52px)', fontWeight: 300, lineHeight: 1.15, letterSpacing: '-0.01em', marginBottom: '16px' }}
+          {/* Grid — always 3 cols on desktop so 6 members => 3×2 (balanced top/bottom).
+              Capped and centered so cards stay compact on very wide screens. */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 max-w-6xl mx-auto">
+            {[
+              { name: 'Aarav Mehta',   role: 'Founder & CEO' },
+              { name: 'Priya Raman',   role: 'Chief Architect' },
+              { name: 'Noah Fischer',  role: 'Head of Engineering' },
+              { name: 'Elena Rossi',   role: 'VP, AI & Research' },
+              { name: 'Kenji Tanaka',  role: 'Head of Product' },
+              { name: 'Sofia Alvarez', role: 'Head of Partnerships' },
+            ].map((member, i) => (
+              <motion.div
+                key={member.name}
+                initial={{ opacity: 0, y: 28 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{ duration: 0.55, delay: i * 0.08, ease }}
+                whileHover={{ y: -4, transition: { duration: 0.25 } }}
+                className="relative rounded-[16px] overflow-hidden"
+                style={{
+                  aspectRatio: '1 / 1',
+                  background: '#F1EEE6',
+                  boxShadow: '0 1px 0 rgba(17,24,39,0.04), 0 6px 22px rgba(26,56,232,0.07)',
+                }}
               >
-                The Neural Network experts: uniting talent for intelligent solutions
-              </motion.h2>
+                {/* Silhouette placeholder — contained, sits at the bottom */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/Mask group (1).svg"
+                  alt={member.name}
+                  className="absolute inset-0 w-full h-full pointer-events-none"
+                  style={{ objectFit: 'contain', objectPosition: 'center bottom' }}
+                  loading="lazy"
+                />
 
-              {/* Animated counter */}
-              <motion.div variants={fadeUp} ref={statRef}>
-                <span
+                {/* Subtle gradient wash to blend with brand */}
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-0 pointer-events-none"
                   style={{
-                    fontSize: 'clamp(40px, 5.5vw, 96px)',
-                    fontWeight: 700,
-                    letterSpacing: '-3px',
-                    lineHeight: 1,
-                    WebkitTextStroke: '2px #1A38E8',
-                    color: 'transparent',
-                    display: 'block',
-                    marginBottom: '6px',
+                    background: 'linear-gradient(180deg, rgba(10,34,128,0) 60%, rgba(10,34,128,0.14) 100%)',
+                  }}
+                />
+
+                {/* Info card — bottom overlay */}
+                <div
+                  className="absolute bottom-2.5 left-2.5 right-2.5 sm:bottom-3 sm:left-3 sm:right-3 flex items-center justify-between gap-2 rounded-[12px]"
+                  style={{
+                    background: 'rgba(255,255,255,0.96)',
+                    backdropFilter: 'blur(10px)',
+                    padding: '9px 11px',
+                    boxShadow: '0 4px 14px rgba(10,34,128,0.1)',
                   }}
                 >
-                  +{count}
-                </span>
+                  <div className="min-w-0">
+                    <p
+                      className="text-gray-900 truncate"
+                      style={{ fontSize: '0.82rem', fontWeight: 600, margin: 0, lineHeight: 1.2 }}
+                    >
+                      {member.name}
+                    </p>
+                    <p
+                      className="text-gray-500 truncate"
+                      style={{ fontSize: '0.7rem', margin: '2px 0 0', lineHeight: 1.2 }}
+                    >
+                      {member.role}
+                    </p>
+                  </div>
+                  <motion.a
+                    href="#"
+                    aria-label={`${member.name} on LinkedIn`}
+                    whileHover={{ scale: 1.08, backgroundColor: '#1A38E8' }}
+                    whileTap={{ scale: 0.94 }}
+                    className="flex-shrink-0 flex items-center justify-center rounded-[7px] text-white"
+                    style={{
+                      width: 24,
+                      height: 24,
+                      background: '#0A2280',
+                      textDecoration: 'none',
+                    }}
+                  >
+                    <Linkedin size={12} strokeWidth={2} />
+                  </motion.a>
+                </div>
               </motion.div>
-
-              <motion.p variants={fadeUp} className="text-gray-500" style={{ fontSize: 'clamp(14px, 1.2vw, 17px)', fontWeight: 400, marginBottom: '18px' }}>
-                Ai Solution for our clients
-              </motion.p>
-
-              <motion.div variants={fadeUp}>
-                <motion.a
-                  href="#contact"
-                  whileHover={{ scale: 1.03, y: -2, borderColor: '#1A38E8', color: '#1A38E8' }}
-                  whileTap={{ scale: 0.97 }}
-                  className="inline-flex items-center gap-2 text-gray-700 dark:text-gray-300"
-                  style={{ border: '1px solid #d1d5db', borderRadius: '999px', padding: '8px 18px', fontSize: 'clamp(0.82rem, 1.1vw, 0.9rem)', fontWeight: 500, textDecoration: 'none', transition: 'border-color 0.2s, color 0.2s' }}
-                >
-                  Explore more
-                  <ArrowUpRight size={12} />
-                </motion.a>
-              </motion.div>
-            </motion.div>
-
-            {/* Right — cards grid */}
-            <div className="flex-1 min-w-0">
-              {/* Mobile / tablet */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 lg:hidden">
-                {TEAM.map((member, i) => (
-                  <TeamCard key={member.name} member={member} delay={i * 0.07} />
-                ))}
-              </div>
-              {/* Desktop — staggered 3-col */}
-              <div className="hidden lg:grid lg:grid-cols-3 gap-3 items-start">
-                <div className="flex flex-col gap-3">
-                  <TeamCard member={TEAM[0]} delay={0.08} />
-                  <TeamCard member={TEAM[2]} delay={0.2} />
-                </div>
-                <div className="flex flex-col gap-3 mt-8">
-                  <TeamCard member={TEAM[1]} delay={0.14} />
-                  <TeamCard member={TEAM[3]} delay={0.26} />
-                </div>
-                <div className="flex flex-col gap-3 mt-4">
-                  <TeamCard member={TEAM[4]} delay={0.32} />
-                </div>
-              </div>
-            </div>
-
+            ))}
           </div>
         </div>
       </section>

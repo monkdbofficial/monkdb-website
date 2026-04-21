@@ -1,226 +1,255 @@
 'use client'
 
 /**
- * PageBanner — reusable full-width page-header banner.
- * Canvas-based isometric wave grid (replaces 1600 DOM elements).
+ * PageBanner — enterprise page header.
+ * Split layout: left = breadcrumb + title + subtitle, right = animated 3D asset.
+ * Brand-aligned blue gradient background. Minimal, tasteful motion.
  *
- * Usage:  <PageBanner title="About Us" />
+ * Usage:  <PageBanner title="About Us" subtitle="..." />
  */
 
-import { useEffect, useRef } from 'react'
+import { usePathname } from 'next/navigation'
+import Link from 'next/link'
+import { motion } from 'framer-motion'
 
-/* ─── Grid config (matches original visual exactly) ─────────────── */
-const BOX   = 48    // tile size in grid space
-const BOX_H = 20    // wall height per scale unit
-const COLS  = 40
-const ROWS  = 40
-const DUR   = 3.6   // wave cycle (seconds)
-const DELAY = 0.09  // per-diagonal phase delay (seconds)
+const SANAS_EASE = [0.165, 0.84, 0.44, 1] as const
 
-/* ─── Palette ───────────────────────────────────────────────────── */
-const TOP_C  = '#4D9EFF'
-const FACE_C = '#1A40F0'
-const SIDE_C = '#0820C8'
-const BG_C   = '#0318AA'
-
-/* ─── Isometric projection constants ────────────────────────────── */
-// Replicates CSS: rotateX(58deg) rotateZ(45deg)
-const C45 = Math.cos(Math.PI / 4)
-const S45 = Math.sin(Math.PI / 4)
-const C58 = Math.cos(58 * Math.PI / 180)
-const S58 = Math.sin(58 * Math.PI / 180)
-
-const GCX = (COLS * BOX) / 2   // grid center X
-const GCY = (ROWS * BOX) / 2   // grid center Y
-
-/* Pre-compute static screen-X and base screen-Y for every grid corner.
-   scrX never changes; scrY0 is the y-component at gz=0.
-   At elevation gz: scrY = scrY0[i] - gz * S58  */
-const CORNER_COUNT = (COLS + 1) * (ROWS + 1)
-const scrX  = new Float32Array(CORNER_COUNT)
-const scrY0 = new Float32Array(CORNER_COUNT)
-
-for (let r = 0; r <= ROWS; r++) {
-  for (let c = 0; c <= COLS; c++) {
-    const cx = c * BOX - GCX
-    const cy = r * BOX - GCY
-    const rx = cx * C45 - cy * S45
-    const ry = cx * S45 + cy * C45
-    const i  = r * (COLS + 1) + c
-    scrX[i]  = rx
-    scrY0[i] = ry * C58
-  }
+// Human-readable labels for breadcrumb
+const LABEL_MAP: Record<string, string> = {
+  features: 'Core Systems',
+  'why-choose-us': 'Solutions',
+  architecture: 'Industries',
+  resources: 'Learn',
+  about: 'Company',
 }
 
-function corner(c: number, r: number, gz: number): [number, number] {
-  const i = r * (COLS + 1) + c
-  return [scrX[i], scrY0[i] - gz * S58]
+// Short contextual subtitle per route
+const SUBTITLE_MAP: Record<string, string> = {
+  features: 'A unified data plane. Eight workloads. One engine.',
+  'why-choose-us': 'Purpose-built for enterprises that cannot compromise on sovereignty.',
+  architecture: 'Distributed by design. Deployed where your data lives.',
+  resources: 'Documentation, reference architectures, and engineering deep-dives.',
+  about: 'Building the AI-native data infrastructure for regulated enterprises.',
 }
 
-/* ─── Component ─────────────────────────────────────────────────── */
-export default function PageBanner({ title }: { title: string }) {
-  const wrapRef   = useRef<HTMLDivElement>(null)
-  const canvasRef = useRef<HTMLCanvasElement>(null)
-  const rafRef    = useRef<number>(0)
+export default function PageBanner({
+  title,
+  subtitle,
+}: {
+  title: string
+  subtitle?: string
+}) {
+  const pathname = usePathname()
+  const slug = pathname?.replace(/^\//, '') || ''
+  const crumbLabel = LABEL_MAP[slug] || title
+  const resolvedSubtitle = subtitle || SUBTITLE_MAP[slug] || ''
 
-  useEffect(() => {
-    const canvas = canvasRef.current
-    const wrap   = wrapRef.current
-    if (!canvas || !wrap) return
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return
-    const draw = ctx
-
-    let W = 0, H = 0
-
-    function resize() {
-      if (!canvas || !wrap || !ctx) return
-      const dpr = window.devicePixelRatio || 1
-      W = wrap.offsetWidth
-      H = wrap.offsetHeight
-      canvas.width  = W * dpr
-      canvas.height = H * dpr
-      canvas.style.width  = W + 'px'
-      canvas.style.height = H + 'px'
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
-    }
-    resize()
-    const ro = new ResizeObserver(resize)
-    ro.observe(wrap)
-
-    let visible = true
-    const io = new IntersectionObserver(
-      ([e]) => { visible = e.isIntersecting },
-      { threshold: 0 },
-    )
-    io.observe(wrap)
-
-    let startTime = -1
-
-    /* Draw a filled polygon */
-    function poly(pts: [number, number][], color: string) {
-      draw.fillStyle = color
-      draw.beginPath()
-      draw.moveTo(pts[0][0], pts[0][1])
-      for (let i = 1; i < pts.length; i++) draw.lineTo(pts[i][0], pts[i][1])
-      draw.closePath()
-      draw.fill()
-    }
-
-    function loop(ts: number) {
-      rafRef.current = requestAnimationFrame(loop)
-      if (!visible) return
-
-      if (startTime < 0) startTime = ts
-      const t = (ts - startTime) / 1000   // seconds
-
-      /* Background */
-      draw.fillStyle = BG_C
-      draw.fillRect(0, 0, W, H)
-
-      /* Canvas origin = banner center (matches CSS top:50% left:50%) */
-      const ox = W / 2
-      const oy = H / 2
-
-      /* Painter's algorithm: draw diagonals back→front (low diag first) */
-      for (let diag = 0; diag < COLS + ROWS - 1; diag++) {
-        const c0 = Math.max(0, diag - (ROWS - 1))
-        const c1 = Math.min(diag, COLS - 1)
-
-        for (let col = c0; col <= c1; col++) {
-          const row = diag - col
-
-          /* Wave height — matches CSS ease-in-out approximated by sine */
-          const scale = 8 + (diag % 4)
-          const phase = 2 * Math.PI * (t / DUR - (diag * DELAY) / DUR)
-          const gz    = scale * BOX_H * (0.5 + 0.5 * Math.sin(phase))
-
-          /* Four corners of this tile's top face (elevated at gz) */
-          const [tlx, tly]  = corner(col,     row,     gz)
-          const [trx, try_] = corner(col + 1, row,     gz)
-          const [brx, bry]  = corner(col + 1, row + 1, gz)
-          const [blx, bly]  = corner(col,     row + 1, gz)
-
-          /* Base corners (gz = 0) — only TR, BR, BL needed for walls */
-          const [tr0x, tr0y] = corner(col + 1, row,     0)
-          const [br0x, br0y] = corner(col + 1, row + 1, 0)
-          const [bl0x, bl0y] = corner(col,     row + 1, 0)
-
-          /* Offset to screen coordinates */
-          const S = (x: number, y: number): [number, number] => [ox + x, oy + y]
-
-          if (gz > 0.5) {
-            /* South wall (world +Y face) — appears on LEFT in screen — SIDE color */
-            poly([
-              S(blx, bly), S(brx, bry),
-              S(br0x, br0y), S(bl0x, bl0y),
-            ], SIDE_C)
-
-            /* East wall (world +X face) — appears on RIGHT in screen — FACE color */
-            poly([
-              S(trx, try_), S(brx, bry),
-              S(br0x, br0y), S(tr0x, tr0y),
-            ], FACE_C)
-          }
-
-          /* Top face — always on top */
-          poly([
-            S(tlx, tly), S(trx, try_),
-            S(brx, bry), S(blx, bly),
-          ], TOP_C)
-        }
-      }
-    }
-
-    rafRef.current = requestAnimationFrame(loop)
-
-    return () => {
-      cancelAnimationFrame(rafRef.current)
-      ro.disconnect()
-      io.disconnect()
-    }
-  }, [])
+  const words = title.split(' ')
 
   return (
-    <div
-      ref={wrapRef}
+    <section
+      className="relative w-full overflow-hidden"
       style={{
-        position: 'relative',
-        width: '100%',
-        height: 'clamp(160px, 28vw, 380px)',
-        overflow: 'hidden',
-        background: BG_C,
+        minHeight: 'clamp(280px, 38vw, 460px)',
+        backgroundColor: '#0A1676',
       }}
     >
-      {/* Canvas grid — single GPU texture, replaces 1600 DOM elements */}
-      <canvas
-        ref={canvasRef}
-        aria-hidden="true"
-        style={{ position: 'absolute', inset: 0 }}
+      {/* ── BRAND GRADIENT BASE (matches Hero palette) ── */}
+      <div
+        className="absolute inset-0"
+        style={{
+          backgroundColor: '#1A38E8',
+          backgroundImage: `
+            radial-gradient(ellipse 80% 70% at 100% 0%, #050D6A 0%, #0A1A9A 35%, transparent 65%),
+            radial-gradient(ellipse 60% 70% at 0% 100%, #0E26B8 0%, transparent 55%),
+            linear-gradient(180deg, #0A1676 0%, #1230CC 100%)
+          `,
+        }}
       />
 
-      {/* Title */}
-      <div
+      {/* ── Soft spotlight from bottom-right (single, calm) ── */}
+      <motion.div
+        className="absolute pointer-events-none rounded-full"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.7 }}
+        transition={{ duration: 1.4, ease: SANAS_EASE }}
         style={{
-          position: 'absolute',
-          top: '50%',
-          left: 0,
-          right: 0,
-          transform: 'translateY(calc(-50% + clamp(32px, 3vw, 46px)))',
-          textAlign: 'center',
-          color: '#ffffff',
-          fontFamily: 'var(--font-sans, sans-serif)',
-          fontSize: 'clamp(22px, 4.5vw, 72px)',
-          fontWeight: 300,
-          letterSpacing: '0.01em',
-          textShadow: '0 2px 32px rgba(0,0,0,0.45)',
-          pointerEvents: 'none',
-          userSelect: 'none',
-          lineHeight: 1.1,
+          width: '70%',
+          height: '140%',
+          background: 'radial-gradient(ellipse, rgba(60,120,255,0.28) 0%, transparent 65%)',
+          filter: 'blur(80px)',
+          bottom: '-70%',
+          right: '-10%',
+          mixBlendMode: 'screen',
         }}
-      >
-        / {title} /
+      />
+
+      {/* ── Dot grid, barely-there ── */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage:
+            'radial-gradient(circle, rgba(255,255,255,0.14) 1px, transparent 1px)',
+          backgroundSize: '32px 32px',
+          opacity: 0.55,
+        }}
+      />
+
+      {/* ── CONTENT GRID ── */}
+      <div className="relative z-10 max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28 h-full">
+        <div
+          className="grid grid-cols-1 lg:grid-cols-[1fr_auto] items-center gap-8 py-14 sm:py-20 lg:py-24"
+          style={{ minHeight: 'inherit' }}
+        >
+          {/* LEFT — breadcrumb + title + subtitle */}
+          <div className="max-w-[880px]">
+            {/* Breadcrumb */}
+            <motion.nav
+              aria-label="Breadcrumb"
+              className="flex items-center gap-2 mb-5 sm:mb-6"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.1, ease: SANAS_EASE }}
+            >
+              <Link
+                href="/"
+                className="text-white/60 hover:text-white/90"
+                style={{
+                  fontSize: '13px',
+                  fontWeight: 500,
+                  letterSpacing: '0.01em',
+                  transition: 'color 200ms ease',
+                  textDecoration: 'none',
+                }}
+              >
+                Home
+              </Link>
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                aria-hidden="true"
+                style={{ color: 'rgba(255,255,255,0.4)' }}
+              >
+                <path
+                  d="M9 18l6-6-6-6"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              <span
+                className="text-white"
+                style={{
+                  fontSize: '13px',
+                  fontWeight: 500,
+                  letterSpacing: '0.01em',
+                }}
+              >
+                {crumbLabel}
+              </span>
+            </motion.nav>
+
+            {/* Title — mask reveal per word */}
+            <h1
+              className="text-white"
+              style={{
+                fontFamily: 'var(--font-sans, sans-serif)',
+                fontSize: 'clamp(36px, 6.2vw, 88px)',
+                fontWeight: 300,
+                letterSpacing: '-0.025em',
+                lineHeight: 1.04,
+                textWrap: 'balance',
+              }}
+            >
+              {words.map((word, i) => (
+                <span
+                  key={i}
+                  className="inline-block overflow-hidden align-baseline"
+                  style={{ marginRight: '0.25em', paddingBottom: '0.08em' }}
+                >
+                  <motion.span
+                    className="inline-block"
+                    initial={{ y: '110%' }}
+                    animate={{ y: '0%' }}
+                    transition={{
+                      duration: 1,
+                      delay: 0.25 + i * 0.1,
+                      ease: SANAS_EASE,
+                    }}
+                  >
+                    {word}
+                  </motion.span>
+                </span>
+              ))}
+            </h1>
+
+            {/* Subtitle */}
+            {resolvedSubtitle && (
+              <motion.p
+                className="text-white/70 mt-5 sm:mt-6"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 0.9,
+                  delay: 0.25 + words.length * 0.1 + 0.1,
+                  ease: SANAS_EASE,
+                }}
+                style={{
+                  fontSize: 'clamp(15px, 1.25vw, 18px)',
+                  fontWeight: 400,
+                  lineHeight: 1.55,
+                  maxWidth: '620px',
+                  letterSpacing: '0.005em',
+                }}
+              >
+                {resolvedSubtitle}
+              </motion.p>
+            )}
+          </div>
+
+          {/* RIGHT — decorative 3D asset (desktop only, never blocks content) */}
+          <motion.div
+            className="hidden lg:block relative"
+            initial={{ opacity: 0, x: 30, scale: 0.92 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            transition={{ duration: 1.2, delay: 0.35, ease: SANAS_EASE }}
+            style={{ width: 'clamp(220px, 22vw, 340px)', height: 'clamp(220px, 22vw, 340px)' }}
+          >
+            <motion.img
+              src="/3d-shapes-glowing-with-bright-holographic-colors 1.svg"
+              alt=""
+              aria-hidden="true"
+              className="w-full h-full object-contain"
+              animate={{
+                y: [0, -12, 0],
+                rotate: [0, 2, 0, -2, 0],
+              }}
+              transition={{
+                y: { duration: 7, repeat: Infinity, ease: 'easeInOut' },
+                rotate: { duration: 11, repeat: Infinity, ease: 'easeInOut' },
+              }}
+              style={{ filter: 'drop-shadow(0 20px 50px rgba(0,0,0,0.35))' }}
+            />
+          </motion.div>
+        </div>
       </div>
-    </div>
+
+      {/* ── Bottom hairline divider (single, precise) ── */}
+      <motion.div
+        className="absolute left-0 right-0 bottom-0 pointer-events-none"
+        initial={{ scaleX: 0 }}
+        animate={{ scaleX: 1 }}
+        transition={{ duration: 1.4, delay: 0.2, ease: SANAS_EASE }}
+        style={{
+          height: '1px',
+          background:
+            'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.25) 50%, transparent 100%)',
+          transformOrigin: 'center',
+        }}
+      />
+    </section>
   )
 }
