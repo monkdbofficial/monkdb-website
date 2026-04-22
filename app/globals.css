@@ -29,7 +29,6 @@
     to { transform: translateX(0); }
   }
 
-
   @keyframes fadeInUp {
     from { opacity: 0; transform: translateY(30px); }
     to { opacity: 1; transform: translateY(0); }
@@ -56,8 +55,8 @@
 }
 
 .dark {
-  --bg: #0f1623;
-  --bg-secondary: #1B365D;
+  --bg: #060c18;
+  --bg-secondary: #0d1a35;
   --text: #ffffff;
   --text-muted: #B1C9E8;
 }
@@ -82,22 +81,21 @@
   }
 
   ::selection {
-    background-color: #0033A0;
+    background-color: #1A38E8;
     color: #ffffff;
   }
 }
 
-
-/* ── Azure-style subtle dot grid on light sections ── */
+/* ── Subtle dot grid ── */
 .section-grid {
-  background-image: radial-gradient(circle, rgba(10, 20, 120, 0.09) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(10, 20, 120, 0.07) 1px, transparent 1px);
   background-size: 28px 28px;
   animation: grid-drift 14s linear infinite;
   will-change: background-position;
 }
 
 .dark .section-grid {
-  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(100, 140, 255, 0.07) 1px, transparent 1px);
   background-size: 28px 28px;
   animation: grid-drift 14s linear infinite;
   will-change: background-position;
@@ -108,13 +106,29 @@
   100% { background-position: 28px 28px; }
 }
 
-/* ── Holographic wave continuous scroll ── */
+/* ── Aurora sweep ── */
+@keyframes aurora-shift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.aurora-bg {
+  background: linear-gradient(
+    -45deg,
+    #0a0e2a, #0d1f5c, #0a2a8a, #0d1f5c, #1a0a4a, #0a1a6e
+  );
+  background-size: 400% 400%;
+  animation: aurora-shift 18s ease infinite;
+}
+
+/* ── Holographic wave ── */
 @keyframes waveScroll {
   0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
 
-/* ── Parallax wave (About banner) ── */
+/* ── Parallax wave ── */
 @keyframes wave-move-forever {
   0%   { transform: translate3d(-90px, 0, 0); }
   100% { transform: translate3d(85px,  0, 0); }
@@ -129,10 +143,10 @@
 .wave-parallax > use:nth-child(5) { animation-delay: -6s;  animation-duration: 22s; }
 .wave-parallax > use:nth-child(6) { animation-delay: -7s;  animation-duration: 28s; }
 
-/* ── Hero-specific particle rise ── */
+/* ── Particle rise ── */
 @keyframes particle-rise {
   0%   { transform: translateY(0);      opacity: 0; }
-  10%  { opacity: 0.6; }
+  10%  { opacity: 0.7; }
   90%  { opacity: 0.4; }
   100% { transform: translateY(-110vh); opacity: 0; }
 }
@@ -143,20 +157,33 @@
   100% { background-position: 200% center; }
 }
 
+/* ── Iridescent shimmer (wider sweep) ── */
+@keyframes iridescent {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 /* ── Glow pulse ── */
 @keyframes glow-pulse {
-  0%, 100% { box-shadow: 0 0 16px rgba(26,56,232,0.25); }
-  50%       { box-shadow: 0 0 32px rgba(26,56,232,0.5), 0 0 60px rgba(30,138,255,0.2); }
+  0%, 100% { box-shadow: 0 0 20px rgba(30,138,255,0.3); }
+  50%       { box-shadow: 0 0 40px rgba(30,138,255,0.6), 0 0 80px rgba(100,80,255,0.25); }
+}
+
+/* ── 3D sphere spin ── */
+@keyframes sphere-spin {
+  0%   { transform: rotateY(0deg) rotateX(15deg); }
+  100% { transform: rotateY(360deg) rotateX(15deg); }
 }
 
 /* ── Gradient animated text ── */
 .gradient-text-animate {
-  background: linear-gradient(135deg, #0033A0, #1A38E8, #1E8AFF, #0033A0);
+  background: linear-gradient(135deg, #4080ff, #1A38E8, #00c2ff, #7040ff, #1A38E8);
   background-size: 300% 300%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: shimmer 5s linear infinite;
+  animation: iridescent 6s ease infinite;
 }
 
 /* ── Float gentle ── */
@@ -166,25 +193,37 @@
   66%       { transform: translateY(-4px) rotate(-0.5deg); }
 }
 
-/* ── Orb drift keyframes ── */
+/* ── Orb drift ── */
 @keyframes orb-a {
-  0%, 100% { transform: translate(0, 0)   scale(1);    }
+  0%, 100% { transform: translate(0, 0)   scale(1); }
   30%       { transform: translate(80px, 60px) scale(1.08); }
   65%       { transform: translate(-40px, 110px) scale(0.95); }
 }
 @keyframes orb-b {
-  0%, 100% { transform: translate(0, 0)    scale(1);    }
+  0%, 100% { transform: translate(0, 0)    scale(1); }
   40%       { transform: translate(-90px, -70px) scale(1.12); }
   70%       { transform: translate(50px, -30px) scale(0.92); }
 }
 @keyframes orb-c {
-  0%, 100% { transform: translate(0, 0)  scale(1);    }
+  0%, 100% { transform: translate(0, 0)  scale(1); }
   50%       { transform: translate(60px, -80px) scale(1.06); }
+}
+
+/* ── Shine sweep (card hover) ── */
+@keyframes shine-sweep {
+  0%   { transform: translateX(-100%) skewX(-15deg); }
+  100% { transform: translateX(300%) skewX(-15deg); }
+}
+
+/* ── Ring pulse ── */
+@keyframes ring-pulse {
+  0%   { transform: scale(0.8); opacity: 0.8; }
+  100% { transform: scale(2.2); opacity: 0; }
 }
 
 @layer utilities {
   .text-gradient {
-    background: linear-gradient(135deg, #0033A0, #1E8AFF);
+    background: linear-gradient(135deg, #1A38E8, #00c2ff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -198,9 +237,26 @@
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
+
+  /* Glassmorphism card */
+  .glass-card {
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* 3D perspective container */
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
 }
 
-/* ── Achievement section glow pulses (CSS — compositor thread, no JS) ── */
+/* ── Achievement section glow ── */
 @keyframes achiev-orb-pulse {
   0%, 100% { transform: scale(1);    opacity: 0.5; }
   50%       { transform: scale(1.18); opacity: 0.9; }
@@ -211,16 +267,51 @@
   50%       { transform: scale(1.14); opacity: 0.9; }
 }
 
-/* ── Slow continuous spin (Vector.svg in Story section) ── */
+/* ── Slow spin ── */
 @keyframes spin-slow {
   from { transform: rotate(0deg); }
   to   { transform: rotate(360deg); }
 }
 
-.animation-delay-2000 {
-  animation-delay: 2s;
+.animation-delay-2000 { animation-delay: 2s; }
+.animation-delay-4000 { animation-delay: 4s; }
+
+/* ── PageBanner: layered backdrop animations ── */
+@keyframes banner-float-shape {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes banner-grid-pan {
+  from { background-position: 0 0; }
+  to   { background-position: 60px 0; }
+}
+@keyframes banner-halo-breathe {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50%      { opacity: 0.85; transform: scale(1.06); }
 }
 
-.animation-delay-4000 {
-  animation-delay: 4s;
+@media (prefers-reduced-motion: reduce) {
+  .pb-shape, .pb-grid, .pb-halo { animation: none !important; }
+  .wave-parallax > use { animation: none !important; }
 }
+
+/* ── PageBanner breadcrumb hover underline ── */
+.banner-crumb-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.85);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 260ms cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+.banner-crumb-link:hover {
+  color: rgba(255, 255, 255, 0.95) !important;
+}
+.banner-crumb-link:hover::after {
+  transform: scaleX(1);
+}
+

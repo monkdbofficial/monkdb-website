@@ -4,7 +4,7 @@ import './globals.css'
 import { Providers } from './providers'
 
 const ibmPlexSans = IBM_Plex_Sans({
-  weight: ['400', '600', '700'],
+  weight: ['300', '400', '500', '600', '700'],
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-ibm-plex-sans',
@@ -74,6 +74,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
+      data-scroll-behavior="smooth"
       className={`${ibmPlexSans.variable} ${ibmPlexMono.variable}`}
     >
       <body className="font-sans antialiased min-h-screen">

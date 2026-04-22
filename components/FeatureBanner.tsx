@@ -19,13 +19,14 @@ export default function FeatureBanner() {
     <section
       ref={ref}
       id="features-banner"
-      className="py-10 sm:py-14 lg:py-16 bg-white dark:bg-[#0f1623] overflow-hidden"
+      className="py-10 sm:py-14 lg:py-16 overflow-hidden"
+      style={{ background: 'linear-gradient(180deg, #ffffff 0%, #f0f3ff 100%)' }}
     >
 
       <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
         <div
           className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5"
-          style={{ gridAutoRows: 'clamp(320px, 32vw, 460px)' }}
+          style={{ gridAutoRows: 'clamp(320px, 32vw, 460px)', perspective: '1200px' }}
         >
 
           {/* ══════════════════════════════
@@ -156,10 +157,11 @@ export default function FeatureBanner() {
             initial={{ opacity: 0, y: 50 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.15, ease: 'easeOut' }}
-            whileHover={{ boxShadow: '0 0 0 1.5px rgba(30,138,255,0.5), 0 16px 48px rgba(26,56,232,0.3)', transition: { duration: 0.25 } }}
+            whileHover={{ boxShadow: '0 0 0 1.5px rgba(96,160,255,0.5), 0 20px 60px rgba(80,60,220,0.4)', rotateY: -2, rotateX: 1, transition: { duration: 0.25 } }}
             className="relative rounded-3xl overflow-hidden flex flex-col min-w-0"
             style={{
-              background: 'linear-gradient(145deg, #1230CC 0%, #1540E0 35%, #1A50F0 65%, #2060FF 100%)',
+              background: 'linear-gradient(145deg, #0e1fa0 0%, #1530cc 30%, #1e44f0 60%, #2855ff 100%)',
+              transformStyle: 'preserve-3d',
             }}
           >
             {/* Wave SVG — right side decorative element */}
@@ -227,9 +229,11 @@ export default function FeatureBanner() {
             initial={{ opacity: 0, y: 50 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.3, ease: 'easeOut' }}
+            whileHover={{ boxShadow: '0 0 0 1.5px rgba(160,96,255,0.4), 0 20px 60px rgba(100,40,200,0.35)', rotateY: 2, rotateX: -1, transition: { duration: 0.25 } }}
             className="relative rounded-3xl overflow-hidden flex flex-col min-w-0 md:col-span-2 xl:col-span-1"
             style={{
-              background: '#1230CC',
+              background: 'linear-gradient(145deg, #0e1880 0%, #1230cc 40%, #1a2ae0 70%, #2040ff 100%)',
+              transformStyle: 'preserve-3d',
             }}
           >
             {/* Dot grid — animated drift */}
