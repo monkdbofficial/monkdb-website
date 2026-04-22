@@ -324,7 +324,7 @@ export default function WhyChooseUsPage() {
                 className="text-gray-500 dark:text-gray-400"
                 style={{ fontSize: 'clamp(14px, 1.2vw, 17px)', fontWeight: 400, maxWidth: '600px', lineHeight: 1.75, margin: '0 auto' }}
               >
-                At Movibase, our journey is deeply personal — born from decades of experience in enterprise systems, data management, and AI. We&apos;ve seen firsthand how fragmented data infrastructure holds back innovation.
+                At MonkDB, our journey is deeply personal — born from decades of experience in enterprise systems, data management, and AI. We&apos;ve seen firsthand how fragmented data infrastructure holds back innovation.
               </p>
             </motion.div>
           </motion.div>
@@ -359,7 +359,7 @@ export default function WhyChooseUsPage() {
               </motion.div>
               <motion.div variants={fadeUp} className="flex flex-col gap-5 lg:pt-2">
                 <p className="text-white/65" style={{ fontSize: 'clamp(14px, 1.2vw, 17px)', fontWeight: 400, lineHeight: 1.75, margin: 0 }}>
-                  At Movibase, our journey is deeply personal — born from decades of experience in enterprise systems, data management, and AI. We&apos;ve seen firsthand how fragmented data infrastructure holds back innovation.
+                  At MonkDB, our journey is deeply personal — born from decades of experience in enterprise systems, data management, and AI. We&apos;ve seen firsthand how fragmented data infrastructure holds back innovation.
                 </p>
                 <motion.a
                   href="#features"
@@ -518,7 +518,7 @@ export default function WhyChooseUsPage() {
       <section className="section-grid bg-white dark:bg-[#0f1623] py-8 sm:py-10">
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28 flex justify-center">
           <AnimatedWords
-            text="At Movibase, our journey is deeply personal — born from decades of experience in enterprise systems, data management, and AI. We've seen firsthand how fragmented data infrastructure holds back innovation."
+            text="At MonkDB, our journey is deeply personal — born from decades of experience in enterprise systems, data management, and AI. We've seen firsthand how fragmented data infrastructure holds back innovation."
             className="text-gray-500 dark:text-gray-400 text-center"
             style={{ fontSize: 'clamp(13px, 1.2vw, 16px)', fontWeight: 400, maxWidth: '720px', lineHeight: 1.8 }}
           />

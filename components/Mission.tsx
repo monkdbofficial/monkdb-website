@@ -35,25 +35,66 @@ export default function Mission() {
           </div>
         </motion.div>
 
-        {/* ── RIGHT: quote text ── */}
+        {/* ── RIGHT: chapter marker + quote text ── */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] as const }}
         >
-          <p
+          {/* Chapter marker — matches Sovereignty / Architecture / Engine pattern */}
+          <div className="flex items-center gap-4 mb-6 sm:mb-8">
+            <span
+              style={{
+                fontFamily: 'var(--font-mono, monospace)',
+                fontSize: '11px',
+                fontWeight: 500,
+                letterSpacing: '0.14em',
+                color: '#1A38E8',
+              }}
+            >
+              06 / MISSION
+            </span>
+            <div
+              style={{
+                flex: 1,
+                height: '1px',
+                background:
+                  'linear-gradient(90deg, rgba(10,34,128,0.18), transparent)',
+              }}
+            />
+          </div>
+
+          <h2
             className="text-gray-900 dark:text-white"
-            style={{ fontSize: 'clamp(22px, 3vw, 46px)', fontWeight: 300, lineHeight: 1.25, letterSpacing: '-0.01em' }}
+            style={{
+              fontSize: 'clamp(22px, 3vw, 46px)',
+              fontWeight: 300,
+              lineHeight: 1.2,
+              letterSpacing: '-0.015em',
+              textWrap: 'balance',
+            }}
           >
             AI transformed every aspect of enterprise data.{' '}
             <span style={{ color: '#1A38E8' }}>
               Therefore, we constructed the platform they operate on.
             </span>
-          </p>
+          </h2>
+
+          <div
+            aria-hidden="true"
+            style={{
+              height: '2px',
+              width: '48px',
+              marginTop: '24px',
+              borderRadius: '2px',
+              background:
+                'linear-gradient(90deg, #1A38E8 0%, #1E8AFF 100%)',
+            }}
+          />
 
           <p
             className="text-gray-600 dark:text-gray-300 leading-relaxed"
-            style={{ fontSize: 'clamp(14px, 1.2vw, 17px)', marginTop: '20px' }}
+            style={{ fontSize: 'clamp(14px, 1.2vw, 17px)', marginTop: '20px', maxWidth: '560px' }}
           >
             The AI Native Sovereign Data Platform represents MonkDB&apos;s answer to the era of AI and agency.
             It features a regulated access layer that integrates data systems to facilitate secure,

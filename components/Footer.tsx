@@ -139,7 +139,7 @@ export default function Footer() {
             className="sm:col-span-2 lg:col-span-1"
           >
             <div className="text-gray-900 dark:text-white" style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '14px' }}>
-              Movibase Platform PVT. LTD
+              MonkDB
             </div>
             <address className="not-italic" style={{ fontSize: '0.82rem', color: '#6b7280', lineHeight: 1.75, marginBottom: '12px' }}>
               <span style={{ display: 'flex', gap: '7px', alignItems: 'flex-start' }}>
@@ -319,7 +319,7 @@ export default function Footer() {
           style={{ borderTop: '1px solid #e5e7eb', paddingTop: '20px' }}
         >
           <p className="text-gray-400 dark:text-gray-500" style={{ fontSize: '0.78rem' }}>
-            &copy; {new Date().getFullYear()} Movibase Platform PVT. LTD. All rights reserved.
+            &copy; {new Date().getFullYear()} MonkDB. All rights reserved.
           </p>
           <div className="flex flex-wrap gap-4 sm:gap-5">
             {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map((link) => (

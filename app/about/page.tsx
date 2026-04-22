@@ -316,7 +316,7 @@ export default function AboutPage() {
                 className="text-gray-600 dark:text-gray-300 leading-relaxed"
                 style={{ fontSize: 'clamp(14px, 1.3vw, 18px)', margin: 0 }}
               >
-                At Movibase, our journey is deeply personal — born from decades of experience
+                At MonkDB, our journey is deeply personal — born from decades of experience
                 in enterprise systems, data management, and AI. We&apos;ve seen firsthand how
                 fragmented data infrastructure holds back innovation.
               </p>
@@ -497,7 +497,7 @@ export default function AboutPage() {
                   className="text-gray-900 dark:text-white"
                   style={{ fontSize: 'clamp(18px, 2.4vw, 38px)', fontWeight: 300, lineHeight: 1.2, margin: 0, letterSpacing: '-0.01em' }}
                 >
-                  At Movibase,{' '}
+                  At MonkDB,{' '}
                   <span className="text-[#1A38E8] dark:text-blue-400">
                     our journey is deeply personal
                   </span>

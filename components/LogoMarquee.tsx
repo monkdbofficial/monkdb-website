@@ -72,7 +72,7 @@ export default function LogoMarquee() {
     >
       <div className="mb-4 text-center">
         <span className="text-sm font-mono text-gray-400 dark:text-powder-blue/60 tracking-widest uppercase">
-          Powered by Movibase Platform
+          Trusted by enterprise teams
         </span>
       </div>
 

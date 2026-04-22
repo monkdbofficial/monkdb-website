@@ -2,38 +2,54 @@
 
 import { motion, useInView, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { useRef, MouseEvent } from 'react'
+import {
+  Layers,
+  Workflow,
+  Zap,
+  BrainCircuit,
+  type LucideIcon,
+} from 'lucide-react'
 
-const features = [
+type Feature = {
+  title: string
+  description: string
+  accent: string
+  accentDark: string
+  Icon: LucideIcon
+  gradient: string
+}
+
+const features: Feature[] = [
   {
-    title: 'Keep Architecture Simple at Scale',
-    description: 'As organizations grow, data architecture often becomes unnecessarily complex. MonkDB simplifies infrastructure by removing architectural clutter and enabling scalable, efficient systems.',
+    title: 'Keep architecture simple at scale',
+    description: 'Most data stacks carry five systems doing the work of one — driving up ops cost and slowing teams. MonkDB collapses them into a single binary: fewer moving parts, cleaner SLOs, faster iteration.',
     accent: '#60a0ff',
     accentDark: '#1A38E8',
-    icon: '⬡',
+    Icon: Layers,
     gradient: 'linear-gradient(135deg, rgba(26,56,232,0.18) 0%, rgba(0,194,255,0.08) 100%)',
   },
   {
-    title: 'Modern Data Strategy for an AI Agent-Driven World',
-    description: 'Today\'s data ecosystems are dynamic — powered by AI agents, distributed workflows, and diverse consumers. MonkDB provides seamless ingestion, transformation, and storage.',
+    title: 'Modern data strategy for an AI-agent world',
+    description: 'Data now arrives from agents, workflows, and events — in every format, at every cadence. MonkDB ingests, transforms, and serves it through a single query surface. No pipeline glue. No schema drift.',
     accent: '#00c2ff',
     accentDark: '#0EA5E9',
-    icon: '◈',
+    Icon: Workflow,
     gradient: 'linear-gradient(135deg, rgba(0,194,255,0.15) 0%, rgba(80,40,200,0.08) 100%)',
   },
   {
-    title: 'Real-Time Systems Over Static Infrastructure',
-    description: 'Autonomous systems and AI applications generate massive volumes of data continuously. MonkDB enables real-time processing and streaming for immediate, actionable insights.',
+    title: 'Real-time systems over static infrastructure',
+    description: 'Autonomous systems produce data faster than batch can absorb. MonkDB processes streams in-flight and serves them alongside historical context — decisions land in milliseconds, not minutes.',
     accent: '#a060ff',
     accentDark: '#6366F1',
-    icon: '◎',
+    Icon: Zap,
     gradient: 'linear-gradient(135deg, rgba(160,96,255,0.18) 0%, rgba(26,56,232,0.08) 100%)',
   },
   {
-    title: 'Built for AI-First Data Infrastructure',
-    description: 'Modern AI systems need event-driven infrastructure that ingests, processes, and stores data at scale. MonkDB is designed for AI-first environments with built-in governance.',
+    title: 'Built for AI-first data infrastructure',
+    description: 'AI workloads need infrastructure that governs itself. MonkDB ingests, processes, and stores at scale — with identity, policy, and lineage wired into every query before it executes.',
     accent: '#ff6090',
     accentDark: '#0033A0',
-    icon: '✦',
+    Icon: BrainCircuit,
     gradient: 'linear-gradient(135deg, rgba(255,96,144,0.15) 0%, rgba(160,96,255,0.08) 100%)',
   },
 ]
@@ -107,20 +123,19 @@ function TiltCard({ feature, index, isInView }: { feature: typeof features[0]; i
         <div style={{ position: 'relative', zIndex: 1, transform: 'translateZ(20px)' }}>
           {/* Icon */}
           <motion.div
-            animate={{ rotate: [0, 360] }}
-            transition={{ duration: 32 + index * 4, repeat: Infinity, ease: 'linear' }}
-            whileHover={{ scale: 1.15, transition: { duration: 0.2 } }}
+            whileHover={{ scale: 1.08, rotate: -4, transition: { duration: 0.25 } }}
             style={{
               width: 52, height: 52,
               borderRadius: '14px',
               background: `${feature.accent}15`,
               border: `1px solid ${feature.accent}30`,
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontSize: '22px',
               marginBottom: 4,
+              color: feature.accentDark,
+              boxShadow: `inset 0 1px 0 rgba(255,255,255,0.08), 0 6px 16px ${feature.accent}1A`,
             }}
           >
-            <img src="/Group.svg" alt="" style={{ width: 28, height: 28, objectFit: 'contain' }} />
+            <feature.Icon size={26} strokeWidth={1.6} />
           </motion.div>
 
           <h3

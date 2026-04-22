@@ -1,79 +1,257 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Sun, Moon } from 'lucide-react'
+import { Sun, Moon, ChevronDown } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import { motion, AnimatePresence } from 'framer-motion'
 
-const navLinks = [
-  { label: 'Home', href: '/' },
-  { label: 'Core Systems', href: '/features' },
-  { label: 'Solutions', href: '/why-choose-us' },
-  { label: 'Industries', href: '/architecture' },
-  { label: 'Learn', href: '/resources' },
-  { label: 'Company', href: '/about' },
+// ───────────────────────────── Nav data (from MonkDB Website Content.pdf) ──
+type NavLeaf = { label: string; href: string }
+type NavGroup = { title: string; items: NavLeaf[] }
+
+type NavItem =
+  | { kind: 'link'; label: string; href: string }
+  | { kind: 'dropdown'; id: string; label: string; items: NavLeaf[] }
+  | { kind: 'mega'; id: string; label: string; groups: NavGroup[] }
+
+const navigation: NavItem[] = [
+  { kind: 'link', label: 'Home', href: '/' },
+
+  {
+    kind: 'dropdown',
+    id: 'core-systems',
+    label: 'Core Systems',
+    items: [
+      { label: 'Unified Operational Data Engine', href: '/features#unified-operational-data-engine' },
+      { label: 'Real-Time Processing Engine', href: '/features#real-time-processing-engine' },
+      { label: 'AI-Native Execution Engine', href: '/features#ai-native-execution-engine' },
+      { label: 'Decision & Action Engine', href: '/features#decision-action-engine' },
+      { label: 'Edge-to-Cloud Execution Fabric', href: '/features#edge-to-cloud-execution-fabric' },
+      { label: 'Sovereignty & Trust Layer', href: '/features#sovereignty-trust-layer' },
+    ],
+  },
+
+  {
+    kind: 'mega',
+    id: 'solutions',
+    label: 'Solutions',
+    groups: [
+      {
+        title: 'Use Cases',
+        items: [
+          { label: 'AI/ML', href: '/why-choose-us#ai-ml' },
+          { label: 'Real-Time Streaming', href: '/why-choose-us#real-time-streaming' },
+          { label: 'Iceberg Tables', href: '/why-choose-us#iceberg-tables' },
+          { label: 'Real-Time Operational Intelligence', href: '/why-choose-us#real-time-operational-intelligence' },
+          { label: 'Autonomous Decisioning Systems', href: '/why-choose-us#autonomous-decisioning' },
+          { label: 'Energy & Resource Optimization', href: '/why-choose-us#energy-optimization' },
+          { label: 'Digital Twin & Simulation', href: '/why-choose-us#digital-twin' },
+          { label: 'Edge Intelligence & Distributed AI', href: '/why-choose-us#edge-intelligence' },
+          { label: 'Data & AI Modernization', href: '/why-choose-us#data-ai-modernization' },
+          { label: 'AI Governance & Trust', href: '/why-choose-us#ai-governance-trust' },
+        ],
+      },
+      {
+        title: 'Outcomes',
+        items: [
+          { label: 'Reduce Cost', href: '/why-choose-us#reduce-cost' },
+          { label: 'Improve Efficiency', href: '/why-choose-us#improve-efficiency' },
+          { label: 'Enhance Safety', href: '/why-choose-us#enhance-safety' },
+          { label: 'Enable Autonomy', href: '/why-choose-us#enable-autonomy' },
+          { label: 'Ensure Trust & Compliance', href: '/why-choose-us#trust-compliance' },
+          { label: 'Accelerate Decision-Making', href: '/why-choose-us#accelerate-decision-making' },
+        ],
+      },
+    ],
+  },
+
+  {
+    kind: 'dropdown',
+    id: 'industries',
+    label: 'Industries',
+    items: [
+      { label: 'Mining & Manufacturing', href: '/architecture#mining-manufacturing' },
+      { label: 'Automobiles', href: '/architecture#automobiles' },
+      { label: 'BFSI and Capital Markets', href: '/architecture#bfsi' },
+      { label: 'Mining & Metals', href: '/architecture#mining-metals' },
+      { label: 'Steel & Manufacturing', href: '/architecture#steel-manufacturing' },
+      { label: 'Data Centers', href: '/architecture#data-centers' },
+      { label: 'Energy & Utilities', href: '/architecture#energy-utilities' },
+      { label: 'Infrastructure & Smart Cities', href: '/architecture#smart-cities' },
+      { label: 'Logistics & Mobility', href: '/architecture#logistics-mobility' },
+    ],
+  },
+
+  {
+    kind: 'dropdown',
+    id: 'learn',
+    label: 'Learn',
+    items: [
+      { label: 'Resources', href: '/resources' },
+      { label: 'Documentation', href: '/resources#documentation' },
+      { label: 'Customer Use Cases', href: '/resources#customer-use-cases' },
+      { label: 'Blog', href: '/resources#blog' },
+      { label: 'Events', href: '/resources#events' },
+    ],
+  },
+
+  {
+    kind: 'dropdown',
+    id: 'company',
+    label: 'Company',
+    items: [
+      { label: 'About Us', href: '/about' },
+      { label: 'Press', href: '/about#press' },
+      { label: 'Customers', href: '/about#customers' },
+      { label: 'Partners', href: '/about#partners' },
+      { label: 'Careers', href: '/about#careers' },
+      { label: 'Contact Us', href: '/about#contact' },
+    ],
+  },
 ]
 
-// Sanas.ai exact easing curve, extracted from their CSS bundle
 const SANAS_EASE = [0.165, 0.84, 0.44, 1] as const
 const SANAS_EASE_CSS = 'cubic-bezier(0.165, 0.84, 0.44, 1)'
 
+// ───────────────────────────── Component ───────────────────────────────────
+
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [mobileExpanded, setMobileExpanded] = useState<string | null>(null)
   const [mounted, setMounted] = useState(false)
   const [onHero, setOnHero] = useState(true)
   const [scrolled, setScrolled] = useState(false)
   const [headerHovered, setHeaderHovered] = useState(false)
+  const [openMenu, setOpenMenu] = useState<string | null>(null)
+  const [panelLeft, setPanelLeft] = useState<number>(0)
+
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+
   const { theme, setTheme } = useTheme()
   const pathname = usePathname()
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true)
-
     const handleScroll = () => {
       const y = window.scrollY
       setOnHero(pathname === '/' && y < window.innerHeight * 0.85)
       setScrolled(y > 48)
+      // Close any open dropdown on scroll — it would drift otherwise
+      setOpenMenu(null)
     }
-
     window.addEventListener('scroll', handleScroll, { passive: true })
     handleScroll()
     return () => window.removeEventListener('scroll', handleScroll)
   }, [pathname])
 
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpenMenu(null)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [])
+
+  const openDropdown = (id: string, triggerEl: HTMLElement) => {
+    if (closeTimer.current) {
+      clearTimeout(closeTimer.current)
+      closeTimer.current = null
+    }
+    const rect = triggerEl.getBoundingClientRect()
+    const center = rect.left + rect.width / 2
+
+    // Clamp so the panel never overflows the viewport.
+    const item = navigation.find(
+      (n) => (n.kind === 'dropdown' || n.kind === 'mega') && n.id === id,
+    )
+    const isMega = item?.kind === 'mega'
+    const approxHalfWidth = isMega ? 430 : 190 // conservative half-widths
+    const margin = 16
+    const vw = typeof window !== 'undefined' ? window.innerWidth : 1440
+    const minCenter = margin + approxHalfWidth
+    const maxCenter = vw - margin - approxHalfWidth
+    const clamped = Math.max(minCenter, Math.min(maxCenter, center))
+
+    setPanelLeft(clamped)
+    setOpenMenu(id)
+  }
+
+  const scheduleClose = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current)
+    closeTimer.current = setTimeout(() => setOpenMenu(null), 180)
+  }
+
+  const keepOpen = () => {
+    if (closeTimer.current) {
+      clearTimeout(closeTimer.current)
+      closeTimer.current = null
+    }
+  }
+
   const toggleTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark')
 
   const isActive = (href: string) => {
     if (href === '/') return pathname === '/'
-    return pathname === href
+    return pathname === href || pathname?.startsWith(href.split('#')[0])
   }
 
-  // Colors — over hero (dark blue bg) vs. light content areas
+  const itemActive = (item: NavItem) => {
+    if (item.kind === 'link') return isActive(item.href)
+    if (item.kind === 'dropdown')
+      return item.items.some((c) => isActive(c.href))
+    return item.groups.some((g) => g.items.some((c) => isActive(c.href)))
+  }
+
+  // Colors
   const linkColor = onHero
     ? 'rgba(255,255,255,0.78)'
-    : (theme === 'dark' ? 'rgba(255,255,255,0.7)' : '#4B5563')
+    : theme === 'dark'
+      ? 'rgba(255,255,255,0.7)'
+      : '#4B5563'
   const linkHoverColor = onHero
     ? '#ffffff'
-    : (theme === 'dark' ? '#ffffff' : '#1A38E8')
+    : theme === 'dark'
+      ? '#ffffff'
+      : '#1A38E8'
   const activeColor = onHero ? '#ffffff' : '#1A38E8'
 
   const pillBg = onHero
     ? 'rgba(10,20,90,0.55)'
-    : (theme === 'dark' ? 'rgba(15,22,35,0.72)' : 'rgba(255,255,255,0.75)')
+    : theme === 'dark'
+      ? 'rgba(15,22,35,0.72)'
+      : 'rgba(255,255,255,0.75)'
 
   const pillBorder = onHero
     ? 'hsla(0, 0%, 100%, 0.12)'
-    : (theme === 'dark' ? 'hsla(0, 0%, 100%, 0.08)' : 'rgba(10,20,60,0.08)')
+    : theme === 'dark'
+      ? 'hsla(0, 0%, 100%, 0.08)'
+      : 'rgba(10,20,60,0.08)'
 
-  // Key sanas behavior: when scrolled AND not hovered, the nav area collapses
+  // Panel visuals — share pill tokens so the dropdown matches the pill exactly
+  const panelText =
+    onHero || theme === 'dark' ? 'rgba(255,255,255,0.82)' : '#1F2937'
+  const panelTextHover =
+    onHero || theme === 'dark' ? '#ffffff' : '#1A38E8'
+  const panelTitle =
+    onHero || theme === 'dark' ? 'rgba(255,255,255,0.5)' : '#6B7280'
+  const panelDivider =
+    onHero || theme === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(10,20,60,0.08)'
+
   const collapsed = scrolled && !headerHovered
+
+  const currentMenu = openMenu
+    ? navigation.find(
+        (i) => (i.kind === 'dropdown' || i.kind === 'mega') && i.id === openMenu,
+      )
+    : null
 
   return (
     <>
-      {/* ── FLOATING PILL HEADER (sanas-exact) ── */}
+      {/* ── FLOATING PILL HEADER ── */}
       <motion.div
         initial={{ y: -60, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -104,7 +282,7 @@ export default function Navbar() {
             transition: `background-color 400ms ${SANAS_EASE_CSS}, box-shadow 400ms ${SANAS_EASE_CSS}, border-color 400ms ${SANAS_EASE_CSS}`,
           }}
         >
-          {/* Logo — always visible */}
+          {/* Logo */}
           <Link href="/" className="flex-shrink-0 flex items-center z-10 relative">
             <Image
               src="/logo.png"
@@ -120,87 +298,116 @@ export default function Navbar() {
             />
           </Link>
 
-          {/* Collapsible nav area — shrinks to 0 width on scroll (sanas exact) */}
+          {/* Collapsible nav area */}
           <div
             className="hidden md:flex items-center overflow-hidden"
             style={{
               width: collapsed ? '0px' : 'auto',
-              maxWidth: collapsed ? '0px' : '900px',
+              maxWidth: collapsed ? '0px' : '1000px',
               opacity: collapsed ? 0 : 1,
               transition: `width 750ms ${SANAS_EASE_CSS}, max-width 750ms ${SANAS_EASE_CSS}, opacity 500ms linear`,
             }}
           >
-            <nav className="flex items-center gap-6 lg:gap-7 px-6 lg:px-8 whitespace-nowrap">
-              {navLinks.map((link, i) => {
-                const active = isActive(link.href)
-                return (
-                  <motion.div
-                    key={link.label}
-                    initial={{ opacity: 0, y: -8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.4 + i * 0.06, ease: SANAS_EASE }}
-                    className="relative"
-                  >
-                    <Link
-                      href={link.href}
-                      className="relative inline-block text-[13px] lg:text-[13.5px] group"
-                      style={{
-                        color: active ? activeColor : linkColor,
-                        fontWeight: active ? 600 : 500,
-                        letterSpacing: '0.01em',
-                        transition: 'color 150ms linear',
-                      }}
-                      onMouseEnter={(e) => { e.currentTarget.style.color = linkHoverColor }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.color = active ? activeColor : linkColor
-                      }}
-                    >
-                      {link.label}
+            <nav className="flex items-center gap-5 lg:gap-6 px-6 lg:px-8 whitespace-nowrap">
+              {navigation.map((item, i) => {
+                const active = itemActive(item)
+                const hasChildren = item.kind !== 'link'
 
-                      {/* Sanas-exact: DOT indicator below on hover/active */}
-                      <span
-                        className="absolute left-1/2 pointer-events-none"
+                const triggerContent = (
+                  <span
+                    className="relative inline-flex items-center gap-1 text-[13px] lg:text-[13.5px] group"
+                    style={{
+                      color: active ? activeColor : linkColor,
+                      fontWeight: active ? 600 : 500,
+                      letterSpacing: '0.01em',
+                      transition: 'color 150ms linear',
+                    }}
+                    onMouseEnter={(e) => {
+                      (e.currentTarget as HTMLElement).style.color = linkHoverColor
+                    }}
+                    onMouseLeave={(e) => {
+                      (e.currentTarget as HTMLElement).style.color = active
+                        ? activeColor
+                        : linkColor
+                    }}
+                  >
+                    {item.label}
+                    {hasChildren && (
+                      <ChevronDown
+                        size={11}
+                        strokeWidth={2.2}
                         style={{
-                          bottom: '-10px',
-                          width: '6px',
-                          height: '6px',
-                          borderRadius: '50%',
-                          background: active ? activeColor : linkHoverColor,
-                          transform: `translate(-50%, -50%) scale(${active ? 1 : 0})`,
+                          opacity: 0.6,
+                          transform:
+                            openMenu === (item as { id: string }).id
+                              ? 'rotate(180deg)'
+                              : 'rotate(0deg)',
                           transition: `transform 200ms ${SANAS_EASE_CSS}`,
                         }}
                       />
-                      {!active && (
-                        <span
-                          className="absolute left-1/2 pointer-events-none opacity-0 group-hover:opacity-100"
-                          style={{
-                            bottom: '-10px',
-                            width: '6px',
-                            height: '6px',
-                            borderRadius: '50%',
-                            background: linkHoverColor,
-                            transform: 'translate(-50%, -50%) scale(0)',
-                            transition: `transform 200ms ${SANAS_EASE_CSS}, opacity 150ms linear`,
-                          }}
-                          ref={(el) => {
-                            if (!el) return
-                            const parent = el.parentElement
-                            if (!parent) return
-                            const onEnter = () => { el.style.transform = 'translate(-50%, -50%) scale(1)' }
-                            const onLeave = () => { el.style.transform = 'translate(-50%, -50%) scale(0)' }
-                            parent.addEventListener('mouseenter', onEnter)
-                            parent.addEventListener('mouseleave', onLeave)
-                          }}
-                        />
-                      )}
-                    </Link>
+                    )}
+                    {/* Active dot indicator */}
+                    <span
+                      className="absolute left-1/2 pointer-events-none"
+                      style={{
+                        bottom: '-10px',
+                        width: '6px',
+                        height: '6px',
+                        borderRadius: '50%',
+                        background: active ? activeColor : 'transparent',
+                        transform: `translate(-50%, -50%) scale(${active ? 1 : 0})`,
+                        transition: `transform 200ms ${SANAS_EASE_CSS}`,
+                      }}
+                    />
+                  </span>
+                )
+
+                return (
+                  <motion.div
+                    key={item.label}
+                    initial={{ opacity: 0, y: -8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{
+                      duration: 0.5,
+                      delay: 0.4 + i * 0.06,
+                      ease: SANAS_EASE,
+                    }}
+                    className="relative"
+                    onMouseEnter={(e) => {
+                      if (item.kind !== 'link') {
+                        openDropdown(
+                          (item as { id: string }).id,
+                          e.currentTarget as HTMLElement,
+                        )
+                      }
+                    }}
+                    onMouseLeave={() => item.kind !== 'link' && scheduleClose()}
+                  >
+                    {item.kind === 'link' ? (
+                      <Link
+                        href={item.href}
+                        className="relative inline-block"
+                        style={{ textDecoration: 'none' }}
+                      >
+                        {triggerContent}
+                      </Link>
+                    ) : (
+                      <button
+                        type="button"
+                        className="cursor-default bg-transparent border-0 p-0"
+                        aria-expanded={openMenu === item.id}
+                        aria-haspopup="true"
+                      >
+                        {triggerContent}
+                      </button>
+                    )}
                   </motion.div>
                 )
               })}
             </nav>
           </div>
 
-          {/* Right side — always visible */}
+          {/* Right-side controls */}
           <div className="flex items-center gap-2 ml-auto z-10 relative">
             {mounted && (
               <button
@@ -209,11 +416,14 @@ export default function Navbar() {
                 className="hidden md:inline-flex p-2 rounded-full"
                 style={{ color: linkColor, transition: 'color 150ms linear' }}
               >
-                {theme === 'dark' ? <Sun size={16} strokeWidth={1.9} /> : <Moon size={16} strokeWidth={1.9} />}
+                {theme === 'dark' ? (
+                  <Sun size={16} strokeWidth={1.9} />
+                ) : (
+                  <Moon size={16} strokeWidth={1.9} />
+                )}
               </button>
             )}
 
-            {/* CTA pill (desktop) */}
             <motion.a
               href="#demo"
               whileHover={{ scale: 1.04 }}
@@ -238,7 +448,6 @@ export default function Navbar() {
               Book Demo
             </motion.a>
 
-            {/* Sanas-exact hamburger (mobile): middle fades out, top/bottom rotate ±45° */}
             <button
               aria-label="Toggle menu"
               onClick={() => setMobileOpen(!mobileOpen)}
@@ -278,6 +487,233 @@ export default function Navbar() {
         </div>
       </motion.div>
 
+      {/* ── DROPDOWN / MEGA PANEL (desktop) — anchored to trigger ── */}
+      <AnimatePresence mode="wait">
+        {currentMenu && (currentMenu.kind === 'dropdown' || currentMenu.kind === 'mega') && (
+          <div
+            key={`wrap-${currentMenu.id}`}
+            className="fixed z-40 hidden md:block"
+            style={{
+              top: scrolled ? '96px' : '108px',
+              left: 0,
+              // Outer wrapper handles positioning — framer-motion's transform
+              // on the inner element would otherwise wipe out translateX(-50%).
+              transform: `translateX(${panelLeft}px) translateX(-50%)`,
+              pointerEvents: 'none',
+            }}
+          >
+          <motion.div
+            key={currentMenu.id}
+            initial={{ opacity: 0, y: -14, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -10, scale: 0.98 }}
+            transition={{ duration: 0.32, ease: SANAS_EASE }}
+            onMouseEnter={keepOpen}
+            onMouseLeave={scheduleClose}
+            style={{
+              transformOrigin: 'top center',
+              backgroundColor: pillBg,
+              border: `1px solid ${pillBorder}`,
+              borderRadius: '24px',
+              backdropFilter: 'blur(24px) saturate(180%)',
+              WebkitBackdropFilter: 'blur(24px) saturate(180%)',
+              boxShadow:
+                '0 24px 60px rgba(10, 20, 80, 0.28), 0 8px 24px rgba(10, 20, 80, 0.18), inset 0 1px 0 rgba(255,255,255,0.08)',
+              padding: currentMenu.kind === 'mega' ? '24px 28px' : '18px 20px',
+              minWidth:
+                currentMenu.kind === 'mega' ? 'min(720px, 92vw)' : '280px',
+              maxWidth:
+                currentMenu.kind === 'mega'
+                  ? 'min(860px, 92vw)'
+                  : 'min(360px, 92vw)',
+              pointerEvents: 'auto',
+              position: 'relative',
+            }}
+          >
+            {/* Top inner shine — mirrors pill */}
+            <span
+              aria-hidden="true"
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: '10%',
+                right: '10%',
+                height: '1px',
+                background:
+                  'linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent)',
+              }}
+            />
+
+            {/* Caret — top-center points up to the pill */}
+            <span
+              aria-hidden="true"
+              style={{
+                position: 'absolute',
+                top: '-7px',
+                left: '50%',
+                transform: 'translateX(-50%) rotate(45deg)',
+                width: '12px',
+                height: '12px',
+                backgroundColor: pillBg,
+                borderTop: `1px solid ${pillBorder}`,
+                borderLeft: `1px solid ${pillBorder}`,
+                backdropFilter: 'blur(24px) saturate(180%)',
+                WebkitBackdropFilter: 'blur(24px) saturate(180%)',
+              }}
+            />
+
+            {currentMenu.kind === 'dropdown' ? (
+              <ul
+                className="flex flex-col"
+                style={{ listStyle: 'none', padding: 0, margin: 0 }}
+              >
+                {currentMenu.items.map((child, idx) => {
+                  const active = isActive(child.href)
+                  return (
+                    <motion.li
+                      key={child.label}
+                      initial={{ opacity: 0, x: -6 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{
+                        duration: 0.35,
+                        delay: 0.05 + idx * 0.035,
+                        ease: SANAS_EASE,
+                      }}
+                    >
+                      <Link
+                        href={child.href}
+                        onClick={() => setOpenMenu(null)}
+                        className="block rounded-xl"
+                        style={{
+                          padding: '10px 14px',
+                          color: active ? panelTextHover : panelText,
+                          fontSize: '13.5px',
+                          fontWeight: active ? 600 : 500,
+                          letterSpacing: '0.005em',
+                          textDecoration: 'none',
+                          transition: `color 180ms ${SANAS_EASE_CSS}, background 180ms ${SANAS_EASE_CSS}, padding-left 180ms ${SANAS_EASE_CSS}`,
+                        }}
+                        onMouseEnter={(e) => {
+                          const t = e.currentTarget as HTMLAnchorElement
+                          t.style.color = panelTextHover
+                          t.style.background =
+                            onHero || theme === 'dark'
+                              ? 'rgba(255,255,255,0.07)'
+                              : 'rgba(26,56,232,0.06)'
+                          t.style.paddingLeft = '18px'
+                        }}
+                        onMouseLeave={(e) => {
+                          const t = e.currentTarget as HTMLAnchorElement
+                          t.style.color = active ? panelTextHover : panelText
+                          t.style.background = 'transparent'
+                          t.style.paddingLeft = '14px'
+                        }}
+                      >
+                        {child.label}
+                      </Link>
+                    </motion.li>
+                  )
+                })}
+              </ul>
+            ) : (
+              <div
+                className="grid gap-6 sm:gap-8"
+                style={{
+                  gridTemplateColumns: `repeat(${currentMenu.groups.length}, minmax(0, 1fr))`,
+                }}
+              >
+                {currentMenu.groups.map((group, gi) => (
+                  <div
+                    key={group.title}
+                    style={{
+                      borderLeft:
+                        gi === 0 ? 'none' : `1px solid ${panelDivider}`,
+                      paddingLeft: gi === 0 ? 0 : '24px',
+                    }}
+                  >
+                    <motion.p
+                      initial={{ opacity: 0, y: -4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{
+                        duration: 0.4,
+                        delay: 0.04 + gi * 0.06,
+                        ease: SANAS_EASE,
+                      }}
+                      style={{
+                        color: panelTitle,
+                        fontSize: '10.5px',
+                        fontWeight: 600,
+                        letterSpacing: '0.12em',
+                        textTransform: 'uppercase',
+                        padding: '0 14px',
+                        marginBottom: '8px',
+                      }}
+                    >
+                      {group.title}
+                    </motion.p>
+                    <ul
+                      className="flex flex-col"
+                      style={{ listStyle: 'none', padding: 0, margin: 0 }}
+                    >
+                      {group.items.map((child, idx) => {
+                        const active = isActive(child.href)
+                        return (
+                          <motion.li
+                            key={child.label}
+                            initial={{ opacity: 0, x: -6 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{
+                              duration: 0.35,
+                              delay: 0.08 + gi * 0.05 + idx * 0.025,
+                              ease: SANAS_EASE,
+                            }}
+                          >
+                            <Link
+                              href={child.href}
+                              onClick={() => setOpenMenu(null)}
+                              className="block rounded-xl"
+                              style={{
+                                padding: '9px 14px',
+                                color: active ? panelTextHover : panelText,
+                                fontSize: '13px',
+                                fontWeight: active ? 600 : 500,
+                                letterSpacing: '0.005em',
+                                textDecoration: 'none',
+                                transition: `color 180ms ${SANAS_EASE_CSS}, background 180ms ${SANAS_EASE_CSS}, padding-left 180ms ${SANAS_EASE_CSS}`,
+                              }}
+                              onMouseEnter={(e) => {
+                                const t = e.currentTarget as HTMLAnchorElement
+                                t.style.color = panelTextHover
+                                t.style.background =
+                                  onHero || theme === 'dark'
+                                    ? 'rgba(255,255,255,0.07)'
+                                    : 'rgba(26,56,232,0.06)'
+                                t.style.paddingLeft = '18px'
+                              }}
+                              onMouseLeave={(e) => {
+                                const t = e.currentTarget as HTMLAnchorElement
+                                t.style.color = active
+                                  ? panelTextHover
+                                  : panelText
+                                t.style.background = 'transparent'
+                                t.style.paddingLeft = '14px'
+                              }}
+                            >
+                              {child.label}
+                            </Link>
+                          </motion.li>
+                        )
+                      })}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            )}
+          </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
       {/* ── MOBILE DRAWER ── */}
       <AnimatePresence>
         {mobileOpen && (
@@ -289,9 +725,13 @@ export default function Navbar() {
             className="fixed left-4 right-4 z-40 md:hidden rounded-[28px] overflow-hidden"
             style={{
               top: scrolled ? '94px' : '106px',
+              maxHeight: 'calc(100vh - 120px)',
+              overflowY: 'auto',
               backgroundColor: onHero
-                ? 'rgba(10,20,90,0.88)'
-                : (theme === 'dark' ? 'rgba(13,21,38,0.94)' : 'rgba(255,255,255,0.94)'),
+                ? 'rgba(10,20,90,0.92)'
+                : theme === 'dark'
+                  ? 'rgba(13,21,38,0.96)'
+                  : 'rgba(255,255,255,0.96)',
               border: `1px solid ${pillBorder}`,
               backdropFilter: 'blur(22px) saturate(180%)',
               WebkitBackdropFilter: 'blur(22px) saturate(180%)',
@@ -299,30 +739,146 @@ export default function Navbar() {
             }}
           >
             <nav className="px-4 py-4 flex flex-col gap-1">
-              {navLinks.map((link, i) => {
-                const active = isActive(link.href)
-                return (
-                  <motion.div
-                    key={link.label}
-                    initial={{ opacity: 0, x: -14 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.35, delay: 0.05 + i * 0.05, ease: SANAS_EASE }}
-                  >
-                    <Link
-                      href={link.href}
-                      onClick={() => setMobileOpen(false)}
-                      className="block px-4 py-3 text-[16px] rounded-2xl"
-                      style={{
-                        color: onHero || theme === 'dark' ? 'rgba(255,255,255,0.88)' : '#374151',
-                        fontWeight: active ? 600 : 500,
-                        background: active
-                          ? (onHero ? 'rgba(255,255,255,0.1)' : 'rgba(26,56,232,0.08)')
-                          : 'transparent',
-                        transition: `background 200ms ${SANAS_EASE_CSS}`,
+              {navigation.map((item, i) => {
+                const textColor =
+                  onHero || theme === 'dark' ? 'rgba(255,255,255,0.88)' : '#374151'
+
+                if (item.kind === 'link') {
+                  const active = isActive(item.href)
+                  return (
+                    <motion.div
+                      key={item.label}
+                      initial={{ opacity: 0, x: -14 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{
+                        duration: 0.35,
+                        delay: 0.05 + i * 0.04,
+                        ease: SANAS_EASE,
                       }}
                     >
-                      {link.label}
-                    </Link>
+                      <Link
+                        href={item.href}
+                        onClick={() => setMobileOpen(false)}
+                        className="block px-4 py-3 text-[16px] rounded-2xl"
+                        style={{
+                          color: textColor,
+                          fontWeight: active ? 600 : 500,
+                          background: active
+                            ? onHero
+                              ? 'rgba(255,255,255,0.1)'
+                              : 'rgba(26,56,232,0.08)'
+                            : 'transparent',
+                          textDecoration: 'none',
+                        }}
+                      >
+                        {item.label}
+                      </Link>
+                    </motion.div>
+                  )
+                }
+
+                const expanded = mobileExpanded === item.id
+                const children =
+                  item.kind === 'dropdown'
+                    ? [{ title: '', items: item.items }]
+                    : item.groups
+
+                return (
+                  <motion.div
+                    key={item.label}
+                    initial={{ opacity: 0, x: -14 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{
+                      duration: 0.35,
+                      delay: 0.05 + i * 0.04,
+                      ease: SANAS_EASE,
+                    }}
+                  >
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setMobileExpanded(expanded ? null : item.id)
+                      }
+                      className="w-full flex items-center justify-between px-4 py-3 text-[16px] rounded-2xl"
+                      style={{
+                        color: textColor,
+                        fontWeight: 500,
+                        background: 'transparent',
+                        border: 'none',
+                      }}
+                    >
+                      <span>{item.label}</span>
+                      <ChevronDown
+                        size={16}
+                        strokeWidth={1.8}
+                        style={{
+                          transform: expanded
+                            ? 'rotate(180deg)'
+                            : 'rotate(0deg)',
+                          transition: `transform 220ms ${SANAS_EASE_CSS}`,
+                        }}
+                      />
+                    </button>
+
+                    <AnimatePresence initial={false}>
+                      {expanded && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.3, ease: SANAS_EASE }}
+                          style={{ overflow: 'hidden' }}
+                        >
+                          <div
+                            className="flex flex-col gap-0 pl-4 pr-2 pb-2"
+                            style={{ borderLeft: `1px solid ${pillBorder}`, marginLeft: '18px' }}
+                          >
+                            {children.map((group, gi) => (
+                              <div key={group.title || `g-${gi}`}>
+                                {group.title && (
+                                  <p
+                                    style={{
+                                      color:
+                                        onHero || theme === 'dark'
+                                          ? 'rgba(255,255,255,0.45)'
+                                          : '#9CA3AF',
+                                      fontSize: '10.5px',
+                                      fontWeight: 600,
+                                      letterSpacing: '0.08em',
+                                      textTransform: 'uppercase',
+                                      padding: '10px 12px 4px',
+                                    }}
+                                  >
+                                    {group.title}
+                                  </p>
+                                )}
+                                {group.items.map((child) => (
+                                  <Link
+                                    key={child.label}
+                                    href={child.href}
+                                    onClick={() => {
+                                      setMobileOpen(false)
+                                      setMobileExpanded(null)
+                                    }}
+                                    className="block px-4 py-2 text-[14px] rounded-xl"
+                                    style={{
+                                      color:
+                                        onHero || theme === 'dark'
+                                          ? 'rgba(255,255,255,0.72)'
+                                          : '#4B5563',
+                                      fontWeight: 500,
+                                      textDecoration: 'none',
+                                    }}
+                                  >
+                                    {child.label}
+                                  </Link>
+                                ))}
+                              </div>
+                            ))}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </motion.div>
                 )
               })}
@@ -349,10 +905,16 @@ export default function Navbar() {
 
               {mounted && (
                 <button
-                  onClick={() => { toggleTheme(); setMobileOpen(false) }}
+                  onClick={() => {
+                    toggleTheme()
+                    setMobileOpen(false)
+                  }}
                   className="flex items-center justify-center gap-2 px-4 py-3 text-[14px] font-medium mt-2 border-t pt-3"
                   style={{
-                    color: onHero || theme === 'dark' ? 'rgba(255,255,255,0.78)' : '#4B5563',
+                    color:
+                      onHero || theme === 'dark'
+                        ? 'rgba(255,255,255,0.78)'
+                        : '#4B5563',
                     borderColor: pillBorder,
                   }}
                 >
