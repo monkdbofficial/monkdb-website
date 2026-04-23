@@ -411,7 +411,7 @@ function MasterDataSection() {
             whileInView={{ opacity: 1, x: 0, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.3, ease: EASE }}
-            className="absolute top-[8%] left-[4%] rounded-2xl bg-white shadow-xl p-3 sm:p-4"
+            className="hidden sm:block absolute top-[8%] left-[4%] rounded-2xl bg-white shadow-xl p-3 sm:p-4"
             style={{
               width: 'clamp(170px, 22%, 240px)',
               boxShadow: '0 14px 40px rgba(10,20,80,0.18)',
@@ -461,7 +461,7 @@ function MasterDataSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.45, ease: EASE }}
-            className="absolute top-[40%] right-[3%] rounded-2xl bg-white shadow-xl p-3 sm:p-4"
+            className="hidden sm:block absolute top-[40%] right-[3%] rounded-2xl bg-white shadow-xl p-3 sm:p-4"
             style={{
               width: 'clamp(150px, 20%, 220px)',
               boxShadow: '0 14px 40px rgba(10,20,80,0.18)',
@@ -510,7 +510,7 @@ function MasterDataSection() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.6, ease: EASE }}
-            className="absolute bottom-[10%] left-[14%] flex items-center justify-center"
+            className="hidden sm:flex absolute bottom-[10%] left-[14%] items-center justify-center"
             style={{
               width: 44,
               height: 44,
@@ -528,7 +528,7 @@ function MasterDataSection() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.65, ease: EASE }}
-            className="absolute bottom-[10%] left-[24%] flex items-center justify-center"
+            className="hidden sm:flex absolute bottom-[10%] left-[24%] items-center justify-center"
             style={{
               width: 44,
               height: 44,

@@ -22,7 +22,7 @@ export default function Mission() {
           transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] as const }}
           className="flex items-center justify-center"
         >
-          <div className="relative flex items-center justify-center w-full max-w-[220px] sm:max-w-[300px] lg:max-w-[420px] mx-auto">
+          <div className="relative flex items-center justify-center w-full max-w-[160px] sm:max-w-[260px] lg:max-w-[420px] mx-auto">
 
             {/* Vector.svg — slow spin */}
             <motion.img
@@ -42,17 +42,19 @@ export default function Mission() {
           transition={{ duration: 0.7, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] as const }}
         >
           {/* Chapter marker — matches Sovereignty / Architecture / Engine pattern */}
-          <div className="flex items-center gap-4 mb-6 sm:mb-8">
+          <div className="flex items-center gap-4 mb-5 sm:mb-8">
             <span
               style={{
                 fontFamily: 'var(--font-mono, monospace)',
-                fontSize: '11px',
-                fontWeight: 500,
+                fontSize: '10.5px',
+                fontWeight: 600,
                 letterSpacing: '0.14em',
                 color: '#1A38E8',
+                textTransform: 'uppercase',
+                whiteSpace: 'nowrap',
               }}
             >
-              06 / MISSION
+              07 / Mission
             </span>
             <div
               style={{

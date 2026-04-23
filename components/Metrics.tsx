@@ -128,9 +128,11 @@ export default function Metrics() {
               letterSpacing: '0.14em',
               textTransform: 'uppercase',
               color: '#1A38E8',
+              whiteSpace: 'nowrap',
             }}
           >
-            Performance · At a glance
+            <span className="sm:hidden">Performance</span>
+            <span className="hidden sm:inline">Performance · At a glance</span>
           </span>
           <div
             style={{
@@ -171,7 +173,7 @@ export default function Metrics() {
           </motion.span>
         </motion.div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-10 gap-x-4 sm:gap-x-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5">
           {metrics.map((m, i) => {
             const Icon = m.Icon
             return (
@@ -184,40 +186,36 @@ export default function Metrics() {
                   delay: 0.1 + i * 0.08,
                   ease: EASE,
                 }}
-                whileHover={{ y: -3 }}
-                className="relative flex flex-col group"
+                whileHover={{ y: -3, boxShadow: '0 6px 20px rgba(10,20,80,0.08), 0 1px 2px rgba(10,20,80,0.04)' }}
+                className="relative flex flex-col group rounded-2xl p-5 lg:p-6"
                 style={{
-                  paddingLeft:
-                    i % 4 === 0 ? 0 : 'clamp(12px, 1.6vw, 24px)',
-                  paddingRight: 'clamp(4px, 1vw, 12px)',
-                  borderLeft:
-                    i % 4 === 0
-                      ? 'none'
-                      : '1px solid rgba(10,34,128,0.08)',
-                  transition: 'transform 220ms cubic-bezier(0.165, 0.84, 0.44, 1)',
+                  background: '#ffffff',
+                  border: '1px solid rgba(10,34,128,0.08)',
+                  boxShadow: '0 1px 2px rgba(10,20,80,0.03), 0 4px 12px rgba(10,20,80,0.04)',
+                  transition: 'transform 220ms cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 220ms cubic-bezier(0.165, 0.84, 0.44, 1)',
                 }}
               >
-                {/* Icon + breathing accent */}
-                <div className="flex items-center gap-2.5 mb-3">
+                {/* Header: icon + live dot */}
+                <div className="flex items-center justify-between mb-4">
                   <span
                     className="flex items-center justify-center"
                     style={{
-                      width: 30,
-                      height: 30,
-                      borderRadius: 8,
+                      width: 34,
+                      height: 34,
+                      borderRadius: 10,
                       background:
-                        'linear-gradient(180deg, rgba(26,56,232,0.10) 0%, rgba(26,56,232,0.04) 100%)',
-                      border: '1px solid rgba(26,56,232,0.18)',
+                        'linear-gradient(180deg, rgba(26,56,232,0.12) 0%, rgba(26,56,232,0.05) 100%)',
+                      border: '1px solid rgba(26,56,232,0.20)',
                       color: '#1A38E8',
                       boxShadow:
-                        'inset 0 1px 0 rgba(255,255,255,0.6), 0 1px 2px rgba(10,20,80,0.05)',
+                        'inset 0 1px 0 rgba(255,255,255,0.7), 0 1px 2px rgba(10,20,80,0.05)',
                     }}
                   >
-                    <Icon size={15} strokeWidth={2} />
+                    <Icon size={17} strokeWidth={2} />
                   </span>
                   <motion.span
                     aria-hidden="true"
-                    animate={{ opacity: [0.3, 0.9, 0.3] }}
+                    animate={{ opacity: [0.35, 1, 0.35] }}
                     transition={{
                       duration: 2.2,
                       repeat: Infinity,
@@ -225,11 +223,11 @@ export default function Metrics() {
                       delay: i * 0.3,
                     }}
                     style={{
-                      width: '4px',
-                      height: '4px',
+                      width: '5px',
+                      height: '5px',
                       borderRadius: '50%',
                       background: '#1E8AFF',
-                      boxShadow: '0 0 5px rgba(30,138,255,0.7)',
+                      boxShadow: '0 0 6px rgba(30,138,255,0.7)',
                       display: 'inline-block',
                     }}
                   />
@@ -240,12 +238,11 @@ export default function Metrics() {
                   {m.prefix && (
                     <span
                       style={{
-                        fontSize: 'clamp(20px, 2vw, 28px)',
+                        fontSize: 'clamp(22px, 2vw, 28px)',
                         fontWeight: 300,
                         color: '#1A38E8',
                         lineHeight: 1,
                         letterSpacing: '-0.02em',
-                        marginRight: '2px',
                       }}
                     >
                       {m.prefix}
@@ -254,8 +251,8 @@ export default function Metrics() {
                   <span
                     className="text-gray-900 dark:text-white"
                     style={{
-                      fontSize: 'clamp(32px, 3.4vw, 56px)',
-                      fontWeight: 300,
+                      fontSize: 'clamp(30px, 3.4vw, 52px)',
+                      fontWeight: 400,
                       letterSpacing: '-0.025em',
                       lineHeight: 1,
                       background:
@@ -276,7 +273,7 @@ export default function Metrics() {
                   {m.suffix && (
                     <span
                       style={{
-                        fontSize: 'clamp(14px, 1.3vw, 20px)',
+                        fontSize: 'clamp(13px, 1.1vw, 18px)',
                         fontWeight: 500,
                         color: '#1A38E8',
                         letterSpacing: '-0.005em',
@@ -291,44 +288,25 @@ export default function Metrics() {
                 <div
                   className="text-gray-900 dark:text-white mt-3"
                   style={{
-                    fontSize: 'clamp(13px, 1vw, 14.5px)',
+                    fontSize: '13.5px',
                     fontWeight: 600,
                     letterSpacing: '-0.005em',
+                    lineHeight: 1.3,
                   }}
                 >
                   {m.label}
                 </div>
 
-                {/* Animated underline */}
-                <motion.div
-                  aria-hidden="true"
-                  initial={{ scaleX: 0 }}
-                  animate={isInView ? { scaleX: 1 } : {}}
-                  transition={{
-                    duration: 0.6,
-                    delay: 0.6 + i * 0.08,
-                    ease: EASE,
-                  }}
-                  className="mt-1.5"
-                  style={{
-                    height: '1.5px',
-                    width: '28px',
-                    borderRadius: '2px',
-                    background:
-                      'linear-gradient(90deg, #1A38E8 0%, #1E8AFF 100%)',
-                    transformOrigin: 'left',
-                  }}
-                />
-
                 {/* Sublabel (monospace, quiet) */}
                 <div
-                  className="text-gray-500 dark:text-gray-400 mt-2"
+                  className="text-gray-500 dark:text-gray-400 mt-2 pt-3"
                   style={{
                     fontFamily: 'var(--font-mono, monospace)',
                     fontSize: '10.5px',
                     fontWeight: 500,
-                    letterSpacing: '0.04em',
-                    lineHeight: 1.55,
+                    letterSpacing: '0.03em',
+                    lineHeight: 1.5,
+                    borderTop: '1px solid rgba(10,34,128,0.06)',
                   }}
                 >
                   {m.sublabel}

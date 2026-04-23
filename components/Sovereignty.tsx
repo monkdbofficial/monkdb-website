@@ -19,7 +19,7 @@ export default function Sovereignty() {
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden py-20 sm:py-28 lg:py-32"
+      className="relative overflow-hidden py-14 sm:py-24 lg:py-32"
       style={{
         background:
           'radial-gradient(ellipse 80% 80% at 50% 0%, #0A2280 0%, #050D6A 55%, #04082e 100%)',
@@ -40,15 +40,15 @@ export default function Sovereignty() {
       {/* Soft right halo */}
       <motion.div
         aria-hidden="true"
-        className="absolute pointer-events-none"
+        className="absolute pointer-events-none hidden sm:block"
         animate={{ x: [-8, 8, -8], y: [-4, 4, -4] }}
         transition={{ duration: 28, repeat: Infinity, ease: 'easeInOut' }}
         style={{
           right: '-8%',
           top: '50%',
           transform: 'translateY(-50%)',
-          width: 620,
-          height: 620,
+          width: 'clamp(360px, 45vw, 620px)',
+          height: 'clamp(360px, 45vw, 620px)',
           borderRadius: '50%',
           background:
             'radial-gradient(circle, rgba(30,138,255,0.24) 0%, rgba(26,56,232,0.14) 40%, transparent 70%)',
@@ -59,7 +59,7 @@ export default function Sovereignty() {
       {/* ── Pulsing decorative orbs (ref: banner-overly.svg #ball-1/2/4) ── */}
       <motion.div
         aria-hidden="true"
-        className="absolute pointer-events-none rounded-full"
+        className="absolute pointer-events-none rounded-full hidden sm:block"
         animate={{ scale: [1, 0.85, 1], opacity: [0.5, 0.9, 0.5] }}
         transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}
         style={{
@@ -74,7 +74,7 @@ export default function Sovereignty() {
       />
       <motion.div
         aria-hidden="true"
-        className="absolute pointer-events-none rounded-full"
+        className="absolute pointer-events-none rounded-full hidden sm:block"
         animate={{ scale: [1, 0.75, 1], opacity: [0.4, 0.85, 0.4] }}
         transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut', delay: 1.2 }}
         style={{
@@ -89,7 +89,7 @@ export default function Sovereignty() {
       />
       <motion.div
         aria-hidden="true"
-        className="absolute pointer-events-none rounded-full"
+        className="absolute pointer-events-none rounded-full hidden sm:block"
         animate={{ scale: [1, 0.9, 1], opacity: [0.45, 0.75, 0.45] }}
         transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut', delay: 0.4 }}
         style={{
@@ -149,13 +149,15 @@ export default function Sovereignty() {
           <span
             style={{
               fontFamily: 'var(--font-mono, monospace)',
-              fontSize: '11px',
-              fontWeight: 500,
+              fontSize: '10.5px',
+              fontWeight: 600,
               letterSpacing: '0.14em',
-              color: 'rgba(255,255,255,0.45)',
+              color: 'rgba(255,255,255,0.6)',
+              textTransform: 'uppercase',
+              whiteSpace: 'nowrap',
             }}
           >
-            03 / SOVEREIGNTY
+            04 / Sovereignty
           </span>
           <div
             style={{
@@ -168,7 +170,7 @@ export default function Sovereignty() {
         </motion.div>
 
         {/* Two-col: headline / body */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-6 sm:gap-10 lg:gap-16 items-start">
           {/* Headline */}
           <motion.h2
             initial={{ opacity: 0, y: 18 }}
@@ -227,12 +229,10 @@ export default function Sovereignty() {
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.6, delay: 0.3, ease: EASE }}
-          className="mt-14 sm:mt-20 flex flex-wrap items-center gap-x-8 gap-y-4 pt-8 border-t"
+          className="mt-10 sm:mt-16 lg:mt-20 flex flex-wrap items-center gap-x-6 sm:gap-x-8 gap-y-4 pt-6 sm:pt-8 border-t"
           style={{
             borderColor: 'rgba(255,255,255,0.10)',
             listStyle: 'none',
-            padding: '2rem 0 0 0',
-            margin: '56px 0 0 0',
           }}
         >
           {trustMarks.map((mark, i) => (

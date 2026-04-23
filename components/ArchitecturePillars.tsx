@@ -37,7 +37,7 @@ export default function ArchitecturePillars() {
   return (
     <section
       ref={ref}
-      className="relative bg-white dark:bg-[#0f1623] py-20 sm:py-28 lg:py-32"
+      className="relative bg-white dark:bg-[#0f1623] py-12 sm:py-20 lg:py-28"
     >
       <div className="relative z-10 max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
         {/* Section chapter line */}
@@ -45,18 +45,20 @@ export default function ArchitecturePillars() {
           initial={{ opacity: 0, y: 8 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.55, ease: EASE }}
-          className="flex items-center gap-4 mb-10 sm:mb-14"
+          className="flex items-center gap-4 mb-6 sm:mb-10 lg:mb-14"
         >
           <span
             style={{
               fontFamily: 'var(--font-mono, monospace)',
-              fontSize: '11px',
-              fontWeight: 500,
+              fontSize: '10.5px',
+              fontWeight: 600,
               letterSpacing: '0.14em',
               color: '#1A38E8',
+              textTransform: 'uppercase',
+              whiteSpace: 'nowrap',
             }}
           >
-            04 / ARCHITECTURE
+            05 / Architecture
           </span>
           <div
             style={{
@@ -69,7 +71,7 @@ export default function ArchitecturePillars() {
         </motion.div>
 
         {/* Editorial two-col intro */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-16 items-start mb-12 sm:mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-6 sm:gap-10 lg:gap-16 items-start mb-8 sm:mb-12 lg:mb-16">
           <motion.h2
             initial={{ opacity: 0, y: 18 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -110,18 +112,18 @@ export default function ArchitecturePillars() {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.18, ease: EASE }}
-          className="relative rounded-[24px] overflow-hidden mb-16 sm:mb-20"
+          className="relative rounded-[20px] sm:rounded-[24px] overflow-hidden mb-10 sm:mb-16 lg:mb-20"
           style={{
             background: '#ffffff',
             border: '1px solid rgba(10,34,128,0.08)',
-            padding: 'clamp(24px, 3vw, 48px)',
+            padding: 'clamp(16px, 3vw, 48px)',
             boxShadow:
               '0 12px 36px rgba(10,20,80,0.06), inset 0 1px 0 rgba(255,255,255,0.6)',
           }}
         >
           <div className="relative z-10">
             {/* Diagram label */}
-            <div className="flex items-center gap-3 mb-6 sm:mb-8">
+            <div className="flex items-center gap-3 mb-5 sm:mb-8">
               <span
                 style={{
                   fontFamily: 'var(--font-mono, monospace)',
@@ -130,9 +132,11 @@ export default function ArchitecturePillars() {
                   letterSpacing: '0.14em',
                   textTransform: 'uppercase',
                   color: '#1A38E8',
+                  whiteSpace: 'nowrap',
                 }}
               >
-                Diagram · Optimized Architecture for Seamless Data Flow
+                <span className="sm:hidden">Diagram · Architecture</span>
+                <span className="hidden sm:inline">Diagram · Optimized Architecture for Seamless Data Flow</span>
               </span>
               <div
                 style={{
@@ -194,7 +198,7 @@ export default function ArchitecturePillars() {
             >
               <a
                 href="#"
-                className="relative grid grid-cols-[64px_1fr] md:grid-cols-[80px_1.1fr_1fr_40px] items-start gap-x-6 lg:gap-x-10 py-8 sm:py-10 lg:py-12"
+                className="relative grid grid-cols-[48px_1fr] md:grid-cols-[80px_1.1fr_1fr_40px] items-start gap-x-4 sm:gap-x-6 lg:gap-x-10 py-6 sm:py-9 lg:py-12"
                 style={{
                   textDecoration: 'none',
                   transition: 'padding 260ms cubic-bezier(0.165, 0.84, 0.44, 1)',
@@ -248,31 +252,34 @@ export default function ArchitecturePillars() {
                   {p.n}
                 </span>
 
-                {/* Title */}
-                <h3
-                  className="text-gray-900 dark:text-white"
-                  style={{
-                    fontSize: 'clamp(20px, 2.2vw, 32px)',
-                    fontWeight: 300,
-                    letterSpacing: '-0.015em',
-                    lineHeight: 1.18,
-                    textWrap: 'balance',
-                  }}
-                >
-                  {p.title}
-                </h3>
+                {/* Title + body wrapped together on mobile so they stack in
+                    column 2 under the number. On md+ `contents` flattens the
+                    wrapper so title and body each become their own grid cell. */}
+                <div className="md:contents">
+                  <h3
+                    className="text-gray-900 dark:text-white"
+                    style={{
+                      fontSize: 'clamp(20px, 2.2vw, 32px)',
+                      fontWeight: 300,
+                      letterSpacing: '-0.015em',
+                      lineHeight: 1.18,
+                      textWrap: 'balance',
+                    }}
+                  >
+                    {p.title}
+                  </h3>
 
-                {/* Body */}
-                <p
-                  className="text-gray-600 dark:text-gray-300 md:col-span-1 col-span-2 mt-3 md:mt-0"
-                  style={{
-                    fontSize: 'clamp(14px, 1.05vw, 15.5px)',
-                    lineHeight: 1.65,
-                    paddingTop: '6px',
-                  }}
-                >
-                  {p.body}
-                </p>
+                  {/* Body */}
+                  <p
+                    className="text-gray-600 dark:text-gray-300 mt-3 md:mt-0 md:pt-1.5"
+                    style={{
+                      fontSize: 'clamp(14px, 1.05vw, 15.5px)',
+                      lineHeight: 1.65,
+                    }}
+                  >
+                    {p.body}
+                  </p>
+                </div>
 
                 {/* Arrow — far right, desktop only */}
                 <span

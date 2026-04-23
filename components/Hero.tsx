@@ -95,7 +95,7 @@ export default function Hero() {
       <div
         className="absolute pointer-events-none rounded-full"
         style={{
-          width: 700, height: 700,
+          width: 'clamp(360px, 55vw, 700px)', height: 'clamp(360px, 55vw, 700px)',
           background: 'radial-gradient(circle, rgba(60,120,255,0.42) 0%, transparent 60%)',
           filter: 'blur(80px)',
           top: '-30%', left: '-18%',
@@ -105,7 +105,7 @@ export default function Hero() {
       <div
         className="absolute pointer-events-none rounded-full"
         style={{
-          width: 550, height: 550,
+          width: 'clamp(300px, 45vw, 550px)', height: 'clamp(300px, 45vw, 550px)',
           background: 'radial-gradient(circle, rgba(80,40,200,0.35) 0%, transparent 60%)',
           filter: 'blur(70px)',
           bottom: '-25%', right: '-12%',
@@ -113,7 +113,7 @@ export default function Hero() {
         }}
       />
       <div
-        className="absolute pointer-events-none rounded-full"
+        className="absolute pointer-events-none rounded-full hidden sm:block"
         style={{
           width: 380, height: 380,
           background: 'radial-gradient(circle, rgba(100,160,255,0.32) 0%, transparent 65%)',
@@ -188,21 +188,35 @@ export default function Hero() {
 
       {/* ── MAIN CONTENT ── */}
       <div
-        className="relative z-10 w-full max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28 pt-[80px] sm:pt-[90px] lg:pt-[100px] pb-[60px] sm:pb-[70px] lg:pb-[80px]"
+        className="relative z-10 w-full max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28 pt-[88px] sm:pt-[100px] lg:pt-[110px] pb-12 sm:pb-[70px] lg:pb-[80px]"
       >
         <div style={{ maxWidth: '750px' }}>
 
           {/* Badge */}
-          <motion.div {...fadeUp(0.1)} className="mb-5">
-            <span className="text-white/85 font-medium" style={{ fontSize: '0.9rem' }}>
+          <motion.div {...fadeUp(0.1)} className="mb-4 sm:mb-5">
+            <span
+              className="inline-flex items-center gap-2 text-white/90"
+              style={{
+                fontSize: 'clamp(0.7rem, 0.95vw, 0.82rem)',
+                fontWeight: 500,
+                padding: '5px 12px',
+                borderRadius: '999px',
+                border: '1px solid rgba(255,255,255,0.22)',
+                background: 'rgba(255,255,255,0.08)',
+                backdropFilter: 'blur(8px)',
+                letterSpacing: '0.04em',
+                textTransform: 'uppercase',
+              }}
+            >
+              <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#34D399', boxShadow: '0 0 8px rgba(52,211,153,0.6)' }} />
               AI-Native Sovereign Data Plane
             </span>
           </motion.div>
 
           {/* H1 */}
           <h1
-            className="text-white mb-5 sm:mb-7"
-            style={{ fontSize: 'clamp(36px, 6vw, 88px)', fontWeight: 300, lineHeight: 1.06, letterSpacing: '-0.02em' }}
+            className="text-white mb-4 sm:mb-7"
+            style={{ fontSize: 'clamp(34px, 6vw, 88px)', fontWeight: 300, lineHeight: 1.05, letterSpacing: '-0.02em' }}
           >
             <span className="block overflow-hidden">
               {['Your', 'AI', 'Native'].map((w, i) => (
@@ -234,8 +248,17 @@ export default function Hero() {
             </span>
           </h1>
 
+          {/* Subtitle (line beneath the H1) */}
+          <motion.p
+            {...fadeUp(0.72)}
+            className="text-white/75 leading-relaxed mb-6 sm:mb-8 w-full"
+            style={{ fontSize: 'clamp(14px, 1.3vw, 18px)', maxWidth: '620px' }}
+          >
+            Provide your services and agents with comprehensive context derived from all of your data, ensuring there are no compromises on control, scalability, or performance.
+          </motion.p>
+
           {/* CTA Buttons */}
-          <motion.div {...fadeUp(0.72)} className="flex flex-wrap gap-3 sm:gap-4 mb-6 sm:mb-7">
+          <motion.div {...fadeUp(0.86)} className="flex flex-wrap gap-3 sm:gap-4 mb-8 sm:mb-10">
             <motion.a
               href="#about"
               whileHover={{ scale: 1.03, y: -2 }}
@@ -244,36 +267,35 @@ export default function Hero() {
             >
               Schedule a Demo
             </motion.a>
+            <motion.a
+              href="#features-banner"
+              whileHover={{ scale: 1.03, y: -2 }}
+              whileTap={{ scale: 0.97 }}
+              style={{ backgroundColor: 'rgba(255,255,255,0.08)', color: '#ffffff', borderRadius: '999px', padding: '10px 22px', fontWeight: 500, fontSize: 'clamp(0.82rem, 1.1vw, 0.9rem)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(255,255,255,0.22)', backdropFilter: 'blur(8px)', textDecoration: 'none', whiteSpace: 'nowrap' }}
+            >
+              Explore Platform
+            </motion.a>
           </motion.div>
-
-          {/* Subtitle (line beneath the CTA) */}
-          <motion.p
-            {...fadeUp(1.0)}
-            className="text-white/75 leading-relaxed mb-8 sm:mb-10 w-full"
-            style={{ fontSize: 'clamp(15px, 1.3vw, 18px)', maxWidth: '620px' }}
-          >
-            Provide your services and agents with comprehensive context derived from all of your data, ensuring there are no compromises on control, scalability, or performance.
-          </motion.p>
 
           {/* Capability chips */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 1.4, duration: 0.6 }}
-            className="flex flex-wrap gap-2 mt-6 sm:mt-8"
+            transition={{ delay: 1.2, duration: 0.6 }}
+            className="flex flex-wrap gap-1.5 sm:gap-2"
           >
             {CHIPS.map((chip, i) => (
               <motion.span
                 key={chip}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.5 + i * 0.08, duration: 0.4 }}
+                transition={{ delay: 1.3 + i * 0.06, duration: 0.4 }}
                 whileHover={{ y: -2, scale: 1.04 }}
                 className="inline-flex items-center gap-1.5 text-white/75 hover:text-white transition-colors cursor-default"
                 style={{
-                  fontSize: '0.75rem',
+                  fontSize: 'clamp(0.68rem, 0.85vw, 0.75rem)',
                   fontWeight: 500,
-                  padding: '5px 12px',
+                  padding: '4px 10px',
                   borderRadius: '999px',
                   border: '1px solid rgba(255,255,255,0.18)',
                   background: 'rgba(255,255,255,0.07)',

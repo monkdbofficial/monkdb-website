@@ -258,9 +258,9 @@ export default function Navbar() {
         transition={{ duration: 0.8, delay: 0.1, ease: SANAS_EASE }}
         className="fixed z-50 pointer-events-none flex justify-center w-full"
         style={{
-          top: scrolled ? '20px' : '32px',
+          top: scrolled ? '16px' : '22px',
           transition: `top 600ms ${SANAS_EASE_CSS}`,
-          padding: '0 16px',
+          padding: '0 12px',
         }}
       >
         <div
@@ -271,9 +271,9 @@ export default function Navbar() {
             backgroundColor: pillBg,
             border: `1px solid ${pillBorder}`,
             borderRadius: '999px',
-            height: '62px',
-            paddingLeft: '24px',
-            paddingRight: '10px',
+            height: 'clamp(52px, 7vw, 62px)',
+            paddingLeft: 'clamp(14px, 2vw, 24px)',
+            paddingRight: 'clamp(8px, 1vw, 10px)',
             backdropFilter: 'blur(20px) saturate(180%)',
             WebkitBackdropFilter: 'blur(20px) saturate(180%)',
             boxShadow: scrolled
@@ -722,10 +722,10 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -14 }}
             transition={{ duration: 0.35, ease: SANAS_EASE }}
-            className="fixed left-4 right-4 z-40 md:hidden rounded-[28px] overflow-hidden"
+            className="fixed left-3 right-3 sm:left-4 sm:right-4 z-40 md:hidden rounded-[24px] sm:rounded-[28px] overflow-hidden"
             style={{
-              top: scrolled ? '94px' : '106px',
-              maxHeight: 'calc(100vh - 120px)',
+              top: scrolled ? '82px' : '94px',
+              maxHeight: 'calc(100vh - 110px)',
               overflowY: 'auto',
               backgroundColor: onHero
                 ? 'rgba(10,20,90,0.92)'

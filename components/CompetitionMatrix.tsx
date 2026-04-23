@@ -1,8 +1,8 @@
 'use client'
 
-import React, { useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
-import { Check, X, Minus, Star } from 'lucide-react'
+import React, { useRef, useState } from 'react'
+import { motion, AnimatePresence, useInView } from 'framer-motion'
+import { Check, X, Minus, Star, ChevronDown } from 'lucide-react'
 
 // ── Cell value types ───────────────────────────────────────────────
 type Cell =
@@ -182,6 +182,7 @@ function CellContent({
           fontSize: '11.5px',
           fontWeight: 600,
           letterSpacing: '0.01em',
+          whiteSpace: 'nowrap',
         }}
       >
         <Minus size={11} strokeWidth={3} />
@@ -205,10 +206,204 @@ function CellContent({
         fontWeight: cell.tone === 'good' ? 600 : 500,
         color: toneColor,
         letterSpacing: '-0.005em',
+        whiteSpace: 'nowrap',
       }}
     >
       {cell.label}
     </span>
+  )
+}
+
+// ── Mobile feature card (expandable competitor comparison) ──────────
+function MobileFeatureCard({ row }: { row: Row }) {
+  const [expanded, setExpanded] = useState(false)
+  const monkCell = row.cells[0]
+  const competitors = vendors.slice(1).map((name, i) => ({
+    name,
+    cell: row.cells[i + 1],
+  }))
+  const losses = competitors.filter(
+    (c) =>
+      c.cell.kind === 'no' ||
+      c.cell.kind === 'partial' ||
+      (c.cell.kind === 'text' && c.cell.tone === 'bad'),
+  ).length
+
+  return (
+    <div
+      className="relative rounded-2xl p-5"
+      style={{
+        background: '#ffffff',
+        border: '1px solid rgba(10,34,128,0.08)',
+        boxShadow:
+          '0 1px 2px rgba(10,20,80,0.03), 0 8px 24px rgba(10,20,80,0.04)',
+      }}
+    >
+      {/* Feature name + sub */}
+      <div className="mb-3">
+        <h3
+          style={{
+            fontSize: '15px',
+            fontWeight: 600,
+            color: '#111827',
+            letterSpacing: '-0.005em',
+            lineHeight: 1.3,
+          }}
+        >
+          {row.feature}
+        </h3>
+        {row.sub && (
+          <p
+            style={{
+              fontFamily: 'var(--font-mono, monospace)',
+              fontSize: '10.5px',
+              fontWeight: 500,
+              color: '#9CA3AF',
+              letterSpacing: '0.02em',
+              marginTop: '4px',
+              lineHeight: 1.5,
+            }}
+          >
+            {row.sub}
+          </p>
+        )}
+      </div>
+
+      {/* MonkDB value (BEST) */}
+      <div
+        className="flex items-center justify-between gap-3 rounded-xl px-4 py-3"
+        style={{
+          background:
+            'linear-gradient(135deg, rgba(26,56,232,0.05) 0%, rgba(30,138,255,0.03) 100%)',
+          border: '1px solid rgba(26,56,232,0.15)',
+        }}
+      >
+        <div className="flex items-center gap-2 min-w-0">
+          <span
+            className="inline-flex items-center gap-1"
+            style={{
+              padding: '2px 7px',
+              borderRadius: 999,
+              background:
+                'linear-gradient(135deg, #1E8AFF 0%, #7FB3FF 100%)',
+              color: '#0A2280',
+              fontSize: '9.5px',
+              fontWeight: 700,
+              letterSpacing: '0.06em',
+              flexShrink: 0,
+            }}
+          >
+            <Star size={9} strokeWidth={3} fill="#0A2280" />
+            MonkDB
+          </span>
+        </div>
+        <div className="flex-shrink-0">
+          <CellContent cell={monkCell} isMonk={true} />
+        </div>
+      </div>
+
+      {/* Compare toggle */}
+      <button
+        type="button"
+        onClick={() => setExpanded((v) => !v)}
+        className="mt-3 w-full flex items-center justify-between rounded-xl px-4 py-2.5"
+        style={{
+          background: 'rgba(10,34,128,0.03)',
+          border: '1px solid rgba(10,34,128,0.08)',
+          color: '#1F2937',
+          cursor: 'pointer',
+        }}
+        aria-expanded={expanded}
+      >
+        <span
+          style={{
+            fontFamily: 'var(--font-mono, monospace)',
+            fontSize: '10.5px',
+            fontWeight: 600,
+            letterSpacing: '0.12em',
+            textTransform: 'uppercase',
+            color: '#4B5563',
+          }}
+        >
+          {expanded ? 'Hide comparison' : `Compare ${competitors.length} vendors`}
+        </span>
+        <span className="flex items-center gap-2">
+          {losses > 0 && !expanded && (
+            <span
+              style={{
+                fontFamily: 'var(--font-mono, monospace)',
+                fontSize: '10px',
+                fontWeight: 500,
+                color: '#B45309',
+                letterSpacing: '0.02em',
+              }}
+            >
+              {losses}/{competitors.length} fall short
+            </span>
+          )}
+          <ChevronDown
+            size={14}
+            strokeWidth={2}
+            style={{
+              color: '#6B7280',
+              transform: expanded ? 'rotate(180deg)' : 'rotate(0deg)',
+              transition: 'transform 220ms cubic-bezier(0.165, 0.84, 0.44, 1)',
+            }}
+          />
+        </span>
+      </button>
+
+      {/* Expanded competitor rows */}
+      <AnimatePresence initial={false}>
+        {expanded && (
+          <motion.div
+            key="competitors"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{
+              duration: 0.3,
+              ease: [0.165, 0.84, 0.44, 1],
+            }}
+            style={{ overflow: 'hidden' }}
+          >
+            <ul
+              className="mt-3 flex flex-col"
+              style={{
+                listStyle: 'none',
+                padding: 0,
+                margin: 0,
+                borderTop: '1px solid rgba(10,34,128,0.06)',
+              }}
+            >
+              {competitors.map(({ name, cell }) => (
+                <li
+                  key={name}
+                  className="flex items-center justify-between gap-3 py-2.5"
+                  style={{
+                    borderBottom: '1px solid rgba(10,34,128,0.04)',
+                  }}
+                >
+                  <span
+                    style={{
+                      fontSize: '12.5px',
+                      fontWeight: 500,
+                      color: '#374151',
+                      letterSpacing: '-0.005em',
+                    }}
+                  >
+                    {name}
+                  </span>
+                  <div className="flex-shrink-0">
+                    <CellContent cell={cell} isMonk={false} />
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   )
 }
 
@@ -220,7 +415,7 @@ export default function CompetitionMatrix() {
     <section
       id="competition"
       ref={ref}
-      className="relative bg-white dark:bg-[#0f1623] py-20 sm:py-28 lg:py-32"
+      className="relative bg-white dark:bg-[#0f1623] py-12 sm:py-20 lg:py-28"
     >
       <div className="relative z-10 max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
         {/* Section chapter line */}
@@ -228,18 +423,20 @@ export default function CompetitionMatrix() {
           initial={{ opacity: 0, y: 8 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.55, ease: EASE }}
-          className="flex items-center gap-4 mb-10 sm:mb-14"
+          className="flex items-center gap-4 mb-6 sm:mb-10 lg:mb-14"
         >
           <span
             style={{
               fontFamily: 'var(--font-mono, monospace)',
-              fontSize: '11px',
-              fontWeight: 500,
+              fontSize: '10.5px',
+              fontWeight: 600,
               letterSpacing: '0.14em',
               color: '#1A38E8',
+              textTransform: 'uppercase',
+              whiteSpace: 'nowrap',
             }}
           >
-            07 / COMPARISON
+            07 / Comparison
           </span>
           <div
             style={{
@@ -252,7 +449,7 @@ export default function CompetitionMatrix() {
         </motion.div>
 
         {/* Editorial two-col intro */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-16 items-start mb-12 sm:mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-6 sm:gap-10 lg:gap-16 items-start mb-8 sm:mb-12 lg:mb-16">
           <motion.h2
             initial={{ opacity: 0, y: 18 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -288,12 +485,24 @@ export default function CompetitionMatrix() {
           </motion.p>
         </div>
 
-        {/* Comparison table */}
+        {/* ── Mobile: vertical card stack (below md) ──────────── */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.2, ease: EASE }}
-          className="relative overflow-x-auto scrollbar-hide rounded-[20px]"
+          className="md:hidden flex flex-col gap-3"
+        >
+          {rows.map((row) => (
+            <MobileFeatureCard key={row.feature} row={row} />
+          ))}
+        </motion.div>
+
+        {/* ── Tablet/Desktop: comparison table ────────────────── */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.2, ease: EASE }}
+          className="hidden md:block relative overflow-x-auto scrollbar-hide rounded-[20px]"
           style={{
             background: '#ffffff',
             border: '1px solid rgba(10,34,128,0.08)',
@@ -313,14 +522,14 @@ export default function CompetitionMatrix() {
             style={{
               width: '100%',
               borderCollapse: 'collapse',
-              minWidth: '960px',
+              minWidth: '1000px',
             }}
           >
             <thead>
               <tr>
                 <th
                   style={{
-                    padding: '16px 20px',
+                    padding: 'clamp(12px, 1.8vw, 16px) clamp(14px, 2vw, 20px)',
                     textAlign: 'left',
                     background: '#F8F4F0',
                     borderBottom: '1px solid rgba(10,34,128,0.08)',
@@ -330,7 +539,7 @@ export default function CompetitionMatrix() {
                     letterSpacing: '0.12em',
                     textTransform: 'uppercase',
                     color: '#6B7280',
-                    minWidth: '180px',
+                    minWidth: '150px',
                   }}
                 >
                   Capability
@@ -341,7 +550,7 @@ export default function CompetitionMatrix() {
                     <th
                       key={v}
                       style={{
-                        padding: '16px 18px',
+                        padding: 'clamp(12px, 1.8vw, 16px) clamp(12px, 1.8vw, 18px)',
                         textAlign: 'left',
                         background: isMonk ? '#0A2280' : '#F8F4F0',
                         borderBottom: isMonk
@@ -413,9 +622,9 @@ export default function CompetitionMatrix() {
                   {/* Feature column */}
                   <td
                     style={{
-                      padding: '18px 20px',
+                      padding: 'clamp(12px, 2vw, 18px) clamp(14px, 2vw, 20px)',
                       verticalAlign: 'top',
-                      minWidth: '180px',
+                      minWidth: '150px',
                     }}
                   >
                     <div
@@ -452,7 +661,7 @@ export default function CompetitionMatrix() {
                       <td
                         key={colIdx}
                         style={{
-                          padding: '18px',
+                          padding: 'clamp(12px, 2vw, 18px)',
                           verticalAlign: 'middle',
                           background: isMonk ? 'rgba(26,56,232,0.03)' : 'transparent',
                           borderLeft: isMonk

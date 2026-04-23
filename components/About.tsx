@@ -41,12 +41,12 @@ export default function About() {
       style={{ background: 'linear-gradient(180deg, #ffffff 0%, #f4f6ff 50%, #ffffff 100%)' }}
     >
       {/* Subtle color orbs for light mode */}
-      <div className="absolute pointer-events-none dark:hidden" style={{
+      <div className="absolute pointer-events-none dark:hidden hidden sm:block" style={{
         width: 500, height: 500, borderRadius: '50%',
         background: 'radial-gradient(circle, rgba(26,56,232,0.05) 0%, transparent 65%)',
         filter: 'blur(80px)', top: '-10%', right: '10%',
       }} />
-      <div className="absolute pointer-events-none dark:hidden" style={{
+      <div className="absolute pointer-events-none dark:hidden hidden sm:block" style={{
         width: 400, height: 400, borderRadius: '50%',
         background: 'radial-gradient(circle, rgba(100,60,220,0.04) 0%, transparent 65%)',
         filter: 'blur(60px)', bottom: '-10%', left: '5%',
@@ -61,16 +61,33 @@ export default function About() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
-            <span
-              className="font-semibold text-egyptian-blue"
-              style={{ fontSize: '0.9rem', display: 'block', marginBottom: '10px' }}
-            >
-              [About]
-            </span>
+            <div className="flex items-center gap-3 mb-6 sm:mb-8">
+              <span
+                style={{
+                  fontFamily: 'var(--font-mono, monospace)',
+                  fontSize: '10.5px',
+                  fontWeight: 600,
+                  letterSpacing: '0.14em',
+                  textTransform: 'uppercase',
+                  color: '#1A38E8',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                02 / About
+              </span>
+              <div
+                style={{
+                  flex: 1,
+                  height: '1px',
+                  background:
+                    'linear-gradient(90deg, rgba(10,34,128,0.18), transparent)',
+                }}
+              />
+            </div>
 
             <h2
               className="leading-[1.1]"
-              style={{ fontSize: 'clamp(28px, 4vw, 62px)', marginBottom: '32px', fontWeight: 300, letterSpacing: '-0.015em' }}
+              style={{ fontSize: 'clamp(28px, 4vw, 62px)', marginBottom: 'clamp(24px, 3vw, 32px)', fontWeight: 300, letterSpacing: '-0.015em' }}
             >
               <span className="text-gray-900 dark:text-white">Your complete </span>
               <span className="gradient-text-animate" style={{ fontWeight: 500 }}>data sovereignty</span>

@@ -25,8 +25,8 @@ export default function FeatureBanner() {
 
       <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
         <div
-          className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5"
-          style={{ gridAutoRows: 'clamp(320px, 32vw, 460px)', perspective: '1200px' }}
+          className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-5"
+          style={{ gridAutoRows: 'clamp(300px, 32vw, 460px)', perspective: '1200px' }}
         >
 
           {/* ══════════════════════════════
@@ -84,8 +84,7 @@ export default function FeatureBanner() {
               style={{ clipPath: 'url(#card1-shape-clip)' }}
             >
               <div
-                className="absolute pointer-events-none"
-                style={{ left: '44%', top: '18%', width: '62%', height: '82%' }}
+                className="absolute pointer-events-none left-[55%] sm:left-[44%] top-[12%] sm:top-[18%] w-[60%] sm:w-[62%] h-[70%] sm:h-[82%]"
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
@@ -114,8 +113,8 @@ export default function FeatureBanner() {
               <div />
 
               {/* Text — constrained so it doesn't bleed into the image area */}
-              <div style={{ maxWidth: '58%' }}>
-                <p className="text-white font-light leading-snug" style={{ fontSize: 'clamp(0.82rem, 1.2vw, 1rem)' }}>
+              <div className="max-w-[80%] sm:max-w-[68%] lg:max-w-[58%]">
+                <p className="text-white font-light leading-snug" style={{ fontSize: 'clamp(0.78rem, 1.2vw, 1rem)' }}>
                   Keep AI ecosystems grounded in continuous data context, connecting streams,
                   databases, applications, and models into one secure layer.
                 </p>

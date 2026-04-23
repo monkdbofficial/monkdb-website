@@ -87,6 +87,65 @@ function rgba(hex: string, a: number) {
   return `rgba(${r}, ${g}, ${b}, ${a})`
 }
 
+// ── Mobile fan connectors: SVG lines between stacked blocks ──────────
+// `topX` / `bottomX` are percentages (0–100) of the container width.
+function MobileConnector({
+  topX,
+  bottomX,
+}: {
+  topX: number[]
+  bottomX: number[]
+}) {
+  // Every top point connects to every bottom point (typical fan pattern
+  // is n→1 or 1→n).
+  const lines: { x1: number; x2: number }[] = []
+  topX.forEach((t) => {
+    bottomX.forEach((b) => {
+      lines.push({ x1: t, x2: b })
+    })
+  })
+
+  return (
+    <motion.svg
+      aria-hidden="true"
+      className="w-full"
+      height="36"
+      preserveAspectRatio="none"
+      viewBox="0 0 100 36"
+      style={{ display: 'block', marginTop: '6px', marginBottom: '6px' }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.6, delay: 0.15, ease: [0.165, 0.84, 0.44, 1] }}
+    >
+      {lines.map((l, i) => (
+        <line
+          key={i}
+          x1={l.x1}
+          y1={0}
+          x2={l.x2}
+          y2={36}
+          stroke="rgba(26,56,232,0.45)"
+          strokeWidth="1.2"
+          strokeDasharray="3 3"
+          strokeLinecap="round"
+          vectorEffect="non-scaling-stroke"
+        />
+      ))}
+      {/* Endpoint dots */}
+      {bottomX.map((b) => (
+        <circle
+          key={`b-${b}`}
+          cx={b}
+          cy={36}
+          r="1.4"
+          fill="#1A38E8"
+          vectorEffect="non-scaling-stroke"
+        />
+      ))}
+    </motion.svg>
+  )
+}
+
 // ── Clean enterprise-style card with tinted icon badge ───────────────
 function Card({
   Icon,
@@ -303,13 +362,12 @@ export default function MonkDBFeature() {
         </div>
 
         {/* ── Mobile stack ─────────────────────────────────────── */}
-        <div className="flex flex-col space-y-6 md:hidden">
-          <div className="flex justify-around gap-2">
+        <div className="flex flex-col md:hidden">
+          <div className="grid grid-cols-3 gap-2">
             {inputSources.map((source, i) => (
               <motion.div
                 key={source.name}
                 variants={itemVariants}
-                className="w-[30%]"
                 style={{ transitionDelay: `${150 * i}ms` }}
               >
                 <Card
@@ -322,6 +380,9 @@ export default function MonkDBFeature() {
             ))}
           </div>
 
+          {/* Connector: 3 inputs (col centers at 16.67/50/83.33%) → PG Wire (50%) */}
+          <MobileConnector topX={[16.67, 50, 83.33]} bottomX={[50]} />
+
           <motion.div variants={itemVariants} className="mx-auto w-1/2">
             <Card
               Icon={CircuitBoard}
@@ -331,9 +392,12 @@ export default function MonkDBFeature() {
             />
           </motion.div>
 
-          <motion.div variants={itemVariants} className="mx-auto w-5/6">
+          {/* Connector: PG Wire (50%) → MonkDB panel (full width center) */}
+          <MobileConnector topX={[50]} bottomX={[50]} />
+
+          <motion.div variants={itemVariants} className="mx-auto w-full">
             <div
-              className="relative rounded-2xl p-4"
+              className="relative rounded-2xl p-3 sm:p-4"
               style={{
                 background: '#F8F4F0',
                 border: '1px solid rgba(10,34,128,0.10)',
@@ -365,12 +429,14 @@ export default function MonkDBFeature() {
             </div>
           </motion.div>
 
-          <div className="flex flex-wrap justify-around gap-2">
+          {/* Connector: MonkDB (50%) → 2 output columns (25/75%) */}
+          <MobileConnector topX={[50]} bottomX={[25, 75]} />
+
+          <div className="grid grid-cols-2 gap-2">
             {outputDestinations.map((dest, i) => (
               <motion.div
                 key={dest.name}
                 variants={itemVariants}
-                className="w-[22%]"
                 style={{ transitionDelay: `${150 * i}ms` }}
               >
                 <Card

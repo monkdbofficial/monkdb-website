@@ -69,8 +69,8 @@ export default function ROI() {
             <span className="gradient-text-animate">MonkDB</span>
           </motion.h2>
 
-          {/* Stat pills */}
-          <div className="flex flex-wrap gap-3 sm:gap-4">
+          {/* Stat pills — always 3 in a row */}
+          <div className="grid grid-cols-3 gap-2 sm:gap-3 lg:gap-4">
             {stats.map((s, i) => (
               <motion.div
                 key={s.label}
@@ -80,19 +80,20 @@ export default function ROI() {
                 whileHover={{ y: -3, transition: { duration: 0.2 } }}
                 style={{
                   display: 'flex', flexDirection: 'column', alignItems: 'center',
-                  padding: 'clamp(10px, 1.2vw, 14px) clamp(16px, 2vw, 24px)', borderRadius: '14px',
+                  padding: 'clamp(10px, 1.2vw, 14px) clamp(8px, 1.5vw, 24px)', borderRadius: '14px',
                   border: '1.5px solid rgba(26,56,232,0.15)',
                   background: 'linear-gradient(135deg, rgba(26,56,232,0.04) 0%, rgba(30,138,255,0.07) 100%)',
                   boxShadow: '0 2px 12px rgba(26,56,232,0.06)',
                   cursor: 'default',
+                  minWidth: 0,
                 }}
               >
                 <span
-                  style={{ fontSize: 'clamp(20px, 2.2vw, 28px)', fontWeight: 600, color: '#1A38E8', lineHeight: 1.1, letterSpacing: '-0.5px' }}
+                  style={{ fontSize: 'clamp(18px, 2.2vw, 28px)', fontWeight: 600, color: '#1A38E8', lineHeight: 1.1, letterSpacing: '-0.5px' }}
                 >
                   {s.value}
                 </span>
-                <span className="text-gray-500 dark:text-gray-400" style={{ fontSize: 'clamp(0.7rem, 0.9vw, 0.75rem)', marginTop: '4px', whiteSpace: 'nowrap' }}>
+                <span className="text-gray-500 dark:text-gray-400 text-center" style={{ fontSize: 'clamp(0.65rem, 0.9vw, 0.75rem)', marginTop: '4px', lineHeight: 1.3 }}>
                   {s.label}
                 </span>
               </motion.div>

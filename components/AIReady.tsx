@@ -72,12 +72,13 @@ function SQLBlock() {
       ref={blockRef}
       style={{
         margin: 0,
-        padding: '18px 20px',
+        padding: 'clamp(12px, 2vw, 18px) clamp(14px, 2vw, 20px)',
         fontFamily: 'var(--font-mono, ui-monospace, monospace)',
-        fontSize: 'clamp(11.5px, 0.92vw, 13.5px)',
-        lineHeight: 1.7,
+        fontSize: 'clamp(10px, 1.2vw, 13.5px)',
+        lineHeight: 1.65,
         color: 'rgba(255,255,255,0.92)',
         overflowX: 'auto',
+        WebkitOverflowScrolling: 'touch' as React.CSSProperties['WebkitOverflowScrolling'],
       }}
     >
       <code>
@@ -174,7 +175,7 @@ export default function AIReady() {
   return (
     <section
       ref={ref}
-      className="relative bg-white dark:bg-[#0f1623] py-20 sm:py-28 lg:py-32"
+      className="relative bg-white dark:bg-[#0f1623] py-12 sm:py-20 lg:py-28"
     >
       <div className="relative z-10 max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
         {/* Section chapter line */}
@@ -182,18 +183,20 @@ export default function AIReady() {
           initial={{ opacity: 0, y: 8 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.55, ease: EASE }}
-          className="flex items-center gap-4 mb-10 sm:mb-14"
+          className="flex items-center gap-4 mb-6 sm:mb-10 lg:mb-14"
         >
           <span
             style={{
               fontFamily: 'var(--font-mono, monospace)',
-              fontSize: '11px',
-              fontWeight: 500,
+              fontSize: '10.5px',
+              fontWeight: 600,
               letterSpacing: '0.14em',
               color: '#1A38E8',
+              textTransform: 'uppercase',
+              whiteSpace: 'nowrap',
             }}
           >
-            05 / ENGINE
+            06 / Engine
           </span>
           <div
             style={{
@@ -206,7 +209,7 @@ export default function AIReady() {
         </motion.div>
 
         {/* Editorial two-col */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-6 sm:gap-10 lg:gap-16 items-start">
           <motion.h2
             initial={{ opacity: 0, y: 18 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -249,7 +252,7 @@ export default function AIReady() {
           initial={{ opacity: 0, y: 18 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, delay: 0.22, ease: EASE }}
-          className="mt-12 sm:mt-16 grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-5"
+          className="mt-8 sm:mt-12 lg:mt-16 grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-5"
         >
           {[
             {
@@ -426,7 +429,7 @@ export default function AIReady() {
               style={{ borderColor: 'rgba(10,34,128,0.09)' }}
             >
               <div
-                className="relative grid grid-cols-[52px_1fr] md:grid-cols-[72px_160px_minmax(0,1.5fr)_minmax(0,1fr)] items-start gap-x-6 lg:gap-x-10 py-8 sm:py-10"
+                className="relative grid grid-cols-[44px_1fr] md:grid-cols-[72px_160px_minmax(0,1.5fr)_minmax(0,1fr)] items-start gap-x-4 sm:gap-x-6 lg:gap-x-10 py-6 sm:py-8 lg:py-10"
                 style={{
                   transition: 'padding 260ms cubic-bezier(0.165, 0.84, 0.44, 1)',
                 }}
@@ -478,43 +481,47 @@ export default function AIReady() {
                   {r.n}
                 </span>
 
-                {/* Label */}
-                <span
-                  className="text-[#1A38E8] dark:text-blue-300"
-                  style={{
-                    fontSize: 'clamp(14px, 1.1vw, 17px)',
-                    fontWeight: 600,
-                    letterSpacing: '0.02em',
-                    paddingTop: '6px',
-                  }}
-                >
-                  {r.label}
-                </span>
+                {/* Label + headline + body — wrapped together on mobile so
+                    they stack in column 2 under the number. On md+ the wrapper
+                    uses `contents` so each child becomes its own grid cell. */}
+                <div className="md:contents">
+                  <span
+                    className="text-[#1A38E8] dark:text-blue-300 block md:inline"
+                    style={{
+                      fontSize: 'clamp(14px, 1.1vw, 17px)',
+                      fontWeight: 600,
+                      letterSpacing: '0.02em',
+                      marginBottom: '8px',
+                    }}
+                  >
+                    {r.label}
+                  </span>
 
-                {/* Headline + body */}
-                <div className="col-span-2 md:col-span-1">
-                  <p
-                    className="text-gray-900 dark:text-white"
-                    style={{
-                      fontSize: 'clamp(18px, 1.8vw, 24px)',
-                      fontWeight: 400,
-                      letterSpacing: '-0.01em',
-                      lineHeight: 1.3,
-                      textWrap: 'balance',
-                      marginBottom: '10px',
-                    }}
-                  >
-                    {r.headline}
-                  </p>
-                  <p
-                    className="text-gray-600 dark:text-gray-300"
-                    style={{
-                      fontSize: 'clamp(13.5px, 1vw, 15px)',
-                      lineHeight: 1.65,
-                    }}
-                  >
-                    {r.body}
-                  </p>
+                  {/* Headline + body */}
+                  <div>
+                    <p
+                      className="text-gray-900 dark:text-white"
+                      style={{
+                        fontSize: 'clamp(18px, 1.8vw, 24px)',
+                        fontWeight: 400,
+                        letterSpacing: '-0.01em',
+                        lineHeight: 1.3,
+                        textWrap: 'balance',
+                        marginBottom: '10px',
+                      }}
+                    >
+                      {r.headline}
+                    </p>
+                    <p
+                      className="text-gray-600 dark:text-gray-300"
+                      style={{
+                        fontSize: 'clamp(13.5px, 1vw, 15px)',
+                        lineHeight: 1.65,
+                      }}
+                    >
+                      {r.body}
+                    </p>
+                  </div>
                 </div>
 
                 {/* Proof-point tags */}
@@ -568,7 +575,7 @@ export default function AIReady() {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, delay: 0.55, ease: EASE }}
-          className="mt-16 sm:mt-20 grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-8 lg:gap-12 items-start"
+          className="mt-10 sm:mt-16 lg:mt-20 grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-6 sm:gap-8 lg:gap-12 items-start"
         >
           <div>
             <div className="flex items-center gap-3 mb-4">
@@ -582,7 +589,8 @@ export default function AIReady() {
                   color: '#1A38E8',
                 }}
               >
-                Proof · One query, four modalities
+                <span className="sm:hidden">Proof · 4 modalities</span>
+                <span className="hidden sm:inline">Proof · One query, four modalities</span>
               </span>
             </div>
             <h3
@@ -685,7 +693,18 @@ export default function AIReady() {
             </div>
 
             {/* Code — line-by-line reveal */}
-            <SQLBlock />
+            <div className="relative">
+              <SQLBlock />
+              {/* Right-edge fade hinting scrollability on narrow screens */}
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute top-0 right-0 bottom-0 w-8 sm:hidden"
+                style={{
+                  background:
+                    'linear-gradient(to right, transparent, rgba(10,16,40,0.95))',
+                }}
+              />
+            </div>
 
 
             {/* Badges showing which modalities are in play */}

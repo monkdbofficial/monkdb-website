@@ -129,14 +129,14 @@ export default function Footer() {
       <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28 pt-10 sm:pt-14 lg:pt-16 pb-8">
 
         {/* Main grid — 6 columns on desktop */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_0.9fr_1fr_0.85fr_1.5fr] gap-x-8 gap-y-10 lg:gap-y-0 mb-10 lg:mb-12">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-[1.5fr_1fr_0.9fr_1fr_0.85fr_1.5fr] gap-x-6 sm:gap-x-8 gap-y-8 sm:gap-y-10 lg:gap-y-0 mb-8 sm:mb-10 lg:mb-12">
 
           {/* Col 1 — Company info */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0 }}
-            className="sm:col-span-2 lg:col-span-1"
+            className="col-span-2 sm:col-span-3 lg:col-span-1"
           >
             <div className="text-gray-900 dark:text-white" style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '14px' }}>
               MonkDB
@@ -241,6 +241,7 @@ export default function Footer() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.32 }}
+            className="col-span-2 sm:col-span-3 lg:col-span-1"
           >
             <FooterHeading>Stay Updated</FooterHeading>
 
@@ -300,10 +301,11 @@ export default function Footer() {
 
             {/* AWS Partner badge */}
             <a href="#" style={{ display: 'inline-flex', textDecoration: 'none' }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/aws-partner-marketplace-seller 1.svg"
                 alt="AWS Partner Marketplace Seller"
-                style={{ height: '90px', width: 'auto', objectFit: 'contain' }}
+                className="h-16 sm:h-20 lg:h-[90px] w-auto object-contain"
               />
             </a>
           </motion.div>

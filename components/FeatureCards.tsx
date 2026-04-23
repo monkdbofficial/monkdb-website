@@ -190,12 +190,34 @@ export default function FeatureCards() {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="mb-10"
+          className="mb-8 sm:mb-10"
         >
-          <span className="text-[#1A38E8] dark:text-[#60a0ff] font-semibold text-sm block mb-2">[Features]</span>
+          <div className="flex items-center gap-3 mb-4 sm:mb-5">
+            <span
+              style={{
+                fontFamily: 'var(--font-mono, monospace)',
+                fontSize: '10.5px',
+                fontWeight: 600,
+                letterSpacing: '0.14em',
+                textTransform: 'uppercase',
+                color: '#1A38E8',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              03 / Features
+            </span>
+            <div
+              style={{
+                flex: 1,
+                height: '1px',
+                background:
+                  'linear-gradient(90deg, rgba(10,34,128,0.18), transparent)',
+              }}
+            />
+          </div>
           <h2
             className="text-gray-900 dark:text-white"
-            style={{ fontSize: 'clamp(22px, 3vw, 40px)', fontWeight: 300, letterSpacing: '-0.01em' }}
+            style={{ fontSize: 'clamp(22px, 3vw, 40px)', fontWeight: 300, letterSpacing: '-0.01em', lineHeight: 1.15 }}
           >
             Why teams choose{' '}
             <span className="gradient-text-animate" style={{ fontWeight: 500 }}>MonkDB</span>
