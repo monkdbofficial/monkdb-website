@@ -184,9 +184,9 @@ export default function Sovereignty() {
               maxWidth: '880px',
             }}
           >
-            Your complete data sovereignty
-            <span style={{ color: 'rgba(255,255,255,0.45)' }}> — </span>
-            secure and intact for an AI-first world.
+            Your complete data sovereignty.
+            <br />
+            Secure and intact for an AI-first world.
           </motion.h2>
 
           {/* Supporting column */}
@@ -204,7 +204,7 @@ export default function Sovereignty() {
               }}
             >
               The existing data infrastructure is excessively cumbersome,
-              sluggish, and complex — making it unsuitable for constructing
+              sluggish, and complex, which makes it unsuitable for constructing
               an AI-native sovereign data plane.
             </p>
 

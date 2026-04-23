@@ -316,7 +316,7 @@ export default function AboutPage() {
                 className="text-gray-600 dark:text-gray-300 leading-relaxed"
                 style={{ fontSize: 'clamp(14px, 1.3vw, 18px)', margin: 0 }}
               >
-                At MonkDB, our journey is deeply personal — born from decades of experience
+                At MonkDB, our journey is deeply personal, born from decades of experience
                 in enterprise systems, data management, and AI. We&apos;ve seen firsthand how
                 fragmented data infrastructure holds back innovation.
               </p>
@@ -391,7 +391,7 @@ export default function AboutPage() {
                   className="leading-snug"
                   style={{ fontSize: 'clamp(12px, 1.4vw, 20px)', fontWeight: 400, color: 'rgba(255,255,255,0.95)' }}
                 >
-                  Let&apos;s Build the Future of Data Infrastructure—Together
+                  Let&apos;s Build the Future of Data Infrastructure, Together
                 </p>
                 <p
                   className="leading-snug"
@@ -501,7 +501,7 @@ export default function AboutPage() {
                   <span className="text-[#1A38E8] dark:text-blue-400">
                     our journey is deeply personal
                   </span>
-                  {' '}— born from decades of experience in enterprise systems, data management, and AI.
+                  {', '}born from decades of experience in enterprise systems, data management, and AI.
                 </p>
               </div>
 
@@ -869,7 +869,7 @@ export default function AboutPage() {
             {[
               {
                 title: 'AI-Native by Design',
-                description: 'Built ground-up to support AI workloads — not retrofitted. Native vector embeddings live alongside relational and time-series data.',
+                description: 'Built ground-up to support AI workloads, not retrofitted. Native vector embeddings live alongside relational and time-series data.',
               },
               {
                 title: 'Unified & Multi-Modal',
@@ -954,7 +954,7 @@ export default function AboutPage() {
               className="text-gray-600 dark:text-gray-300 leading-relaxed lg:pb-2"
               style={{ fontSize: 'clamp(14px, 1.2vw, 17px)', margin: 0 }}
             >
-              At MonkDB, our journey is deeply personal — born from decades of experience in enterprise systems, data management, and AI. We&apos;ve seen firsthand how fragmented infrastructure holds back innovation.
+              At MonkDB, our journey is deeply personal, born from decades of experience in enterprise systems, data management, and AI. We&apos;ve seen firsthand how fragmented infrastructure holds back innovation.
             </motion.p>
           </div>
 
@@ -1009,7 +1009,7 @@ export default function AboutPage() {
                   AI Solutions<br />for our clients
                 </span>
                 <p className="text-gray-400 leading-relaxed mt-auto" style={{ fontSize: 'clamp(12px, 0.95vw, 14px)', margin: 0, lineHeight: 1.6 }}>
-                  At MonkDB, our journey is deeply personal — born from decades of experience in enterprise systems.
+                  At MonkDB, our journey is deeply personal, born from decades of experience in enterprise systems.
                 </p>
               </div>
             </motion.div>

@@ -74,7 +74,7 @@ export default function About() {
             >
               <span className="text-gray-900 dark:text-white">Your complete </span>
               <span className="gradient-text-animate" style={{ fontWeight: 500 }}>data sovereignty</span>
-              <span className="text-gray-900 dark:text-white">; secure and intact for an AI-first world</span>
+              <span className="text-gray-900 dark:text-white">, engineered for the AI-native era</span>
             </h2>
 
             {/* Animated counter */}
@@ -142,7 +142,7 @@ export default function About() {
               className="text-gray-600 dark:text-gray-300 leading-relaxed"
               style={{ fontSize: 'clamp(14px, 1.2vw, 17px)', margin: 0 }}
             >
-              MonkDB unifies streams, databases, applications, and models into a single secure data layer —
+              MonkDB unifies streams, databases, applications, and models into a single secure data layer,
               with built-in governance, identity, and policy enforcement. Every agent action is authorized
               and compliant before it is executed.
             </motion.p>

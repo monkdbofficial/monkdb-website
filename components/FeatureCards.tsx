@@ -22,7 +22,7 @@ type Feature = {
 const features: Feature[] = [
   {
     title: 'Keep architecture simple at scale',
-    description: 'Most data stacks carry five systems doing the work of one — driving up ops cost and slowing teams. MonkDB collapses them into a single binary: fewer moving parts, cleaner SLOs, faster iteration.',
+    description: 'Most data stacks carry five systems doing the work of one, driving up ops cost and slowing teams. MonkDB collapses them into a single binary: fewer moving parts, cleaner SLOs, faster iteration.',
     accent: '#60a0ff',
     accentDark: '#1A38E8',
     Icon: Layers,
@@ -30,7 +30,7 @@ const features: Feature[] = [
   },
   {
     title: 'Modern data strategy for an AI-agent world',
-    description: 'Data now arrives from agents, workflows, and events — in every format, at every cadence. MonkDB ingests, transforms, and serves it through a single query surface. No pipeline glue. No schema drift.',
+    description: 'Data now arrives from agents, workflows, and events in every format, at every cadence. MonkDB ingests, transforms, and serves it through a single query surface. No pipeline glue. No schema drift.',
     accent: '#00c2ff',
     accentDark: '#0EA5E9',
     Icon: Workflow,
@@ -38,15 +38,15 @@ const features: Feature[] = [
   },
   {
     title: 'Real-time systems over static infrastructure',
-    description: 'Autonomous systems produce data faster than batch can absorb. MonkDB processes streams in-flight and serves them alongside historical context — decisions land in milliseconds, not minutes.',
+    description: 'Autonomous systems produce data faster than batch can absorb. MonkDB processes streams in-flight and serves them alongside historical context. Decisions land in milliseconds, not minutes.',
     accent: '#a060ff',
     accentDark: '#6366F1',
     Icon: Zap,
     gradient: 'linear-gradient(135deg, rgba(160,96,255,0.18) 0%, rgba(26,56,232,0.08) 100%)',
   },
   {
-    title: 'Built for AI-first data infrastructure',
-    description: 'AI workloads need infrastructure that governs itself. MonkDB ingests, processes, and stores at scale — with identity, policy, and lineage wired into every query before it executes.',
+    title: 'Self-governing infrastructure for AI workloads',
+    description: 'AI workloads need infrastructure that governs itself. MonkDB ingests, processes, and stores at scale, with identity, policy, and lineage wired into every query before it executes.',
     accent: '#ff6090',
     accentDark: '#0033A0',
     Icon: BrainCircuit,

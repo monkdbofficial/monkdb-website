@@ -12,11 +12,11 @@ const beforeItems = [
 ]
 
 const afterItems = [
-  'Simple — single binary, zero ops',
-  'Efficient — high-performance C++ engine',
-  'Interoperable — every protocol & format',
-  'Safe — sovereignty & traceability built in',
-  'AI-ready — agent-grade context layer',
+  'Simple: single binary, zero ops',
+  'Efficient: high-performance C++ engine',
+  'Interoperable: every protocol & format',
+  'Safe: sovereignty & traceability built in',
+  'AI-ready: agent-grade context layer',
 ]
 
 const stats = [

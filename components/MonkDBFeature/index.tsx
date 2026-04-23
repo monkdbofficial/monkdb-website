@@ -25,20 +25,26 @@ import {
   Bot,
   Sparkles,
   CircuitBoard,
+  KeyRound,
+  Share2,
+  MemoryStick,
   type LucideIcon,
 } from 'lucide-react'
 import ConnectionLines from './ConnectionLines'
 
-type Tile = { name: string; Icon: LucideIcon; tint: string; wide?: boolean }
+type Tile = { name: string; Icon: LucideIcon; tint: string }
 
 const featuresData: Tile[] = [
-  { name: 'Vector',           Icon: Brain,    tint: '#7C3AED' },
-  { name: 'Streaming SQL',    Icon: Zap,      tint: '#CA8A04' },
-  { name: 'Timeseries',       Icon: Clock,    tint: '#1A38E8' },
-  { name: 'Document/JSON',    Icon: FileJson, tint: '#059669' },
-  { name: 'Geospatial',       Icon: MapPin,   tint: '#DC2626' },
-  { name: 'Full Text Search', Icon: Search,   tint: '#4F46E5' },
-  { name: 'Blob Store',       Icon: Package,  tint: '#EA580C', wide: true },
+  { name: 'Vector',           Icon: Brain,       tint: '#7C3AED' },
+  { name: 'Streaming SQL',    Icon: Zap,         tint: '#CA8A04' },
+  { name: 'Timeseries',       Icon: Clock,       tint: '#1A38E8' },
+  { name: 'Document/JSON',    Icon: FileJson,    tint: '#059669' },
+  { name: 'Geospatial',       Icon: MapPin,      tint: '#DC2626' },
+  { name: 'Full Text Search', Icon: Search,      tint: '#4F46E5' },
+  { name: 'Key-Value',        Icon: KeyRound,    tint: '#0891B2' },
+  { name: 'Graph',            Icon: Share2,      tint: '#BE185D' },
+  { name: 'In-Memory',        Icon: MemoryStick, tint: '#475569' },
+  { name: 'Blob Store',       Icon: Package,     tint: '#EA580C' },
 ]
 
 const inputSources: Tile[] = [
@@ -258,7 +264,6 @@ export default function MonkDBFeature() {
                     variants={itemVariants}
                     whileHover={{ y: -2 }}
                     transition={{ duration: 0.2 }}
-                    className={feature.wide ? 'col-span-2' : ''}
                   >
                     <Card
                       Icon={feature.Icon}
@@ -347,10 +352,7 @@ export default function MonkDBFeature() {
               </div>
               <div className="grid grid-cols-2 gap-2">
                 {featuresData.map((feature) => (
-                  <div
-                    key={feature.name}
-                    className={feature.wide ? 'col-span-2' : ''}
-                  >
+                  <div key={feature.name}>
                     <Card
                       Icon={feature.Icon}
                       name={feature.name}

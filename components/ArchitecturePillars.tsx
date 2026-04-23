@@ -14,17 +14,17 @@ const pillars = [
   {
     n: '02',
     title: 'Control every action with built-in governance',
-    body: 'Establish guardrails across all agent workflows with integrated identity, access control, and policy enforcement. MonkDB ensures that every agent action is authorized and compliant — before it is executed.',
+    body: 'Establish guardrails across all agent workflows with integrated identity, access control, and policy enforcement. MonkDB ensures that every agent action is authorized and compliant before it is executed.',
   },
   {
     n: '03',
     title: 'Power AI ecosystems and agents with seamless data access',
-    body: 'Give AI systems and agents the ability to access both real-time and historical data through a unified query experience. MonkDB allows them to fetch exactly what they need — whether it\'s a live event or long-term data patterns.',
+    body: 'Give AI systems and agents the ability to access both real-time and historical data through a unified query experience. MonkDB allows them to fetch exactly what they need, whether it\'s a live event or long-term data patterns.',
   },
   {
     n: '04',
     title: 'Gain full visibility into AI ecosystem behavior',
-    body: 'Track every interaction and data movement with complete transparency. MonkDB provides end-to-end observability — enabling you to audit decisions, troubleshoot issues, and replay workflows with full historical context.',
+    body: 'Track every interaction and data movement with complete transparency. MonkDB provides end-to-end observability, so you can audit decisions, troubleshoot issues, and replay workflows with full historical context.',
   },
 ]
 
@@ -83,8 +83,8 @@ export default function ArchitecturePillars() {
               textWrap: 'balance',
             }}
           >
-            An AI-native sovereign data plane
-            <span className="text-gray-400 dark:text-gray-500"> — </span>
+            An AI-native sovereign data plane,
+            <br />
             from streams to governance.
           </motion.h2>
 
@@ -100,7 +100,7 @@ export default function ArchitecturePillars() {
             }}
           >
             Four capabilities that together form the backbone of an
-            AI-native data plane — designed to be operationally simple,
+            AI-native data plane, designed to be operationally simple,
             governed by default, and always grounded in real-time context.
           </motion.p>
         </div>

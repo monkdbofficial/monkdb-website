@@ -33,7 +33,7 @@ const FALLBACK_CARDS: StickyCard[] = [
     eyebrow: 'Healthcare',
     title: 'How a Top-10 Hospital Network Unified Patient Data Across 14 Facilities',
     description:
-      'Replaced five siloed databases with a single MonkDB deployment — cutting query latency by 68 % and reducing compliance audit prep from weeks to hours.',
+      'Replaced five siloed databases with a single MonkDB deployment, cutting query latency by 68 % and reducing compliance audit prep from weeks to hours.',
     image: '/AdobeStock_480053037 1.svg',
     bg: 'linear-gradient(145deg, #0C1B8A 0%, #1A38E8 100%)',
   },
@@ -41,7 +41,7 @@ const FALLBACK_CARDS: StickyCard[] = [
     eyebrow: 'Financial Services',
     title: 'Real-Time Fraud Detection at 1.2 M Transactions per Second',
     description:
-      'A multinational bank moved its fraud pipeline to MonkDB\'s streaming SQL engine — achieving sub-5 ms decision latency with full auditability.',
+      'A multinational bank moved its fraud pipeline to MonkDB\'s streaming SQL engine, achieving sub-5 ms decision latency with full auditability.',
     image: '/3d-geometric-abstract-twist-background 1.svg',
     bg: 'linear-gradient(145deg, #071480 0%, #0E26B8 100%)',
   },
@@ -49,7 +49,7 @@ const FALLBACK_CARDS: StickyCard[] = [
     eyebrow: 'Manufacturing',
     title: 'Sovereign IoT Data Plane for 40,000 Connected Sensors',
     description:
-      'An automotive OEM deployed MonkDB on-prem across three continents — ingesting time-series telemetry with geospatial indexing, zero cloud dependency.',
+      'An automotive OEM deployed MonkDB on-prem across three continents, ingesting time-series telemetry with geospatial indexing, zero cloud dependency.',
     image: '/view-futuristic-light-lamp-design 1.svg',
     bg: 'linear-gradient(145deg, #0A1A9A 0%, #1535CC 100%)',
   },
@@ -57,7 +57,7 @@ const FALLBACK_CARDS: StickyCard[] = [
     eyebrow: 'Government',
     title: 'National-Scale Document Intelligence for 120 M Records',
     description:
-      'A federal agency migrated from legacy Oracle to MonkDB — gaining full-text search, vector embeddings, and blob storage in a single air-gapped cluster.',
+      'A federal agency migrated from legacy Oracle to MonkDB, gaining full-text search, vector embeddings, and blob storage in a single air-gapped cluster.',
     image: '/AdobeStock_588310019 1.svg',
     bg: 'linear-gradient(145deg, #050D6A 0%, #1230CC 100%)',
   },

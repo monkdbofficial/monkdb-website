@@ -18,7 +18,17 @@ const fadeUp = (delay = 0) => ({
 })
 
 const CHIPS = [
-  'Vector DB', 'Time-Series', 'Geospatial', 'Full-Text Search', 'Streaming SQL', 'Blob Storage', 'Multi-Modal AI',
+  'Vector',
+  'Time-Series',
+  'Geospatial',
+  'Full-Text Search',
+  'Document / JSON',
+  'Streaming SQL',
+  'Blob Storage',
+  'Key-Value',
+  'Graph',
+  'In-Memory Layer',
+  'Multi-Modal AI',
 ]
 
 // Pre-defined particles — no Math.random to avoid hydration issues

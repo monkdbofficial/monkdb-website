@@ -140,3 +140,25 @@ className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-
 - Do NOT add `text-decoration: underline` to headings
 - Do NOT use `fontWeight: 700` on any heading text (only on stat stroke numbers and buttons)
 - Do NOT use `whitespace-nowrap` on text that may overflow on mobile
+
+---
+
+## Copywriting rules
+
+**Never use em dashes (`—`) in any user-facing string.** Reviewers have flagged em dashes as a tell that copy is AI-generated. This rule applies to every heading, subtitle, body paragraph, card description, table cell, tooltip, button label, and alt text in `components/**` and `app/**/page.tsx`.
+
+Context-appropriate replacements:
+| Original use of `—` | Replace with |
+|---|---|
+| Clause continuation: *"fast data — everywhere it lives"* | Comma: *"fast data, everywhere it lives"* |
+| Contrasting statement: *"built once — run anywhere"* | Period + new sentence: *"Built once. Runs anywhere."* |
+| Label–value pair: *"Simple — single binary"* | Colon: *"Simple: single binary"* |
+| Compound word with no spaces: *"Data—Together"* | Comma with space: *"Data, Together"* |
+| Dramatic pause in a headline | `<br />` with the two parts treated as separate lines |
+
+**Em dashes are allowed only inside JSX/JS code comments** (e.g., `{/* section — note */}`, `// step — details`). Reviewers see user copy, not code.
+
+When writing new copy:
+- Use short sentences. Two short sentences beat one long one with an em dash.
+- Prefer concrete nouns and verbs over abstract phrases stitched together with em dashes.
+- If you catch yourself typing ` — `, stop and restructure.

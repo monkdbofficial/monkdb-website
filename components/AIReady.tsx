@@ -146,21 +146,21 @@ const readiness = [
     n: '02',
     label: 'Efficient',
     headline: 'High-performance C++ engine with minimal footprint.',
-    body: 'Native code paths, vectorized execution, and compact memory layout — designed to run the heaviest workloads on the smallest hardware you can give it.',
+    body: 'Native code paths, vectorized execution, and compact memory layout. Designed to run the heaviest workloads on the smallest hardware you can give it.',
     proof: ['C++20', 'Vectorized', 'ARM + x86_64'],
   },
   {
     n: '03',
     label: 'Interoperable',
     headline: 'Built for every protocol, system, and data format.',
-    body: 'Speak SQL, stream events, ingest blobs, query vectors, serve documents — all from the same plane, with no pipeline glue in between.',
+    body: 'Speak SQL, stream events, ingest blobs, query vectors, serve documents. All from the same plane, with no pipeline glue in between.',
     proof: ['SQL', 'gRPC', 'REST', 'Kafka', 'JDBC'],
   },
   {
     n: '04',
     label: 'Safe',
     headline: 'Data sovereignty, governance, and full traceability built in.',
-    body: 'Every action is authorized, every query is audited. Deploy on-prem, at the edge, or air-gapped — without ever giving up control of your data.',
+    body: 'Every action is authorized, every query is audited. Deploy on-prem, at the edge, or air-gapped, without ever giving up control of your data.',
     proof: ['On-Prem', 'Air-Gapped', 'SOC 2', 'ISO 27001'],
   },
 ]
@@ -220,7 +220,9 @@ export default function AIReady() {
               textWrap: 'balance',
             }}
           >
-            Is MonkDB still a database company?
+            MonkDB is
+            <span className="text-gray-400 dark:text-gray-500"> </span>
+            <span style={{ color: '#1A38E8' }}>beyond a database.</span>
           </motion.h2>
 
           <motion.p
@@ -234,12 +236,134 @@ export default function AIReady() {
               maxWidth: '560px',
             }}
           >
-            The multi-model unified database engine serves as the foundation
-            upon which we have established the AI-native sovereign data
-            plane. MonkDB is a robust engine designed to manage a variety
-            of data in real-time — efficiently and at scale.
+            A database-only stack stitches together vector stores, time-series
+            engines, stream processors, and document stores just to ship one
+            feature. MonkDB replaces that stack with a single multi-model
+            engine, the foundation of our AI-native sovereign data plane and
+            the substrate for everything we build above it.
           </motion.p>
         </div>
+
+        {/* Platform portfolio: Monk AIO + SmartX */}
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.22, ease: EASE }}
+          className="mt-12 sm:mt-16 grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-5"
+        >
+          {[
+            {
+              kicker: '01 / Operating Layer',
+              title: 'Monk AIO',
+              sub: 'AI-Native Operating Intelligence System',
+              body: 'The operating layer that turns streaming data into autonomous decisions. Agents, orchestration, and real-time reasoning run natively on the sovereign data plane.',
+              tags: ['Autonomous', 'Real-time', 'Sovereign'],
+            },
+            {
+              kicker: '02 / Platform Portfolio',
+              title: 'SmartX Platforms',
+              sub: 'Domain and function-specific',
+              body: 'Production platforms tuned to industry and operating function. SmartMine, SmartMobility, SmartFinance, and a growing portfolio, all powered by MonkDB and Monk AIO.',
+              tags: ['SmartMine', 'SmartMobility', 'SmartFinance', '+ more'],
+            },
+          ].map((card) => (
+            <article
+              key={card.title}
+              className="relative rounded-[20px] p-6 sm:p-7 lg:p-8 bg-[#F8F4F0] dark:bg-white/[0.03]"
+              style={{
+                border: '1px solid rgba(10,34,128,0.08)',
+                boxShadow:
+                  '0 2px 4px rgba(10,20,80,0.04), 0 12px 36px rgba(10,20,80,0.05)',
+              }}
+            >
+              <span
+                style={{
+                  fontFamily: 'var(--font-mono, monospace)',
+                  fontSize: '10.5px',
+                  fontWeight: 500,
+                  letterSpacing: '0.14em',
+                  textTransform: 'uppercase',
+                  color: '#1A38E8',
+                }}
+              >
+                {card.kicker}
+              </span>
+              <h3
+                className="text-gray-900 dark:text-white"
+                style={{
+                  fontSize: 'clamp(22px, 2.4vw, 32px)',
+                  fontWeight: 300,
+                  letterSpacing: '-0.015em',
+                  lineHeight: 1.15,
+                  marginTop: '12px',
+                }}
+              >
+                {card.title}
+              </h3>
+              <p
+                className="text-[#1A38E8] dark:text-blue-300"
+                style={{
+                  fontSize: 'clamp(13px, 1vw, 15px)',
+                  fontWeight: 500,
+                  letterSpacing: '0.01em',
+                  marginTop: '4px',
+                }}
+              >
+                {card.sub}
+              </p>
+              <p
+                className="text-gray-600 dark:text-gray-300"
+                style={{
+                  fontSize: 'clamp(13.5px, 1vw, 15px)',
+                  lineHeight: 1.65,
+                  marginTop: '16px',
+                  maxWidth: '520px',
+                }}
+              >
+                {card.body}
+              </p>
+              <ul
+                className="flex flex-wrap gap-2"
+                style={{
+                  listStyle: 'none',
+                  padding: 0,
+                  margin: '20px 0 0 0',
+                }}
+              >
+                {card.tags.map((tag) => (
+                  <li
+                    key={tag}
+                    className="text-gray-800 dark:text-gray-200"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      padding: '5px 10px',
+                      borderRadius: '999px',
+                      border: '1px solid rgba(10,34,128,0.12)',
+                      background: 'rgba(255,255,255,0.7)',
+                      fontFamily: 'var(--font-mono, monospace)',
+                      fontSize: '11px',
+                      fontWeight: 500,
+                      letterSpacing: '0.02em',
+                    }}
+                  >
+                    <span
+                      aria-hidden="true"
+                      style={{
+                        width: '4px',
+                        height: '4px',
+                        borderRadius: '50%',
+                        background: '#1E8AFF',
+                      }}
+                    />
+                    {tag}
+                  </li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </motion.div>
 
         {/* Divider label */}
         <motion.div
@@ -471,7 +595,7 @@ export default function AIReady() {
                 textWrap: 'balance',
               }}
             >
-              Vector search, geospatial, time-series, and SQL — in a single
+              Vector search, geospatial, time-series, and SQL, in a single
               statement. No pipeline, no glue, no federation.
             </h3>
             <p
@@ -484,7 +608,7 @@ export default function AIReady() {
             >
               Every workload compiles into the same plan. Joins happen
               natively, not across systems. The example below ranks nearby
-              users by semantic similarity, filtered by live activity — in
+              users by semantic similarity, filtered by live activity, in
               one query, at interactive latency.
             </p>
           </div>

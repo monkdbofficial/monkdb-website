@@ -266,8 +266,8 @@ export default function CompetitionMatrix() {
               textWrap: 'balance',
             }}
           >
-            How MonkDB compares
-            <span className="text-gray-400 dark:text-gray-500"> — </span>
+            How MonkDB compares,
+            <br />
             feature by feature.
           </motion.h2>
 

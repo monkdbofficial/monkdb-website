@@ -304,7 +304,7 @@ function ServicesHero() {
                   lineHeight: 1.55,
                 }}
               >
-                Purpose-built engagements — from migration to multi-modal AI —
+                Purpose-built engagements, from migration to multi-modal AI,
                 scoped to your compliance and scale requirements.
               </p>
             </motion.div>
@@ -561,7 +561,7 @@ const BLOG_POSTS = [
     tag: 'Architecture',
   },
   {
-    title: 'Vector + SQL in a Single Plane — Why It Matters',
+    title: 'Vector + SQL in a Single Plane: Why It Matters',
     read: '5 min read',
     tag: 'AI',
   },
@@ -708,12 +708,12 @@ const TRANSFORM_CARDS = [
   {
     title: 'Transforming Teams Through Unified Infrastructure',
     body:
-      'Our mission is to empower enterprises to achieve their data and AI goals through a unified data plane — removing pipeline churn and governance gaps.',
+      'Our mission is to empower enterprises to achieve their data and AI goals through a unified data plane that removes pipeline churn and governance gaps.',
   },
   {
     title: 'Transforming Ops Through Real-Time Intelligence',
     body:
-      'MonkDB collapses the gap between OLTP, OLAP, and streaming — giving operations teams a single source of truth for decisioning and automation.',
+      'MonkDB collapses the gap between OLTP, OLAP, and streaming, giving operations teams a single source of truth for decisioning and automation.',
   },
 ]
 
@@ -906,7 +906,7 @@ function WhatMakesMonkDBSection() {
               className="text-gray-600 dark:text-gray-300"
               style={BODY_STYLE}
             >
-              At MonkDB, our journey is deeply personal — born from decades of
+              At MonkDB, our journey is deeply personal, born from decades of
               experience in enterprise data systems and AI. We&apos;ve seen
               firsthand how fragmented infrastructure holds back innovation.
               MonkDB is our answer: a unified, AI-native database platform
@@ -1074,7 +1074,7 @@ function WhatMakesMonkDBSection() {
                   maxWidth: '540px',
                 }}
               >
-                At MonkDB, our partnerships are deeply personal — born from
+                At MonkDB, our partnerships are deeply personal, born from
                 decades of experience in enterprise data management and AI.
                 We&apos;ve seen firsthand how fragmented data infrastructure holds
                 back innovation.
@@ -1118,7 +1118,7 @@ export default function ResourcesPage() {
 
       <CTABanner
         heading="Ready to get started?"
-        description="See how MonkDB can unify your data infrastructure — with zero compromises on sovereignty, performance, or scale."
+        description="See how MonkDB can unify your data infrastructure, with zero compromises on sovereignty, performance, or scale."
         buttonText="Book a Demo"
       />
       <Footer />

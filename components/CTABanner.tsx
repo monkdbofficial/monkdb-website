@@ -14,7 +14,7 @@ const SANAS_EASE = [0.165, 0.84, 0.44, 1] as const
 
 export default function CTABanner({
   heading = 'Ready to get started?',
-  description = 'See how MonkDB can unify your data infrastructure — with zero compromises on sovereignty, performance, or scale.',
+  description = 'See how MonkDB can unify your data infrastructure, with zero compromises on sovereignty, performance, or scale.',
   buttonText = 'Book a Demo',
   buttonHref = '#demo',
 }: {

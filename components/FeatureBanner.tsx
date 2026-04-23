@@ -5,10 +5,10 @@ import { useRef } from 'react'
 import { ArrowUpRight, Clock } from 'lucide-react'
 
 const afterItems = [
-  'Simple — single binary, zero ops',
-  'Efficient — high-performance C++ engine',
-  'Interoperable — every protocol & format',
-  'Safe — sovereignty, governance, traceability',
+  'Simple: single binary, zero ops',
+  'Efficient: high-performance C++ engine',
+  'Interoperable: every protocol & format',
+  'Safe: sovereignty, governance, traceability',
 ]
 
 export default function FeatureBanner() {
@@ -116,7 +116,7 @@ export default function FeatureBanner() {
               {/* Text — constrained so it doesn't bleed into the image area */}
               <div style={{ maxWidth: '58%' }}>
                 <p className="text-white font-light leading-snug" style={{ fontSize: 'clamp(0.82rem, 1.2vw, 1rem)' }}>
-                  Keep AI ecosystems grounded in continuous data context — connecting streams,
+                  Keep AI ecosystems grounded in continuous data context, connecting streams,
                   databases, applications, and models into one secure layer.
                 </p>
               </div>
@@ -191,11 +191,11 @@ export default function FeatureBanner() {
 
               <div style={{ maxWidth: '80%' }}>
                 <h3 className="text-white leading-tight mb-3 sm:mb-4" style={{ fontSize: 'clamp(1rem, 1.8vw, 1.4rem)', fontWeight: 400 }}>
-                  Let&apos;s Build the Future of Data Infrastructure—Together
+                  Let&apos;s Build the Future of Data Infrastructure, Together
                 </h3>
                 <p className="text-white/65 leading-relaxed" style={{ fontSize: 'clamp(0.8rem, 1.2vw, 1rem)' }}>
                   Power AI ecosystems and agents with seamless access to real-time and
-                  historical data — through a single, unified query experience.
+                  historical data, through a single, unified query experience.
                 </p>
               </div>
 
