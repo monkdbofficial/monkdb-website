@@ -143,6 +143,47 @@ className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-
 
 ---
 
+## Internationalization (i18n)
+
+The site is multilingual. All routes live under `app/[locale]/`. Supported locales are defined in `i18n/config.ts`: `en, es, de, fr, hi, ja, zh`. Default is `en`.
+
+**Architecture:**
+- `proxy.ts` (root) detects locale from `Accept-Language` and redirects `/` to `/<locale>`. This is `proxy.ts`, NOT `middleware.ts` (Next.js 16 rename).
+- `app/[locale]/layout.tsx` is the root layout. It reads `params.locale`, calls `getDictionary(locale)`, and wraps children in `<I18nProvider>`. `generateStaticParams` exports all 7 locales so every page is statically generated per language.
+- Server-only loader: `i18n/dictionaries.ts` (uses `import 'server-only'`).
+- Client context: `i18n/I18nProvider.tsx` exposes `useI18n() => { locale, dict }`.
+- Strings live in `messages/<locale>.json`, organized by component (`nav`, `hero`, `footer`, …).
+
+**To add a translatable string:**
+1. Add the key under the right namespace in `messages/en.json`.
+2. Add the same key in every other `messages/*.json` file (translate or copy English fallback).
+3. In a client component, read it via `const { dict } = useI18n(); const t = dict.<namespace> as Record<string, string>` and use `t.myKey`.
+4. In a server component, call `await getDictionary(locale)` from `i18n/dictionaries.ts`.
+
+**Internal links must be locale-prefixed.** Use `` `/${locale}/about` `` (or the `withLocale(href, locale)` helper in `Navbar.tsx`). Never hardcode `/about`.
+
+**To add a new locale:**
+1. Add the code to `locales` in `i18n/config.ts` and add a display name in `localeNames` + `localeFlags`.
+2. Create `messages/<code>.json` with all keys translated.
+3. Add a dynamic import line in `i18n/dictionaries.ts`.
+4. The proxy and `generateStaticParams` pick it up automatically.
+
+**Components migrated so far:** `Navbar.tsx`, `Hero.tsx`, `Footer.tsx`, `LanguageSwitcher.tsx`, `Mission.tsx`, `ROI.tsx`, `About.tsx`, `FeatureCards.tsx`, `Sovereignty.tsx`, `FeatureBanner.tsx`, `Metrics.tsx`, `ArchitecturePillars.tsx`, `AIReady.tsx`, `CompetitionMatrix.tsx`, `PageBanner.tsx`, `CTABanner.tsx`. **Pages migrated (all i18n-aware):** `app/[locale]/page.tsx` (home), `app/[locale]/why-choose-us/page.tsx`, `app/[locale]/resources/page.tsx` (all 5 inline subsections), `app/[locale]/about/page.tsx` (full: hero, banner, story, services bento, key differentiators, comparison table, features grid, achievements stats), `app/[locale]/architecture/page.tsx` (uses migrated components), `app/[locale]/features/page.tsx` (uses migrated components). The site is fully multilingual end-to-end. Migrate incrementally: add keys to `messages/en.json`, swap literals for `t.key ?? 'English fallback'`, run `npm run translate`.
+
+**Defensive fallback pattern:** Every component reading the dictionary should use the safe pattern, since locale JSON files may temporarily lag behind `en.json` between translate runs:
+```tsx
+const t = (((dict as Record<string, unknown>).myNamespace) ?? {}) as Record<string, string>
+```
+For namespaces with non-string fallbacks (titles, subtitles), provide hardcoded English defaults inside the component too. See `PageBanner.tsx` for the pattern.
+
+**Translation pipeline:** `npm run translate` reads `messages/en.json` and overwrites all other locale files via NLLB-200. Run it after editing `en.json`. Each run takes 8 to 16 minutes for the full payload. Output quality is rough but understandable; humans should polish before launch.
+
+**SEO** is wired up at the layout level: `generateMetadata` in `app/[locale]/layout.tsx` produces per-locale title/description, hreflang alternates for all 7 locales, canonical URL, og:locale, og:locale:alternate, and Twitter cards. `app/sitemap.ts` enumerates every locale × page URL with hreflang annotations. `app/robots.ts` points at the sitemap. Strings live under the `meta` namespace in messages JSON.
+
+**Don't translate:** technical terms ("Vector", "Time-Series", "Iceberg Tables"), product names, brand names, code samples, social-icon labels, or the company physical address. These stay English in every dictionary.
+
+---
+
 ## Copywriting rules
 
 **Never use em dashes (`—`) in any user-facing string.** Reviewers have flagged em dashes as a tell that copy is AI-generated. This rule applies to every heading, subtitle, body paragraph, card description, table cell, tooltip, button label, and alt text in `components/**` and `app/**/page.tsx`.

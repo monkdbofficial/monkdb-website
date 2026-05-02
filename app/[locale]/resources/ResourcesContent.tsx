@@ -8,6 +8,9 @@ import Footer from '@/components/Footer'
 import CTABanner from '@/components/CTABanner'
 import ScrollToTop from '@/components/ScrollToTop'
 import ScrollProgressBar from '@/components/ScrollProgressBar'
+import { useI18n } from '@/i18n/I18nProvider'
+
+type T = Record<string, string>
 
 const EASE = [0.165, 0.84, 0.44, 1] as const
 
@@ -43,7 +46,7 @@ const BODY_STYLE = {
 // ───────────────────────────────────────────────────────────────
 // 1. SERVICES HERO
 // ───────────────────────────────────────────────────────────────
-function ServicesHero() {
+function ServicesHero({ t }: { t: T }) {
   return (
     <section className="relative pt-28 sm:pt-32 lg:pt-36 pb-10 sm:pb-14 lg:pb-20 bg-white dark:bg-[#0f1623]">
       <div className={SECTION_CONTAINER}>
@@ -57,7 +60,7 @@ function ServicesHero() {
             transition={{ duration: 0.5, ease: EASE }}
             style={EYEBROW_STYLE}
           >
-            Services
+            {t.heroKicker ?? 'Services'}
           </motion.span>
           <motion.h1
             className="text-gray-900 dark:text-white mx-auto"
@@ -72,7 +75,7 @@ function ServicesHero() {
               textDecoration: 'none',
             }}
           >
-            High quality services for you
+            {t.heroTitle ?? 'High quality services for you'}
           </motion.h1>
         </div>
 
@@ -110,8 +113,7 @@ function ServicesHero() {
                   fontSize: 'clamp(22px, 2.4vw, 34px)',
                 }}
               >
-                Revolutionizing Data Infrastructure with Expert Consultation and
-                Leadership
+                {t.heroLeftTitle ?? 'Revolutionizing data infrastructure with expert consultation and leadership'}
               </h2>
             </div>
 
@@ -129,7 +131,7 @@ function ServicesHero() {
                   textDecoration: 'none',
                 }}
               >
-                Contact us
+                {t.heroContactUs ?? 'Contact us'}
                 <ArrowRight size={14} strokeWidth={2.2} />
               </Link>
               <Link
@@ -146,7 +148,7 @@ function ServicesHero() {
                   textDecoration: 'none',
                 }}
               >
-                Request a call
+                {t.heroRequestCall ?? 'Request a call'}
                 <Phone size={13} strokeWidth={2.2} />
               </Link>
             </div>
@@ -188,20 +190,19 @@ function ServicesHero() {
                   maxWidth: '440px',
                 }}
               >
-                Unveiling Our Data Journey
+                {t.heroRightTitle ?? 'Unveiling our data journey'}
               </h3>
               <div className="flex items-end justify-between mt-6">
                 <p
                   className="text-white/70"
                   style={{ ...BODY_STYLE, maxWidth: '360px' }}
                 >
-                  Decades of enterprise data expertise, distilled into a unified
-                  AI-native platform.
+                  {t.heroRightBody ?? ''}
                 </p>
                 <motion.button
                   whileHover={{ scale: 1.05, rotate: -10 }}
                   whileTap={{ scale: 0.95 }}
-                  aria-label="Explore our journey"
+                  aria-label={t.heroRightAria ?? 'Explore our journey'}
                   className="flex-shrink-0 flex items-center justify-center"
                   style={{
                     width: 52,
@@ -239,15 +240,13 @@ function ServicesHero() {
                 letterSpacing: '-0.005em',
               }}
             >
-              If you&apos;re ready to build your data platform, let&apos;s get in touch.
+              {t.heroSubtextLead ?? 'If you are ready to build your data platform, let us get in touch.'}
             </p>
             <p
               className="text-gray-600 dark:text-gray-400"
               style={{ ...BODY_STYLE, maxWidth: '460px' }}
             >
-              Ready to take the next step towards innovation and excellence in
-              data infrastructure? Reach out to the team at MonkDB and start a
-              conversation today.
+              {t.heroSubtextBody ?? ''}
             </p>
           </motion.div>
 
@@ -266,7 +265,7 @@ function ServicesHero() {
               }}
             >
               <h3 className="text-white mb-2" style={H3_CARD_STYLE}>
-                Let&apos;s Collaborate for a Brighter Future
+                {t.heroSmallCard1Title ?? 'Let us collaborate for a brighter future'}
               </h3>
               <p
                 className="text-white/70"
@@ -275,8 +274,7 @@ function ServicesHero() {
                   lineHeight: 1.55,
                 }}
               >
-                Partner with MonkDB on a unified data platform engagement,
-                tailored to your infrastructure goals.
+                {t.heroSmallCard1Body ?? ''}
               </p>
             </motion.div>
 
@@ -295,7 +293,7 @@ function ServicesHero() {
               }}
             >
               <h3 className="text-white mb-2" style={H3_CARD_STYLE}>
-                Tailored Solutions for Enterprise Data Challenges
+                {t.heroSmallCard2Title ?? 'Tailored solutions for enterprise data challenges'}
               </h3>
               <p
                 className="text-white/80"
@@ -304,8 +302,7 @@ function ServicesHero() {
                   lineHeight: 1.55,
                 }}
               >
-                Purpose-built engagements, from migration to multi-modal AI,
-                scoped to your compliance and scale requirements.
+                {t.heroSmallCard2Body ?? ''}
               </p>
             </motion.div>
           </div>
@@ -318,7 +315,7 @@ function ServicesHero() {
 // ───────────────────────────────────────────────────────────────
 // 2. MASTER DATA, MASTER SCALE (central image + overlays)
 // ───────────────────────────────────────────────────────────────
-function MasterDataSection() {
+function MasterDataSection({ t }: { t: T }) {
   return (
     <section className="py-14 sm:py-20 lg:py-24 bg-white dark:bg-[#0f1623]">
       <div className={SECTION_CONTAINER}>
@@ -331,13 +328,13 @@ function MasterDataSection() {
             className="text-gray-900 dark:text-white"
             style={H2_STYLE}
           >
-            Master Data, Master Scale
+            {t.masterTitle ?? 'Master data, master scale'}
           </motion.h2>
           <p
             className="text-gray-500 dark:text-gray-400 mt-3"
             style={BODY_STYLE}
           >
-            Effective unified data solutions for busy engineering teams.
+            {t.masterBody ?? ''}
           </p>
 
           <div className="mt-6 inline-flex rounded-full p-1 bg-[#F8F4F0] dark:bg-gray-800">
@@ -352,7 +349,7 @@ function MasterDataSection() {
                 border: 'none',
               }}
             >
-              Live Sessions
+              {t.masterTabLive ?? 'Live Sessions'}
             </button>
             <button
               style={{
@@ -365,7 +362,7 @@ function MasterDataSection() {
                 border: 'none',
               }}
             >
-              On-Demand
+              {t.masterTabOnDemand ?? 'On-Demand'}
             </button>
           </div>
         </div>
@@ -421,12 +418,12 @@ function MasterDataSection() {
               className="text-gray-900 mb-2"
               style={{ fontSize: '11.5px', fontWeight: 600 }}
             >
-              Pre-recorded Classes
+              {t.masterFloatingTitle ?? 'Pre-recorded Classes'}
             </p>
             {[
-              { label: 'Deep Learning with MonkDB Vectors', time: '18 min' },
-              { label: 'Streaming SQL at 1.2M tx/s', time: '24 min' },
-              { label: 'Sovereign Deployment Patterns', time: '16 min' },
+              { label: t.masterClass1 ?? 'Deep Learning with MonkDB Vectors', time: '18 min' },
+              { label: t.masterClass2 ?? 'Streaming SQL at 1.2M tx/s', time: '24 min' },
+              { label: t.masterClass3 ?? 'Sovereign Deployment Patterns', time: '16 min' },
             ].map((c) => (
               <div
                 key={c.label}
@@ -485,7 +482,7 @@ function MasterDataSection() {
                   className="text-gray-400"
                   style={{ fontSize: '9.5px' }}
                 >
-                  Solutions Lead
+                  {t.masterChatRole ?? 'Solutions Lead'}
                 </p>
               </div>
             </div>
@@ -499,8 +496,7 @@ function MasterDataSection() {
                 lineHeight: 1.4,
               }}
             >
-              Hi! Got a minute? I&apos;ll walk you through the new unified ingest
-              path and the governance hooks we just shipped.
+              {t.masterChatBody ?? ''}
             </div>
           </motion.div>
 
@@ -549,50 +545,21 @@ function MasterDataSection() {
 // ───────────────────────────────────────────────────────────────
 // 3. OUR BLOGS
 // ───────────────────────────────────────────────────────────────
-const BLOG_POSTS = [
-  {
-    title: 'How We Cut Query Latency 68% with a Unified Engine',
-    read: '6 min read',
-    tag: 'Performance',
-  },
-  {
-    title: 'Sovereign Deployments: A Practical Playbook',
-    read: '8 min read',
-    tag: 'Architecture',
-  },
-  {
-    title: 'Vector + SQL in a Single Plane: Why It Matters',
-    read: '5 min read',
-    tag: 'AI',
-  },
-  {
-    title: 'Streaming SQL at 1.2M Transactions per Second',
-    read: '7 min read',
-    tag: 'Streaming',
-  },
-  {
-    title: 'Retiring Five Databases in a Quarter',
-    read: '9 min read',
-    tag: 'Case Study',
-  },
-  {
-    title: 'Governance Built into the Data Plane',
-    read: '6 min read',
-    tag: 'Compliance',
-  },
-  {
-    title: 'Geospatial Time-Series at Continental Scale',
-    read: '10 min read',
-    tag: 'IoT',
-  },
-  {
-    title: 'The End of Fragile Data Pipelines',
-    read: '5 min read',
-    tag: 'Engineering',
-  },
-]
+function buildBlogPosts(t: T) {
+  return [
+    { title: t.blog1Title ?? 'How we cut query latency 68 percent with a unified engine', read: '6 min read', tag: 'Performance' },
+    { title: t.blog2Title ?? 'Sovereign deployments, a practical playbook', read: '8 min read', tag: 'Architecture' },
+    { title: t.blog3Title ?? 'Vector and SQL in a single plane, why it matters', read: '5 min read', tag: 'AI' },
+    { title: t.blog4Title ?? 'Streaming SQL at 1.2M transactions per second', read: '7 min read', tag: 'Streaming' },
+    { title: t.blog5Title ?? 'Retiring five databases in a quarter', read: '9 min read', tag: 'Case Study' },
+    { title: t.blog6Title ?? 'Governance built into the data plane', read: '6 min read', tag: 'Compliance' },
+    { title: t.blog7Title ?? 'Geospatial time-series at continental scale', read: '10 min read', tag: 'IoT' },
+    { title: t.blog8Title ?? 'The end of fragile data pipelines', read: '5 min read', tag: 'Engineering' },
+  ]
+}
 
-function BlogsSection() {
+function BlogsSection({ t }: { t: T }) {
+  const BLOG_POSTS = buildBlogPosts(t)
   return (
     <section className="py-14 sm:py-20 lg:py-24 bg-white dark:bg-[#0f1623]">
       <div className={SECTION_CONTAINER}>
@@ -605,13 +572,13 @@ function BlogsSection() {
             className="text-gray-900 dark:text-white"
             style={H2_STYLE}
           >
-            Our Blogs
+            {t.blogsTitle ?? 'Our blogs'}
           </motion.h2>
           <p
             className="text-gray-500 dark:text-gray-400 mt-3"
             style={BODY_STYLE}
           >
-            Insights for busy data professionals.
+            {t.blogsBody ?? ''}
           </p>
         </div>
 
@@ -688,7 +655,7 @@ function BlogsSection() {
                       fontWeight: 600,
                     }}
                   >
-                    Read more
+                    {t.blogsReadMore ?? 'Read more'}
                     <ArrowRight size={12} strokeWidth={2.4} />
                   </span>
                 </div>
@@ -704,20 +671,15 @@ function BlogsSection() {
 // ───────────────────────────────────────────────────────────────
 // 4. DATA INTEGRITY IS THE HIGHEST VALUE
 // ───────────────────────────────────────────────────────────────
-const TRANSFORM_CARDS = [
-  {
-    title: 'Transforming Teams Through Unified Infrastructure',
-    body:
-      'Our mission is to empower enterprises to achieve their data and AI goals through a unified data plane that removes pipeline churn and governance gaps.',
-  },
-  {
-    title: 'Transforming Ops Through Real-Time Intelligence',
-    body:
-      'MonkDB collapses the gap between OLTP, OLAP, and streaming, giving operations teams a single source of truth for decisioning and automation.',
-  },
-]
+function buildTransformCards(t: T) {
+  return [
+    { title: t.transform1Title ?? 'Transforming teams through unified infrastructure', body: t.transform1Body ?? '' },
+    { title: t.transform2Title ?? 'Transforming ops through real-time intelligence', body: t.transform2Body ?? '' },
+  ]
+}
 
-function DataIntegritySection() {
+function DataIntegritySection({ t }: { t: T }) {
+  const TRANSFORM_CARDS = buildTransformCards(t)
   return (
     <section className="py-14 sm:py-20 lg:py-24 bg-white dark:bg-[#0f1623]">
       <div className={SECTION_CONTAINER}>
@@ -730,14 +692,13 @@ function DataIntegritySection() {
             className="text-gray-900 dark:text-white"
             style={H2_STYLE}
           >
-            Data integrity is the highest value in our work
+            {t.integrityTitle ?? 'Data integrity is the highest value in our work'}
           </motion.h2>
           <p
             className="text-gray-500 dark:text-gray-400 mt-3 mx-auto"
             style={{ ...BODY_STYLE, maxWidth: '620px' }}
           >
-            With lots of unique blocks, you can easily build a page without
-            coding. Build your next landing page.
+            {t.integrityBody ?? ''}
           </p>
         </div>
 
@@ -787,7 +748,7 @@ function DataIntegritySection() {
                     textDecoration: 'none',
                   }}
                 >
-                  View more
+                  {t.viewMore ?? 'View more'}
                   <ArrowRight size={12} strokeWidth={2.4} />
                 </Link>
               </div>
@@ -825,15 +786,14 @@ function DataIntegritySection() {
 // ───────────────────────────────────────────────────────────────
 // 5. WHAT MAKES MONKDB THE BEST CHOICE
 // ───────────────────────────────────────────────────────────────
-const ENTERPRISE_FEATURES = [
-  'Network integration',
-  'Deep learning solutions',
-  'Transfer learning',
-  'Model evaluation',
-  'Real-time prediction',
-]
-
-function WhatMakesMonkDBSection() {
+function WhatMakesMonkDBSection({ t }: { t: T }) {
+  const ENTERPRISE_FEATURES = [
+    t.feature1 ?? 'Network integration',
+    t.feature2 ?? 'Deep learning solutions',
+    t.feature3 ?? 'Transfer learning',
+    t.feature4 ?? 'Model evaluation',
+    t.feature5 ?? 'Real-time prediction',
+  ]
   return (
     <section className="py-14 sm:py-20 lg:py-24 bg-white dark:bg-[#0f1623]">
       <div className={SECTION_CONTAINER}>
@@ -893,24 +853,19 @@ function WhatMakesMonkDBSection() {
               className="text-[#0A2280] dark:text-white mb-5"
               style={H2_STYLE}
             >
-              What Makes MonkDB The Best Choice For Your Enterprise
+              {t.whatMakesTitle ?? 'What makes MonkDB the best choice for your enterprise'}
             </h2>
             <p
               className="text-gray-500 dark:text-gray-400 mb-4"
               style={BODY_STYLE}
             >
-              With lots of unique blocks, you can easily build a page without
-              coding. Build your next landing page.
+              {t.whatMakesBody1 ?? ''}
             </p>
             <p
               className="text-gray-600 dark:text-gray-300"
               style={BODY_STYLE}
             >
-              At MonkDB, our journey is deeply personal, born from decades of
-              experience in enterprise data systems and AI. We&apos;ve seen
-              firsthand how fragmented infrastructure holds back innovation.
-              MonkDB is our answer: a unified, AI-native database platform
-              built to simplify, consolidate, and empower.
+              {t.whatMakesBody2 ?? ''}
             </p>
           </motion.div>
         </div>
@@ -940,10 +895,10 @@ function WhatMakesMonkDBSection() {
                   fontSize: '11px',
                 }}
               >
-                Download
+                {t.downloadKicker ?? 'Download'}
               </span>
               <h3 className="mb-4" style={H3_CARD_STYLE}>
-                Services brochure
+                {t.brochureTitle ?? 'Services brochure'}
               </h3>
               <Link
                 href="#"
@@ -960,7 +915,7 @@ function WhatMakesMonkDBSection() {
                 }}
               >
                 <Download size={12} strokeWidth={2.2} />
-                Download
+                {t.downloadCta ?? 'Download'}
               </Link>
             </motion.div>
 
@@ -985,16 +940,16 @@ function WhatMakesMonkDBSection() {
                   fontSize: '11px',
                 }}
               >
-                Consulting
+                {t.consultingKicker ?? 'Consulting'}
               </span>
               <h3 className="mb-2" style={H3_CARD_STYLE}>
-                AI Strategy and Consulting
+                {t.consultingTitle ?? 'AI strategy and consulting'}
               </h3>
               <p
                 className="text-white/75 mb-4"
                 style={{ fontSize: '12.5px', lineHeight: 1.5 }}
               >
-                Provide expert guidance on leveraging our AI-native stack.
+                {t.consultingBody ?? ''}
               </p>
               <Link
                 href="#"
@@ -1010,7 +965,7 @@ function WhatMakesMonkDBSection() {
                   border: '1px solid rgba(255,255,255,0.25)',
                 }}
               >
-                Get in touch
+                {t.consultingCta ?? 'Get in touch'}
                 <ArrowRight size={12} strokeWidth={2.2} />
               </Link>
             </motion.div>
@@ -1074,10 +1029,7 @@ function WhatMakesMonkDBSection() {
                   maxWidth: '540px',
                 }}
               >
-                At MonkDB, our partnerships are deeply personal, born from
-                decades of experience in enterprise data management and AI.
-                We&apos;ve seen firsthand how fragmented data infrastructure holds
-                back innovation.
+                {t.handshakeBody ?? ''}
               </p>
               <ul
                 className="text-white/75 mt-3"
@@ -1088,10 +1040,10 @@ function WhatMakesMonkDBSection() {
                   paddingLeft: '18px',
                 }}
               >
-                <li>Control Plane (MonkDB Orchestrator)</li>
-                <li>Data Plane (Customer Environment)</li>
-                <li>Multi-Modal Data Engine</li>
-                <li>AI-Native Layer</li>
+                <li>{t.handshakeBullet1 ?? 'Control Plane (MonkDB Orchestrator)'}</li>
+                <li>{t.handshakeBullet2 ?? 'Data Plane (Customer Environment)'}</li>
+                <li>{t.handshakeBullet3 ?? 'Multi-Modal Data Engine'}</li>
+                <li>{t.handshakeBullet4 ?? 'AI-Native Layer'}</li>
               </ul>
             </div>
           </motion.div>
@@ -1105,22 +1057,20 @@ function WhatMakesMonkDBSection() {
 // PAGE
 // ───────────────────────────────────────────────────────────────
 export default function ResourcesPage() {
+  const { dict } = useI18n()
+  const t = (((dict as Record<string, unknown>).resourcesPage) ?? {}) as T
   return (
     <main className="min-h-screen bg-white dark:bg-[#0f1623]">
       <ScrollProgressBar />
       <Navbar />
 
-      <ServicesHero />
-      <MasterDataSection />
-      <BlogsSection />
-      <DataIntegritySection />
-      <WhatMakesMonkDBSection />
+      <ServicesHero t={t} />
+      <MasterDataSection t={t} />
+      <BlogsSection t={t} />
+      <DataIntegritySection t={t} />
+      <WhatMakesMonkDBSection t={t} />
 
-      <CTABanner
-        heading="Ready to get started?"
-        description="See how MonkDB can unify your data infrastructure, with zero compromises on sovereignty, performance, or scale."
-        buttonText="Book a Demo"
-      />
+      <CTABanner />
       <Footer />
       <ScrollToTop />
     </main>

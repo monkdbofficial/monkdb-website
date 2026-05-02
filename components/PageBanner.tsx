@@ -17,30 +17,47 @@
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
+import { useI18n } from '@/i18n/I18nProvider'
+import { locales } from '@/i18n/config'
 
 const EASE = [0.165, 0.84, 0.44, 1] as const
 
-const LABEL_MAP: Record<string, string> = {
+// Slug to dictionary key prefix. Slug comes from the URL after the locale.
+const SLUG_KEY: Record<string, string> = {
+  features: 'features',
+  'why-choose-us': 'whyChooseUs',
+  architecture: 'architecture',
+  resources: 'resources',
+  about: 'about',
+}
+
+// English fallbacks used when a locale's JSON has not been regenerated yet.
+const FALLBACK_TITLE: Record<string, string> = {
+  features: 'Features',
+  'why-choose-us': 'Why Choose Us',
+  architecture: 'Architecture',
+  resources: 'Resources',
+  about: 'About Us',
+}
+const FALLBACK_CRUMB: Record<string, string> = {
   features: 'Core Systems',
   'why-choose-us': 'Solutions',
   architecture: 'Industries',
   resources: 'Learn',
   about: 'Company',
 }
-
-const SUBTITLE_MAP: Record<string, string> = {
+const FALLBACK_SUBTITLE: Record<string, string> = {
   features: 'A unified data plane. Nine workloads. One engine.',
   'why-choose-us':
     'Purpose-built for enterprises that cannot compromise on sovereignty.',
-  architecture:
-    'Distributed by design. Deployed where your data lives.',
+  architecture: 'Distributed by design. Deployed where your data lives.',
   resources:
     'Documentation, reference architectures, and engineering deep-dives.',
   about:
     'Building the AI-native data infrastructure for regulated enterprises.',
 }
 
-// Route-specific meta chips — real trust signals, not decoration.
+// Route-specific meta chips. Tech keywords stay English globally.
 const META_MAP: Record<string, string[]> = {
   features: ['9 Workloads', '1 Engine', 'ARM + x86_64'],
   'why-choose-us': ['SOC 2 Type II', 'ISO 27001', 'GDPR'],
@@ -50,16 +67,38 @@ const META_MAP: Record<string, string[]> = {
 }
 
 export default function PageBanner({
-  title,
+  title: titleProp,
   subtitle,
 }: {
-  title: string
+  title?: string
   subtitle?: string
 }) {
   const pathname = usePathname()
-  const slug = pathname?.replace(/^\//, '') || ''
-  const crumbLabel = LABEL_MAP[slug] || title
-  const resolvedSubtitle = subtitle || SUBTITLE_MAP[slug] || ''
+  const { dict } = useI18n()
+  const banners = ((dict as Record<string, unknown>).pageBanners ?? {}) as Record<string, string>
+
+  // Strip the locale segment so /en/about → "about".
+  const segments = (pathname ?? '').split('/').filter(Boolean)
+  if (segments.length > 0 && (locales as readonly string[]).includes(segments[0])) {
+    segments.shift()
+  }
+  const slug = segments[0] ?? ''
+  const keyBase = SLUG_KEY[slug]
+
+  const title =
+    titleProp ??
+    (keyBase ? banners[`${keyBase}Title`] : undefined) ??
+    FALLBACK_TITLE[slug] ??
+    ''
+  const crumbLabel =
+    (keyBase ? banners[`${keyBase}Crumb`] : undefined) ??
+    FALLBACK_CRUMB[slug] ??
+    title
+  const resolvedSubtitle =
+    subtitle ??
+    (keyBase ? banners[`${keyBase}Subtitle`] : undefined) ??
+    FALLBACK_SUBTITLE[slug] ??
+    ''
   const metaChips = META_MAP[slug] || []
   const words = title.split(' ')
 
@@ -252,7 +291,7 @@ export default function PageBanner({
                 transition: 'color 200ms ease',
               }}
             >
-              Home
+              {banners.home ?? 'Home'}
             </Link>
             <svg
               aria-hidden="true"

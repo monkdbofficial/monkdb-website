@@ -9,13 +9,14 @@
  */
 
 import { motion } from 'framer-motion'
+import { useI18n } from '@/i18n/I18nProvider'
 
 const SANAS_EASE = [0.165, 0.84, 0.44, 1] as const
 
 export default function CTABanner({
-  heading = 'Ready to get started?',
-  description = 'See how MonkDB can unify your data infrastructure, with zero compromises on sovereignty, performance, or scale.',
-  buttonText = 'Book a Demo',
+  heading,
+  description,
+  buttonText,
   buttonHref = '#demo',
 }: {
   heading?: string
@@ -23,6 +24,11 @@ export default function CTABanner({
   buttonText?: string
   buttonHref?: string
 }) {
+  const { dict } = useI18n()
+  const t = (((dict as Record<string, unknown>).cta) ?? {}) as Record<string, string>
+  const resolvedHeading = heading ?? t.heading ?? 'Ready to get started?'
+  const resolvedDescription = description ?? t.description ?? ''
+  const resolvedButton = buttonText ?? t.button ?? 'Book a Demo'
   return (
     <section className="relative overflow-hidden py-16 sm:py-20 lg:py-28">
       {/* Background */}
@@ -66,7 +72,7 @@ export default function CTABanner({
             textWrap: 'balance',
           }}
         >
-          {heading}
+          {resolvedHeading}
         </motion.h2>
 
         <motion.p
@@ -82,7 +88,7 @@ export default function CTABanner({
             maxWidth: '560px',
           }}
         >
-          {description}
+          {resolvedDescription}
         </motion.p>
 
         <motion.a
@@ -106,7 +112,7 @@ export default function CTABanner({
             transition: 'box-shadow 300ms ease',
           }}
         >
-          {buttonText}
+          {resolvedButton}
         </motion.a>
       </div>
     </section>

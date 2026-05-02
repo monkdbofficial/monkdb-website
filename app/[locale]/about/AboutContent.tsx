@@ -9,6 +9,7 @@ import ScrollProgressBar from '@/components/ScrollProgressBar'
 import ScrollToTop from '@/components/ScrollToTop'
 import PageBanner from '@/components/PageBanner'
 import AnimatedSVGImage from '@/components/AnimatedSVGImage'
+import { useI18n } from '@/i18n/I18nProvider'
 
 /* ─── Particle network background (canvas) ────────────────────────────── */
 function ParticleNetworkBg() {
@@ -259,6 +260,8 @@ function Counter({ to, suffix = '' }: { to: number; suffix?: string }) {
 
 /* ─── Main page ─────────────────────────────────────────────────────────── */
 export default function AboutPage() {
+  const { dict } = useI18n()
+  const t = (((dict as Record<string, unknown>).aboutPage) ?? {}) as Record<string, string>
   const heroRef = useRef(null)
   const heroInView = useInView(heroRef, { once: true, margin: '-60px' })
 
@@ -273,7 +276,7 @@ export default function AboutPage() {
       {/* ══════════════════════════════════════════
           PAGE BANNER — flush with top; title clears navbar internally
       ══════════════════════════════════════════ */}
-      <PageBanner title="About Us" />
+      <PageBanner />
 
       {/* ══════════════════════════════════════════
           SECTION 1 — HERO
@@ -295,13 +298,13 @@ export default function AboutPage() {
                 className="font-semibold text-egyptian-blue dark:text-blue-400"
                 style={{ fontSize: '0.75rem', display: 'block', marginBottom: '10px', letterSpacing: '0.08em', textTransform: 'uppercase' }}
               >
-                [About Us]
+                [{t.kicker ?? 'About Us'}]
               </span>
               <h1
                 className="text-gray-900 dark:text-white"
                 style={{ fontSize: 'clamp(28px, 4.5vw, 68px)', fontWeight: 300, lineHeight: 1.12, marginBottom: 0, textDecoration: 'none', letterSpacing: '-0.01em' }}
               >
-                What Makes MonkDB The Best Choice For Your Enterprise
+                {t.heroTitle ?? 'What makes MonkDB the best choice for your enterprise'}
               </h1>
             </motion.div>
 
@@ -316,9 +319,7 @@ export default function AboutPage() {
                 className="text-gray-600 dark:text-gray-300 leading-relaxed"
                 style={{ fontSize: 'clamp(14px, 1.3vw, 18px)', margin: 0 }}
               >
-                At MonkDB, our journey is deeply personal, born from decades of experience
-                in enterprise systems, data management, and AI. We&apos;ve seen firsthand how
-                fragmented data infrastructure holds back innovation.
+                {t.heroBody ?? ''}
               </p>
               <motion.a
                 href="#story"
@@ -335,7 +336,7 @@ export default function AboutPage() {
                   boxShadow: '0 8px 24px rgba(26,56,232,0.25)',
                 }}
               >
-                Discover
+                {t.heroCta ?? 'Discover'}
                 <ArrowUpRight size={16} />
               </motion.a>
             </motion.div>
@@ -391,13 +392,13 @@ export default function AboutPage() {
                   className="leading-snug"
                   style={{ fontSize: 'clamp(12px, 1.4vw, 20px)', fontWeight: 400, color: 'rgba(255,255,255,0.95)' }}
                 >
-                  Let&apos;s Build the Future of Data Infrastructure, Together
+                  {t.bannerLine1 ?? 'Let us build the future of data infrastructure, together'}
                 </p>
                 <p
                   className="leading-snug"
                   style={{ fontSize: 'clamp(12px, 1.4vw, 20px)', fontWeight: 400, color: 'rgba(255,255,255,0.95)' }}
                 >
-                  Too Many Options Too Little Trust!
+                  {t.bannerLine2 ?? 'Too many options, too little trust'}
                 </p>
               </div>
 
@@ -441,7 +442,7 @@ export default function AboutPage() {
             >
               <CirclePlay size={28} color="#374151" strokeWidth={1.5} />
               <span style={{ fontSize: 'clamp(15px, 1.4vw, 22px)', whiteSpace: 'nowrap', fontWeight: 600, color: '#374151' }}>
-                Request Demo
+                {t.bannerCta ?? 'Request Demo'}
               </span>
             </motion.a>
 
@@ -491,17 +492,17 @@ export default function AboutPage() {
                   className="font-semibold text-egyptian-blue dark:text-blue-400"
                   style={{ fontSize: '0.75rem', letterSpacing: '0.08em', textTransform: 'uppercase' }}
                 >
-                  [Our Story]
+                  [{t.storyKicker ?? 'Our Story'}]
                 </span>
                 <p
                   className="text-gray-900 dark:text-white"
                   style={{ fontSize: 'clamp(18px, 2.4vw, 38px)', fontWeight: 300, lineHeight: 1.2, margin: 0, letterSpacing: '-0.01em' }}
                 >
-                  At MonkDB,{' '}
+                  {t.storyTextStart ?? 'At MonkDB,'}{' '}
                   <span className="text-[#1A38E8] dark:text-blue-400">
-                    our journey is deeply personal
+                    {t.storyTextAccent ?? 'our journey is deeply personal'}
                   </span>
-                  {', '}born from decades of experience in enterprise systems, data management, and AI.
+                  {', '}{t.storyTextEnd ?? 'born from decades of experience in enterprise systems, data management, and AI.'}
                 </p>
               </div>
 
@@ -544,13 +545,13 @@ export default function AboutPage() {
                 className="font-semibold text-egyptian-blue dark:text-blue-400"
                 style={{ fontSize: '0.75rem', display: 'block', marginBottom: '10px', letterSpacing: '0.08em', textTransform: 'uppercase' }}
               >
-                [Services]
+                [{t.servicesKicker ?? 'Services'}]
               </span>
               <h2
                 className="text-gray-900 dark:text-white"
                 style={{ fontSize: 'clamp(22px, 3vw, 48px)', fontWeight: 300, lineHeight: 1.15, letterSpacing: '-0.01em' }}
               >
-                Special database features for your services
+                {t.servicesTitle ?? 'Special database features for your services'}
               </h2>
             </div>
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 lg:pb-2">
@@ -558,7 +559,7 @@ export default function AboutPage() {
                 className="text-gray-500 dark:text-gray-400"
                 style={{ fontSize: 'clamp(13px, 1.1vw, 15px)', maxWidth: '240px', margin: 0, lineHeight: 1.6 }}
               >
-                At MonkDB, our journey is deeply personal
+                {t.servicesIntro ?? 'At MonkDB, our journey is deeply personal'}
               </p>
               <motion.a
                 href="#story"
@@ -572,7 +573,7 @@ export default function AboutPage() {
                   background: 'transparent',
                 }}
               >
-                Explore more
+                {t.servicesCta ?? 'Explore more'}
                 <ArrowUpRight size={14} />
               </motion.a>
             </div>
@@ -598,10 +599,10 @@ export default function AboutPage() {
               </div>
               <div style={{ padding: `0 clamp(20px, 2.5vw, 32px) clamp(20px, 2.5vw, 32px)`, paddingRight: 'clamp(80px, 20%, 110px)' }}>
                 <h3 className="text-white leading-snug" style={{ fontSize: 'clamp(18px, 1.8vw, 26px)', fontWeight: 400, marginBottom: '8px' }}>
-                  Unified Data Platform
+                  {t.card1Title ?? 'Unified Data Platform'}
                 </h3>
                 <p className="text-blue-200 leading-relaxed" style={{ fontSize: 'clamp(13px, 1.1vw, 15px)', margin: 0, opacity: 0.85 }}>
-                  Custom design and deployment of multi-model database architectures tailored to your specific business needs.
+                  {t.card1Body ?? ''}
                 </p>
               </div>
               {/* Notch mask — background div with concave top-left corner */}
@@ -613,7 +614,7 @@ export default function AboutPage() {
               {/* Button centred in the notch */}
               <motion.a
                 href="/"
-                aria-label="Learn more about Unified Data Platform"
+                aria-label={t.card1Aria ?? 'Learn more about Unified Data Platform'}
                 whileHover={{ scale: 1.06 }}
                 whileTap={{ scale: 0.95 }}
                 className="absolute bottom-0 right-0 flex items-center justify-center"
@@ -634,10 +635,10 @@ export default function AboutPage() {
             >
               <div style={{ padding: 'clamp(24px, 3vw, 40px)' }}>
                 <h3 className="text-white leading-snug" style={{ fontSize: 'clamp(20px, 2.2vw, 32px)', fontWeight: 300, marginBottom: '12px', letterSpacing: '-0.01em' }}>
-                  AI &amp; ML Integration
+                  {t.card2Title ?? 'AI and ML Integration'}
                 </h3>
                 <p className="text-blue-100 leading-relaxed" style={{ fontSize: 'clamp(13px, 1.2vw, 16px)', margin: 0, maxWidth: '80%', opacity: 0.9, lineHeight: 1.65 }}>
-                  Fine-tuning vector search and embedding pipelines using advanced algorithms to achieve maximum performance and accuracy.
+                  {t.card2Body ?? ''}
                 </p>
               </div>
               <div className="absolute pointer-events-none" style={{ bottom: '-18%', left: '-15%', width: '65%' }}>
@@ -653,7 +654,7 @@ export default function AboutPage() {
               {/* Button */}
               <motion.a
                 href="/"
-                aria-label="Learn more about AI & ML Integration"
+                aria-label={t.card2Aria ?? 'Learn more about AI and ML Integration'}
                 whileHover={{ scale: 1.06 }}
                 whileTap={{ scale: 0.95 }}
                 className="absolute bottom-0 right-0 flex items-center justify-center"
@@ -677,7 +678,7 @@ export default function AboutPage() {
               }}
             >
               <h3 className="text-white leading-snug" style={{ fontSize: 'clamp(20px, 2vw, 28px)', fontWeight: 300, letterSpacing: '-0.01em' }}>
-                Neural Network<br />Integration
+                {t.card3Title ?? 'Neural Network Integration'}
               </h3>
             </motion.div>
 
@@ -706,10 +707,10 @@ export default function AboutPage() {
                 <TimerReset size={44} color="#fff" strokeWidth={1.5} />
                 <div>
                   <h3 className="text-white leading-tight" style={{ fontSize: 'clamp(22px, 2.5vw, 36px)', fontWeight: 300, marginBottom: '10px', letterSpacing: '-0.01em' }}>
-                    Neural Network<br />Consulting
+                    {t.card4Title ?? 'Neural Network Consulting'}
                   </h3>
                   <p className="text-white leading-relaxed" style={{ fontSize: 'clamp(13px, 1.2vw, 16px)', margin: 0, opacity: 0.8, lineHeight: 1.65 }}>
-                    Expert guidance and strategic advice on integrating neural networks into your existing systems
+                    {t.card4Body ?? ''}
                   </p>
                 </div>
               </div>
@@ -737,13 +738,13 @@ export default function AboutPage() {
               className="dark:text-white"
               style={{ fontSize: 'clamp(22px, 3vw, 48px)', fontWeight: 300, lineHeight: 1.15, letterSpacing: '-0.01em', marginBottom: '10px', color: '#0A2280' }}
             >
-              Why MonkDB
+              {t.whyMonkdbTitle ?? 'Why MonkDB'}
             </h2>
             <p
               className="text-gray-500 dark:text-gray-400"
               style={{ fontSize: 'clamp(13px, 1.2vw, 18px)', margin: 0 }}
             >
-              A unified alternative to fragmented database ecosystems.
+              {t.whyMonkdbBody ?? 'A unified alternative to fragmented database ecosystems.'}
             </p>
           </motion.div>
 
@@ -775,13 +776,13 @@ export default function AboutPage() {
               {/* Header row */}
               <div className="relative flex items-center" style={{ paddingBottom: 'clamp(14px, 2vw, 22px)', minWidth: '360px' }}>
                 <div className="flex-1 text-white" style={{ fontSize: 'clamp(15px, 1.6vw, 20px)', fontWeight: 700 }}>
-                  Key Differentiators
+                  {t.keyDiffHeader ?? 'Key Differentiators'}
                 </div>
                 <div className="text-white text-center flex-shrink-0" style={{ width: 'clamp(100px, 13vw, 180px)', fontSize: 'clamp(14px, 1.5vw, 19px)', fontWeight: 700 }}>
                   MonkDB
                 </div>
                 <div className="text-white text-center flex-shrink-0" style={{ width: 'clamp(120px, 15vw, 200px)', fontSize: 'clamp(14px, 1.5vw, 19px)', fontWeight: 700 }}>
-                  Legacy Systems
+                  {t.legacyColHeader ?? 'Legacy Systems'}
                 </div>
               </div>
 
@@ -790,12 +791,12 @@ export default function AboutPage() {
 
               {/* Feature rows */}
               {[
-                'Multi-Model Unified Engine',
-                'Hybrid Search Available',
-                'Cloud, On-Prem & Edge Deployment',
-                'ARM + x86_64 Support',
-                'HTAP Capability',
-                'Flexible Licensing',
+                t.compFeat1 ?? 'Multi-Model Unified Engine',
+                t.compFeat2 ?? 'Hybrid Search Available',
+                t.compFeat3 ?? 'Cloud, On-Prem and Edge Deployment',
+                t.compFeat4 ?? 'ARM and x86_64 Support',
+                t.compFeat5 ?? 'HTAP Capability',
+                t.compFeat6 ?? 'Flexible Licensing',
               ].map((feature, i) => (
                 <motion.div
                   key={feature}
@@ -853,13 +854,13 @@ export default function AboutPage() {
                 className="font-semibold text-egyptian-blue dark:text-blue-400"
                 style={{ fontSize: '0.75rem', display: 'block', marginBottom: '10px', letterSpacing: '0.08em', textTransform: 'uppercase' }}
               >
-                [Features]
+                [{t.featuresKicker ?? 'Features'}]
               </span>
               <h2
                 className="text-gray-900 dark:text-white"
                 style={{ fontSize: 'clamp(22px, 3vw, 48px)', fontWeight: 300, lineHeight: 1.15, letterSpacing: '-0.01em' }}
               >
-                The unique selling points &amp; advantages of our service
+                {t.featuresTitle ?? 'The unique selling points and advantages of our service'}
               </h2>
             </motion.div>
           </div>
@@ -868,20 +869,20 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-12">
             {[
               {
-                title: 'AI-Native by Design',
-                description: 'Built ground-up to support AI workloads, not retrofitted. Native vector embeddings live alongside relational and time-series data.',
+                title: t.diff1Title ?? 'AI-Native by Design',
+                description: t.diff1Desc ?? 'Built ground-up to support AI workloads, not retrofitted. Native vector embeddings live alongside relational and time-series data.',
               },
               {
-                title: 'Unified & Multi-Modal',
-                description: 'One engine for vector, relational, document, time-series, and geospatial data. Eliminate silos and reduce operational overhead by 60%.',
+                title: t.diff2Title ?? 'Unified and Multi-Modal',
+                description: t.diff2Desc ?? 'One engine for vector, relational, document, time-series, and geospatial data. Eliminate silos and reduce operational overhead by 60 percent.',
               },
               {
-                title: 'Blazing Fast & Scalable',
-                description: 'Sub-millisecond query latency with horizontal scale-out. Handle petabyte workloads without performance degradation.',
+                title: t.diff3Title ?? 'Blazing Fast and Scalable',
+                description: t.diff3Desc ?? 'Sub-millisecond query latency with horizontal scale-out. Handle petabyte workloads without performance degradation.',
               },
               {
-                title: 'Enterprise-Ready',
-                description: 'SOC 2, GDPR, HIPAA compliant from day one. Role-based access, audit logs, and encryption at rest and in transit.',
+                title: t.diff4Title ?? 'Enterprise-Ready',
+                description: t.diff4Desc ?? 'SOC 2, GDPR, HIPAA compliant from day one. Role-based access, audit logs, and encryption at rest and in transit.',
               },
             ].map((feature, i) => (
               <motion.div
@@ -937,13 +938,13 @@ export default function AboutPage() {
                 className="font-semibold text-egyptian-blue dark:text-blue-400"
                 style={{ fontSize: '0.75rem', display: 'block', marginBottom: '10px', letterSpacing: '0.08em', textTransform: 'uppercase' }}
               >
-                [Achievements]
+                [{t.achievementsKicker ?? 'Achievements'}]
               </span>
               <h2
                 className="text-gray-900 dark:text-white"
                 style={{ fontSize: 'clamp(22px, 3vw, 48px)', fontWeight: 300, lineHeight: 1.15, letterSpacing: '-0.01em' }}
               >
-                Numbers that speak for themselves
+                {t.achievementsTitle ?? 'Numbers that speak for themselves'}
               </h2>
             </motion.div>
             <motion.p
@@ -954,7 +955,7 @@ export default function AboutPage() {
               className="text-gray-600 dark:text-gray-300 leading-relaxed lg:pb-2"
               style={{ fontSize: 'clamp(14px, 1.2vw, 17px)', margin: 0 }}
             >
-              At MonkDB, our journey is deeply personal, born from decades of experience in enterprise systems, data management, and AI. We&apos;ve seen firsthand how fragmented infrastructure holds back innovation.
+              {t.achievementsBody ?? ''}
             </motion.p>
           </div>
 
@@ -1006,10 +1007,10 @@ export default function AboutPage() {
                 </div>
                 <div style={{ height: '1px', background: 'rgba(26,56,232,0.35)', marginBottom: '18px' }} />
                 <span className="text-white leading-snug block mb-3" style={{ fontSize: 'clamp(13px, 1.2vw, 17px)', fontWeight: 400 }}>
-                  AI Solutions<br />for our clients
+                  {t.stat1Label1 ?? 'AI Solutions'}<br />{t.stat1Label2 ?? 'for our clients'}
                 </span>
                 <p className="text-gray-400 leading-relaxed mt-auto" style={{ fontSize: 'clamp(12px, 0.95vw, 14px)', margin: 0, lineHeight: 1.6 }}>
-                  At MonkDB, our journey is deeply personal, born from decades of experience in enterprise systems.
+                  {t.stat1Body ?? ''}
                 </p>
               </div>
             </motion.div>
@@ -1048,10 +1049,10 @@ export default function AboutPage() {
               <div className="border-t border-gray-200 dark:border-white/10" style={{ marginBottom: '20px' }} />
               <div className="flex flex-col gap-2.5 mt-auto">
                 <h3 className="text-gray-900 dark:text-white" style={{ fontSize: 'clamp(14px, 1.25vw, 18px)', fontWeight: 400 }}>
-                  Enterprise Uptime SLA
+                  {t.stat2Label ?? 'Enterprise Uptime SLA'}
                 </h3>
                 <p className="text-gray-500 dark:text-gray-400 leading-relaxed" style={{ fontSize: 'clamp(12px, 0.95vw, 14px)', margin: 0, lineHeight: 1.6 }}>
-                  Guaranteed 99.97% availability with automatic failover and zero-downtime deployments across all regions.
+                  {t.stat2Body ?? ''}
                 </p>
               </div>
             </motion.div>
@@ -1090,10 +1091,10 @@ export default function AboutPage() {
               <div className="border-t border-gray-200 dark:border-white/10" style={{ marginBottom: '20px' }} />
               <div className="flex flex-col gap-2.5 mt-auto">
                 <h3 className="text-gray-900 dark:text-white" style={{ fontSize: 'clamp(14px, 1.25vw, 18px)', fontWeight: 400 }}>
-                  Enterprise Deployments
+                  {t.stat3Label ?? 'Enterprise Deployments'}
                 </h3>
                 <p className="text-gray-500 dark:text-gray-400 leading-relaxed" style={{ fontSize: 'clamp(12px, 0.95vw, 14px)', margin: 0, lineHeight: 1.6 }}>
-                  Trusted by 2,000+ enterprise teams across finance, healthcare, logistics, and government sectors globally.
+                  {t.stat3Body ?? ''}
                 </p>
               </div>
             </motion.div>

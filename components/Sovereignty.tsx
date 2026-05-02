@@ -2,19 +2,15 @@
 
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
-
-const trustMarks = [
-  'Air-Gapped Ready',
-  'SOC 2 Type II',
-  'ISO 27001',
-  'GDPR',
-  'HIPAA',
-]
+import { useI18n } from '@/i18n/I18nProvider'
 
 export default function Sovereignty() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-80px' })
   const EASE = [0.165, 0.84, 0.44, 1] as const
+  const { dict } = useI18n()
+  const t = (((dict as Record<string, unknown>).sovereignty) ?? {}) as Record<string, string>
+  const trustMarks = [t.trust1, t.trust2, t.trust3, t.trust4, t.trust5]
 
   return (
     <section
@@ -157,7 +153,7 @@ export default function Sovereignty() {
               whiteSpace: 'nowrap',
             }}
           >
-            04 / Sovereignty
+            {t.label}
           </span>
           <div
             style={{
@@ -186,9 +182,9 @@ export default function Sovereignty() {
               maxWidth: '880px',
             }}
           >
-            Your complete data sovereignty.
+            {t.titleLine1}
             <br />
-            Secure and intact for an AI-first world.
+            {t.titleLine2}
           </motion.h2>
 
           {/* Supporting column */}
@@ -205,9 +201,7 @@ export default function Sovereignty() {
                 maxWidth: '560px',
               }}
             >
-              The existing data infrastructure is excessively cumbersome,
-              sluggish, and complex, which makes it unsuitable for constructing
-              an AI-native sovereign data plane.
+              {t.body1}
             </p>
 
             <p
@@ -219,7 +213,7 @@ export default function Sovereignty() {
                 maxWidth: '560px',
               }}
             >
-              MonkDB is prepared.
+              {t.body2}
             </p>
           </motion.div>
         </div>

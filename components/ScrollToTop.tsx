@@ -3,9 +3,12 @@
 import { useState, useEffect } from 'react'
 import { ArrowUp } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useI18n } from '@/i18n/I18nProvider'
 
 export default function ScrollToTop() {
   const [visible, setVisible] = useState(false)
+  const { dict } = useI18n()
+  const t = (((dict as Record<string, unknown>).nav) ?? {}) as Record<string, string>
 
   useEffect(() => {
     const onScroll = () => setVisible(window.scrollY > 400)
@@ -26,7 +29,7 @@ export default function ScrollToTop() {
           exit={{ opacity: 0, scale: 0.5 }}
           transition={{ duration: 0.2 }}
           onClick={scrollToTop}
-          aria-label="Scroll to top"
+          aria-label={t.scrollToTop ?? 'Scroll to top'}
           className="fixed bottom-5 right-5 sm:bottom-8 sm:right-8 z-50 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-egyptian-blue text-white flex items-center justify-center shadow-lg hover:bg-blue-energy hover:shadow-xl transition-all duration-200 hover:-translate-y-1"
         >
           <ArrowUp size={20} />

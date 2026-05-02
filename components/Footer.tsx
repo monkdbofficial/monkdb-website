@@ -1,57 +1,58 @@
 'use client'
 
 import { useState } from 'react'
-import { Mail, ArrowRight } from 'lucide-react'
+import { Mail } from 'lucide-react'
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
+import { useI18n } from '@/i18n/I18nProvider'
 
-const products = [
-  { label: 'dbend Cloud', href: '#' },
-  { label: 'dbend Enterprise', href: '#' },
-  { label: 'dbend Community', href: '#' },
-  { label: 'Register', href: '#' },
-  { label: 'Pricing', href: '#' },
-  { label: 'Comparisons', href: '#' },
-  { label: 'Security', href: '#' },
-]
-
-const solutions = [
-  { label: 'Use Cases', href: '#' },
-  { label: 'Solutions for Game Industry', href: '#' },
-  { label: 'Solution for Crypto industry', href: '#' },
-  { label: 'Solution for E-commerce Industry', href: '#' },
-  { label: 'Solutions for Banking Industry', href: '#' },
-]
-
-const resources = [
-  { label: 'Documentation', href: '#' },
-  { label: 'Blogs', href: '#' },
-  { label: 'Videos', href: '#' },
-  { label: 'Downloads', href: '#' },
-  { label: 'MCP', href: '#' },
-]
-
-const community = [
-  { label: 'GitHub', href: '#' },
-  { label: 'Contributing', href: '#' },
-  { label: 'Slack', href: '#' },
-  { label: 'Linkedin', href: '#' },
-  { label: 'Youtube', href: '#' },
-  { label: 'X', href: '#' },
-  { label: 'Bluesky', href: '#' },
-]
-
-const partners = [
-  { label: 'Greptime', href: '#' },
-  { label: 'AutoMQ', href: '#' },
-]
-
-const company = [
-  { label: 'About Us', href: '/about' },
-  { label: 'Contact Us', href: '#' },
-  { label: 'Careers', href: '#' },
-  { label: 'Brand', href: '#' },
-]
+function buildFooterLinks(t: Record<string, string>, aboutHref: string) {
+  // Brand and product names stay English globally.
+  return {
+    products: [
+      { label: 'dbend Cloud', href: '#' },
+      { label: 'dbend Enterprise', href: '#' },
+      { label: 'dbend Community', href: '#' },
+      { label: t.productRegister ?? 'Register', href: '#' },
+      { label: t.productPricing ?? 'Pricing', href: '#' },
+      { label: t.productComparisons ?? 'Comparisons', href: '#' },
+      { label: t.productSecurity ?? 'Security', href: '#' },
+    ],
+    solutions: [
+      { label: t.solutionUseCases ?? 'Use Cases', href: '#' },
+      { label: t.solutionGame ?? 'Solutions for Game Industry', href: '#' },
+      { label: t.solutionCrypto ?? 'Solutions for Crypto Industry', href: '#' },
+      { label: t.solutionEcommerce ?? 'Solutions for E-commerce Industry', href: '#' },
+      { label: t.solutionBanking ?? 'Solutions for Banking Industry', href: '#' },
+    ],
+    resources: [
+      { label: t.resourceDocs ?? 'Documentation', href: '#' },
+      { label: t.resourceBlogs ?? 'Blogs', href: '#' },
+      { label: t.resourceVideos ?? 'Videos', href: '#' },
+      { label: t.resourceDownloads ?? 'Downloads', href: '#' },
+      { label: 'MCP', href: '#' },
+    ],
+    community: [
+      { label: 'GitHub', href: '#' },
+      { label: t.communityContributing ?? 'Contributing', href: '#' },
+      { label: 'Slack', href: '#' },
+      { label: 'Linkedin', href: '#' },
+      { label: 'Youtube', href: '#' },
+      { label: 'X', href: '#' },
+      { label: 'Bluesky', href: '#' },
+    ],
+    partners: [
+      { label: 'Greptime', href: '#' },
+      { label: 'AutoMQ', href: '#' },
+    ],
+    companyLinks: [
+      { label: t.companyAbout ?? 'About Us', href: aboutHref },
+      { label: t.companyContact ?? 'Contact Us', href: '#' },
+      { label: t.companyCareers ?? 'Careers', href: '#' },
+      { label: t.companyBrand ?? 'Brand', href: '#' },
+    ],
+  }
+}
 
 const SOCIAL_BG = '#1A38E8'
 
@@ -113,6 +114,11 @@ export default function Footer() {
   const [email, setEmail] = useState('')
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-60px' })
+  const { dict, locale } = useI18n()
+  const t = (((dict as Record<string, unknown>).footer) ?? {}) as Record<string, string>
+  const aboutHref = `/${locale}/about`
+  const links = buildFooterLinks(t, aboutHref)
+  const { products, solutions, resources, community, partners, companyLinks } = links
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault()
@@ -146,7 +152,7 @@ export default function Footer() {
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ flexShrink: 0, marginTop: '3px', color: '#9ca3af' }}>
                   <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
                 </svg>
-                <span>Wework Raheja Mindspace Building 9, Floor 13<br />Mindspace IT Park, Madhapur<br />Hyderabad 500081, Telangana<br />India</span>
+                <span>{t.addressLine1 ?? 'Wework Raheja Mindspace Building 9, Floor 13'}<br />{t.addressLine2 ?? 'Mindspace IT Park, Madhapur'}<br />{t.addressLine3 ?? 'Hyderabad 500081, Telangana'}<br />{t.addressLine4 ?? 'India'}</span>
               </span>
             </address>
             <div style={{ fontSize: '0.82rem', color: '#6b7280', marginBottom: '18px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -190,11 +196,11 @@ export default function Footer() {
             className="flex flex-col gap-8"
           >
             <div>
-              <FooterHeading>Products</FooterHeading>
+              <FooterHeading>{t.products}</FooterHeading>
               <FooterLinks links={products} />
             </div>
             <div>
-              <FooterHeading>Solutions</FooterHeading>
+              <FooterHeading>{t.solutions}</FooterHeading>
               <FooterLinks links={solutions} />
             </div>
           </motion.div>
@@ -205,7 +211,7 @@ export default function Footer() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.14 }}
           >
-            <FooterHeading>Resources</FooterHeading>
+            <FooterHeading>{t.resources}</FooterHeading>
             <FooterLinks links={resources} />
           </motion.div>
 
@@ -217,11 +223,11 @@ export default function Footer() {
             className="flex flex-col gap-8"
           >
             <div>
-              <FooterHeading>Community</FooterHeading>
+              <FooterHeading>{t.community}</FooterHeading>
               <FooterLinks links={community} />
             </div>
             <div>
-              <FooterHeading>Partners</FooterHeading>
+              <FooterHeading>{t.partners}</FooterHeading>
               <FooterLinks links={partners} />
             </div>
           </motion.div>
@@ -232,8 +238,8 @@ export default function Footer() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.26 }}
           >
-            <FooterHeading>Company</FooterHeading>
-            <FooterLinks links={company} />
+            <FooterHeading>{t.company}</FooterHeading>
+            <FooterLinks links={companyLinks} />
           </motion.div>
 
           {/* Col 6 — Stay Updated */}
@@ -243,7 +249,7 @@ export default function Footer() {
             transition={{ duration: 0.5, delay: 0.32 }}
             className="col-span-2 sm:col-span-3 lg:col-span-1"
           >
-            <FooterHeading>Stay Updated</FooterHeading>
+            <FooterHeading>{t.stayUpdated}</FooterHeading>
 
             {/* Email form */}
             <form onSubmit={handleSubscribe} style={{ marginBottom: '14px' }}>
@@ -253,7 +259,7 @@ export default function Footer() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="your@email.com"
+                  placeholder={t.emailPlaceholder}
                   required
                   className="flex-1 bg-transparent border-none outline-none text-gray-900 dark:text-white/85 placeholder-gray-400 dark:placeholder-gray-500 min-w-0"
                   style={{ padding: '7px 8px', fontSize: '0.8rem' }}
@@ -265,14 +271,14 @@ export default function Footer() {
                   className="shrink-0 bg-[#1A38E8] text-white font-semibold rounded-[7px] cursor-pointer border-none"
                   style={{ padding: '7px 13px', fontSize: '0.75rem', letterSpacing: '0.02em' }}
                 >
-                  Subscribe
+                  {t.subscribe}
                 </motion.button>
               </div>
             </form>
 
             {/* Description */}
             <p className="text-gray-500 dark:text-gray-400" style={{ fontSize: '0.82rem', lineHeight: 1.7, marginBottom: '18px' }}>
-              <strong className="text-gray-900 dark:text-white" style={{ fontWeight: 600 }}>MonkDB</strong> is an AI-Native Unified Database designed to transform data management, empowering organizations to harness unified intelligence from diverse data types.
+              <strong className="text-gray-900 dark:text-white" style={{ fontWeight: 600 }}>MonkDB</strong> {t.description}
             </p>
 
             {/* Slack + Discord badges */}
@@ -321,10 +327,10 @@ export default function Footer() {
           style={{ borderTop: '1px solid #e5e7eb', paddingTop: '20px' }}
         >
           <p className="text-gray-400 dark:text-gray-500" style={{ fontSize: '0.78rem' }}>
-            &copy; {new Date().getFullYear()} MonkDB. All rights reserved.
+            &copy; {new Date().getFullYear()} MonkDB. {t.copyright}
           </p>
           <div className="flex flex-wrap gap-4 sm:gap-5">
-            {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map((link) => (
+            {[t.privacyPolicy, t.termsOfService, t.cookiePolicy].map((link) => (
               <a key={link} href="#" className="text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors" style={{ fontSize: '0.78rem', textDecoration: 'none' }}>
                 {link}
               </a>

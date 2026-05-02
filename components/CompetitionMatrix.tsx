@@ -3,6 +3,7 @@
 import React, { useRef, useState } from 'react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
 import { Check, X, Minus, Star, ChevronDown } from 'lucide-react'
+import { useI18n } from '@/i18n/I18nProvider'
 
 // ── Cell value types ───────────────────────────────────────────────
 type Cell =
@@ -26,104 +27,92 @@ const vendors = [
   'SAP HANA',
 ]
 
-const rows: Row[] = [
-  {
-    feature: 'Deployment',
-    sub: 'Where it runs',
-    cells: [
-      { kind: 'text', label: 'Cloud · On-Prem · Edge', tone: 'good' },
-      { kind: 'text', label: 'Cloud · On-Prem', tone: 'neutral' },
-      { kind: 'text', label: 'Cloud only', tone: 'bad' },
-      { kind: 'text', label: 'Cloud · On-Prem', tone: 'neutral' },
-      { kind: 'text', label: 'Cloud · On-Prem', tone: 'neutral' },
-      { kind: 'text', label: 'Cloud · On-Prem', tone: 'neutral' },
-    ],
-  },
-  {
-    feature: 'Processor',
-    sub: 'CPU architectures supported',
-    cells: [
-      { kind: 'text', label: 'ARM · x86_64', tone: 'good' },
-      { kind: 'text', label: 'x86_64 only', tone: 'bad' },
-      { kind: 'text', label: 'x86_64 only', tone: 'bad' },
-      { kind: 'partial', label: 'ARM partial' },
-      { kind: 'text', label: 'ARM · x86_64', tone: 'good' },
-      { kind: 'text', label: 'In-mem arch', tone: 'bad' },
-    ],
-  },
-  {
-    feature: 'Multi-Model',
-    sub: 'V · TS · GIS · FTS · DOC · SQL · BLOB · KV · G',
-    cells: [
-      { kind: 'text', label: '9 / 9', tone: 'good' },
-      { kind: 'text', label: '5 / 9', tone: 'neutral' },
-      { kind: 'text', label: '6 / 9', tone: 'neutral' },
-      { kind: 'text', label: '6 / 9', tone: 'neutral' },
-      { kind: 'text', label: '6 / 9', tone: 'neutral' },
-      { kind: 'text', label: '7 / 9', tone: 'neutral' },
-    ],
-  },
-  {
-    feature: 'Hybrid Search',
-    sub: 'Vector + keyword in one query',
-    cells: [
-      { kind: 'yes' },
-      { kind: 'yes' },
-      { kind: 'yes' },
-      { kind: 'no' },
-      { kind: 'yes' },
-      { kind: 'no' },
-    ],
-  },
-  {
-    feature: 'HTAP',
-    sub: 'Transactional + analytical',
-    cells: [
-      { kind: 'yes' },
-      { kind: 'yes' },
-      { kind: 'yes' },
-      { kind: 'no' },
-      { kind: 'yes' },
-      { kind: 'yes' },
-    ],
-  },
-  {
-    feature: 'AI-Native',
-    sub: 'Built-in embeddings, vector indexing, agent context',
-    cells: [
-      { kind: 'yes' },
-      { kind: 'partial', label: 'Add-on' },
-      { kind: 'partial', label: 'Add-on' },
-      { kind: 'no' },
-      { kind: 'partial', label: 'Add-on' },
-      { kind: 'no' },
-    ],
-  },
-  {
-    feature: 'Sovereignty',
-    sub: 'Air-gapped, on-prem, zero egress',
-    cells: [
-      { kind: 'yes' },
-      { kind: 'partial', label: 'On-prem only' },
-      { kind: 'no' },
-      { kind: 'yes' },
-      { kind: 'yes' },
-      { kind: 'yes' },
-    ],
-  },
-  {
-    feature: 'Licensing',
-    sub: 'Commercial model',
-    cells: [
-      { kind: 'text', label: 'Flexible EULAs', tone: 'good' },
-      { kind: 'text', label: 'Flexible EULAs', tone: 'good' },
-      { kind: 'text', label: 'Consumption-based', tone: 'neutral' },
-      { kind: 'text', label: 'Open core + Enterprise', tone: 'good' },
-      { kind: 'text', label: 'Open source + Enterprise', tone: 'good' },
-      { kind: 'text', label: 'Extremely expensive', tone: 'bad' },
-    ],
-  },
-]
+function buildRows(t: Record<string, string>): Row[] {
+  return [
+    {
+      feature: t.rowDeployment,
+      sub: t.rowDeploymentSub,
+      cells: [
+        { kind: 'text', label: t.labelCloudOnPremEdge, tone: 'good' },
+        { kind: 'text', label: t.labelCloudOnPrem, tone: 'neutral' },
+        { kind: 'text', label: t.labelCloudOnly, tone: 'bad' },
+        { kind: 'text', label: t.labelCloudOnPrem, tone: 'neutral' },
+        { kind: 'text', label: t.labelCloudOnPrem, tone: 'neutral' },
+        { kind: 'text', label: t.labelCloudOnPrem, tone: 'neutral' },
+      ],
+    },
+    {
+      feature: t.rowProcessor,
+      sub: t.rowProcessorSub,
+      cells: [
+        { kind: 'text', label: 'ARM, x86_64', tone: 'good' },
+        { kind: 'text', label: t.labelX86Only, tone: 'bad' },
+        { kind: 'text', label: t.labelX86Only, tone: 'bad' },
+        { kind: 'partial', label: t.labelArmPartial },
+        { kind: 'text', label: 'ARM, x86_64', tone: 'good' },
+        { kind: 'text', label: t.labelInMemArch, tone: 'bad' },
+      ],
+    },
+    {
+      feature: t.rowMultiModel,
+      sub: 'V, TS, GIS, FTS, DOC, SQL, BLOB, KV, G',
+      cells: [
+        { kind: 'text', label: '9 / 9', tone: 'good' },
+        { kind: 'text', label: '5 / 9', tone: 'neutral' },
+        { kind: 'text', label: '6 / 9', tone: 'neutral' },
+        { kind: 'text', label: '6 / 9', tone: 'neutral' },
+        { kind: 'text', label: '6 / 9', tone: 'neutral' },
+        { kind: 'text', label: '7 / 9', tone: 'neutral' },
+      ],
+    },
+    {
+      feature: t.rowHybridSearch,
+      sub: t.rowHybridSearchSub,
+      cells: [{ kind: 'yes' }, { kind: 'yes' }, { kind: 'yes' }, { kind: 'no' }, { kind: 'yes' }, { kind: 'no' }],
+    },
+    {
+      feature: t.rowHtap,
+      sub: t.rowHtapSub,
+      cells: [{ kind: 'yes' }, { kind: 'yes' }, { kind: 'yes' }, { kind: 'no' }, { kind: 'yes' }, { kind: 'yes' }],
+    },
+    {
+      feature: t.rowAiNative,
+      sub: t.rowAiNativeSub,
+      cells: [
+        { kind: 'yes' },
+        { kind: 'partial', label: t.labelAddOn },
+        { kind: 'partial', label: t.labelAddOn },
+        { kind: 'no' },
+        { kind: 'partial', label: t.labelAddOn },
+        { kind: 'no' },
+      ],
+    },
+    {
+      feature: t.rowSovereignty,
+      sub: t.rowSovereigntySub,
+      cells: [
+        { kind: 'yes' },
+        { kind: 'partial', label: t.labelOnPremOnly },
+        { kind: 'no' },
+        { kind: 'yes' },
+        { kind: 'yes' },
+        { kind: 'yes' },
+      ],
+    },
+    {
+      feature: t.rowLicensing,
+      sub: t.rowLicensingSub,
+      cells: [
+        { kind: 'text', label: t.labelFlexibleEulas, tone: 'good' },
+        { kind: 'text', label: t.labelFlexibleEulas, tone: 'good' },
+        { kind: 'text', label: t.labelConsumptionBased, tone: 'neutral' },
+        { kind: 'text', label: t.labelOpenCore, tone: 'good' },
+        { kind: 'text', label: t.labelOpenSource, tone: 'good' },
+        { kind: 'text', label: t.labelExpensive, tone: 'bad' },
+      ],
+    },
+  ]
+}
 
 const EASE = [0.165, 0.84, 0.44, 1] as const
 
@@ -215,7 +204,7 @@ function CellContent({
 }
 
 // ── Mobile feature card (expandable competitor comparison) ──────────
-function MobileFeatureCard({ row }: { row: Row }) {
+function MobileFeatureCard({ row, t }: { row: Row; t: Record<string, string> }) {
   const [expanded, setExpanded] = useState(false)
   const monkCell = row.cells[0]
   const competitors = vendors.slice(1).map((name, i) => ({
@@ -325,7 +314,7 @@ function MobileFeatureCard({ row }: { row: Row }) {
             color: '#4B5563',
           }}
         >
-          {expanded ? 'Hide comparison' : `Compare ${competitors.length} vendors`}
+          {expanded ? t.hideComparison : `${t.compareVendors} (${competitors.length})`}
         </span>
         <span className="flex items-center gap-2">
           {losses > 0 && !expanded && (
@@ -338,7 +327,7 @@ function MobileFeatureCard({ row }: { row: Row }) {
                 letterSpacing: '0.02em',
               }}
             >
-              {losses}/{competitors.length} fall short
+              {losses}/{competitors.length} {t.fallShort}
             </span>
           )}
           <ChevronDown
@@ -410,6 +399,9 @@ function MobileFeatureCard({ row }: { row: Row }) {
 export default function CompetitionMatrix() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
+  const { dict } = useI18n()
+  const t = (((dict as Record<string, unknown>).competitionMatrix) ?? {}) as Record<string, string>
+  const rows = buildRows(t)
 
   return (
     <section
@@ -436,7 +428,7 @@ export default function CompetitionMatrix() {
               whiteSpace: 'nowrap',
             }}
           >
-            07 / Comparison
+            {t.label}
           </span>
           <div
             style={{
@@ -463,9 +455,9 @@ export default function CompetitionMatrix() {
               textWrap: 'balance',
             }}
           >
-            How MonkDB compares,
+            {t.titleLine1}
             <br />
-            feature by feature.
+            {t.titleLine2}
           </motion.h2>
 
           <motion.p
@@ -479,9 +471,7 @@ export default function CompetitionMatrix() {
               maxWidth: '560px',
             }}
           >
-            A side-by-side of the capabilities enterprise teams evaluate when
-            consolidating onto a unified data plane. Sources: vendor
-            documentation, public benchmarks, and customer deployments.
+            {t.intro}
           </motion.p>
         </div>
 
@@ -493,7 +483,7 @@ export default function CompetitionMatrix() {
           className="md:hidden flex flex-col gap-3"
         >
           {rows.map((row) => (
-            <MobileFeatureCard key={row.feature} row={row} />
+            <MobileFeatureCard key={row.feature} row={row} t={t} />
           ))}
         </motion.div>
 
@@ -542,7 +532,7 @@ export default function CompetitionMatrix() {
                     minWidth: '150px',
                   }}
                 >
-                  Capability
+                  {t.capability}
                 </th>
                 {vendors.map((v, idx) => {
                   const isMonk = idx === 0
@@ -581,7 +571,7 @@ export default function CompetitionMatrix() {
                             }}
                           >
                             <Star size={9} strokeWidth={3} fill="#0A2280" />
-                            BEST
+                            {t.bestBadge}
                           </span>
                         )}
                       </div>
@@ -690,9 +680,9 @@ export default function CompetitionMatrix() {
           className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
         >
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-            <Legend icon={<Check size={11} strokeWidth={2.6} />} tone="good" label="Supported" />
-            <Legend icon={<Minus size={11} strokeWidth={3} />} tone="warn" label="Partial" />
-            <Legend icon={<X size={11} strokeWidth={2.6} />} tone="bad" label="Not supported" />
+            <Legend icon={<Check size={11} strokeWidth={2.6} />} tone="good" label={t.legendSupported} />
+            <Legend icon={<Minus size={11} strokeWidth={3} />} tone="warn" label={t.legendPartial} />
+            <Legend icon={<X size={11} strokeWidth={2.6} />} tone="bad" label={t.legendNotSupported} />
           </div>
           <p
             style={{
@@ -704,10 +694,7 @@ export default function CompetitionMatrix() {
               lineHeight: 1.55,
             }}
           >
-            *Based on publicly available vendor documentation. Multi-model
-            legend: V (Vector), TS (Timeseries), GIS (Geospatial), FTS
-            (Full-Text), DOC (Document), SQL (Streaming SQL), BLOB (Blob), KV
-            (Key-Value), G (Graph).
+            *{t.footnote}
           </p>
         </motion.div>
       </div>

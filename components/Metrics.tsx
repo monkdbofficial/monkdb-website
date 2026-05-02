@@ -3,6 +3,7 @@
 import { motion, useInView, animate, useMotionValue, useTransform } from 'framer-motion'
 import { useEffect, useRef } from 'react'
 import { TrendingUp, Zap, Layers, ShieldCheck, type LucideIcon } from 'lucide-react'
+import { useI18n } from '@/i18n/I18nProvider'
 
 type Metric = {
   // Numeric target (for count-up)
@@ -16,42 +17,6 @@ type Metric = {
   sublabel: string
   Icon: LucideIcon
 }
-
-const metrics: Metric[] = [
-  {
-    target: 1.2,
-    format: (v) => v.toFixed(1) + 'M',
-    suffix: '/sec',
-    label: 'Writes sustained',
-    sublabel: 'Streaming ingest, single cluster',
-    Icon: TrendingUp,
-  },
-  {
-    target: 5,
-    format: (v) => Math.round(v).toString(),
-    prefix: '<',
-    suffix: 'ms',
-    label: 'p99 query latency',
-    sublabel: 'Vector + SQL in one plane',
-    Icon: Zap,
-  },
-  {
-    target: 9,
-    format: (v) => Math.round(v).toString(),
-    suffix: '',
-    label: 'Workloads · 1 engine',
-    sublabel: 'V · TS · GIS · FTS · DOC · SQL · BLOB · KV · G',
-    Icon: Layers,
-  },
-  {
-    target: 99.99,
-    format: (v) => v.toFixed(2),
-    suffix: '%',
-    label: 'Uptime SLA',
-    sublabel: 'Air-gapped deployments included',
-    Icon: ShieldCheck,
-  },
-]
 
 const EASE = [0.165, 0.84, 0.44, 1] as const
 
@@ -93,6 +58,43 @@ function CountUp({
 export default function Metrics() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-60px' })
+  const { dict } = useI18n()
+  const t = (((dict as Record<string, unknown>).metrics) ?? {}) as Record<string, string>
+  const metrics: Metric[] = [
+    {
+      target: 1.2,
+      format: (v) => v.toFixed(1) + 'M',
+      suffix: '/sec',
+      label: t.writesLabel,
+      sublabel: t.writesSublabel,
+      Icon: TrendingUp,
+    },
+    {
+      target: 5,
+      format: (v) => Math.round(v).toString(),
+      prefix: '<',
+      suffix: 'ms',
+      label: t.latencyLabel,
+      sublabel: t.latencySublabel,
+      Icon: Zap,
+    },
+    {
+      target: 9,
+      format: (v) => Math.round(v).toString(),
+      suffix: '',
+      label: t.workloadsLabel,
+      sublabel: t.workloadsSublabel,
+      Icon: Layers,
+    },
+    {
+      target: 99.99,
+      format: (v) => v.toFixed(2),
+      suffix: '%',
+      label: t.uptimeLabel,
+      sublabel: t.uptimeSublabel,
+      Icon: ShieldCheck,
+    },
+  ]
 
   return (
     <section
@@ -131,8 +133,8 @@ export default function Metrics() {
               whiteSpace: 'nowrap',
             }}
           >
-            <span className="sm:hidden">Performance</span>
-            <span className="hidden sm:inline">Performance · At a glance</span>
+            <span className="sm:hidden">{t.labelMobile}</span>
+            <span className="hidden sm:inline">{t.labelDesktop}</span>
           </span>
           <div
             style={{
@@ -169,7 +171,7 @@ export default function Metrics() {
                 display: 'inline-block',
               }}
             />
-            LIVE
+            {t.live}
           </motion.span>
         </motion.div>
 

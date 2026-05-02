@@ -5,8 +5,10 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Sun, Moon, ChevronDown } from 'lucide-react'
-import { useTheme } from 'next-themes'
+import { useTheme } from '@/app/theme'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useI18n } from '@/i18n/I18nProvider'
+import LanguageSwitcher from './LanguageSwitcher'
 
 // ───────────────────────────── Nav data (from MonkDB Website Content.pdf) ──
 type NavLeaf = { label: string; href: string }
@@ -17,101 +19,109 @@ type NavItem =
   | { kind: 'dropdown'; id: string; label: string; items: NavLeaf[] }
   | { kind: 'mega'; id: string; label: string; groups: NavGroup[] }
 
-const navigation: NavItem[] = [
-  { kind: 'link', label: 'Home', href: '/' },
+function buildNavigation(t: (key: string) => string): NavItem[] {
+  return [
+    { kind: 'link', label: t('home'), href: '/' },
 
-  {
-    kind: 'dropdown',
-    id: 'core-systems',
-    label: 'Core Systems',
-    items: [
-      { label: 'Unified Operational Data Engine', href: '/features#unified-operational-data-engine' },
-      { label: 'Real-Time Processing Engine', href: '/features#real-time-processing-engine' },
-      { label: 'AI-Native Execution Engine', href: '/features#ai-native-execution-engine' },
-      { label: 'Decision & Action Engine', href: '/features#decision-action-engine' },
-      { label: 'Edge-to-Cloud Execution Fabric', href: '/features#edge-to-cloud-execution-fabric' },
-      { label: 'Sovereignty & Trust Layer', href: '/features#sovereignty-trust-layer' },
-    ],
-  },
+    {
+      kind: 'dropdown',
+      id: 'core-systems',
+      label: t('coreSystems'),
+      items: [
+        { label: t('core1'), href: '/features#unified-operational-data-engine' },
+        { label: t('core2'), href: '/features#real-time-processing-engine' },
+        { label: t('core3'), href: '/features#ai-native-execution-engine' },
+        { label: t('core4'), href: '/features#decision-action-engine' },
+        { label: t('core5'), href: '/features#edge-to-cloud-execution-fabric' },
+        { label: t('core6'), href: '/features#sovereignty-trust-layer' },
+      ],
+    },
 
-  {
-    kind: 'mega',
-    id: 'solutions',
-    label: 'Solutions',
-    groups: [
-      {
-        title: 'Use Cases',
-        items: [
-          { label: 'AI/ML', href: '/why-choose-us#ai-ml' },
-          { label: 'Real-Time Streaming', href: '/why-choose-us#real-time-streaming' },
-          { label: 'Iceberg Tables', href: '/why-choose-us#iceberg-tables' },
-          { label: 'Real-Time Operational Intelligence', href: '/why-choose-us#real-time-operational-intelligence' },
-          { label: 'Autonomous Decisioning Systems', href: '/why-choose-us#autonomous-decisioning' },
-          { label: 'Energy & Resource Optimization', href: '/why-choose-us#energy-optimization' },
-          { label: 'Digital Twin & Simulation', href: '/why-choose-us#digital-twin' },
-          { label: 'Edge Intelligence & Distributed AI', href: '/why-choose-us#edge-intelligence' },
-          { label: 'Data & AI Modernization', href: '/why-choose-us#data-ai-modernization' },
-          { label: 'AI Governance & Trust', href: '/why-choose-us#ai-governance-trust' },
-        ],
-      },
-      {
-        title: 'Outcomes',
-        items: [
-          { label: 'Reduce Cost', href: '/why-choose-us#reduce-cost' },
-          { label: 'Improve Efficiency', href: '/why-choose-us#improve-efficiency' },
-          { label: 'Enhance Safety', href: '/why-choose-us#enhance-safety' },
-          { label: 'Enable Autonomy', href: '/why-choose-us#enable-autonomy' },
-          { label: 'Ensure Trust & Compliance', href: '/why-choose-us#trust-compliance' },
-          { label: 'Accelerate Decision-Making', href: '/why-choose-us#accelerate-decision-making' },
-        ],
-      },
-    ],
-  },
+    {
+      kind: 'mega',
+      id: 'solutions',
+      label: t('solutions'),
+      groups: [
+        {
+          title: t('useCases'),
+          items: [
+            { label: t('useCase1'), href: '/why-choose-us#ai-ml' },
+            { label: t('useCase2'), href: '/why-choose-us#real-time-streaming' },
+            { label: t('useCase3'), href: '/why-choose-us#iceberg-tables' },
+            { label: t('useCase4'), href: '/why-choose-us#real-time-operational-intelligence' },
+            { label: t('useCase5'), href: '/why-choose-us#autonomous-decisioning' },
+            { label: t('useCase6'), href: '/why-choose-us#energy-optimization' },
+            { label: t('useCase7'), href: '/why-choose-us#digital-twin' },
+            { label: t('useCase8'), href: '/why-choose-us#edge-intelligence' },
+            { label: t('useCase9'), href: '/why-choose-us#data-ai-modernization' },
+            { label: t('useCase10'), href: '/why-choose-us#ai-governance-trust' },
+          ],
+        },
+        {
+          title: t('outcomes'),
+          items: [
+            { label: t('outcome1'), href: '/why-choose-us#reduce-cost' },
+            { label: t('outcome2'), href: '/why-choose-us#improve-efficiency' },
+            { label: t('outcome3'), href: '/why-choose-us#enhance-safety' },
+            { label: t('outcome4'), href: '/why-choose-us#enable-autonomy' },
+            { label: t('outcome5'), href: '/why-choose-us#trust-compliance' },
+            { label: t('outcome6'), href: '/why-choose-us#accelerate-decision-making' },
+          ],
+        },
+      ],
+    },
 
-  {
-    kind: 'dropdown',
-    id: 'industries',
-    label: 'Industries',
-    items: [
-      { label: 'Mining & Manufacturing', href: '/architecture#mining-manufacturing' },
-      { label: 'Automobiles', href: '/architecture#automobiles' },
-      { label: 'BFSI and Capital Markets', href: '/architecture#bfsi' },
-      { label: 'Mining & Metals', href: '/architecture#mining-metals' },
-      { label: 'Steel & Manufacturing', href: '/architecture#steel-manufacturing' },
-      { label: 'Data Centers', href: '/architecture#data-centers' },
-      { label: 'Energy & Utilities', href: '/architecture#energy-utilities' },
-      { label: 'Infrastructure & Smart Cities', href: '/architecture#smart-cities' },
-      { label: 'Logistics & Mobility', href: '/architecture#logistics-mobility' },
-    ],
-  },
+    {
+      kind: 'dropdown',
+      id: 'industries',
+      label: t('industries'),
+      items: [
+        { label: t('industry1'), href: '/architecture#mining-manufacturing' },
+        { label: t('industry2'), href: '/architecture#automobiles' },
+        { label: t('industry3'), href: '/architecture#bfsi' },
+        { label: t('industry4'), href: '/architecture#mining-metals' },
+        { label: t('industry5'), href: '/architecture#steel-manufacturing' },
+        { label: t('industry6'), href: '/architecture#data-centers' },
+        { label: t('industry7'), href: '/architecture#energy-utilities' },
+        { label: t('industry8'), href: '/architecture#smart-cities' },
+        { label: t('industry9'), href: '/architecture#logistics-mobility' },
+      ],
+    },
 
-  {
-    kind: 'dropdown',
-    id: 'learn',
-    label: 'Learn',
-    items: [
-      { label: 'Resources', href: '/resources' },
-      { label: 'Documentation', href: '/resources#documentation' },
-      { label: 'Customer Use Cases', href: '/resources#customer-use-cases' },
-      { label: 'Blog', href: '/resources#blog' },
-      { label: 'Events', href: '/resources#events' },
-    ],
-  },
+    {
+      kind: 'dropdown',
+      id: 'learn',
+      label: t('learn'),
+      items: [
+        { label: t('learn1'), href: '/resources' },
+        { label: t('learn2'), href: '/resources#documentation' },
+        { label: t('learn3'), href: '/resources#customer-use-cases' },
+        { label: t('learn4'), href: '/resources#blog' },
+        { label: t('learn5'), href: '/resources#events' },
+      ],
+    },
 
-  {
-    kind: 'dropdown',
-    id: 'company',
-    label: 'Company',
-    items: [
-      { label: 'About Us', href: '/about' },
-      { label: 'Press', href: '/about#press' },
-      { label: 'Customers', href: '/about#customers' },
-      { label: 'Partners', href: '/about#partners' },
-      { label: 'Careers', href: '/about#careers' },
-      { label: 'Contact Us', href: '/about#contact' },
-    ],
-  },
-]
+    {
+      kind: 'dropdown',
+      id: 'company',
+      label: t('company'),
+      items: [
+        { label: t('companyAbout'), href: '/about' },
+        { label: t('companyPress'), href: '/about#press' },
+        { label: t('companyCustomers'), href: '/about#customers' },
+        { label: t('companyPartners'), href: '/about#partners' },
+        { label: t('companyCareers'), href: '/about#careers' },
+        { label: t('companyContact'), href: '/about#contact' },
+      ],
+    },
+  ]
+}
+
+function withLocale(href: string, locale: string) {
+  if (!href.startsWith('/') || href.startsWith('//')) return href
+  if (href === '/') return `/${locale}`
+  return `/${locale}${href}`
+}
 
 const SANAS_EASE = [0.165, 0.84, 0.44, 1] as const
 const SANAS_EASE_CSS = 'cubic-bezier(0.165, 0.84, 0.44, 1)'
@@ -132,13 +142,18 @@ export default function Navbar() {
 
   const { theme, setTheme } = useTheme()
   const pathname = usePathname()
+  const { locale, dict } = useI18n()
+  const tNav = (key: string) =>
+    (dict.nav as Record<string, string>)[key] ?? key
+  const navigation = buildNavigation(tNav)
+  const homePath = `/${locale}`
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true)
     const handleScroll = () => {
       const y = window.scrollY
-      setOnHero(pathname === '/' && y < window.innerHeight * 0.85)
+      setOnHero(pathname === homePath && y < window.innerHeight * 0.85)
       setScrolled(y > 48)
       // Close any open dropdown on scroll — it would drift otherwise
       setOpenMenu(null)
@@ -146,7 +161,7 @@ export default function Navbar() {
     window.addEventListener('scroll', handleScroll, { passive: true })
     handleScroll()
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [pathname])
+  }, [pathname, homePath])
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -195,8 +210,9 @@ export default function Navbar() {
   const toggleTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark')
 
   const isActive = (href: string) => {
-    if (href === '/') return pathname === '/'
-    return pathname === href || pathname?.startsWith(href.split('#')[0])
+    const target = withLocale(href, locale)
+    if (href === '/') return pathname === homePath
+    return pathname === target || pathname?.startsWith(target.split('#')[0])
   }
 
   const itemActive = (item: NavItem) => {
@@ -283,7 +299,7 @@ export default function Navbar() {
           }}
         >
           {/* Logo */}
-          <Link href="/" className="flex-shrink-0 flex items-center z-10 relative">
+          <Link href={homePath} className="flex-shrink-0 flex items-center z-10 relative">
             <Image
               src="/logo.png"
               alt="MonkDB"
@@ -385,7 +401,7 @@ export default function Navbar() {
                   >
                     {item.kind === 'link' ? (
                       <Link
-                        href={item.href}
+                        href={withLocale(item.href, locale)}
                         className="relative inline-block"
                         style={{ textDecoration: 'none' }}
                       >
@@ -409,9 +425,20 @@ export default function Navbar() {
 
           {/* Right-side controls */}
           <div className="flex items-center gap-2 ml-auto z-10 relative">
+            <div className="hidden md:inline-flex">
+              <LanguageSwitcher
+                iconColor={linkColor}
+                panelBg={pillBg}
+                panelBorder={pillBorder}
+                panelText={panelText}
+                panelTextHover={panelTextHover}
+                variant="full"
+              />
+            </div>
+
             {mounted && (
               <button
-                aria-label="Toggle theme"
+                aria-label={tNav('toggleTheme')}
                 onClick={toggleTheme}
                 className="hidden md:inline-flex p-2 rounded-full"
                 style={{ color: linkColor, transition: 'color 150ms linear' }}
@@ -445,11 +472,11 @@ export default function Navbar() {
                 transition: `background-color 350ms ${SANAS_EASE_CSS}, color 350ms ${SANAS_EASE_CSS}`,
               }}
             >
-              Book Demo
+              {tNav('bookDemo')}
             </motion.a>
 
             <button
-              aria-label="Toggle menu"
+              aria-label={tNav('toggleMenu')}
               onClick={() => setMobileOpen(!mobileOpen)}
               className="md:hidden w-10 h-10 flex items-center justify-center"
               style={{ color: linkColor }}
@@ -581,7 +608,7 @@ export default function Navbar() {
                       }}
                     >
                       <Link
-                        href={child.href}
+                        href={withLocale(child.href, locale)}
                         onClick={() => setOpenMenu(null)}
                         className="block rounded-xl"
                         style={{
@@ -669,7 +696,7 @@ export default function Navbar() {
                             }}
                           >
                             <Link
-                              href={child.href}
+                              href={withLocale(child.href, locale)}
                               onClick={() => setOpenMenu(null)}
                               className="block rounded-xl"
                               style={{
@@ -757,7 +784,7 @@ export default function Navbar() {
                       }}
                     >
                       <Link
-                        href={item.href}
+                        href={withLocale(item.href, locale)}
                         onClick={() => setMobileOpen(false)}
                         className="block px-4 py-3 text-[16px] rounded-2xl"
                         style={{
@@ -855,7 +882,7 @@ export default function Navbar() {
                                 {group.items.map((child) => (
                                   <Link
                                     key={child.label}
-                                    href={child.href}
+                                    href={withLocale(child.href, locale)}
                                     onClick={() => {
                                       setMobileOpen(false)
                                       setMobileExpanded(null)
@@ -900,8 +927,26 @@ export default function Navbar() {
                   textDecoration: 'none',
                 }}
               >
-                Book Demo
+                {tNav('bookDemo')}
               </motion.a>
+
+              <div
+                className="flex items-center justify-center mt-2 border-t pt-3"
+                style={{ borderColor: pillBorder }}
+              >
+                <LanguageSwitcher
+                  iconColor={
+                    onHero || theme === 'dark'
+                      ? 'rgba(255,255,255,0.78)'
+                      : '#4B5563'
+                  }
+                  panelBg={pillBg}
+                  panelBorder={pillBorder}
+                  panelText={panelText}
+                  panelTextHover={panelTextHover}
+                  variant="full"
+                />
+              </div>
 
               {mounted && (
                 <button
@@ -909,17 +954,16 @@ export default function Navbar() {
                     toggleTheme()
                     setMobileOpen(false)
                   }}
-                  className="flex items-center justify-center gap-2 px-4 py-3 text-[14px] font-medium mt-2 border-t pt-3"
+                  className="flex items-center justify-center gap-2 px-4 py-3 text-[14px] font-medium mt-1"
                   style={{
                     color:
                       onHero || theme === 'dark'
                         ? 'rgba(255,255,255,0.78)'
                         : '#4B5563',
-                    borderColor: pillBorder,
                   }}
                 >
                   {theme === 'dark' ? <Sun size={15} /> : <Moon size={15} />}
-                  {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+                  {theme === 'dark' ? tNav('lightMode') : tNav('darkMode')}
                 </button>
               )}
             </nav>

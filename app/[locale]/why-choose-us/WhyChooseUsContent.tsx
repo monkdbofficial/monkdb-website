@@ -8,6 +8,7 @@ import PageBanner from '@/components/PageBanner'
 import Footer from '@/components/Footer'
 import ScrollToTop from '@/components/ScrollToTop'
 import ScrollProgressBar from '@/components/ScrollProgressBar'
+import { useI18n } from '@/i18n/I18nProvider'
 
 /* ─────────────────────────────────────────────────────────────────────────────
    ANIMATION VARIANTS
@@ -61,56 +62,56 @@ function AnimatedWords({
 /* ─────────────────────────────────────────────────────────────────────────────
    FEATURE ROWS DATA
 ───────────────────────────────────────────────────────────────────────────── */
-const FEATURES = [
-  {
-    title: 'Neural Network Development',
-    description:
-      'Custom design and development of neural network architectures tailored to your specific business needs.',
-    image: '/AdobeStock_480053037 1.svg',
-    bg: '#1238C8',
-    layout: 'bg-full' as const,
-    darkText: false,
-    textRight: false,
-  },
-  {
-    title: 'Neural Network Development',
-    description:
-      'Custom design and development of neural network architectures tailored to your specific business needs.',
-    image: '/3d-geometric-abstract-twist-background 1.svg',
-    bg: 'linear-gradient(120deg, #1228CC 0%, #1A38E8 100%)',
-    layout: 'img-text' as const,
-    darkText: false,
-    textRight: false,
-    imageWidth: '48%',
-    imageOverlay: '#3355EE',
-  },
-  {
-    title: 'Neural Network',
-    description:
-      'Custom design and development of neural network architectures tailored to your specific business needs.',
-    image: '/16416 1.svg',
-    bg: '#A8DCFF',
-    layout: 'bg-full' as const,
-    darkText: true,
-    textRight: false,
-  },
-  {
-    title: 'Neural Network',
-    description:
-      'Custom design and development of neural network architectures tailored to your specific business needs.',
-    image: '/15909 1.svg',
-    bg: '#C4ECFF',
-    layout: 'bg-full' as const,
-    darkText: true,
-    textRight: true,
-    imgFilter: 'sepia(1) hue-rotate(200deg) saturate(4) brightness(1.05)',
-  },
-]
+function buildFeatures(t: Record<string, string>) {
+  return [
+    {
+      title: t.neuralDevTitle,
+      description: t.neuralDesc,
+      image: '/AdobeStock_480053037 1.svg',
+      bg: '#1238C8',
+      layout: 'bg-full' as const,
+      darkText: false,
+      textRight: false,
+    },
+    {
+      title: t.neuralDevTitle,
+      description: t.neuralDesc,
+      image: '/3d-geometric-abstract-twist-background 1.svg',
+      bg: 'linear-gradient(120deg, #1228CC 0%, #1A38E8 100%)',
+      layout: 'img-text' as const,
+      darkText: false,
+      textRight: false,
+      imageWidth: '48%',
+      imageOverlay: '#3355EE',
+    },
+    {
+      title: t.neuralTitle,
+      description: t.neuralDesc,
+      image: '/16416 1.svg',
+      bg: '#A8DCFF',
+      layout: 'bg-full' as const,
+      darkText: true,
+      textRight: false,
+    },
+    {
+      title: t.neuralTitle,
+      description: t.neuralDesc,
+      image: '/15909 1.svg',
+      bg: '#C4ECFF',
+      layout: 'bg-full' as const,
+      darkText: true,
+      textRight: true,
+      imgFilter: 'sepia(1) hue-rotate(200deg) saturate(4) brightness(1.05)',
+    },
+  ]
+}
+
+type Feature = ReturnType<typeof buildFeatures>[number]
 
 /* ─────────────────────────────────────────────────────────────────────────────
    FEATURE ROW COMPONENT
 ───────────────────────────────────────────────────────────────────────────── */
-function FeatureRow({ feat, index }: { feat: (typeof FEATURES)[0]; index: number }) {
+function FeatureRow({ feat, index }: { feat: Feature; index: number }) {
   const titleColor = feat.darkText ? '#0A1E6E' : '#ffffff'
   const descColor  = feat.darkText ? 'rgba(10,30,110,0.72)' : 'rgba(255,255,255,0.72)'
   const ROW_H      = 'clamp(180px, 22vw, 280px)'
@@ -244,6 +245,17 @@ function FeatureRow({ feat, index }: { feat: (typeof FEATURES)[0]; index: number
 ───────────────────────────────────────────────────────────────────────────── */
 export default function WhyChooseUsPage() {
   const [form, setForm] = useState({ firstName: '', lastName: '', email: '', phone: '', zip: '', message: '' })
+  const { dict } = useI18n()
+  const t = (((dict as Record<string, unknown>).whyChooseUsPage) ?? {}) as Record<string, string>
+  const FEATURES = buildFeatures(t)
+  const team = [
+    { name: 'Aarav Mehta',   role: t.role1 ?? 'Founder and CEO' },
+    { name: 'Priya Raman',   role: t.role2 ?? 'Chief Architect' },
+    { name: 'Noah Fischer',  role: t.role3 ?? 'Head of Engineering' },
+    { name: 'Elena Rossi',   role: t.role4 ?? 'VP, AI and Research' },
+    { name: 'Kenji Tanaka',  role: t.role5 ?? 'Head of Product' },
+    { name: 'Sofia Alvarez', role: t.role6 ?? 'Head of Partnerships' },
+  ]
 
   const introRef    = useRef(null)
   const introInView = useInView(introRef, { once: true, margin: '-60px' })
@@ -271,7 +283,7 @@ export default function WhyChooseUsPage() {
     <main className="min-h-screen bg-white dark:bg-[#0f1623]">
       <ScrollProgressBar />
       <Navbar />
-      <PageBanner title="Why Choose Us" />
+      <PageBanner />
 
       {/* ══════════════════════════════════════════════════════════════════════
           SECTION 1 — INTRO
@@ -302,7 +314,7 @@ export default function WhyChooseUsPage() {
                   transition={{ duration: 0.55, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
                   style={{ display: 'block' }}
                 >
-                  Let&apos;s Build the Future of
+                  {t.introTitleLine1 ?? 'Let us build the future of'}
                 </motion.span>
                 <motion.span
                   initial={{ opacity: 0, y: 20 }}
@@ -310,7 +322,7 @@ export default function WhyChooseUsPage() {
                   transition={{ duration: 0.55, delay: 0.22, ease: [0.25, 0.46, 0.45, 0.94] }}
                   style={{ display: 'block' }}
                 >
-                  Data Infrastructure, Together
+                  {t.introTitleLine2 ?? 'data infrastructure, together'}
                 </motion.span>
               </h2>
             </motion.div>
@@ -324,7 +336,7 @@ export default function WhyChooseUsPage() {
                 className="text-gray-500 dark:text-gray-400"
                 style={{ fontSize: 'clamp(14px, 1.2vw, 17px)', fontWeight: 400, maxWidth: '600px', lineHeight: 1.75, margin: '0 auto' }}
               >
-                At MonkDB, our journey is deeply personal, born from decades of experience in enterprise systems, data management, and AI. We&apos;ve seen firsthand how fragmented data infrastructure holds back innovation.
+                {t.introBody ?? ''}
               </p>
             </motion.div>
           </motion.div>
@@ -354,12 +366,12 @@ export default function WhyChooseUsPage() {
             >
               <motion.div variants={fadeUp}>
                 <h2 className="text-white" style={{ fontSize: 'clamp(22px, 3vw, 52px)', fontWeight: 300, lineHeight: 1.12, letterSpacing: '-0.01em', margin: 0 }}>
-                  What Makes MonkDB The Best Choice For Your Enterprise
+                  {t.chooseTitle ?? 'What makes MonkDB the best choice for your enterprise'}
                 </h2>
               </motion.div>
               <motion.div variants={fadeUp} className="flex flex-col gap-5 lg:pt-2">
                 <p className="text-white/65" style={{ fontSize: 'clamp(14px, 1.2vw, 17px)', fontWeight: 400, lineHeight: 1.75, margin: 0 }}>
-                  At MonkDB, our journey is deeply personal, born from decades of experience in enterprise systems, data management, and AI. We&apos;ve seen firsthand how fragmented data infrastructure holds back innovation.
+                  {t.introBody ?? ''}
                 </p>
                 <motion.a
                   href="#features"
@@ -368,7 +380,7 @@ export default function WhyChooseUsPage() {
                   className="inline-flex items-center gap-3 self-start text-white"
                   style={{ background: '#1A38E8', borderRadius: '10px', padding: '12px 24px', fontSize: 'clamp(0.82rem, 1.1vw, 0.9rem)', fontWeight: 600, textDecoration: 'none', boxShadow: '0 8px 24px rgba(26,56,232,0.35)' }}
                 >
-                  Discover
+                  {t.chooseCta ?? 'Discover'}
                   <motion.span whileHover={{ x: 3, y: -3 }} style={{ display: 'inline-flex' }}>
                     <ArrowUpRight size={16} />
                   </motion.span>
@@ -405,34 +417,26 @@ export default function WhyChooseUsPage() {
               style={{ fontSize: '0.75rem', marginBottom: '14px', letterSpacing: '0.08em', textTransform: 'uppercase' }}
             >
               <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#1A38E8', display: 'inline-block' }} />
-              Team
+              {t.teamKicker ?? 'Team'}
             </span>
             <h2
               className="text-gray-900 dark:text-white"
               style={{ fontSize: 'clamp(28px, 4vw, 62px)', fontWeight: 300, lineHeight: 1.12, letterSpacing: '-0.01em', marginBottom: '14px' }}
             >
-              Meet the <span className="gradient-text-animate" style={{ fontWeight: 400 }}>MonkDB</span> team
+              {t.teamTitle1 ?? 'Meet the'} <span className="gradient-text-animate" style={{ fontWeight: 400 }}>MonkDB</span> {t.teamTitle2 ?? 'team'}
             </h2>
             <p
               className="text-gray-500 dark:text-gray-400 leading-relaxed"
               style={{ fontSize: 'clamp(14px, 1.2vw, 17px)', maxWidth: '560px', margin: 0 }}
             >
-              Meet the talented individuals who drive our company&apos;s success with their
-              dedication, expertise, and passion for innovation.
+              {t.teamBody ?? ''}
             </p>
           </motion.div>
 
           {/* Grid — always 3 cols on desktop so 6 members => 3×2 (balanced top/bottom).
               Capped and centered so cards stay compact on very wide screens. */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 max-w-6xl mx-auto">
-            {[
-              { name: 'Aarav Mehta',   role: 'Founder & CEO' },
-              { name: 'Priya Raman',   role: 'Chief Architect' },
-              { name: 'Noah Fischer',  role: 'Head of Engineering' },
-              { name: 'Elena Rossi',   role: 'VP, AI & Research' },
-              { name: 'Kenji Tanaka',  role: 'Head of Product' },
-              { name: 'Sofia Alvarez', role: 'Head of Partnerships' },
-            ].map((member, i) => (
+            {team.map((member, i) => (
               <motion.div
                 key={member.name}
                 initial={{ opacity: 0, y: 28 }}
@@ -492,7 +496,7 @@ export default function WhyChooseUsPage() {
                   </div>
                   <motion.a
                     href="#"
-                    aria-label={`${member.name} on LinkedIn`}
+                    aria-label={`${member.name} ${t.linkedinAria ?? 'on LinkedIn'}`}
                     whileHover={{ scale: 1.08, backgroundColor: '#1A38E8' }}
                     whileTap={{ scale: 0.94 }}
                     className="flex-shrink-0 flex items-center justify-center rounded-[7px] text-white"
@@ -518,7 +522,7 @@ export default function WhyChooseUsPage() {
       <section className="section-grid bg-white dark:bg-[#0f1623] py-8 sm:py-10">
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28 flex justify-center">
           <AnimatedWords
-            text="At MonkDB, our journey is deeply personal, born from decades of experience in enterprise systems, data management, and AI. We've seen firsthand how fragmented data infrastructure holds back innovation."
+            text={t.introBody ?? ''}
             className="text-gray-500 dark:text-gray-400 text-center"
             style={{ fontSize: 'clamp(13px, 1.2vw, 16px)', fontWeight: 400, maxWidth: '720px', lineHeight: 1.8 }}
           />
@@ -547,21 +551,21 @@ export default function WhyChooseUsPage() {
                 viewport={{ once: true, margin: '-60px' }}
               >
                 <motion.span variants={fadeUp} style={{ fontSize: '0.75rem', fontWeight: 500, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#ffffff', display: 'block', marginBottom: '14px' }}>
-                  [Get In Touch]
+                  [{t.contactKicker ?? 'Get in touch'}]
                 </motion.span>
 
                 <motion.h2 variants={fadeUp} className="text-white" style={{ fontSize: 'clamp(22px, 3vw, 48px)', fontWeight: 300, lineHeight: 1.15, letterSpacing: '-0.01em', marginBottom: '16px' }}>
-                  Choose The Unique MonkDB Platform And Head Into The World Of Data Infrastructure With Confidence And Ease.
+                  {t.contactTitle ?? ''}
                 </motion.h2>
 
                 <motion.p variants={fadeUp} className="text-white/50" style={{ fontSize: 'clamp(14px, 1.2vw, 17px)', fontWeight: 400, lineHeight: 1.75, marginBottom: '32px' }}>
-                  Choose The Unique MonkDB Platform And Head Into The World Of Data Infrastructure And Save. It&apos;s Simple.
+                  {t.contactBody ?? ''}
                 </motion.p>
 
                 <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-8">
                   {/* Phone */}
                   <div>
-                    <p className="text-white/70" style={{ fontSize: '0.8rem', fontWeight: 500, marginBottom: '8px' }}>Call Center</p>
+                    <p className="text-white/70" style={{ fontSize: '0.8rem', fontWeight: 500, marginBottom: '8px' }}>{t.callCenter ?? 'Call Center'}</p>
                     <div className="flex items-center gap-2">
                       <motion.span
                         whileHover={{ scale: 1.1, background: 'rgba(255,255,255,0.2)' }}
@@ -579,7 +583,7 @@ export default function WhyChooseUsPage() {
                   </div>
                   {/* Email */}
                   <div>
-                    <p className="text-white/70" style={{ fontSize: '0.8rem', fontWeight: 500, marginBottom: '8px' }}>Email</p>
+                    <p className="text-white/70" style={{ fontSize: '0.8rem', fontWeight: 500, marginBottom: '8px' }}>{t.email ?? 'Email'}</p>
                     <div className="flex items-center gap-2">
                       <motion.span
                         whileHover={{ scale: 1.1, background: 'rgba(255,255,255,0.2)' }}
@@ -610,11 +614,11 @@ export default function WhyChooseUsPage() {
               >
                 {/* Row 1 */}
                 <motion.div variants={fadeUp} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <input type="text" placeholder="First Name" value={form.firstName}
+                  <input type="text" placeholder={t.formFirstName ?? 'First Name'} value={form.firstName}
                     onChange={e => setForm(f => ({ ...f, firstName: e.target.value }))}
                     className="bg-white text-gray-800 placeholder-gray-400 outline-none transition-all w-full hover:border-blue-400 focus:border-blue-500"
                     style={{ border: '1.5px solid #e5e7eb', borderRadius: '12px', padding: '14px 18px', fontSize: '0.875rem' }} />
-                  <input type="text" placeholder="Last Name" value={form.lastName}
+                  <input type="text" placeholder={t.formLastName ?? 'Last Name'} value={form.lastName}
                     onChange={e => setForm(f => ({ ...f, lastName: e.target.value }))}
                     className="bg-white text-gray-800 placeholder-gray-400 outline-none transition-all w-full hover:border-blue-400 focus:border-blue-500"
                     style={{ border: '1.5px solid #e5e7eb', borderRadius: '12px', padding: '14px 18px', fontSize: '0.875rem' }} />
@@ -622,7 +626,7 @@ export default function WhyChooseUsPage() {
 
                 {/* Row 2 */}
                 <motion.div variants={fadeUp}>
-                  <input type="email" placeholder="Email Address" value={form.email}
+                  <input type="email" placeholder={t.formEmailAddress ?? 'Email Address'} value={form.email}
                     onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
                     className="bg-white text-gray-800 placeholder-gray-400 outline-none transition-all w-full hover:border-blue-400 focus:border-blue-500"
                     style={{ border: '1.5px solid #e5e7eb', borderRadius: '12px', padding: '14px 18px', fontSize: '0.875rem' }} />
@@ -630,11 +634,11 @@ export default function WhyChooseUsPage() {
 
                 {/* Row 3 */}
                 <motion.div variants={fadeUp} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <input type="tel" placeholder="Contact No" value={form.phone}
+                  <input type="tel" placeholder={t.formContactNo ?? 'Contact No'} value={form.phone}
                     onChange={e => setForm(f => ({ ...f, phone: e.target.value }))}
                     className="bg-white text-gray-800 placeholder-gray-400 outline-none transition-all w-full hover:border-blue-400 focus:border-blue-500"
                     style={{ border: '1.5px solid #e5e7eb', borderRadius: '12px', padding: '14px 18px', fontSize: '0.875rem' }} />
-                  <input type="text" placeholder="Zip/Postal" value={form.zip}
+                  <input type="text" placeholder={t.formZipPostal ?? 'Zip/Postal'} value={form.zip}
                     onChange={e => setForm(f => ({ ...f, zip: e.target.value }))}
                     className="bg-white text-gray-800 placeholder-gray-400 outline-none transition-all w-full hover:border-blue-400 focus:border-blue-500"
                     style={{ border: '1.5px solid #e5e7eb', borderRadius: '12px', padding: '14px 18px', fontSize: '0.875rem' }} />
@@ -642,7 +646,7 @@ export default function WhyChooseUsPage() {
 
                 {/* Row 4 */}
                 <motion.div variants={fadeUp}>
-                  <textarea placeholder="Message" rows={5} value={form.message}
+                  <textarea placeholder={t.formMessage ?? 'Message'} rows={5} value={form.message}
                     onChange={e => setForm(f => ({ ...f, message: e.target.value }))}
                     className="bg-white text-gray-800 placeholder-gray-400 outline-none transition-all resize-none w-full hover:border-blue-400 focus:border-blue-500"
                     style={{ border: '1.5px solid #e5e7eb', borderRadius: '12px', padding: '14px 18px', fontSize: '0.875rem' }} />
@@ -657,7 +661,7 @@ export default function WhyChooseUsPage() {
                     className="w-full sm:w-auto"
                     style={{ background: '#1A38E8', color: '#fff', borderRadius: '999px', padding: '14px 48px', fontSize: 'clamp(0.82rem, 1.1vw, 0.9rem)', fontWeight: 600, border: 'none', cursor: 'pointer', boxShadow: '0 8px 24px rgba(26,56,232,0.35)' }}
                   >
-                    Submit
+                    {t.formSubmit ?? 'Submit'}
                   </motion.button>
                 </motion.div>
               </motion.form>

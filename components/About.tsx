@@ -3,6 +3,7 @@
 import { motion, useInView, animate } from 'framer-motion'
 import { useRef, useEffect } from 'react'
 import { ArrowUpRight } from 'lucide-react'
+import { useI18n } from '@/i18n/I18nProvider'
 
 function Counter({ to }: { to: number }) {
   const ref = useRef<HTMLSpanElement>(null)
@@ -32,6 +33,9 @@ function Counter({ to }: { to: number }) {
 export default function About() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-80px' })
+  const { dict } = useI18n()
+  const t = (((dict as Record<string, unknown>).about) ?? {}) as Record<string, string>
+  const tags = [t.tag1, t.tag2, t.tag3, t.tag4]
 
   return (
     <section
@@ -73,7 +77,7 @@ export default function About() {
                   whiteSpace: 'nowrap',
                 }}
               >
-                02 / About
+                {t.label}
               </span>
               <div
                 style={{
@@ -89,9 +93,9 @@ export default function About() {
               className="leading-[1.1]"
               style={{ fontSize: 'clamp(28px, 4vw, 62px)', marginBottom: 'clamp(24px, 3vw, 32px)', fontWeight: 300, letterSpacing: '-0.015em' }}
             >
-              <span className="text-gray-900 dark:text-white">Your complete </span>
-              <span className="gradient-text-animate" style={{ fontWeight: 500 }}>data sovereignty</span>
-              <span className="text-gray-900 dark:text-white">, engineered for the AI-native era</span>
+              <span className="text-gray-900 dark:text-white">{t.titlePart1}</span>
+              <span className="gradient-text-animate" style={{ fontWeight: 500 }}>{t.titleAccent}</span>
+              <span className="text-gray-900 dark:text-white">{t.titlePart2}</span>
             </h2>
 
             {/* Animated counter */}
@@ -127,7 +131,7 @@ export default function About() {
                 className="text-gray-700 dark:text-white font-medium leading-snug"
                 style={{ fontSize: 'clamp(13px, 1.2vw, 17px)', flexShrink: 0 }}
               >
-                AI-Native Solutions<br />Delivered to Clients
+                {t.counterLabel1}<br />{t.counterLabel2}
               </span>
             </div>
 
@@ -148,8 +152,7 @@ export default function About() {
               className="text-gray-600 dark:text-gray-300 leading-relaxed"
               style={{ fontSize: 'clamp(14px, 1.2vw, 17px)', margin: 0 }}
             >
-              The existing data infrastructure is excessively cumbersome, sluggish, and complex,
-              making it unsuitable for constructing an AI-native sovereign Data Plane. MonkDB is prepared.
+              {t.para1}
             </motion.p>
 
             <motion.p
@@ -159,9 +162,7 @@ export default function About() {
               className="text-gray-600 dark:text-gray-300 leading-relaxed"
               style={{ fontSize: 'clamp(14px, 1.2vw, 17px)', margin: 0 }}
             >
-              MonkDB unifies streams, databases, applications, and models into a single secure data layer,
-              with built-in governance, identity, and policy enforcement. Every agent action is authorized
-              and compliant before it is executed.
+              {t.para2}
             </motion.p>
 
             {/* Feature pills */}
@@ -171,7 +172,7 @@ export default function About() {
               transition={{ duration: 0.6, delay: 0.38 }}
               className="flex flex-wrap gap-2 mt-1"
             >
-              {['Governed Access', 'Real-Time Streaming', 'Full Traceability', 'Agent-Ready'].map((tag, i) => (
+              {tags.map((tag, i) => (
                 <span
                   key={tag}
                   style={{
@@ -214,7 +215,7 @@ export default function About() {
                   boxShadow: '0 4px 16px rgba(26,56,232,0.25)',
                 }}
               >
-                Explore Features
+                {t.cta}
                 <ArrowUpRight size={15} />
               </motion.a>
             </motion.div>

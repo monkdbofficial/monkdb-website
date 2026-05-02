@@ -3,17 +3,15 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { ArrowUpRight, Clock } from 'lucide-react'
-
-const afterItems = [
-  'Simple: single binary, zero ops',
-  'Efficient: high-performance C++ engine',
-  'Interoperable: every protocol & format',
-  'Safe: sovereignty, governance, traceability',
-]
+import { useI18n } from '@/i18n/I18nProvider'
 
 export default function FeatureBanner() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-60px' })
+  const { dict } = useI18n()
+  const t = (((dict as Record<string, unknown>).featureBanner) ?? {}) as Record<string, string>
+  const card1Tags = [t.card1Tag1, t.card1Tag2]
+  const afterItems = [t.card3Item1, t.card3Item2, t.card3Item3, t.card3Item4]
 
   return (
     <section
@@ -101,7 +99,7 @@ export default function FeatureBanner() {
 
             {/* Tags — absolutely positioned top right */}
             <div className="absolute top-3 right-3 sm:top-5 sm:right-5 z-20 flex flex-wrap justify-end gap-1.5">
-              {['AI Solution', 'AI Services'].map((tag) => (
+              {card1Tags.map((tag) => (
                 <span key={tag} className="px-3 py-1 rounded-full bg-white text-gray-900 text-[10px] sm:text-xs font-medium whitespace-nowrap">
                   {tag}
                 </span>
@@ -115,8 +113,7 @@ export default function FeatureBanner() {
               {/* Text — constrained so it doesn't bleed into the image area */}
               <div className="max-w-[80%] sm:max-w-[68%] lg:max-w-[58%]">
                 <p className="text-white font-light leading-snug" style={{ fontSize: 'clamp(0.78rem, 1.2vw, 1rem)' }}>
-                  Keep AI ecosystems grounded in continuous data context, connecting streams,
-                  databases, applications, and models into one secure layer.
+                  {t.card1Body}
                 </p>
               </div>
 
@@ -127,7 +124,7 @@ export default function FeatureBanner() {
                   whileHover={{ x: 3 }}
                   className="text-white text-xs font-light hover:text-white/90 transition-colors"
                 >
-                  Explore more ↗
+                  {t.card1Cta} ↗
                 </motion.a>
                 <div style={{ height: '1px', background: 'rgba(255,255,255,0.6)', marginTop: '4px' }} />
               </div>
@@ -190,11 +187,10 @@ export default function FeatureBanner() {
 
               <div style={{ maxWidth: '80%' }}>
                 <h3 className="text-white leading-tight mb-3 sm:mb-4" style={{ fontSize: 'clamp(1rem, 1.8vw, 1.4rem)', fontWeight: 400 }}>
-                  Let&apos;s Build the Future of Data Infrastructure, Together
+                  {t.card2Title}
                 </h3>
                 <p className="text-white/65 leading-relaxed" style={{ fontSize: 'clamp(0.8rem, 1.2vw, 1rem)' }}>
-                  Power AI ecosystems and agents with seamless access to real-time and
-                  historical data, through a single, unified query experience.
+                  {t.card2Body}
                 </p>
               </div>
 
@@ -215,7 +211,7 @@ export default function FeatureBanner() {
                       </svg>
                     ))}
                   </div>
-                  <span className="text-white/80 text-xs font-medium">20K+ Live Users</span>
+                  <span className="text-white/80 text-xs font-medium">{t.card2Stat}</span>
                 </div>
               </div>
             </div>
@@ -245,7 +241,7 @@ export default function FeatureBanner() {
 
             <div className="relative z-10 p-5 sm:p-7 flex flex-col h-full justify-between">
               <div>
-                <h3 className="text-white mb-4 sm:mb-6" style={{ fontSize: 'clamp(1.05rem, 1.8vw, 1.5rem)', fontWeight: 400 }}>MonkDB is AI Ready</h3>
+                <h3 className="text-white mb-4 sm:mb-6" style={{ fontSize: 'clamp(1.05rem, 1.8vw, 1.5rem)', fontWeight: 400 }}>{t.card3Title}</h3>
                 <ul className="space-y-3 sm:space-y-4">
                   {afterItems.map((item, i) => (
                     <motion.li key={item}

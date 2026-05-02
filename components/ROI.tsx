@@ -2,28 +2,7 @@
 
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
-
-const beforeItems = [
-  'Multiple specialized databases',
-  'Complex, brittle data pipelines',
-  'Static infrastructure, no real-time',
-  'Increased DevOps overhead',
-  'Fragmented AI & governance',
-]
-
-const afterItems = [
-  'Simple: single binary, zero ops',
-  'Efficient: high-performance C++ engine',
-  'Interoperable: every protocol & format',
-  'Safe: sovereignty & traceability built in',
-  'AI-ready: agent-grade context layer',
-]
-
-const stats = [
-  { value: '70%', label: 'Cost reduction' },
-  { value: '5×', label: 'Faster queries' },
-  { value: '1', label: 'Unified platform' },
-]
+import { useI18n } from '@/i18n/I18nProvider'
 
 function PulseDot({ color, delay }: { color: string; delay: number }) {
   return (
@@ -44,6 +23,15 @@ function PulseDot({ color, delay }: { color: string; delay: number }) {
 export default function ROI() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
+  const { dict } = useI18n()
+  const t = (((dict as Record<string, unknown>).roi) ?? {}) as Record<string, string>
+  const beforeItems = [t.before1, t.before2, t.before3, t.before4, t.before5]
+  const afterItems = [t.after1, t.after2, t.after3, t.after4, t.after5]
+  const stats = [
+    { value: '70%', label: t.stat1Label },
+    { value: '5×', label: t.stat2Label },
+    { value: '1', label: t.stat3Label },
+  ]
 
   return (
     <section
@@ -63,9 +51,9 @@ export default function ROI() {
             className="leading-tight"
             style={{ fontSize: 'clamp(26px, 3.5vw, 52px)', fontWeight: 300, letterSpacing: '-0.01em', marginBottom: '32px' }}
           >
-            <span className="text-egyptian-blue dark:text-white">Return on Investment</span>
+            <span className="text-egyptian-blue dark:text-white">{t.titlePart1}</span>
             <br className="hidden lg:block" />
-            <span className="text-egyptian-blue dark:text-white"> with </span>
+            <span className="text-egyptian-blue dark:text-white">{t.titlePart2}</span>
             <span className="gradient-text-animate">MonkDB</span>
           </motion.h2>
 
@@ -113,7 +101,7 @@ export default function ROI() {
             style={{ background: '#EDE8D8', padding: 'clamp(18px, 2.5vw, 32px) clamp(16px, 2vw, 28px)' }}
           >
             <h3 className="text-egyptian-blue" style={{ fontSize: 'clamp(13px, 1.1vw, 15px)', fontWeight: 500, marginBottom: '20px', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
-              Key Differentiators
+              {t.differentiatorsTitle}
             </h3>
             <ul style={{ display: 'flex', flexDirection: 'column', gap: '14px', listStyle: 'none', padding: 0, margin: 0 }}>
               {beforeItems.map((item, i) => (
@@ -147,7 +135,7 @@ export default function ROI() {
               filter: 'blur(30px)', pointerEvents: 'none',
             }} />
             <h3 className="text-white" style={{ fontSize: 'clamp(13px, 1.1vw, 15px)', fontWeight: 500, marginBottom: '20px', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
-              After MonkDB
+              {t.afterTitle}
             </h3>
             <ul style={{ display: 'flex', flexDirection: 'column', gap: '14px', listStyle: 'none', padding: 0, margin: 0 }}>
               {afterItems.map((item, i) => (

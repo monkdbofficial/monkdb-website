@@ -4,35 +4,21 @@ import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { ArrowUpRight } from 'lucide-react'
 import MonkDBFeature from './MonkDBFeature'
-
-const pillars = [
-  {
-    n: '01',
-    title: 'Keep AI ecosystems grounded in continuous data context',
-    body: 'Enable AI systems to operate with always-on context by connecting them to data across systems, environments, and formats. MonkDB brings together streams, databases, applications, and models into a unified and secure data layer for enterprise-scale AI.',
-  },
-  {
-    n: '02',
-    title: 'Control every action with built-in governance',
-    body: 'Establish guardrails across all agent workflows with integrated identity, access control, and policy enforcement. MonkDB ensures that every agent action is authorized and compliant before it is executed.',
-  },
-  {
-    n: '03',
-    title: 'Power AI ecosystems and agents with seamless data access',
-    body: 'Give AI systems and agents the ability to access both real-time and historical data through a unified query experience. MonkDB allows them to fetch exactly what they need, whether it\'s a live event or long-term data patterns.',
-  },
-  {
-    n: '04',
-    title: 'Gain full visibility into AI ecosystem behavior',
-    body: 'Track every interaction and data movement with complete transparency. MonkDB provides end-to-end observability, so you can audit decisions, troubleshoot issues, and replay workflows with full historical context.',
-  },
-]
+import { useI18n } from '@/i18n/I18nProvider'
 
 const EASE = [0.165, 0.84, 0.44, 1] as const
 
 export default function ArchitecturePillars() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-80px' })
+  const { dict } = useI18n()
+  const t = (((dict as Record<string, unknown>).architecturePillars) ?? {}) as Record<string, string>
+  const pillars = [
+    { n: '01', title: t.pillar1Title, body: t.pillar1Body },
+    { n: '02', title: t.pillar2Title, body: t.pillar2Body },
+    { n: '03', title: t.pillar3Title, body: t.pillar3Body },
+    { n: '04', title: t.pillar4Title, body: t.pillar4Body },
+  ]
 
   return (
     <section
@@ -58,7 +44,7 @@ export default function ArchitecturePillars() {
               whiteSpace: 'nowrap',
             }}
           >
-            05 / Architecture
+            {t.label}
           </span>
           <div
             style={{
@@ -85,9 +71,9 @@ export default function ArchitecturePillars() {
               textWrap: 'balance',
             }}
           >
-            An AI-native sovereign data plane,
+            {t.titleLine1}
             <br />
-            from streams to governance.
+            {t.titleLine2}
           </motion.h2>
 
           <motion.p
@@ -101,9 +87,7 @@ export default function ArchitecturePillars() {
               maxWidth: '560px',
             }}
           >
-            Four capabilities that together form the backbone of an
-            AI-native data plane, designed to be operationally simple,
-            governed by default, and always grounded in real-time context.
+            {t.intro}
           </motion.p>
         </div>
 
@@ -135,8 +119,8 @@ export default function ArchitecturePillars() {
                   whiteSpace: 'nowrap',
                 }}
               >
-                <span className="sm:hidden">Diagram · Architecture</span>
-                <span className="hidden sm:inline">Diagram · Optimized Architecture for Seamless Data Flow</span>
+                <span className="sm:hidden">{t.diagramLabelMobile}</span>
+                <span className="hidden sm:inline">{t.diagramLabelDesktop}</span>
               </span>
               <div
                 style={{
@@ -166,7 +150,7 @@ export default function ArchitecturePillars() {
                     boxShadow: '0 0 6px rgba(16,185,129,0.55)',
                   }}
                 />
-                LIVE
+                {t.live}
               </span>
             </div>
 

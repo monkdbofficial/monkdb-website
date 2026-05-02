@@ -9,7 +9,7 @@
 import Image from 'next/image'
 import { useEffect, useState, useRef } from 'react'
 import { motion, useAnimation } from 'framer-motion'
-import { useTheme } from 'next-themes'
+import { useTheme } from '@/app/theme'
 import {
   Brain,
   Zap,

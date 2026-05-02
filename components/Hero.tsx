@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { useI18n } from '@/i18n/I18nProvider'
 
 const wordReveal = {
   hidden: { opacity: 0, y: 40 },
@@ -48,6 +49,11 @@ const PARTICLES = [
 ]
 
 export default function Hero() {
+  const { dict } = useI18n()
+  const t = dict.hero as Record<string, string>
+  const titleWordsLine1 = t.titleLine1.split(/\s+/).filter(Boolean)
+  const titleWordsLine2 = t.titleLine2.split(/\s+/).filter(Boolean)
+
   return (
     <section
       className="relative w-full overflow-hidden flex items-center"
@@ -209,7 +215,7 @@ export default function Hero() {
               }}
             >
               <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#34D399', boxShadow: '0 0 8px rgba(52,211,153,0.6)' }} />
-              AI-Native Sovereign Data Plane
+              {t.badge}
             </span>
           </motion.div>
 
@@ -219,9 +225,9 @@ export default function Hero() {
             style={{ fontSize: 'clamp(34px, 6vw, 88px)', fontWeight: 300, lineHeight: 1.05, letterSpacing: '-0.02em' }}
           >
             <span className="block overflow-hidden">
-              {['Your', 'AI', 'Native'].map((w, i) => (
+              {titleWordsLine1.map((w, i) => (
                 <motion.span
-                  key={w}
+                  key={`l1-${i}-${w}`}
                   custom={i}
                   variants={wordReveal}
                   initial="hidden"
@@ -233,10 +239,10 @@ export default function Hero() {
               ))}
             </span>
             <span className="block overflow-hidden">
-              {['Sovereign', 'Data', 'Plane'].map((w, i) => (
+              {titleWordsLine2.map((w, i) => (
                 <motion.span
-                  key={w}
-                  custom={i + 3}
+                  key={`l2-${i}-${w}`}
+                  custom={i + titleWordsLine1.length}
                   variants={wordReveal}
                   initial="hidden"
                   animate="visible"
@@ -254,7 +260,7 @@ export default function Hero() {
             className="text-white/75 leading-relaxed mb-6 sm:mb-8 w-full"
             style={{ fontSize: 'clamp(14px, 1.3vw, 18px)', maxWidth: '620px' }}
           >
-            Provide your services and agents with comprehensive context derived from all of your data, ensuring there are no compromises on control, scalability, or performance.
+            {t.subtitle}
           </motion.p>
 
           {/* CTA Buttons */}
@@ -265,7 +271,7 @@ export default function Hero() {
               whileTap={{ scale: 0.97 }}
               style={{ backgroundColor: '#EDE8D8', color: '#0A2280', borderRadius: '999px', padding: '11px 24px', fontWeight: 600, fontSize: 'clamp(0.82rem, 1.1vw, 0.9rem)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 24px rgba(0,0,0,0.18)', textDecoration: 'none', whiteSpace: 'nowrap' }}
             >
-              Schedule a Demo
+              {t.ctaPrimary}
             </motion.a>
             <motion.a
               href="#features-banner"
@@ -273,7 +279,7 @@ export default function Hero() {
               whileTap={{ scale: 0.97 }}
               style={{ backgroundColor: 'rgba(255,255,255,0.08)', color: '#ffffff', borderRadius: '999px', padding: '10px 22px', fontWeight: 500, fontSize: 'clamp(0.82rem, 1.1vw, 0.9rem)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(255,255,255,0.22)', backdropFilter: 'blur(8px)', textDecoration: 'none', whiteSpace: 'nowrap' }}
             >
-              Explore Platform
+              {t.ctaSecondary}
             </motion.a>
           </motion.div>
 
@@ -342,9 +348,9 @@ export default function Hero() {
           </div>
         </div>
         <div className="flex-1 min-w-0">
-          <p className="text-[#0033A0] text-base mb-1.5 leading-tight" style={{ fontWeight: 500 }}>Discover MonkDB</p>
+          <p className="text-[#0033A0] text-base mb-1.5 leading-tight" style={{ fontWeight: 500 }}>{t.discoverTitle}</p>
           <p className="text-gray-500 text-sm leading-relaxed">
-            MonkDB is your AI-native solution for seamless data integration and actionable insights.
+            {t.discoverDescription}
           </p>
         </div>
       </motion.div>
@@ -362,7 +368,7 @@ export default function Hero() {
             transition={{ duration: 1.6, repeat: Infinity }}
           />
         </motion.div>
-        <span className="text-white/30 text-[10px] tracking-widest uppercase">Scroll</span>
+        <span className="text-white/30 text-[10px] tracking-widest uppercase">{t.scroll}</span>
       </motion.div>
     </section>
   )

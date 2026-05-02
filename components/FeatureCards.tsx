@@ -9,6 +9,7 @@ import {
   BrainCircuit,
   type LucideIcon,
 } from 'lucide-react'
+import { useI18n } from '@/i18n/I18nProvider'
 
 type Feature = {
   title: string
@@ -19,42 +20,18 @@ type Feature = {
   gradient: string
 }
 
-const features: Feature[] = [
-  {
-    title: 'Keep architecture simple at scale',
-    description: 'Most data stacks carry five systems doing the work of one, driving up ops cost and slowing teams. MonkDB collapses them into a single binary: fewer moving parts, cleaner SLOs, faster iteration.',
-    accent: '#60a0ff',
-    accentDark: '#1A38E8',
-    Icon: Layers,
-    gradient: 'linear-gradient(135deg, rgba(26,56,232,0.18) 0%, rgba(0,194,255,0.08) 100%)',
-  },
-  {
-    title: 'Modern data strategy for an AI-agent world',
-    description: 'Data now arrives from agents, workflows, and events in every format, at every cadence. MonkDB ingests, transforms, and serves it through a single query surface. No pipeline glue. No schema drift.',
-    accent: '#00c2ff',
-    accentDark: '#0EA5E9',
-    Icon: Workflow,
-    gradient: 'linear-gradient(135deg, rgba(0,194,255,0.15) 0%, rgba(80,40,200,0.08) 100%)',
-  },
-  {
-    title: 'Real-time systems over static infrastructure',
-    description: 'Autonomous systems produce data faster than batch can absorb. MonkDB processes streams in-flight and serves them alongside historical context. Decisions land in milliseconds, not minutes.',
-    accent: '#a060ff',
-    accentDark: '#6366F1',
-    Icon: Zap,
-    gradient: 'linear-gradient(135deg, rgba(160,96,255,0.18) 0%, rgba(26,56,232,0.08) 100%)',
-  },
-  {
-    title: 'Self-governing infrastructure for AI workloads',
-    description: 'AI workloads need infrastructure that governs itself. MonkDB ingests, processes, and stores at scale, with identity, policy, and lineage wired into every query before it executes.',
-    accent: '#ff6090',
-    accentDark: '#0033A0',
-    Icon: BrainCircuit,
-    gradient: 'linear-gradient(135deg, rgba(255,96,144,0.15) 0%, rgba(160,96,255,0.08) 100%)',
-  },
+const featureChrome = [
+  { accent: '#60a0ff', accentDark: '#1A38E8', Icon: Layers,
+    gradient: 'linear-gradient(135deg, rgba(26,56,232,0.18) 0%, rgba(0,194,255,0.08) 100%)' },
+  { accent: '#00c2ff', accentDark: '#0EA5E9', Icon: Workflow,
+    gradient: 'linear-gradient(135deg, rgba(0,194,255,0.15) 0%, rgba(80,40,200,0.08) 100%)' },
+  { accent: '#a060ff', accentDark: '#6366F1', Icon: Zap,
+    gradient: 'linear-gradient(135deg, rgba(160,96,255,0.18) 0%, rgba(26,56,232,0.08) 100%)' },
+  { accent: '#ff6090', accentDark: '#0033A0', Icon: BrainCircuit,
+    gradient: 'linear-gradient(135deg, rgba(255,96,144,0.15) 0%, rgba(160,96,255,0.08) 100%)' },
 ]
 
-function TiltCard({ feature, index, isInView }: { feature: typeof features[0]; index: number; isInView: boolean }) {
+function TiltCard({ feature, index, isInView }: { feature: Feature; index: number; isInView: boolean }) {
   const cardRef = useRef<HTMLDivElement>(null)
   const x = useMotionValue(0)
   const y = useMotionValue(0)
@@ -176,6 +153,14 @@ function TiltCard({ feature, index, isInView }: { feature: typeof features[0]; i
 export default function FeatureCards() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-80px' })
+  const { dict } = useI18n()
+  const t = (((dict as Record<string, unknown>).featureCards) ?? {}) as Record<string, string>
+  const features: Feature[] = [
+    { ...featureChrome[0], title: t.feat1Title, description: t.feat1Desc },
+    { ...featureChrome[1], title: t.feat2Title, description: t.feat2Desc },
+    { ...featureChrome[2], title: t.feat3Title, description: t.feat3Desc },
+    { ...featureChrome[3], title: t.feat4Title, description: t.feat4Desc },
+  ]
 
   return (
     <section
@@ -204,7 +189,7 @@ export default function FeatureCards() {
                 whiteSpace: 'nowrap',
               }}
             >
-              03 / Features
+              {t.label}
             </span>
             <div
               style={{
@@ -219,7 +204,7 @@ export default function FeatureCards() {
             className="text-gray-900 dark:text-white"
             style={{ fontSize: 'clamp(22px, 3vw, 40px)', fontWeight: 300, letterSpacing: '-0.01em', lineHeight: 1.15 }}
           >
-            Why teams choose{' '}
+            {t.titlePart1}
             <span className="gradient-text-animate" style={{ fontWeight: 500 }}>MonkDB</span>
           </h2>
         </motion.div>

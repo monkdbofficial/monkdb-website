@@ -2,10 +2,13 @@
 
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
+import { useI18n } from '@/i18n/I18nProvider'
 
 export default function Mission() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-80px' })
+  const { dict } = useI18n()
+  const t = (((dict as Record<string, unknown>).mission) ?? {}) as Record<string, string>
 
   return (
     <section
@@ -54,7 +57,7 @@ export default function Mission() {
                 whiteSpace: 'nowrap',
               }}
             >
-              07 / Mission
+              {t.label}
             </span>
             <div
               style={{
@@ -76,9 +79,9 @@ export default function Mission() {
               textWrap: 'balance',
             }}
           >
-            AI transformed every aspect of enterprise data.{' '}
+            {t.titleMain}{' '}
             <span style={{ color: '#1A38E8' }}>
-              Therefore, we constructed the platform they operate on.
+              {t.titleAccent}
             </span>
           </h2>
 
@@ -98,9 +101,7 @@ export default function Mission() {
             className="text-gray-600 dark:text-gray-300 leading-relaxed"
             style={{ fontSize: 'clamp(14px, 1.2vw, 17px)', marginTop: '20px', maxWidth: '560px' }}
           >
-            The AI Native Sovereign Data Platform represents MonkDB&apos;s answer to the era of AI and agency.
-            It features a regulated access layer that integrates data systems to facilitate secure,
-            contextual, and real-time AI.
+            {t.body}
           </p>
         </motion.div>
       </div>

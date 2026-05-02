@@ -2,6 +2,7 @@
 
 import { motion, useInView } from 'framer-motion'
 import { useRef, useEffect, useState, type ReactNode } from 'react'
+import { useI18n } from '@/i18n/I18nProvider'
 
 // ── Syntax-highlight token helpers ─────────────────────────────────
 const KW = (s: string) => <span style={{ color: '#C991F0' }}>{s}</span>
@@ -135,35 +136,11 @@ function SQLBlock() {
   )
 }
 
-const readiness = [
-  {
-    n: '01',
-    label: 'Simple',
-    headline: 'Single binary, zero operational overhead.',
-    body: 'One process. One engine. No sidecars, no orchestrator sprawl, no glue code. Operations stay small as scale grows.',
-    proof: ['1 process', '0 sidecars', '0 YAML files'],
-  },
-  {
-    n: '02',
-    label: 'Efficient',
-    headline: 'High-performance C++ engine with minimal footprint.',
-    body: 'Native code paths, vectorized execution, and compact memory layout. Designed to run the heaviest workloads on the smallest hardware you can give it.',
-    proof: ['C++20', 'Vectorized', 'ARM + x86_64'],
-  },
-  {
-    n: '03',
-    label: 'Interoperable',
-    headline: 'Built for every protocol, system, and data format.',
-    body: 'Speak SQL, stream events, ingest blobs, query vectors, serve documents. All from the same plane, with no pipeline glue in between.',
-    proof: ['SQL', 'gRPC', 'REST', 'Kafka', 'JDBC'],
-  },
-  {
-    n: '04',
-    label: 'Safe',
-    headline: 'Data sovereignty, governance, and full traceability built in.',
-    body: 'Every action is authorized, every query is audited. Deploy on-prem, at the edge, or air-gapped, without ever giving up control of your data.',
-    proof: ['On-Prem', 'Air-Gapped', 'SOC 2', 'ISO 27001'],
-  },
+const readinessProofs = [
+  ['1 process', '0 sidecars', '0 YAML files'],
+  ['C++20', 'Vectorized', 'ARM + x86_64'],
+  ['SQL', 'gRPC', 'REST', 'Kafka', 'JDBC'],
+  ['On-Prem', 'Air-Gapped', 'SOC 2', 'ISO 27001'],
 ]
 
 const EASE = [0.165, 0.84, 0.44, 1] as const
@@ -171,6 +148,14 @@ const EASE = [0.165, 0.84, 0.44, 1] as const
 export default function AIReady() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-80px' })
+  const { dict } = useI18n()
+  const t = (((dict as Record<string, unknown>).aiReady) ?? {}) as Record<string, string>
+  const readiness = [
+    { n: '01', label: t.row1Label, headline: t.row1Headline, body: t.row1Body, proof: readinessProofs[0] },
+    { n: '02', label: t.row2Label, headline: t.row2Headline, body: t.row2Body, proof: readinessProofs[1] },
+    { n: '03', label: t.row3Label, headline: t.row3Headline, body: t.row3Body, proof: readinessProofs[2] },
+    { n: '04', label: t.row4Label, headline: t.row4Headline, body: t.row4Body, proof: readinessProofs[3] },
+  ]
 
   return (
     <section
@@ -196,7 +181,7 @@ export default function AIReady() {
               whiteSpace: 'nowrap',
             }}
           >
-            06 / Engine
+            {t.label}
           </span>
           <div
             style={{
@@ -223,9 +208,9 @@ export default function AIReady() {
               textWrap: 'balance',
             }}
           >
-            MonkDB is
+            {t.titleMain}
             <span className="text-gray-400 dark:text-gray-500"> </span>
-            <span style={{ color: '#1A38E8' }}>beyond a database.</span>
+            <span style={{ color: '#1A38E8' }}>{t.titleAccent}</span>
           </motion.h2>
 
           <motion.p
@@ -239,11 +224,7 @@ export default function AIReady() {
               maxWidth: '560px',
             }}
           >
-            A database-only stack stitches together vector stores, time-series
-            engines, stream processors, and document stores just to ship one
-            feature. MonkDB replaces that stack with a single multi-model
-            engine, the foundation of our AI-native sovereign data plane and
-            the substrate for everything we build above it.
+            {t.intro}
           </motion.p>
         </div>
 
@@ -256,17 +237,17 @@ export default function AIReady() {
         >
           {[
             {
-              kicker: '01 / Operating Layer',
+              kicker: t.card1Kicker,
               title: 'Monk AIO',
-              sub: 'AI-Native Operating Intelligence System',
-              body: 'The operating layer that turns streaming data into autonomous decisions. Agents, orchestration, and real-time reasoning run natively on the sovereign data plane.',
+              sub: t.card1Sub,
+              body: t.card1Body,
               tags: ['Autonomous', 'Real-time', 'Sovereign'],
             },
             {
-              kicker: '02 / Platform Portfolio',
+              kicker: t.card2Kicker,
               title: 'SmartX Platforms',
-              sub: 'Domain and function-specific',
-              body: 'Production platforms tuned to industry and operating function. SmartMine, SmartMobility, SmartFinance, and a growing portfolio, all powered by MonkDB and Monk AIO.',
+              sub: t.card2Sub,
+              body: t.card2Body,
               tags: ['SmartMine', 'SmartMobility', 'SmartFinance', '+ more'],
             },
           ].map((card) => (
@@ -393,7 +374,7 @@ export default function AIReady() {
               color: '#1A38E8',
             }}
           >
-            MonkDB is AI ready
+            {t.dividerLabel}
           </span>
           <div
             style={{
@@ -589,8 +570,8 @@ export default function AIReady() {
                   color: '#1A38E8',
                 }}
               >
-                <span className="sm:hidden">Proof · 4 modalities</span>
-                <span className="hidden sm:inline">Proof · One query, four modalities</span>
+                <span className="sm:hidden">{t.proofKickerMobile}</span>
+                <span className="hidden sm:inline">{t.proofKickerDesktop}</span>
               </span>
             </div>
             <h3
@@ -603,8 +584,7 @@ export default function AIReady() {
                 textWrap: 'balance',
               }}
             >
-              Vector search, geospatial, time-series, and SQL, in a single
-              statement. No pipeline, no glue, no federation.
+              {t.proofTitle}
             </h3>
             <p
               className="text-gray-600 dark:text-gray-300"
@@ -614,10 +594,7 @@ export default function AIReady() {
                 maxWidth: '520px',
               }}
             >
-              Every workload compiles into the same plan. Joins happen
-              natively, not across systems. The example below ranks nearby
-              users by semantic similarity, filtered by live activity, in
-              one query, at interactive latency.
+              {t.proofBody}
             </p>
           </div>
 
