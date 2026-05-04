@@ -142,14 +142,14 @@ function buildNavigation(
         {
           title: t('outcomes'),
           items: [
-            { label: t('outcome1'), href: '/why-choose-us#reduce-cost' },
-            { label: t('outcome2'), href: '/why-choose-us#improve-efficiency' },
-            { label: t('outcome3'), href: '/why-choose-us#enhance-safety' },
-            { label: t('outcome4'), href: '/why-choose-us#enable-autonomy' },
-            { label: t('outcome5'), href: '/why-choose-us#trust-compliance' },
+            { label: t('outcome1'), href: '/outcomes/reduce-cost' },
+            { label: t('outcome2'), href: '/outcomes/improve-efficiency' },
+            { label: t('outcome3'), href: '/outcomes/enhance-safety' },
+            { label: t('outcome4'), href: '/outcomes/enable-autonomy' },
+            { label: t('outcome5'), href: '/outcomes/trust-compliance' },
             {
               label: t('outcome6'),
-              href: '/why-choose-us#accelerate-decision-making',
+              href: '/outcomes/accelerate-decision-making',
             },
           ],
         },
@@ -201,11 +201,11 @@ function buildNavigation(
       label: t('company'),
       items: [
         { label: t('companyAbout'), href: '/about' },
-        { label: t('companyPress'), href: '/about#press' },
-        { label: t('companyCustomers'), href: '/about#customers' },
-        { label: t('companyPartners'), href: '/about#partners' },
-        { label: t('companyCareers'), href: '/about#careers' },
-        { label: t('companyContact'), href: '/about#contact' },
+        { label: t('companyPress'), href: '/company/press' },
+        { label: t('companyCustomers'), href: '/company/customers' },
+        { label: t('companyPartners'), href: '/company/partners' },
+        { label: t('companyCareers'), href: '/company/careers' },
+        { label: t('companyContact'), href: '/company/contact' },
       ],
     },
   ]

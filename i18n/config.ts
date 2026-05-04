@@ -107,4 +107,17 @@ export const localizedRoutes = [
   '/resources/events',
   // Phase 2 — Developer Journey Map
   '/developers/journey',
+  // Phase 3 — Outcomes (6 detail pages)
+  '/outcomes/reduce-cost',
+  '/outcomes/improve-efficiency',
+  '/outcomes/enhance-safety',
+  '/outcomes/enable-autonomy',
+  '/outcomes/trust-compliance',
+  '/outcomes/accelerate-decision-making',
+  // Phase 3 — Company sub-pages (5)
+  '/company/press',
+  '/company/customers',
+  '/company/partners',
+  '/company/careers',
+  '/company/contact',
 ] as const

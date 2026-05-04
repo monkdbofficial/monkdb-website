@@ -172,9 +172,8 @@ export default function HomeUseCases() {
                 style={{
                   background: 'white',
                   border: '1px solid rgba(10,34,128,0.10)',
-                  padding: 'clamp(22px, 2.6vw, 32px)',
+                  padding: 'clamp(20px, 2.4vw, 28px)',
                   textDecoration: 'none',
-                  minHeight: 'clamp(220px, 22vw, 260px)',
                   display: 'flex',
                   flexDirection: 'column',
                 }}

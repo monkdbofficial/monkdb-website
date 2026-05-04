@@ -182,13 +182,12 @@ export default function HubPageLayout(props: HubPageLayoutProps) {
                     style={{
                       background: 'white',
                       border: '1px solid rgba(10,20,60,0.08)',
-                      padding: 'clamp(24px, 3vw, 36px)',
+                      padding: 'clamp(22px, 2.6vw, 30px)',
                       textDecoration: 'none',
                       transition:
                         'transform 350ms ease, box-shadow 350ms ease, border-color 350ms ease',
                       display: 'flex',
                       flexDirection: 'column',
-                      minHeight: 'clamp(220px, 22vw, 280px)',
                     }}
                   >
                     {/* Top corner number */}

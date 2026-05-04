@@ -1,4 +1,5 @@
 'use client'
+// dense-cards-v2
 
 /**
  * DetailPageLayout — reusable shell for inner content pages.
@@ -253,7 +254,7 @@ function CapabilitiesGrid({
             />
           </div>
 
-          {/* Cards */}
+          {/* Cards — dense uniform grid */}
           <div className={`relative ${gridClass}`}>
             {data.items.map((item, i) => (
               <motion.div
@@ -263,13 +264,12 @@ function CapabilitiesGrid({
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ duration: 0.55, delay: i * 0.06, ease: EASE }}
                 whileHover={{ y: -3, transition: { duration: 0.25 } }}
-                className="flex flex-col rounded-[20px] overflow-hidden"
+                className="capability-tile rounded-[20px] overflow-hidden"
                 style={{
-                  background: 'rgba(255,255,255,0.03)',
-                  border: '1px solid rgba(255,255,255,0.08)',
-                  padding: 'clamp(20px, 2.4vw, 28px)',
+                  background: 'rgba(255,255,255,0.04)',
+                  border: '1px solid rgba(255,255,255,0.10)',
+                  padding: 'clamp(20px, 2.2vw, 26px)',
                   backdropFilter: 'blur(8px)',
-                  minHeight: 'clamp(160px, 18vw, 220px)',
                 }}
               >
                 <div
@@ -373,7 +373,6 @@ function RelatedGrid({
                 >
                   <div
                     className="related-card-inner h-full flex flex-col"
-                    style={{ minHeight: 'clamp(160px, 16vw, 200px)' }}
                   >
                     <h3
                       className="text-gray-900"

@@ -124,9 +124,8 @@ export default function SolutionsHubContent() {
                   style={{
                     background: 'white',
                     border: '1px solid rgba(10,34,128,0.10)',
-                    padding: 'clamp(20px, 2.4vw, 28px)',
+                    padding: 'clamp(18px, 2.2vw, 26px)',
                     textDecoration: 'none',
-                    minHeight: 'clamp(180px, 17vw, 220px)',
                     display: 'flex',
                     flexDirection: 'column',
                   }}
