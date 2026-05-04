@@ -27,80 +27,95 @@ export default function FeatureBanner() {
           style={{ gridAutoRows: 'clamp(300px, 32vw, 460px)', perspective: '1200px' }}
         >
 
+          {/* SVG filter defs reused by Card 1 holographic image and Card 2 wave image */}
+          <svg width="0" height="0" className="absolute overflow-hidden" aria-hidden="true">
+            <defs>
+              <filter id="card1-blue-tint" colorInterpolationFilters="sRGB" x="0%" y="0%" width="100%" height="100%">
+                <feColorMatrix type="matrix" values="
+                  0.55 0    0    0    0
+                  0    0.4  0.25 0    0.12
+                  0.1  0.2  0.9  0    0.22
+                  0    0    0    1    0
+                "/>
+              </filter>
+              <filter id="card2-wave-tint" colorInterpolationFilters="sRGB" x="0%" y="0%" width="100%" height="100%">
+                <feColorMatrix type="matrix" values="
+                  0.08 0    0    0    0.02
+                  0.1  0.2  0.1  0    0.18
+                  0.4  0.3  0.9  0    0.28
+                  0    0    0    1    0
+                "/>
+              </filter>
+            </defs>
+          </svg>
+
           {/* ══════════════════════════════
-              CARD 1 — Pixel-perfect from Figma node 246:710.
-              Background: /card1-bg.svg (exported directly from Figma — exact path + gradient).
-              Shape: L-shaped stepped notch at bottom-right, 35px rounded corners.
-              Path: M630 245 C...595,280 H545 C...510,315 V365 C...475,400 H35 ... Z
-              Gradient: #0033AA (top) → #1E8AFF (bottom), vertical.
+              CARD 1 — AI Solution / AI Services.
+              Responsive plain card (no SVG-baked notch). Layout:
+              - Brand-blue gradient bg
+              - Holographic image fades in on the right (full height)
+              - Tags top-right, body text bottom-left, CTA bottom-left
+              - Arrow button bottom-right INSIDE the card (no cutout)
           ══════════════════════════════ */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0, ease: 'easeOut' }}
+            whileHover={{
+              boxShadow:
+                '0 0 0 1.5px rgba(127,179,255,0.5), 0 22px 60px rgba(10,34,128,0.36)',
+              transition: { duration: 0.25 },
+            }}
             className="relative overflow-hidden min-w-0 rounded-3xl"
+            style={{
+              background:
+                'linear-gradient(165deg, #0033AA 0%, #1538D8 55%, #1E8AFF 100%)',
+            }}
           >
-            {/* Exact Figma card shape — transparent notch area shows page background through */}
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/card1-bg.svg"
-              alt=""
-              className="absolute inset-0 w-full h-full pointer-events-none"
-              aria-hidden="true"
-            />
-
-            {/* SVG clip-path definition — card's L-shaped path in objectBoundingBox coords.
-                x coords ÷ 630, y coords ÷ 400. Aspect ratio matches card (63:40 = 1.575:1)
-                so scaling is uniform and the bezier curves render correctly. */}
-            <svg width="0" height="0" className="absolute overflow-hidden" aria-hidden="true">
-              <defs>
-                <clipPath id="card1-shape-clip" clipPathUnits="objectBoundingBox">
-                  <path d="M1 0.6125 C1 0.660825 0.974333 0.7 0.944444 0.7 H0.865079 C0.834397 0.7 0.809524 0.739175 0.809524 0.7875 V0.9125 C0.809524 0.960825 0.784651 1 0.753968 1 H0.055556 C0.024873 1 0 0.960825 0 0.9125 V0.0875 C0 0.039175 0.024873 0 0.055556 0 H0.944444 C0.974333 0 1 0.039175 1 0.0875 V0.6125 Z" />
-                </clipPath>
-                <filter id="card1-blue-tint" colorInterpolationFilters="sRGB" x="0%" y="0%" width="100%" height="100%">
-                  <feColorMatrix type="matrix" values="
-                    0.55 0    0    0    0
-                    0    0.4  0.25 0    0.12
-                    0.1  0.2  0.9  0    0.22
-                    0    0    0    1    0
-                  "/>
-                </filter>
-                <filter id="card2-wave-tint" colorInterpolationFilters="sRGB" x="0%" y="0%" width="100%" height="100%">
-                  <feColorMatrix type="matrix" values="
-                    0.08 0    0    0    0.02
-                    0.1  0.2  0.1  0    0.18
-                    0.4  0.3  0.9  0    0.28
-                    0    0    0    1    0
-                  "/>
-                </filter>
-              </defs>
-            </svg>
-
-            {/* Holographic SVG — clipped to card shape so notch stays white */}
+            {/* Holographic image — right side, fades into the gradient */}
             <div
-              className="absolute inset-0 pointer-events-none"
-              style={{ clipPath: 'url(#card1-shape-clip)' }}
+              aria-hidden="true"
+              className="absolute pointer-events-none inset-y-0 right-0"
+              style={{
+                width: '60%',
+                maskImage:
+                  'linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.4) 25%, #000 60%)',
+                WebkitMaskImage:
+                  'linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.4) 25%, #000 60%)',
+              }}
             >
-              <div
-                className="absolute pointer-events-none left-[55%] sm:left-[44%] top-[12%] sm:top-[18%] w-[60%] sm:w-[62%] h-[70%] sm:h-[82%]"
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/3d-shapes-glowing-with-bright-holographic-colors 1.svg"
-                  alt=""
-                  className="w-full h-full object-cover"
-                  style={{
-                    objectPosition: '20% center',
-                    filter: 'url(#card1-blue-tint) brightness(1.4) contrast(1.6) saturate(1.8)',
-                  }}
-                />
-              </div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/3d-shapes-glowing-with-bright-holographic-colors 1.svg"
+                alt=""
+                className="w-full h-full"
+                style={{
+                  objectFit: 'cover',
+                  objectPosition: 'left center',
+                  filter:
+                    'url(#card1-blue-tint) brightness(1.4) contrast(1.6) saturate(1.8)',
+                }}
+              />
             </div>
 
-            {/* Tags — absolutely positioned top right */}
+            {/* Top inner shine */}
+            <span
+              aria-hidden="true"
+              className="absolute top-0 left-[10%] right-[10%]"
+              style={{
+                height: '1px',
+                background:
+                  'linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)',
+              }}
+            />
+
+            {/* Tags — top right */}
             <div className="absolute top-3 right-3 sm:top-5 sm:right-5 z-20 flex flex-wrap justify-end gap-1.5">
               {card1Tags.map((tag) => (
-                <span key={tag} className="px-3 py-1 rounded-full bg-white text-gray-900 text-[10px] sm:text-xs font-medium whitespace-nowrap">
+                <span
+                  key={tag}
+                  className="px-3 py-1 rounded-full bg-white text-gray-900 text-[10px] sm:text-xs font-medium whitespace-nowrap"
+                >
                   {tag}
                 </span>
               ))}
@@ -110,40 +125,56 @@ export default function FeatureBanner() {
             <div className="absolute inset-0 z-10 flex flex-col justify-between p-5 sm:p-7">
               <div />
 
-              {/* Text — constrained so it doesn't bleed into the image area */}
-              <div className="max-w-[80%] sm:max-w-[68%] lg:max-w-[58%]">
-                <p className="text-white font-light leading-snug" style={{ fontSize: 'clamp(0.78rem, 1.2vw, 1rem)' }}>
+              {/* Text — kept on the left half so it never collides with the arrow */}
+              <div className="max-w-[78%] sm:max-w-[68%] lg:max-w-[60%]">
+                <p
+                  className="text-white font-light leading-snug"
+                  style={{ fontSize: 'clamp(0.78rem, 1.2vw, 1rem)' }}
+                >
                   {t.card1Body}
                 </p>
               </div>
 
-              {/* Explore more — bottom left */}
-              <div style={{ width: 'fit-content' }}>
-                <motion.a
-                  href="#about"
-                  whileHover={{ x: 3 }}
-                  className="text-white text-xs font-light hover:text-white/90 transition-colors"
+              {/* Explore more — bottom left, kept clear of the bottom-right arrow */}
+              <div className="flex items-end justify-between gap-3">
+                <div style={{ width: 'fit-content' }}>
+                  <motion.a
+                    href="#about"
+                    whileHover={{ x: 3 }}
+                    className="text-white text-xs font-light hover:text-white/90 transition-colors"
+                  >
+                    {t.card1Cta} ↗
+                  </motion.a>
+                  <div
+                    style={{
+                      height: '1px',
+                      background: 'rgba(255,255,255,0.6)',
+                      marginTop: '4px',
+                    }}
+                  />
+                </div>
+
+                {/* Arrow button — inline at bottom-right, sized in fixed px so it
+                    looks consistent at every viewport (no aspect-ratio cutout) */}
+                <motion.button
+                  whileHover={{ scale: 1.08, rotate: 6 }}
+                  whileTap={{ scale: 0.94 }}
+                  aria-label={t.card1Cta ?? 'Explore more'}
+                  className="flex-shrink-0 inline-flex items-center justify-center"
+                  style={{
+                    width: 'clamp(40px, 4.4vw, 56px)',
+                    height: 'clamp(40px, 4.4vw, 56px)',
+                    borderRadius: '14px',
+                    background: '#0D2DC0',
+                    boxShadow:
+                      '0 8px 22px rgba(13,45,192,0.5), inset 0 1px 0 rgba(255,255,255,0.2)',
+                    color: 'white',
+                  }}
                 >
-                  {t.card1Cta} ↗
-                </motion.a>
-                <div style={{ height: '1px', background: 'rgba(255,255,255,0.6)', marginTop: '4px' }} />
+                  <ArrowUpRight strokeWidth={2.2} size={20} />
+                </motion.button>
               </div>
             </div>
-
-            {/* Arrow button — sits flush at bottom-right corner of the notch */}
-            <motion.button
-              whileHover={{ scale: 1.06 }}
-              whileTap={{ scale: 0.95 }}
-              className="absolute bottom-0 right-0 flex items-center justify-center"
-              style={{
-                width: '13.5%',
-                aspectRatio: '1 / 1',
-                borderRadius: '22%',
-                background: '#0D2DC0',
-              }}
-            >
-              <ArrowUpRight className="text-white w-[38%] h-[38%]" />
-            </motion.button>
           </motion.div>
 
           {/* ══════════════════════════════

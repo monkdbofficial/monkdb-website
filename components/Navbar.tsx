@@ -19,24 +19,85 @@ type NavItem =
   | { kind: 'dropdown'; id: string; label: string; items: NavLeaf[] }
   | { kind: 'mega'; id: string; label: string; groups: NavGroup[] }
 
-function buildNavigation(t: (key: string) => string): NavItem[] {
+function buildNavigation(
+  t: (key: string) => string,
+  tExt: (key: string) => string,
+): NavItem[] {
   return [
     { kind: 'link', label: t('home'), href: '/' },
 
+    // Products — MonkDB platform + strategic pillars + MonkEdge + MonkSmartX suite.
+    {
+      kind: 'mega',
+      id: 'products',
+      label: tExt('products'),
+      groups: [
+        {
+          title: tExt('products'),
+          items: [
+            { label: tExt('productMonkDB'), href: '/features' },
+            { label: tExt('productMonkEdge'), href: '/products/monkedge' },
+            { label: tExt('productMonkSmartX'), href: '/products/monksmartx' },
+          ],
+        },
+        {
+          title: tExt('platformGroup'),
+          items: [
+            {
+              label: tExt('platformSovereign'),
+              href: '/platform/sovereign',
+            },
+            {
+              label: tExt('platformOperational'),
+              href: '/platform/operational-intelligence',
+            },
+          ],
+        },
+        {
+          title: tExt('productMonkSmartX'),
+          items: [
+            { label: tExt('smartmine'), href: '/products/monksmartx/smartmine' },
+            {
+              label: tExt('smartmobility'),
+              href: '/products/monksmartx/smartmobility',
+            },
+            {
+              label: tExt('smartfinance'),
+              href: '/products/monksmartx/smartfinance',
+            },
+            {
+              label: tExt('smarttrade'),
+              href: '/products/monksmartx/smarttrade',
+            },
+            {
+              label: tExt('smartretail'),
+              href: '/products/monksmartx/smartretail',
+            },
+            {
+              label: tExt('smartmanufacturing'),
+              href: '/products/monksmartx/smartmanufacturing',
+            },
+          ],
+        },
+      ],
+    },
+
+    // Core Systems — 6 deeply integrated engines from Part II docx.
     {
       kind: 'dropdown',
       id: 'core-systems',
       label: t('coreSystems'),
       items: [
-        { label: t('core1'), href: '/features#unified-operational-data-engine' },
-        { label: t('core2'), href: '/features#real-time-processing-engine' },
-        { label: t('core3'), href: '/features#ai-native-execution-engine' },
-        { label: t('core4'), href: '/features#decision-action-engine' },
-        { label: t('core5'), href: '/features#edge-to-cloud-execution-fabric' },
-        { label: t('core6'), href: '/features#sovereignty-trust-layer' },
+        { label: t('core1'), href: '/core-systems/unified-operational-engine' },
+        { label: t('core2'), href: '/core-systems/real-time-processing-engine' },
+        { label: t('core3'), href: '/core-systems/ai-native-execution-engine' },
+        { label: t('core4'), href: '/core-systems/decision-action-engine' },
+        { label: t('core5'), href: '/core-systems/edge-to-cloud-fabric' },
+        { label: t('core6'), href: '/core-systems/sovereignty-trust-layer' },
       ],
     },
 
+    // Solutions — Part II 10 capability-level solutions + use cases + outcomes.
     {
       kind: 'mega',
       id: 'solutions',
@@ -45,16 +106,37 @@ function buildNavigation(t: (key: string) => string): NavItem[] {
         {
           title: t('useCases'),
           items: [
-            { label: t('useCase1'), href: '/why-choose-us#ai-ml' },
-            { label: t('useCase2'), href: '/why-choose-us#real-time-streaming' },
-            { label: t('useCase3'), href: '/why-choose-us#iceberg-tables' },
-            { label: t('useCase4'), href: '/why-choose-us#real-time-operational-intelligence' },
-            { label: t('useCase5'), href: '/why-choose-us#autonomous-decisioning' },
-            { label: t('useCase6'), href: '/why-choose-us#energy-optimization' },
-            { label: t('useCase7'), href: '/why-choose-us#digital-twin' },
-            { label: t('useCase8'), href: '/why-choose-us#edge-intelligence' },
-            { label: t('useCase9'), href: '/why-choose-us#data-ai-modernization' },
-            { label: t('useCase10'), href: '/why-choose-us#ai-governance-trust' },
+            { label: t('useCase1'), href: '/solutions/ai-ml' },
+            { label: t('useCase2'), href: '/solutions/real-time-streaming' },
+            { label: t('useCase3'), href: '/solutions/iceberg-tables' },
+            {
+              label: t('useCase4'),
+              href: '/solutions/real-time-operational-intelligence',
+            },
+            {
+              label: t('useCase5'),
+              href: '/solutions/autonomous-decisioning-systems',
+            },
+            {
+              label: t('useCase6'),
+              href: '/solutions/energy-and-resource-optimization',
+            },
+            {
+              label: t('useCase7'),
+              href: '/solutions/digital-twin-and-simulation',
+            },
+            {
+              label: t('useCase8'),
+              href: '/solutions/edge-intelligence-and-distributed-ai',
+            },
+            {
+              label: t('useCase9'),
+              href: '/solutions/data-and-ai-modernization',
+            },
+            {
+              label: t('useCase10'),
+              href: '/solutions/ai-governance-and-trust',
+            },
           ],
         },
         {
@@ -65,39 +147,51 @@ function buildNavigation(t: (key: string) => string): NavItem[] {
             { label: t('outcome3'), href: '/why-choose-us#enhance-safety' },
             { label: t('outcome4'), href: '/why-choose-us#enable-autonomy' },
             { label: t('outcome5'), href: '/why-choose-us#trust-compliance' },
-            { label: t('outcome6'), href: '/why-choose-us#accelerate-decision-making' },
+            {
+              label: t('outcome6'),
+              href: '/why-choose-us#accelerate-decision-making',
+            },
           ],
         },
       ],
     },
 
+    // Industries — 9 industry verticals from Part II docx.
     {
       kind: 'dropdown',
       id: 'industries',
       label: t('industries'),
       items: [
-        { label: t('industry1'), href: '/architecture#mining-manufacturing' },
-        { label: t('industry2'), href: '/architecture#automobiles' },
-        { label: t('industry3'), href: '/architecture#bfsi' },
-        { label: t('industry4'), href: '/architecture#mining-metals' },
-        { label: t('industry5'), href: '/architecture#steel-manufacturing' },
-        { label: t('industry6'), href: '/architecture#data-centers' },
-        { label: t('industry7'), href: '/architecture#energy-utilities' },
-        { label: t('industry8'), href: '/architecture#smart-cities' },
-        { label: t('industry9'), href: '/architecture#logistics-mobility' },
+        { label: t('industry1'), href: '/industries/mining-and-manufacturing' },
+        { label: t('industry2'), href: '/industries/automobiles' },
+        { label: t('industry3'), href: '/industries/bfsi-and-capital-markets' },
+        { label: t('industry4'), href: '/industries/mining-and-metals' },
+        { label: t('industry5'), href: '/industries/steel-and-manufacturing' },
+        { label: t('industry6'), href: '/industries/data-centers' },
+        { label: t('industry7'), href: '/industries/energy-and-utilities' },
+        {
+          label: t('industry8'),
+          href: '/industries/infrastructure-and-smart-cities',
+        },
+        { label: t('industry9'), href: '/industries/logistics-and-mobility' },
       ],
     },
 
+    { kind: 'link', label: tExt('developers'), href: '/developers' },
+
+    // Learn — Hub + Resources + Documentation + Customer Stories + Blog + Events + Journey.
     {
       kind: 'dropdown',
       id: 'learn',
       label: t('learn'),
       items: [
-        { label: t('learn1'), href: '/resources' },
-        { label: t('learn2'), href: '/resources#documentation' },
-        { label: t('learn3'), href: '/resources#customer-use-cases' },
-        { label: t('learn4'), href: '/resources#blog' },
-        { label: t('learn5'), href: '/resources#events' },
+        { label: 'Learn Hub', href: '/resources/learn' },
+        { label: t('learn1'), href: '/resources/resources' },
+        { label: t('learn2'), href: 'https://docs.monkdb.com' },
+        { label: t('learn3'), href: '/resources/customer-stories' },
+        { label: t('learn4'), href: '/resources/blog' },
+        { label: t('learn5'), href: '/resources/events' },
+        { label: 'Developer Journey', href: '/developers/journey' },
       ],
     },
 
@@ -145,7 +239,13 @@ export default function Navbar() {
   const { locale, dict } = useI18n()
   const tNav = (key: string) =>
     (dict.nav as Record<string, string>)[key] ?? key
-  const navigation = buildNavigation(tNav)
+  const tNavExt = (key: string) => {
+    const ext = (dict as Record<string, unknown>).navExt as
+      | Record<string, string>
+      | undefined
+    return ext?.[key] ?? key
+  }
+  const navigation = buildNavigation(tNav, tNavExt)
   const homePath = `/${locale}`
 
   useEffect(() => {

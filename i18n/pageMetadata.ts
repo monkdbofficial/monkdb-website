@@ -8,6 +8,12 @@ type PageKey =
   | 'architecture'
   | 'resources'
   | 'whyChooseUs'
+  | 'useCases'
+  | 'monkedge'
+  | 'monksmartx'
+  | 'developers'
+  | 'platformSovereign'
+  | 'platformOperational'
 
 const PATHS: Record<PageKey, string> = {
   about: '/about',
@@ -15,6 +21,67 @@ const PATHS: Record<PageKey, string> = {
   architecture: '/architecture',
   resources: '/resources',
   whyChooseUs: '/why-choose-us',
+  useCases: '/solutions/use-cases',
+  monkedge: '/products/monkedge',
+  monksmartx: '/products/monksmartx',
+  developers: '/developers',
+  platformSovereign: '/platform/sovereign',
+  platformOperational: '/platform/operational-intelligence',
+}
+
+/**
+ * For sub-pages (e.g. /solutions/use-cases/digital-twins, /products/monksmartx/smartmine),
+ * we don't have a meta.<key>Title in the dictionary — we read directly from the page's own
+ * dictionary namespace (its `title` and `subtitle`) and pass through the path.
+ */
+export async function buildSubpageMetadata(
+  namespace: string,
+  path: string,
+  locale: string,
+): Promise<Metadata> {
+  if (!isLocale(locale)) return {}
+  const dict = await getDictionary(locale as Locale)
+  const meta = dict.meta as Record<string, string>
+  const ns = ((dict as Record<string, unknown>)[namespace] ?? {}) as Record<string, string>
+  const title = ns.title ? `${ns.title}. MonkDB` : meta.title
+  const description = ns.subtitle ?? meta.description
+
+  const canonical = `${SITE_URL}/${locale}${path}`
+  const languages: Record<string, string> = Object.fromEntries(
+    locales.map((l) => [l, `${SITE_URL}/${l}${path}`]),
+  )
+  languages['x-default'] = `${SITE_URL}/en${path}`
+
+  return {
+    title,
+    description,
+    alternates: { canonical, languages },
+    openGraph: {
+      title,
+      description,
+      url: canonical,
+      siteName: 'MonkDB',
+      images: [
+        {
+          url: `${SITE_URL}/og-image.png`,
+          width: 1200,
+          height: 630,
+          alt: meta.ogImageAlt,
+        },
+      ],
+      locale: ogLocales[locale as Locale],
+      alternateLocale: locales
+        .filter((l) => l !== locale)
+        .map((l) => ogLocales[l]),
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [`${SITE_URL}/og-image.png`],
+    },
+  }
 }
 
 export async function buildPageMetadata(
