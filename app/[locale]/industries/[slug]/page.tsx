@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { INDUSTRIES } from '@/content/industries'
-import SectionDetailContent from '@/components/SectionDetailContent'
+import IndustryContent from './IndustryContent'
 import { locales, SITE_URL, type Locale } from '@/i18n/config'
 
 export function generateStaticParams() {
@@ -30,7 +30,7 @@ export async function generateMetadata({
 export default async function Page({
   params,
 }: PageProps<'/[locale]/industries/[slug]'>) {
-  const { slug } = await params
+  const { locale, slug } = await params
   const item = INDUSTRIES.find((s) => s.slug === slug)
   if (!item) notFound()
   const related = INDUSTRIES.filter((s) => s.slug !== slug)
@@ -38,13 +38,7 @@ export default async function Page({
     .map((s) => ({
       title: s.title,
       body: s.subtitle,
-      href: `/industries/${s.slug}`,
+      href: `/${locale}/industries/${s.slug}`,
     }))
-  return (
-    <SectionDetailContent
-      item={item}
-      related={related}
-      relatedTitle="Other Industries"
-    />
-  )
+  return <IndustryContent item={item} related={related} />
 }

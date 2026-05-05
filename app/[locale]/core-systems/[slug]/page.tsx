@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { CORE_SYSTEMS } from '@/content/coreSystems'
-import SectionDetailContent from '@/components/SectionDetailContent'
+import CoreSystemContent from './CoreSystemContent'
 import { locales, SITE_URL, type Locale } from '@/i18n/config'
 
 export function generateStaticParams() {
@@ -30,7 +30,7 @@ export async function generateMetadata({
 export default async function Page({
   params,
 }: PageProps<'/[locale]/core-systems/[slug]'>) {
-  const { slug } = await params
+  const { locale, slug } = await params
   const item = CORE_SYSTEMS.find((s) => s.slug === slug)
   if (!item) notFound()
   const related = CORE_SYSTEMS.filter((s) => s.slug !== slug)
@@ -38,13 +38,7 @@ export default async function Page({
     .map((s) => ({
       title: s.title,
       body: s.subtitle,
-      href: `/core-systems/${s.slug}`,
+      href: `/${locale}/core-systems/${s.slug}`,
     }))
-  return (
-    <SectionDetailContent
-      item={item}
-      related={related}
-      relatedTitle="Other Core Systems"
-    />
-  )
+  return <CoreSystemContent item={item} related={related} />
 }

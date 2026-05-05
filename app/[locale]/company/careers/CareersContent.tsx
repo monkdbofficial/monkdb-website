@@ -304,7 +304,7 @@ export default function CareersContent() {
           >
             Four working principles
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 items-stretch">
             {VALUES.map((v, i) => (
               <motion.div
                 key={v.name}
@@ -312,48 +312,55 @@ export default function CareersContent() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ duration: 0.5, delay: i * 0.08, ease: EASE }}
-                className="rounded-2xl"
+                className="rounded-2xl flex items-start gap-4"
                 style={{
                   background: 'white',
                   border: '1px solid rgba(10,34,128,0.10)',
-                  padding: 'clamp(22px, 2.6vw, 32px)',
+                  padding: 'clamp(20px, 2.2vw, 26px)',
                 }}
               >
                 <span
+                  className="inline-flex items-center justify-center rounded-lg flex-shrink-0"
                   style={{
+                    width: 40,
+                    height: 40,
+                    background: 'rgba(26,56,232,0.10)',
+                    border: '1px solid rgba(26,56,232,0.30)',
+                    color: '#1A38E8',
                     fontFamily:
                       'var(--font-mono, ui-monospace, monospace)',
-                    fontSize: '10.5px',
-                    fontWeight: 600,
-                    letterSpacing: '0.16em',
-                    color: '#1A38E8',
+                    fontSize: 12,
+                    fontWeight: 700,
+                    letterSpacing: '0.04em',
                   }}
                 >
                   {String(i + 1).padStart(2, '0')}
                 </span>
-                <h3
-                  className="text-[#0A2280]"
-                  style={{
-                    fontSize: 'clamp(17px, 1.5vw, 22px)',
-                    fontWeight: 500,
-                    letterSpacing: '-0.005em',
-                    lineHeight: 1.25,
-                    margin: '14px 0 10px 0',
-                  }}
-                >
-                  {v.name}
-                </h3>
-                <p
-                  className="text-gray-600"
-                  style={{
-                    fontSize: 'clamp(13.5px, 1.05vw, 15px)',
-                    fontWeight: 400,
-                    lineHeight: 1.65,
-                    margin: 0,
-                  }}
-                >
-                  {v.body}
-                </p>
+                <div>
+                  <h3
+                    className="text-[#0A2280]"
+                    style={{
+                      fontSize: 'clamp(17px, 1.5vw, 22px)',
+                      fontWeight: 500,
+                      letterSpacing: '-0.005em',
+                      lineHeight: 1.25,
+                      margin: '0 0 6px 0',
+                    }}
+                  >
+                    {v.name}
+                  </h3>
+                  <p
+                    className="text-gray-600"
+                    style={{
+                      fontSize: 'clamp(13.5px, 1.05vw, 15px)',
+                      fontWeight: 400,
+                      lineHeight: 1.6,
+                      margin: 0,
+                    }}
+                  >
+                    {v.body}
+                  </p>
+                </div>
               </motion.div>
             ))}
           </div>

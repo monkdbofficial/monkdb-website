@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { LEARN_SECTIONS } from '@/content/learn'
-import SectionDetailContent from '@/components/SectionDetailContent'
+import ResourceContent from './ResourceContent'
 import { locales, SITE_URL, type Locale } from '@/i18n/config'
 
 export function generateStaticParams() {
@@ -30,7 +30,7 @@ export async function generateMetadata({
 export default async function Page({
   params,
 }: PageProps<'/[locale]/resources/[slug]'>) {
-  const { slug } = await params
+  const { locale, slug } = await params
   const item = LEARN_SECTIONS.find((s) => s.slug === slug)
   if (!item) notFound()
   const related = LEARN_SECTIONS.filter((s) => s.slug !== slug)
@@ -38,13 +38,7 @@ export default async function Page({
     .map((s) => ({
       title: s.title,
       body: s.subtitle,
-      href: `/resources/${s.slug}`,
+      href: `/${locale}/resources/${s.slug}`,
     }))
-  return (
-    <SectionDetailContent
-      item={item}
-      related={related}
-      relatedTitle="More from Learn"
-    />
-  )
+  return <ResourceContent item={item} related={related} />
 }

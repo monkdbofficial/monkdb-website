@@ -43,7 +43,71 @@ const ICON_MAP: Record<OutcomeIconName, LucideIcon> = {
 
 const EASE = [0.165, 0.84, 0.44, 1] as const
 
-function StatCounter({ value, suffix }: { value: string; suffix: string }) {
+type OutcomeTheme = {
+  accent: string
+  accentSoft: string
+  accentDeep: string
+  heroGradient: string
+}
+
+const OUTCOME_THEMES: Record<string, OutcomeTheme> = {
+  'reduce-cost': {
+    accent: '#10B981',
+    accentSoft: '#6EE7B7',
+    accentDeep: '#064E3B',
+    heroGradient:
+      'linear-gradient(180deg, #022C22 0%, #07091A 60%, #022C22 100%)',
+  },
+  'improve-efficiency': {
+    accent: '#0EA5E9',
+    accentSoft: '#7DD3FC',
+    accentDeep: '#0C4A6E',
+    heroGradient:
+      'linear-gradient(180deg, #042F36 0%, #07091A 60%, #042F36 100%)',
+  },
+  'enhance-safety': {
+    accent: '#F97316',
+    accentSoft: '#FDBA74',
+    accentDeep: '#7C2D12',
+    heroGradient:
+      'linear-gradient(180deg, #431407 0%, #07091A 60%, #431407 100%)',
+  },
+  'enable-autonomy': {
+    accent: '#8B5CF6',
+    accentSoft: '#C4B5FD',
+    accentDeep: '#4C1D95',
+    heroGradient:
+      'linear-gradient(180deg, #2A1065 0%, #07091A 60%, #2A1065 100%)',
+  },
+  'trust-compliance': {
+    accent: '#D4A574',
+    accentSoft: '#F2E5D0',
+    accentDeep: '#5A3A1A',
+    heroGradient:
+      'linear-gradient(180deg, #2D1B0A 0%, #1A0F08 60%, #2D1B0A 100%)',
+  },
+  'accelerate-decision-making': {
+    accent: '#1A38E8',
+    accentSoft: '#7FB3FF',
+    accentDeep: '#0A2280',
+    heroGradient:
+      'linear-gradient(180deg, #050D6A 0%, #07091A 60%, #050D6A 100%)',
+  },
+}
+
+const DEFAULT_OUTCOME_THEME = OUTCOME_THEMES['accelerate-decision-making']!
+
+function StatCounter({
+  value,
+  suffix,
+  accent,
+  accentSoft,
+}: {
+  value: string
+  suffix: string
+  accent: string
+  accentSoft: string
+}) {
   // If the value is purely numeric, animate from 0. Otherwise (e.g. "<5", "0.8"),
   // render statically — animation would be misleading.
   const ref = useRef<HTMLSpanElement>(null)
@@ -71,7 +135,6 @@ function StatCounter({ value, suffix }: { value: string; suffix: string }) {
         style={{ position: 'absolute', pointerEvents: 'none' }}
       />
       <span
-        className="gradient-text-animate"
         style={{
           fontSize: 'clamp(80px, 14vw, 200px)',
           fontWeight: 500,
@@ -80,6 +143,12 @@ function StatCounter({ value, suffix }: { value: string; suffix: string }) {
           fontFamily: 'var(--font-mono, ui-monospace, monospace)',
           display: 'inline-flex',
           alignItems: 'baseline',
+          backgroundImage: `linear-gradient(90deg, ${accentSoft} 0%, ${accent} 50%, ${accentSoft} 100%)`,
+          backgroundSize: '200% 100%',
+          WebkitBackgroundClip: 'text',
+          backgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          color: 'transparent',
         }}
       >
         <span ref={ref}>{numeric ? '0' : value}</span>
@@ -87,7 +156,6 @@ function StatCounter({ value, suffix }: { value: string; suffix: string }) {
           style={{
             fontSize: '0.5em',
             marginLeft: '0.05em',
-            color: '#1A38E8',
             opacity: 0.85,
           }}
         >
@@ -108,6 +176,7 @@ export default function OutcomeDetailContent({
   const { locale } = useI18n()
   const introRef = useRef<HTMLDivElement>(null)
   const introInView = useInView(introRef, { once: true, margin: '-80px' })
+  const theme = OUTCOME_THEMES[item.slug] ?? DEFAULT_OUTCOME_THEME
 
   return (
     <main className="min-h-screen bg-white dark:bg-[#0f1623]">
@@ -119,17 +188,13 @@ export default function OutcomeDetailContent({
       <section
         ref={introRef}
         className="relative overflow-hidden py-12 sm:py-20 lg:py-24"
-        style={{
-          background:
-            'linear-gradient(180deg, #050D6A 0%, #07091A 60%, #050D6A 100%)',
-        }}
+        style={{ background: theme.heroGradient }}
       >
         <div
           aria-hidden="true"
           className="absolute inset-0 pointer-events-none"
           style={{
-            backgroundImage:
-              'radial-gradient(circle, rgba(127,179,255,0.08) 1px, transparent 1px)',
+            backgroundImage: `radial-gradient(circle, ${theme.accentSoft}1A 1px, transparent 1px)`,
             backgroundSize: '32px 32px',
             opacity: 0.5,
           }}
@@ -142,8 +207,7 @@ export default function OutcomeDetailContent({
             left: '20%',
             right: '20%',
             height: '80%',
-            background:
-              'radial-gradient(ellipse 50% 50% at 50% 50%, rgba(30,138,255,0.22) 0%, transparent 70%)',
+            background: `radial-gradient(ellipse 50% 50% at 50% 50%, ${theme.accent}33 0%, transparent 70%)`,
             filter: 'blur(40px)',
           }}
         />
@@ -164,10 +228,9 @@ export default function OutcomeDetailContent({
                   style={{
                     width: 'clamp(56px, 6vw, 80px)',
                     height: 'clamp(56px, 6vw, 80px)',
-                    background:
-                      'linear-gradient(135deg, rgba(26,56,232,0.20) 0%, rgba(30,138,255,0.10) 100%)',
-                    border: '1px solid rgba(127,179,255,0.30)',
-                    color: '#7FB3FF',
+                    background: `linear-gradient(135deg, ${theme.accent}33 0%, ${theme.accent}1A 100%)`,
+                    border: `1px solid ${theme.accentSoft}55`,
+                    color: theme.accentSoft,
                   }}
                 >
                   {(() => {
@@ -186,6 +249,8 @@ export default function OutcomeDetailContent({
                   <StatCounter
                     value={item.metric.value}
                     suffix={item.metric.suffix}
+                    accent={theme.accent}
+                    accentSoft={theme.accentSoft}
                   />
                 </div>
               </div>
@@ -244,11 +309,11 @@ export default function OutcomeDetailContent({
             }}
           >
             Why this outcome lands{' '}
-            <span className="gradient-text-animate" style={{ fontWeight: 400 }}>
+            <span style={{ fontWeight: 400, color: theme.accent }}>
               with MonkDB
             </span>
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5 items-stretch">
             {item.proof.map((p, i) => (
               <motion.div
                 key={p.title}
@@ -256,25 +321,31 @@ export default function OutcomeDetailContent({
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ duration: 0.55, delay: i * 0.08, ease: EASE }}
-                className="rounded-2xl"
+                className="rounded-2xl flex items-start gap-4"
                 style={{
                   background: '#F8F4F0',
                   border: '1px solid rgba(10,34,128,0.10)',
-                  padding: 'clamp(22px, 2.6vw, 32px)',
+                  padding: 'clamp(20px, 2.2vw, 26px)',
                 }}
               >
                 <span
+                  className="inline-flex items-center justify-center rounded-lg flex-shrink-0"
                   style={{
+                    width: 40,
+                    height: 40,
+                    background: `${theme.accent}1A`,
+                    border: `1px solid ${theme.accent}55`,
+                    color: theme.accent,
                     fontFamily:
                       'var(--font-mono, ui-monospace, monospace)',
-                    fontSize: '10.5px',
-                    fontWeight: 600,
-                    letterSpacing: '0.16em',
-                    color: '#1A38E8',
+                    fontSize: 12,
+                    fontWeight: 700,
+                    letterSpacing: '0.04em',
                   }}
                 >
                   {String(i + 1).padStart(2, '0')}
                 </span>
+                <div>
                 <h3
                   className="text-[#0A2280] dark:text-white"
                   style={{
@@ -282,7 +353,7 @@ export default function OutcomeDetailContent({
                     fontWeight: 500,
                     letterSpacing: '-0.005em',
                     lineHeight: 1.25,
-                    margin: '14px 0 10px 0',
+                    margin: '0 0 6px 0',
                   }}
                 >
                   {p.title}
@@ -292,12 +363,13 @@ export default function OutcomeDetailContent({
                   style={{
                     fontSize: 'clamp(13.5px, 1.05vw, 15px)',
                     fontWeight: 400,
-                    lineHeight: 1.65,
+                    lineHeight: 1.6,
                     margin: 0,
                   }}
                 >
                   {p.body}
                 </p>
+                </div>
               </motion.div>
             ))}
           </div>
@@ -456,7 +528,7 @@ export default function OutcomeDetailContent({
                         width: 36,
                         height: 36,
                         background: 'rgba(26,56,232,0.08)',
-                        color: '#1A38E8',
+                        color: theme.accent,
                       }}
                     >
                       <ArrowUpRight size={16} />

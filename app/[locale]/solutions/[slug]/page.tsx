@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { SOLUTIONS } from '@/content/solutions'
-import SectionDetailContent from '@/components/SectionDetailContent'
+import SolutionContent from './SolutionContent'
 import { locales, SITE_URL, type Locale } from '@/i18n/config'
 
 export function generateStaticParams() {
@@ -30,7 +30,7 @@ export async function generateMetadata({
 export default async function Page({
   params,
 }: PageProps<'/[locale]/solutions/[slug]'>) {
-  const { slug } = await params
+  const { locale, slug } = await params
   const item = SOLUTIONS.find((s) => s.slug === slug)
   if (!item) notFound()
   const related = SOLUTIONS.filter((s) => s.slug !== slug)
@@ -38,13 +38,7 @@ export default async function Page({
     .map((s) => ({
       title: s.title,
       body: s.subtitle,
-      href: `/solutions/${s.slug}`,
+      href: `/${locale}/solutions/${s.slug}`,
     }))
-  return (
-    <SectionDetailContent
-      item={item}
-      related={related}
-      relatedTitle="Other Solutions"
-    />
-  )
+  return <SolutionContent item={item} related={related} />
 }

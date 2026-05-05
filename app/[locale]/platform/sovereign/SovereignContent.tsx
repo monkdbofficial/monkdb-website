@@ -431,31 +431,32 @@ export default function SovereignContent() {
                   padding: 'clamp(20px, 2.4vw, 28px)',
                 }}
               >
-                <span
-                  className="inline-flex items-center justify-center rounded-xl mb-5"
-                  style={{
-                    width: 44,
-                    height: 44,
-                    background: `${ACCENT}1A`,
-                    border: `1px solid ${ACCENT}55`,
-                    color: ACCENT,
-                  }}
-                >
-                  <p.Icon size={20} strokeWidth={1.6} />
-                </span>
-                <span
-                  style={{
-                    fontFamily:
-                      'var(--font-mono, ui-monospace, monospace)',
-                    fontSize: '10.5px',
-                    fontWeight: 600,
-                    letterSpacing: '0.16em',
-                    color: ACCENT,
-                    marginBottom: '8px',
-                  }}
-                >
-                  {String(i + 1).padStart(2, '0')}
-                </span>
+                <div className="flex items-center justify-between mb-4">
+                  <span
+                    className="inline-flex items-center justify-center rounded-xl"
+                    style={{
+                      width: 44,
+                      height: 44,
+                      background: `${ACCENT}1A`,
+                      border: `1px solid ${ACCENT}55`,
+                      color: ACCENT,
+                    }}
+                  >
+                    <p.Icon size={20} strokeWidth={1.6} />
+                  </span>
+                  <span
+                    style={{
+                      fontFamily:
+                        'var(--font-mono, ui-monospace, monospace)',
+                      fontSize: '10.5px',
+                      fontWeight: 600,
+                      letterSpacing: '0.16em',
+                      color: ACCENT,
+                    }}
+                  >
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                </div>
                 <h3
                   className="text-[#0A2280] dark:text-white"
                   style={{
@@ -463,7 +464,7 @@ export default function SovereignContent() {
                     fontWeight: 500,
                     letterSpacing: '-0.005em',
                     lineHeight: 1.25,
-                    margin: '0 0 10px 0',
+                    margin: '0 0 8px 0',
                   }}
                 >
                   {p.title}
@@ -473,7 +474,7 @@ export default function SovereignContent() {
                   style={{
                     fontSize: 'clamp(12.5px, 0.95vw, 14px)',
                     fontWeight: 400,
-                    lineHeight: 1.6,
+                    lineHeight: 1.55,
                     margin: 0,
                   }}
                 >
