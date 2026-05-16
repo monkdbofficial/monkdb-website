@@ -75,20 +75,23 @@ const OFFICES = [
   },
 ]
 
+const INITIAL_FORM = {
+  name: '',
+  company: '',
+  email: '',
+  phone: '',
+  role: '',
+  workload: '',
+  message: '',
+  acceptCommunications: false,
+  website: '', // honeypot — must stay empty for the submission to be accepted
+}
+
 export default function ContactContent() {
   const [submitted, setSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [form, setForm] = useState({
-    name: '',
-    company: '',
-    email: '',
-    phone: '',
-    role: '',
-    workload: '',
-    message: '',
-    acceptCommunications: false,
-  })
+  const [form, setForm] = useState(INITIAL_FORM)
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
     const target = e.target
@@ -115,11 +118,17 @@ export default function ContactContent() {
         throw new Error(data.error ?? 'Failed to send message. Please try again.')
       }
       setSubmitted(true)
+      setForm(INITIAL_FORM)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Network error. Please try again.')
     } finally {
       setSubmitting(false)
     }
+  }
+
+  function handleSendAnother() {
+    setSubmitted(false)
+    setError(null)
   }
 
   return (
@@ -257,6 +266,23 @@ export default function ContactContent() {
                       I agree to receive product updates and communications from MonkDB.
                     </span>
                   </label>
+                  {/* Honeypot — hidden from real users, bots fill it, server rejects. */}
+                  <input
+                    type="text"
+                    name="website"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={form.website}
+                    onChange={handleChange}
+                    aria-hidden="true"
+                    style={{
+                      position: 'absolute',
+                      left: '-9999px',
+                      width: 1,
+                      height: 1,
+                      opacity: 0,
+                    }}
+                  />
                   {error && (
                     <div
                       role="alert"
@@ -349,6 +375,23 @@ export default function ContactContent() {
                     </a>
                     .
                   </p>
+                  <button
+                    type="button"
+                    onClick={handleSendAnother}
+                    style={{
+                      marginTop: 18,
+                      background: 'transparent',
+                      color: '#1A38E8',
+                      fontWeight: 600,
+                      fontSize: 13,
+                      padding: '10px 18px',
+                      borderRadius: 999,
+                      border: '1.5px solid rgba(26,56,232,0.3)',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    Send another message
+                  </button>
                 </div>
               )}
             </motion.div>
