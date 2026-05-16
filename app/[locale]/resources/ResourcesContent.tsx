@@ -9,6 +9,7 @@ import CTABanner from '@/components/CTABanner'
 import ScrollToTop from '@/components/ScrollToTop'
 import ScrollProgressBar from '@/components/ScrollProgressBar'
 import { useI18n } from '@/i18n/I18nProvider'
+import { localizedHref } from '@/i18n/config'
 
 type T = Record<string, string>
 
@@ -46,7 +47,7 @@ const BODY_STYLE = {
 // ───────────────────────────────────────────────────────────────
 // 1. SERVICES HERO
 // ───────────────────────────────────────────────────────────────
-function ServicesHero({ t }: { t: T }) {
+function ServicesHero({ t, contactHref }: { t: T; contactHref: string }) {
   return (
     <section className="relative pt-28 sm:pt-32 lg:pt-36 pb-10 sm:pb-14 lg:pb-20 bg-white dark:bg-[#0f1623]">
       <div className={SECTION_CONTAINER}>
@@ -119,7 +120,7 @@ function ServicesHero({ t }: { t: T }) {
 
             <div className="flex flex-wrap gap-3 mt-8">
               <Link
-                href="#demo"
+                href={contactHref}
                 className="inline-flex items-center gap-2"
                 style={{
                   backgroundColor: '#1A38E8',
@@ -135,7 +136,7 @@ function ServicesHero({ t }: { t: T }) {
                 <ArrowRight size={14} strokeWidth={2.2} />
               </Link>
               <Link
-                href="#call"
+                href={contactHref}
                 className="inline-flex items-center gap-2"
                 style={{
                   backgroundColor: 'transparent',
@@ -1057,14 +1058,15 @@ function WhatMakesMonkDBSection({ t }: { t: T }) {
 // PAGE
 // ───────────────────────────────────────────────────────────────
 export default function ResourcesPage() {
-  const { dict } = useI18n()
+  const { dict, locale } = useI18n()
+  const contactHref = localizedHref('/company/contact', locale)
   const t = (((dict as Record<string, unknown>).resourcesPage) ?? {}) as T
   return (
     <main className="min-h-screen bg-white dark:bg-[#0f1623]">
       <ScrollProgressBar />
       <Navbar />
 
-      <ServicesHero t={t} />
+      <ServicesHero t={t} contactHref={contactHref} />
       <MasterDataSection t={t} />
       <BlogsSection t={t} />
       <DataIntegritySection t={t} />

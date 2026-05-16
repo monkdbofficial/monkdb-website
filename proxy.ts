@@ -1,33 +1,20 @@
 import { NextResponse, type NextRequest } from 'next/server'
-import { locales, defaultLocale, type Locale } from './i18n/config'
-
-function getLocale(request: NextRequest): Locale {
-  const accept = request.headers.get('accept-language') ?? ''
-  const tags = accept
-    .split(',')
-    .map((t) => t.split(';')[0].trim().toLowerCase())
-    .filter(Boolean)
-
-  for (const tag of tags) {
-    const primary = tag.split('-')[0]
-    const match = (locales as readonly string[]).find((l) => l === primary)
-    if (match) return match as Locale
-  }
-  return defaultLocale
-}
+import { defaultLocale, locales } from './i18n/config'
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
 
+  // If the path already starts with a locale, render as-is.
   const hasLocale = (locales as readonly string[]).some(
     (locale) => pathname === `/${locale}` || pathname.startsWith(`/${locale}/`),
   )
   if (hasLocale) return
 
-  const locale = getLocale(request)
+  // Otherwise, rewrite (NOT redirect) to /<defaultLocale><path>. The URL bar
+  // stays clean; the [locale] segment renders the default-locale content.
   const url = request.nextUrl.clone()
-  url.pathname = `/${locale}${pathname === '/' ? '' : pathname}`
-  return NextResponse.redirect(url)
+  url.pathname = `/${defaultLocale}${pathname === '/' ? '' : pathname}`
+  return NextResponse.rewrite(url)
 }
 
 export const config = {

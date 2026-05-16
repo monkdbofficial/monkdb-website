@@ -10,6 +10,7 @@ import ScrollToTop from '@/components/ScrollToTop'
 import PageBanner from '@/components/PageBanner'
 import AnimatedSVGImage from '@/components/AnimatedSVGImage'
 import { useI18n } from '@/i18n/I18nProvider'
+import { localizedHref } from '@/i18n/config'
 
 /* ─── Particle network background (canvas) ────────────────────────────── */
 function ParticleNetworkBg() {
@@ -260,7 +261,8 @@ function Counter({ to, suffix = '' }: { to: number; suffix?: string }) {
 
 /* ─── Main page ─────────────────────────────────────────────────────────── */
 export default function AboutPage() {
-  const { dict } = useI18n()
+  const { dict, locale } = useI18n()
+  const contactHref = localizedHref('/company/contact', locale)
   const t = (((dict as Record<string, unknown>).aboutPage) ?? {}) as Record<string, string>
   const heroRef = useRef(null)
   const heroInView = useInView(heroRef, { once: true, margin: '-60px' })
@@ -428,7 +430,7 @@ export default function AboutPage() {
 
             {/* Request Demo button — centred in the parchment tab */}
             <motion.a
-              href="/"
+              href={contactHref}
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               className="absolute bottom-0 right-0 flex items-center gap-3"

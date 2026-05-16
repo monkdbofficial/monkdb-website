@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import { INDUSTRIES } from '@/content/industries'
 import IndustryContent from './IndustryContent'
 import { buildSlugPageMetadata } from '@/i18n/pageMetadata'
+import { localizedHref } from '@/i18n/config'
 
 export function generateStaticParams() {
   return INDUSTRIES.map((s) => ({ slug: s.slug }))
@@ -33,7 +34,7 @@ export default async function Page({
     .map((s) => ({
       title: s.title,
       body: s.subtitle,
-      href: `/${locale}/industries/${s.slug}`,
+      href: localizedHref(`/industries/${s.slug}`, locale),
     }))
   return <IndustryContent item={item} related={related} />
 }

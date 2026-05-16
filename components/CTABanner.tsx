@@ -10,6 +10,7 @@
 
 import { motion } from 'framer-motion'
 import { useI18n } from '@/i18n/I18nProvider'
+import { localizedHref } from '@/i18n/config'
 
 const SANAS_EASE = [0.165, 0.84, 0.44, 1] as const
 
@@ -17,18 +18,19 @@ export default function CTABanner({
   heading,
   description,
   buttonText,
-  buttonHref = '#demo',
+  buttonHref,
 }: {
   heading?: string
   description?: string
   buttonText?: string
   buttonHref?: string
 }) {
-  const { dict } = useI18n()
+  const { dict, locale } = useI18n()
   const t = (((dict as Record<string, unknown>).cta) ?? {}) as Record<string, string>
   const resolvedHeading = heading ?? t.heading ?? 'Ready to get started?'
   const resolvedDescription = description ?? t.description ?? ''
   const resolvedButton = buttonText ?? t.button ?? 'Book a Demo'
+  const resolvedHref = buttonHref ?? localizedHref('/company/contact', locale)
   return (
     <section className="relative overflow-hidden py-16 sm:py-20 lg:py-28">
       {/* Background */}
@@ -92,7 +94,7 @@ export default function CTABanner({
         </motion.p>
 
         <motion.a
-          href={buttonHref}
+          href={resolvedHref}
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}

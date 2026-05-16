@@ -10,6 +10,7 @@ import StructuredData from '@/components/StructuredData'
 import {
   isLocale,
   locales,
+  localizedHref,
   ogLocales,
   SITE_URL,
   type Locale,
@@ -47,11 +48,11 @@ export async function generateMetadata({
     ogImageAlt: string
   }
 
-  const canonical = `${SITE_URL}/${locale}`
+  const canonical = `${SITE_URL}${localizedHref('/', locale)}`
   const languages: Record<string, string> = Object.fromEntries(
-    locales.map((l) => [l, `${SITE_URL}/${l}`]),
+    locales.map((l) => [l, `${SITE_URL}${localizedHref('/', l)}`]),
   )
-  languages['x-default'] = `${SITE_URL}/en`
+  languages['x-default'] = `${SITE_URL}${localizedHref('/', 'en')}`
 
   return {
     metadataBase: new URL(SITE_URL),

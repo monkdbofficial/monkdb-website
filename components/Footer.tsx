@@ -5,8 +5,9 @@ import { Mail } from 'lucide-react'
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { useI18n } from '@/i18n/I18nProvider'
+import { localizedHref } from '@/i18n/config'
 
-function buildFooterLinks(t: Record<string, string>, aboutHref: string) {
+function buildFooterLinks(t: Record<string, string>, aboutHref: string, locale: string) {
   // Brand and product names stay English globally.
   return {
     products: [
@@ -47,8 +48,8 @@ function buildFooterLinks(t: Record<string, string>, aboutHref: string) {
     ],
     companyLinks: [
       { label: t.companyAbout ?? 'About Us', href: aboutHref },
-      { label: t.companyContact ?? 'Contact Us', href: '#' },
-      { label: t.companyCareers ?? 'Careers', href: '#' },
+      { label: t.companyContact ?? 'Contact Us', href: localizedHref('/company/contact', locale) },
+      { label: t.companyCareers ?? 'Careers', href: localizedHref('/company/careers', locale) },
       { label: t.companyBrand ?? 'Brand', href: '#' },
     ],
   }
@@ -116,8 +117,8 @@ export default function Footer() {
   const isInView = useInView(ref, { once: true, margin: '-60px' })
   const { dict, locale } = useI18n()
   const t = (((dict as Record<string, unknown>).footer) ?? {}) as Record<string, string>
-  const aboutHref = `/${locale}/about`
-  const links = buildFooterLinks(t, aboutHref)
+  const aboutHref = localizedHref('/about', locale)
+  const links = buildFooterLinks(t, aboutHref, locale)
   const { products, solutions, resources, community, partners, companyLinks } = links
 
   const handleSubscribe = (e: React.FormEvent) => {

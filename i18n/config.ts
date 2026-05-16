@@ -41,6 +41,20 @@ export const ogLocales: Record<Locale, string> = {
 // Production canonical origin used for absolute URLs in metadata + sitemap.
 export const SITE_URL = 'https://www.monkdb.com'
 
+/**
+ * Build a locale-aware path. The default locale renders at the root (no prefix),
+ * other locales render at /<locale>/<path>.
+ *   localizedHref('/about', 'en') -> '/about'
+ *   localizedHref('/about', 'es') -> '/es/about'
+ *   localizedHref('/',      'en') -> '/'
+ *   localizedHref('/',      'es') -> '/es'
+ */
+export function localizedHref(path: string, locale: string): string {
+  const clean = path === '' || path === '/' ? '' : path.startsWith('/') ? path : `/${path}`
+  if (locale === defaultLocale) return clean === '' ? '/' : clean
+  return `/${locale}${clean}`
+}
+
 // Routes that exist for every locale, used by the sitemap and language switcher.
 export const localizedRoutes = [
   '',

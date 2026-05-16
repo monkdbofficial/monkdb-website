@@ -24,6 +24,7 @@ import HubDiagramBanner from './HubDiagramBanner'
 import ScrollToTop from './ScrollToTop'
 import ScrollProgressBar from './ScrollProgressBar'
 import { useI18n } from '@/i18n/I18nProvider'
+import { localizedHref } from '@/i18n/config'
 
 const EASE = [0.25, 0.46, 0.45, 0.94] as const
 
@@ -162,7 +163,7 @@ export default function HubPageLayout(props: HubPageLayoutProps) {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5">
             {props.cards.map((card, i) => {
               const href = card.href.startsWith('/')
-                ? `/${locale}${card.href}`
+                ? localizedHref(card.href, locale)
                 : card.href
               return (
                 <motion.div

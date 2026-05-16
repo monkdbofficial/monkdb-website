@@ -34,6 +34,7 @@ import SectionLabel from '@/components/SectionLabel'
 import ScrollToTop from '@/components/ScrollToTop'
 import ScrollProgressBar from '@/components/ScrollProgressBar'
 import { useI18n } from '@/i18n/I18nProvider'
+import { localizedHref } from '@/i18n/config'
 
 const ACCENT = '#8B5CF6'
 const EASE = [0.165, 0.84, 0.44, 1] as const
@@ -567,7 +568,7 @@ export default function MonkSmartXHubContent() {
                 transition={{ duration: 0.55, delay: i * 0.06, ease: EASE }}
               >
                 <Link
-                  href={`/${locale}/products/monksmartx/${p.slug}`}
+                  href={localizedHref(`/products/monksmartx/${p.slug}`, locale)}
                   className="smartx-portfolio-card group block relative rounded-2xl overflow-hidden h-full card-surface"
                   style={{
                     textDecoration: 'none',

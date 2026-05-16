@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import { SOLUTIONS } from '@/content/solutions'
 import SolutionContent from './SolutionContent'
 import { buildSlugPageMetadata } from '@/i18n/pageMetadata'
+import { localizedHref } from '@/i18n/config'
 
 export function generateStaticParams() {
   return SOLUTIONS.map((s) => ({ slug: s.slug }))
@@ -33,7 +34,7 @@ export default async function Page({
     .map((s) => ({
       title: s.title,
       body: s.subtitle,
-      href: `/${locale}/solutions/${s.slug}`,
+      href: localizedHref(`/solutions/${s.slug}`, locale),
     }))
   return <SolutionContent item={item} related={related} />
 }

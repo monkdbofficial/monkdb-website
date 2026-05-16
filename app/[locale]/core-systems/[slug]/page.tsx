@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import { CORE_SYSTEMS } from '@/content/coreSystems'
 import CoreSystemContent from './CoreSystemContent'
 import { buildSlugPageMetadata } from '@/i18n/pageMetadata'
+import { localizedHref } from '@/i18n/config'
 
 export function generateStaticParams() {
   return CORE_SYSTEMS.map((s) => ({ slug: s.slug }))
@@ -33,7 +34,7 @@ export default async function Page({
     .map((s) => ({
       title: s.title,
       body: s.subtitle,
-      href: `/${locale}/core-systems/${s.slug}`,
+      href: localizedHref(`/core-systems/${s.slug}`, locale),
     }))
   return <CoreSystemContent item={item} related={related} />
 }

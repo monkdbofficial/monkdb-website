@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import { LEARN_SECTIONS } from '@/content/learn'
 import ResourceContent from './ResourceContent'
 import { buildSlugPageMetadata } from '@/i18n/pageMetadata'
+import { localizedHref } from '@/i18n/config'
 
 export function generateStaticParams() {
   return LEARN_SECTIONS.map((s) => ({ slug: s.slug }))
@@ -33,7 +34,7 @@ export default async function Page({
     .map((s) => ({
       title: s.title,
       body: s.subtitle,
-      href: `/${locale}/resources/${s.slug}`,
+      href: localizedHref(`/resources/${s.slug}`, locale),
     }))
   return <ResourceContent item={item} related={related} />
 }

@@ -8,6 +8,7 @@ import { Sun, Moon, ChevronDown } from 'lucide-react'
 import { useTheme } from '@/app/theme'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useI18n } from '@/i18n/I18nProvider'
+import { localizedHref } from '@/i18n/config'
 import LanguageSwitcher from './LanguageSwitcher'
 
 // ───────────────────────────── Nav data (from MonkDB Website Content.pdf) ──
@@ -213,8 +214,7 @@ function buildNavigation(
 
 function withLocale(href: string, locale: string) {
   if (!href.startsWith('/') || href.startsWith('//')) return href
-  if (href === '/') return `/${locale}`
-  return `/${locale}${href}`
+  return localizedHref(href, locale)
 }
 
 const SANAS_EASE = [0.165, 0.84, 0.44, 1] as const
@@ -246,7 +246,7 @@ export default function Navbar() {
     return ext?.[key] ?? key
   }
   const navigation = buildNavigation(tNav, tNavExt)
-  const homePath = `/${locale}`
+  const homePath = localizedHref('/', locale)
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -558,7 +558,7 @@ export default function Navbar() {
             */}
 
             <motion.a
-              href="#demo"
+              href={localizedHref('/company/contact', locale)}
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.96 }}
               transition={{ duration: 0.25, ease: SANAS_EASE }}
@@ -1028,7 +1028,7 @@ export default function Navbar() {
               })}
 
               <motion.a
-                href="#demo"
+                href={localizedHref('/company/contact', locale)}
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.35, delay: 0.35, ease: SANAS_EASE }}

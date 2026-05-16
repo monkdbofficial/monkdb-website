@@ -1,6 +1,13 @@
 import type { Metadata } from 'next'
 import { getDictionary } from './dictionaries'
-import { isLocale, locales, ogLocales, SITE_URL, type Locale } from './config'
+import {
+  isLocale,
+  locales,
+  localizedHref,
+  ogLocales,
+  SITE_URL,
+  type Locale,
+} from './config'
 
 type PageKey =
   | 'about'
@@ -62,11 +69,11 @@ const ROBOTS_DIRECTIVES: NonNullable<Metadata['robots']> = {
 }
 
 function buildAlternates(path: string, locale: string) {
-  const canonical = `${SITE_URL}/${locale}${path}`
+  const canonical = `${SITE_URL}${localizedHref(path, locale)}`
   const languages: Record<string, string> = Object.fromEntries(
-    locales.map((l) => [l, `${SITE_URL}/${l}${path}`]),
+    locales.map((l) => [l, `${SITE_URL}${localizedHref(path, l)}`]),
   )
-  languages['x-default'] = `${SITE_URL}/en${path}`
+  languages['x-default'] = `${SITE_URL}${localizedHref(path, 'en')}`
   return { canonical, languages }
 }
 

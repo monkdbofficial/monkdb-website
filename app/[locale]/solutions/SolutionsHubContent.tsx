@@ -23,6 +23,7 @@ import HubDiagramBanner from '@/components/HubDiagramBanner'
 import ScrollToTop from '@/components/ScrollToTop'
 import ScrollProgressBar from '@/components/ScrollProgressBar'
 import { useI18n } from '@/i18n/I18nProvider'
+import { localizedHref } from '@/i18n/config'
 import { SOLUTIONS } from '@/content/solutions'
 import { OUTCOMES } from '@/content/outcomes'
 
@@ -119,7 +120,7 @@ export default function SolutionsHubContent() {
                 }}
               >
                 <Link
-                  href={`/${locale}/solutions/${s.slug}`}
+                  href={localizedHref(`/solutions/${s.slug}`, locale)}
                   className="group block relative rounded-2xl overflow-hidden h-full sol-card card-surface"
                   style={{
                     padding: 'clamp(18px, 2.2vw, 26px)',

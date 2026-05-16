@@ -33,6 +33,7 @@ import CTABanner from './CTABanner'
 import ScrollToTop from './ScrollToTop'
 import ScrollProgressBar from './ScrollProgressBar'
 import { useI18n } from '@/i18n/I18nProvider'
+import { localizedHref } from '@/i18n/config'
 
 const EASE = [0.25, 0.46, 0.45, 0.94] as const
 
@@ -350,7 +351,7 @@ function RelatedGrid({
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5">
           {data.items.map((item, i) => {
             const target = item.href.startsWith('/')
-              ? `/${locale}${item.href}`
+              ? localizedHref(item.href, locale)
               : item.href
             return (
               <motion.div

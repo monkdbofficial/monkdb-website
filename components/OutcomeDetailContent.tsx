@@ -27,6 +27,7 @@ import SectionLabel from '@/components/SectionLabel'
 import ScrollToTop from '@/components/ScrollToTop'
 import ScrollProgressBar from '@/components/ScrollProgressBar'
 import { useI18n } from '@/i18n/I18nProvider'
+import { localizedHref } from '@/i18n/config'
 import type {
   OutcomeDetail,
   OutcomeIconName,
@@ -499,7 +500,7 @@ export default function OutcomeDetailContent({
               {item.driverSolutions.map((s) => (
                 <Link
                   key={s.href}
-                  href={`/${locale}${s.href}`}
+                  href={localizedHref(s.href, locale)}
                   className="group block rounded-2xl overflow-hidden"
                   style={{
                     background: 'white',
@@ -550,7 +551,7 @@ export default function OutcomeDetailContent({
               {related.map((r) => (
                 <Link
                   key={r.href}
-                  href={`/${locale}${r.href}`}
+                  href={localizedHref(r.href, locale)}
                   className="group block rounded-2xl"
                   style={{
                     background: 'white',

@@ -26,6 +26,7 @@ import {
 import Link from 'next/link'
 import SectionLabel from './SectionLabel'
 import { useI18n } from '@/i18n/I18nProvider'
+import { localizedHref } from '@/i18n/config'
 
 const EASE = [0.165, 0.84, 0.44, 1] as const
 
@@ -167,7 +168,7 @@ export default function HomeUseCases() {
               }}
             >
               <Link
-                href={`/${locale}${c.href}`}
+                href={localizedHref(c.href, locale)}
                 className="group block relative rounded-2xl overflow-hidden home-uc-card h-full"
                 style={{
                   background: 'white',

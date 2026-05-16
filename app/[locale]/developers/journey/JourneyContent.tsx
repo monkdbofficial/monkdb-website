@@ -24,6 +24,7 @@ import HubDiagramBanner from '@/components/HubDiagramBanner'
 import ScrollToTop from '@/components/ScrollToTop'
 import ScrollProgressBar from '@/components/ScrollProgressBar'
 import { useI18n } from '@/i18n/I18nProvider'
+import { localizedHref } from '@/i18n/config'
 import { DEVELOPER_JOURNEY } from '@/content/developerJourney'
 
 const EASE = [0.165, 0.84, 0.44, 1] as const
@@ -111,7 +112,7 @@ export default function JourneyContent() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
             {DEVELOPER_JOURNEY.map((stage, i) => {
               const href = stage.ctaHref.startsWith('/')
-                ? `/${locale}${stage.ctaHref}`
+                ? localizedHref(stage.ctaHref, locale)
                 : stage.ctaHref
               const external = !stage.ctaHref.startsWith('/')
               return (

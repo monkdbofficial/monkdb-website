@@ -24,6 +24,7 @@ import HubDiagramBanner from '@/components/HubDiagramBanner'
 import ScrollToTop from '@/components/ScrollToTop'
 import ScrollProgressBar from '@/components/ScrollProgressBar'
 import { useI18n } from '@/i18n/I18nProvider'
+import { localizedHref } from '@/i18n/config'
 import { LEARN_SECTIONS } from '@/content/learn'
 
 const EASE = [0.165, 0.84, 0.44, 1] as const
@@ -176,7 +177,7 @@ export default function LearnHubContent() {
                   }}
                 >
                   <Link
-                    href={`/${locale}/resources/${s.slug}`}
+                    href={localizedHref(`/resources/${s.slug}`, locale)}
                     className="learn-card group block relative rounded-2xl overflow-hidden h-full"
                     style={{
                       background: 'white',
