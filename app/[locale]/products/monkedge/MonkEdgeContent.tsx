@@ -544,11 +544,7 @@ export default function MonkEdgeContent() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ duration: 0.5, delay: i * 0.06, ease: EASE }}
-                className="monkedge-cap relative rounded-2xl overflow-hidden flex flex-col"
-                style={{
-                  background: 'white',
-                  border: '1px solid rgba(10,34,128,0.10)',
-                }}
+                className="monkedge-cap card-surface relative rounded-2xl overflow-hidden flex flex-col"
               >
                 <span
                   aria-hidden="true"
@@ -586,7 +582,7 @@ export default function MonkEdgeContent() {
                       fontSize: '10.5px',
                       fontWeight: 600,
                       letterSpacing: '0.16em',
-                      color: 'rgba(10,34,128,0.45)',
+                      color: 'var(--text-muted, rgba(10,34,128,0.45))',
                     }}
                   >
                     {String(i + 1).padStart(2, '0')} / 0{CAPABILITIES.length}
@@ -623,6 +619,7 @@ export default function MonkEdgeContent() {
                   </p>
                 </div>
                 <div
+                  className="dark:bg-[#0A1326]/65"
                   style={{
                     padding: 'clamp(12px, 1.4vw, 16px) clamp(20px, 2vw, 24px)',
                     borderTop: '1px dashed rgba(10,34,128,0.10)',
@@ -672,10 +669,8 @@ export default function MonkEdgeContent() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ duration: 0.5, delay: i * 0.06, ease: EASE }}
-                className="rounded-2xl"
+                className="rounded-2xl card-surface"
                 style={{
-                  background: 'white',
-                  border: '1px solid rgba(10,34,128,0.10)',
                   padding: 'clamp(22px, 2.6vw, 30px)',
                 }}
               >
@@ -692,7 +687,7 @@ export default function MonkEdgeContent() {
                   <s.Icon size={20} strokeWidth={1.6} />
                 </span>
                 <h3
-                  className="text-[#0A2280]"
+                  className="text-[#0A2280] dark:text-white"
                   style={{
                     fontSize: 'clamp(16px, 1.4vw, 20px)',
                     fontWeight: 500,
@@ -704,7 +699,7 @@ export default function MonkEdgeContent() {
                   {s.label}
                 </h3>
                 <p
-                  className="text-gray-600"
+                  className="text-gray-600 dark:text-gray-400"
                   style={{
                     fontSize: 'clamp(13px, 1vw, 14.5px)',
                     fontWeight: 400,

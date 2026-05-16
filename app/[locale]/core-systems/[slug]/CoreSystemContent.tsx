@@ -878,11 +878,7 @@ export default function CoreSystemContent({
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ duration: 0.5, delay: i * 0.06, ease: EASE }}
-                className="rounded-2xl overflow-hidden"
-                style={{
-                  background: 'white',
-                  border: '1px solid rgba(10,34,128,0.10)',
-                }}
+                className="rounded-2xl overflow-hidden card-surface"
               >
                 <div
                   className="flex items-center justify-between"
@@ -984,10 +980,8 @@ export default function CoreSystemContent({
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-40px' }}
                   transition={{ duration: 0.5, delay: i * 0.06, ease: EASE }}
-                  className="cs-related group block rounded-2xl"
+                  className="cs-related group block rounded-2xl card-surface"
                   style={{
-                    background: 'white',
-                    border: '1px solid rgba(10,34,128,0.10)',
                     padding: 'clamp(20px, 2.2vw, 26px)',
                     textDecoration: 'none',
                     transition:

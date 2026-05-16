@@ -5,10 +5,8 @@ import { useRef, useEffect } from 'react'
 import { ArrowUpRight } from 'lucide-react'
 import { useI18n } from '@/i18n/I18nProvider'
 
-function Counter({ to }: { to: number }) {
+function Counter({ to, isInView }: { to: number; isInView: boolean }) {
   const ref = useRef<HTMLSpanElement>(null)
-  const inViewRef = useRef(null)
-  const isInView = useInView(inViewRef, { once: true, margin: '-80px' })
 
   useEffect(() => {
     if (!isInView || !ref.current) return
@@ -22,12 +20,7 @@ function Counter({ to }: { to: number }) {
     return () => controls.stop()
   }, [isInView, to])
 
-  return (
-    <>
-      <span ref={inViewRef} style={{ position: 'absolute', pointerEvents: 'none' }} />
-      <span ref={ref}>0k</span>
-    </>
-  )
+  return <span ref={ref}>0k</span>
 }
 
 export default function About() {
@@ -124,7 +117,7 @@ export default function About() {
                     backgroundClip: 'text',
                   }}
                 >
-                  <Counter to={270} />
+                  <Counter to={270} isInView={isInView} />
                 </span>
               </div>
               <span

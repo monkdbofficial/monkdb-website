@@ -77,23 +77,49 @@ const OFFICES = [
 
 export default function ContactContent() {
   const [submitted, setSubmitted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   const [form, setForm] = useState({
     name: '',
     company: '',
     email: '',
+    phone: '',
     role: '',
     workload: '',
     message: '',
+    acceptCommunications: false,
   })
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
-    setForm({ ...form, [e.target.name]: e.target.value })
+    const target = e.target
+    const value =
+      target instanceof HTMLInputElement && target.type === 'checkbox'
+        ? target.checked
+        : target.value
+    setForm({ ...form, [target.name]: value })
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    // No backend wired yet; show a success state. Mailto fallback in Reach Options.
-    setSubmitted(true)
+    if (submitting) return
+    setSubmitting(true)
+    setError(null)
+    try {
+      const res = await fetch('/api/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      })
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) {
+        throw new Error(data.error ?? 'Failed to send message. Please try again.')
+      }
+      setSubmitted(true)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Network error. Please try again.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -177,12 +203,19 @@ export default function ContactContent() {
                       required
                     />
                     <Field
-                      label="Role"
-                      name="role"
-                      value={form.role}
+                      label="Phone"
+                      name="phone"
+                      type="tel"
+                      value={form.phone}
                       onChange={handleChange}
                     />
                   </div>
+                  <Field
+                    label="Role"
+                    name="role"
+                    value={form.role}
+                    onChange={handleChange}
+                  />
                   <SelectField
                     label="Primary workload"
                     name="workload"
@@ -205,8 +238,44 @@ export default function ContactContent() {
                     onChange={handleChange}
                     required
                   />
+                  <label className="flex items-start gap-3 mt-1">
+                    <input
+                      id="default-checkbox"
+                      type="checkbox"
+                      name="acceptCommunications"
+                      checked={form.acceptCommunications}
+                      onChange={handleChange}
+                      style={{
+                        width: 16,
+                        height: 16,
+                        marginTop: 2,
+                        accentColor: '#1A38E8',
+                        cursor: 'pointer',
+                      }}
+                    />
+                    <span style={{ fontSize: 13, lineHeight: 1.55, color: '#4B5563' }}>
+                      I agree to receive product updates and communications from MonkDB.
+                    </span>
+                  </label>
+                  {error && (
+                    <div
+                      role="alert"
+                      style={{
+                        padding: '10px 14px',
+                        borderRadius: 10,
+                        background: 'rgba(220,38,38,0.06)',
+                        border: '1px solid rgba(220,38,38,0.25)',
+                        color: '#B91C1C',
+                        fontSize: 13,
+                        lineHeight: 1.5,
+                      }}
+                    >
+                      {error}
+                    </div>
+                  )}
                   <button
                     type="submit"
+                    disabled={submitting}
                     className="inline-flex items-center justify-center gap-2 self-start"
                     style={{
                       background: '#1A38E8',
@@ -216,13 +285,15 @@ export default function ContactContent() {
                       padding: '14px 28px',
                       borderRadius: '999px',
                       border: 'none',
-                      cursor: 'pointer',
+                      cursor: submitting ? 'not-allowed' : 'pointer',
+                      opacity: submitting ? 0.7 : 1,
                       boxShadow: '0 8px 22px rgba(26,56,232,0.32)',
                       marginTop: '8px',
+                      transition: 'opacity 200ms ease',
                     }}
                   >
                     <Send size={14} strokeWidth={2.2} />
-                    Send message
+                    {submitting ? 'Sending…' : 'Send message'}
                   </button>
                 </form>
               ) : (

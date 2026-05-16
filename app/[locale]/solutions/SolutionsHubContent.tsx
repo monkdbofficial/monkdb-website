@@ -120,10 +120,8 @@ export default function SolutionsHubContent() {
               >
                 <Link
                   href={`/${locale}/solutions/${s.slug}`}
-                  className="group block relative rounded-2xl overflow-hidden h-full sol-card"
+                  className="group block relative rounded-2xl overflow-hidden h-full sol-card card-surface"
                   style={{
-                    background: 'white',
-                    border: '1px solid rgba(10,34,128,0.10)',
                     padding: 'clamp(18px, 2.2vw, 26px)',
                     textDecoration: 'none',
                     display: 'flex',
@@ -142,19 +140,25 @@ export default function SolutionsHubContent() {
                       transition: 'transform 360ms ease',
                     }}
                   />
-                  <span
-                    style={{
-                      fontFamily:
-                        'var(--font-mono, ui-monospace, monospace)',
-                      fontSize: '10.5px',
-                      fontWeight: 600,
-                      letterSpacing: '0.16em',
-                      color: '#1A38E8',
-                      marginBottom: '14px',
-                    }}
-                  >
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
+                  <div className="flex items-center gap-3 mb-3">
+                    <span
+                      className="inline-flex items-center justify-center rounded-md flex-shrink-0"
+                      style={{
+                        width: 32,
+                        height: 24,
+                        background: 'rgba(26,56,232,0.10)',
+                        border: '1px solid rgba(26,56,232,0.30)',
+                        color: '#1A38E8',
+                        fontFamily:
+                          'var(--font-mono, ui-monospace, monospace)',
+                        fontSize: 11,
+                        fontWeight: 700,
+                        letterSpacing: '0.04em',
+                      }}
+                    >
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                  </div>
                   <h3
                     className="text-gray-900 dark:text-white"
                     style={{
@@ -162,7 +166,7 @@ export default function SolutionsHubContent() {
                       fontWeight: 500,
                       letterSpacing: '-0.005em',
                       lineHeight: 1.3,
-                      margin: '0 0 10px 0',
+                      margin: '0 0 8px 0',
                     }}
                   >
                     {s.title}
@@ -266,25 +270,30 @@ export default function SolutionsHubContent() {
                   delay: i * 0.06,
                   ease: EASE,
                 }}
-                className="rounded-2xl"
+                className="rounded-2xl card-surface-alt"
                 style={{
-                  background: '#F8F4F0',
-                  border: '1px solid rgba(10,34,128,0.10)',
                   padding: 'clamp(20px, 2.4vw, 28px)',
                 }}
               >
-                <span
-                  style={{
-                    fontFamily:
-                      'var(--font-mono, ui-monospace, monospace)',
-                    fontSize: '10.5px',
-                    fontWeight: 600,
-                    letterSpacing: '0.16em',
-                    color: '#1A38E8',
-                  }}
-                >
-                  {String(i + 1).padStart(2, '0')}
-                </span>
+                <div className="flex items-center gap-3 mb-3">
+                  <span
+                    className="inline-flex items-center justify-center rounded-md flex-shrink-0"
+                    style={{
+                      width: 32,
+                      height: 24,
+                      background: 'rgba(26,56,232,0.10)',
+                      border: '1px solid rgba(26,56,232,0.30)',
+                      color: '#1A38E8',
+                      fontFamily:
+                        'var(--font-mono, ui-monospace, monospace)',
+                      fontSize: 11,
+                      fontWeight: 700,
+                      letterSpacing: '0.04em',
+                    }}
+                  >
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                </div>
                 <h3
                   className="text-[#0A2280] dark:text-white"
                   style={{
@@ -292,7 +301,7 @@ export default function SolutionsHubContent() {
                     fontWeight: 500,
                     letterSpacing: '-0.005em',
                     lineHeight: 1.25,
-                    margin: '14px 0 10px 0',
+                    margin: '0 0 8px 0',
                   }}
                 >
                   {o.title}

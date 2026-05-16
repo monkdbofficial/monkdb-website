@@ -582,10 +582,8 @@ export default function MonkDBContent() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ duration: 0.5, delay: i * 0.05, ease: EASE }}
-                className="monkdb-cap relative rounded-2xl overflow-hidden"
+                className="monkdb-cap card-surface relative rounded-2xl overflow-hidden"
                 style={{
-                  background: 'white',
-                  border: '1px solid rgba(10,34,128,0.10)',
                   padding: 'clamp(22px, 2.4vw, 28px)',
                 }}
               >
@@ -657,9 +655,8 @@ export default function MonkDBContent() {
 
       {/* ── Replace the stack — before / after comparison ── */}
       <section
-        className="relative overflow-hidden py-14 sm:py-20 lg:py-24"
+        className="relative overflow-hidden py-14 sm:py-20 lg:py-24 dark:bg-[#0A1326]"
         style={{
-          background: '#F8F4F0',
           borderTop: '1px solid rgba(10,34,128,0.10)',
         }}
       >
@@ -690,10 +687,8 @@ export default function MonkDBContent() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: '-60px' }}
               transition={{ duration: 0.6, ease: EASE }}
-              className="rounded-2xl"
+              className="rounded-2xl card-surface"
               style={{
-                background: 'white',
-                border: '1px solid rgba(10,34,128,0.10)',
                 padding: 'clamp(20px, 2.4vw, 28px)',
               }}
             >
@@ -1029,11 +1024,7 @@ export default function MonkDBContent() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ duration: 0.5, delay: i * 0.06, ease: EASE }}
-                className="monkdb-cap relative rounded-2xl overflow-hidden flex flex-col"
-                style={{
-                  background: 'white',
-                  border: '1px solid rgba(10,34,128,0.10)',
-                }}
+                className="monkdb-cap card-surface relative rounded-2xl overflow-hidden flex flex-col"
               >
                 <span
                   aria-hidden="true"

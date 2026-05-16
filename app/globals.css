@@ -315,3 +315,100 @@
   transform: scaleX(1);
 }
 
+/* ═══════════════════════════════════════════════════════════
+   DARK MODE: enterprise-grade card & section overrides
+   Covers all inner pages with hardcoded white cards/text.
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Utility: card-surface — add to any card that uses inline white bg ── */
+.card-surface {
+  background: white;
+  border: 1px solid rgba(10, 34, 128, 0.10);
+}
+.dark .card-surface,
+:where(.dark, .dark *).card-surface {
+  background: rgba(15, 22, 40, 0.85) !important;
+  border-color: rgba(100, 140, 255, 0.12) !important;
+}
+
+.card-surface-alt {
+  background: #F8F4F0;
+  border: 1px solid rgba(10, 34, 128, 0.10);
+}
+.dark .card-surface-alt,
+:where(.dark, .dark *).card-surface-alt {
+  background: rgba(13, 18, 32, 0.85) !important;
+  border-color: rgba(100, 140, 255, 0.10) !important;
+}
+
+/* ── Dark mode: fix solution cards ── */
+.dark .sol-card {
+  background: rgba(15, 22, 40, 0.85) !important;
+  border-color: rgba(100, 140, 255, 0.12) !important;
+}
+
+/* ── Dark mode: catch-all for rounded cards with hardcoded inline white ── */
+.dark .rounded-2xl,
+.dark .rounded-xl {
+  /* Only override if the element doesn't already have a dark-specific class */
+}
+
+/* ── MonkEdge / product-specific card hover ── */
+.monkedge-cap:hover .monkedge-cap-rail {
+  transform: scaleX(1) !important;
+}
+
+/* ── Edge animation: sheen sweep ── */
+@keyframes edgeSheen {
+  0%   { background-position: 200% 50%; }
+  100% { background-position: -200% 50%; }
+}
+@keyframes edgeSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ═══════════════════════════════════════
+   RESPONSIVE: mobile & small-window fixes
+   ═══════════════════════════════════════ */
+
+/* ── Reduce section padding on very small screens ── */
+@media (max-width: 640px) {
+  .section-grid {
+    background-size: 22px 22px;
+  }
+
+  /* Prevent large headings from overflowing on narrow viewports */
+  h1, h2, h3 {
+    overflow-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+  }
+}
+
+/* ── Fix floating N-logo / scroll-to-top overlap on mobile ── */
+@media (max-width: 768px) {
+  /* Push scroll-to-top above the N logo area */
+  .fixed.bottom-5.right-5,
+  .fixed.bottom-8.right-8 {
+    bottom: 20px !important;
+    right: 16px !important;
+    width: 36px !important;
+    height: 36px !important;
+  }
+}
+
+/* ── Smooth entrance animations for elements that use 'once' InView ── */
+@media (prefers-reduced-motion: no-preference) {
+  .section-grid {
+    position: relative;
+  }
+}
+
+/* ── Ensure FeatureBanner cards don't get too tall on mobile ── */
+@media (max-width: 767px) {
+  [style*="gridAutoRows"] {
+    grid-auto-rows: clamp(260px, 70vw, 400px) !important;
+  }
+}
+

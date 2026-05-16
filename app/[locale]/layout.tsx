@@ -5,6 +5,8 @@ import '../globals.css'
 import { Providers } from '../providers'
 import { I18nProvider } from '@/i18n/I18nProvider'
 import { getDictionary } from '@/i18n/dictionaries'
+import Analytics, { GTMNoScript } from '@/components/Analytics'
+import StructuredData from '@/components/StructuredData'
 import {
   isLocale,
   locales,
@@ -96,6 +98,9 @@ export async function generateMetadata({
         'max-snippet': -1,
       },
     },
+    verification: {
+      google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+    },
   }
 }
 
@@ -122,11 +127,14 @@ export default async function RootLayout({
         className="font-sans antialiased min-h-screen"
         suppressHydrationWarning
       >
+        <StructuredData />
+        <GTMNoScript />
         <Providers>
           <I18nProvider locale={locale as Locale} dict={dict}>
             {children}
           </I18nProvider>
         </Providers>
+        <Analytics />
       </body>
     </html>
   )

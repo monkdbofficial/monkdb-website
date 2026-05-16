@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { INDUSTRIES } from '@/content/industries'
 import IndustryContent from './IndustryContent'
-import { locales, SITE_URL, type Locale } from '@/i18n/config'
+import { buildSlugPageMetadata } from '@/i18n/pageMetadata'
 
 export function generateStaticParams() {
   return INDUSTRIES.map((s) => ({ slug: s.slug }))
@@ -14,17 +14,12 @@ export async function generateMetadata({
   const { locale, slug } = await params
   const item = INDUSTRIES.find((s) => s.slug === slug)
   if (!item) return {}
-  const path = `/industries/${slug}`
-  const canonical = `${SITE_URL}/${locale}${path}`
-  const languages: Record<string, string> = Object.fromEntries(
-    locales.map((l: Locale) => [l, `${SITE_URL}/${l}${path}`]),
-  )
-  languages['x-default'] = `${SITE_URL}/en${path}`
-  return {
-    title: `${item.title}. MonkDB`,
+  return buildSlugPageMetadata({
+    title: item.title,
     description: item.subtitle,
-    alternates: { canonical, languages },
-  }
+    path: `/industries/${slug}`,
+    locale,
+  })
 }
 
 export default async function Page({

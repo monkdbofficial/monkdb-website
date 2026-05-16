@@ -423,11 +423,8 @@ export default function SovereignContent() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ duration: 0.55, delay: i * 0.07, ease: EASE }}
-                className="rounded-2xl flex flex-col"
+                className="rounded-2xl flex flex-col card-surface"
                 style={{
-                  background:
-                    'linear-gradient(180deg, #FAF7F3 0%, white 100%)',
-                  border: '1px solid rgba(10,34,128,0.10)',
                   padding: 'clamp(20px, 2.4vw, 28px)',
                 }}
               >
@@ -511,11 +508,7 @@ export default function SovereignContent() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ duration: 0.5, delay: i * 0.07, ease: EASE }}
-                className="rounded-2xl relative overflow-hidden flex flex-col"
-                style={{
-                  background: 'white',
-                  border: '1px solid rgba(10,34,128,0.10)',
-                }}
+                className="rounded-2xl relative overflow-hidden flex flex-col card-surface"
               >
                 <div
                   className="flex items-center justify-between"
@@ -556,7 +549,7 @@ export default function SovereignContent() {
                   }}
                 >
                   <h3
-                    className="text-[#0A2280]"
+                    className="text-[#0A2280] dark:text-white"
                     style={{
                       fontSize: 'clamp(16px, 1.4vw, 20px)',
                       fontWeight: 500,
@@ -568,7 +561,7 @@ export default function SovereignContent() {
                     {t.label}
                   </h3>
                   <p
-                    className="text-gray-600"
+                    className="text-gray-600 dark:text-gray-400"
                     style={{
                       fontSize: 'clamp(13px, 1vw, 14.5px)',
                       fontWeight: 400,
@@ -841,10 +834,8 @@ export default function SovereignContent() {
               ].map((stage, i) => (
                 <li
                   key={stage.tag}
-                  className="rounded-xl flex items-center gap-4"
+                  className="rounded-xl flex items-center gap-4 card-surface"
                   style={{
-                    background: 'white',
-                    border: '1px solid rgba(10,34,128,0.08)',
                     padding: 'clamp(14px, 1.6vw, 20px) clamp(16px, 1.8vw, 22px)',
                   }}
                 >
@@ -880,7 +871,7 @@ export default function SovereignContent() {
                       {stage.tag}
                     </div>
                     <div
-                      className="text-gray-700"
+                      className="text-gray-700 dark:text-gray-400"
                       style={{
                         fontSize: 'clamp(12.5px, 1vw, 14px)',
                         lineHeight: 1.5,

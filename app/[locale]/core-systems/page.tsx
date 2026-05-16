@@ -1,24 +1,13 @@
 import type { Metadata } from 'next'
 import { CORE_SYSTEMS } from '@/content/coreSystems'
 import HubPageLayout from '@/components/HubPageLayout'
-import { locales, SITE_URL, type Locale } from '@/i18n/config'
+import { buildPageMetadata } from '@/i18n/pageMetadata'
 
 export async function generateMetadata({
   params,
 }: PageProps<'/[locale]/core-systems'>): Promise<Metadata> {
   const { locale } = await params
-  const path = '/core-systems'
-  const canonical = `${SITE_URL}/${locale}${path}`
-  const languages: Record<string, string> = Object.fromEntries(
-    locales.map((l: Locale) => [l, `${SITE_URL}/${l}${path}`]),
-  )
-  languages['x-default'] = `${SITE_URL}/en${path}`
-  return {
-    title: 'Core Systems. MonkDB',
-    description:
-      'The systems that power continuous intelligence and execution. Six deeply integrated engines that unify data, intelligence, and action into a single architecture.',
-    alternates: { canonical, languages },
-  }
+  return buildPageMetadata('coreSystems', locale)
 }
 
 export default function Page() {

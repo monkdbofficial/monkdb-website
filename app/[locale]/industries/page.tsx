@@ -1,24 +1,13 @@
 import type { Metadata } from 'next'
 import { INDUSTRIES } from '@/content/industries'
 import HubPageLayout from '@/components/HubPageLayout'
-import { locales, SITE_URL, type Locale } from '@/i18n/config'
+import { buildPageMetadata } from '@/i18n/pageMetadata'
 
 export async function generateMetadata({
   params,
 }: PageProps<'/[locale]/industries'>): Promise<Metadata> {
   const { locale } = await params
-  const path = '/industries'
-  const canonical = `${SITE_URL}/${locale}${path}`
-  const languages: Record<string, string> = Object.fromEntries(
-    locales.map((l: Locale) => [l, `${SITE_URL}/${l}${path}`]),
-  )
-  languages['x-default'] = `${SITE_URL}/en${path}`
-  return {
-    title: 'Industries. MonkDB',
-    description:
-      'Industry intelligence. Real-time execution. Tangible outcomes. MonkDB powers nine industry verticals from mining to finance to smart cities.',
-    alternates: { canonical, languages },
-  }
+  return buildPageMetadata('industries', locale)
 }
 
 export default function Page() {

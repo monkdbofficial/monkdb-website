@@ -478,10 +478,8 @@ export default function MonkSmartXHubContent() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ duration: 0.55, delay: i * 0.07, ease: EASE }}
-                className="rounded-2xl"
+                className="rounded-2xl card-surface"
                 style={{
-                  background: 'white',
-                  border: '1px solid rgba(10,34,128,0.10)',
                   padding: 'clamp(22px, 2.6vw, 30px)',
                 }}
               >
@@ -510,7 +508,7 @@ export default function MonkSmartXHubContent() {
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 <h3
-                  className="text-[#0A2280]"
+                  className="text-[#0A2280] dark:text-white"
                   style={{
                     fontSize: 'clamp(15px, 1.3vw, 18px)',
                     fontWeight: 500,
@@ -522,7 +520,7 @@ export default function MonkSmartXHubContent() {
                   {v.title}
                 </h3>
                 <p
-                  className="text-gray-600"
+                  className="text-gray-600 dark:text-gray-400"
                   style={{
                     fontSize: 'clamp(12.5px, 0.95vw, 14px)',
                     fontWeight: 400,
@@ -570,10 +568,8 @@ export default function MonkSmartXHubContent() {
               >
                 <Link
                   href={`/${locale}/products/monksmartx/${p.slug}`}
-                  className="smartx-portfolio-card group block relative rounded-2xl overflow-hidden h-full"
+                  className="smartx-portfolio-card group block relative rounded-2xl overflow-hidden h-full card-surface"
                   style={{
-                    background: 'white',
-                    border: '1px solid rgba(10,34,128,0.10)',
                     textDecoration: 'none',
                     display: 'flex',
                     flexDirection: 'column',
@@ -633,7 +629,7 @@ export default function MonkSmartXHubContent() {
                     }}
                   >
                     <h3
-                      className="text-[#0A2280]"
+                      className="text-[#0A2280] dark:text-white"
                       style={{
                         fontSize: 'clamp(18px, 1.7vw, 24px)',
                         fontWeight: 500,
@@ -645,7 +641,7 @@ export default function MonkSmartXHubContent() {
                       {p.name}
                     </h3>
                     <p
-                      className="text-gray-600 flex-1"
+                      className="text-gray-600 dark:text-gray-400 flex-1"
                       style={{
                         fontSize: 'clamp(13px, 1vw, 14.5px)',
                         fontWeight: 400,
@@ -793,17 +789,15 @@ export default function MonkSmartXHubContent() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.7, ease: EASE }}
-            className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-6 sm:gap-10 lg:gap-16 items-center rounded-2xl"
+            className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-6 sm:gap-10 lg:gap-16 items-center rounded-2xl card-surface-alt"
             style={{
-              background: '#F8F4F0',
-              border: `1px solid ${ACCENT}40`,
               padding: 'clamp(28px, 3vw, 48px) clamp(24px, 2.6vw, 40px)',
             }}
           >
             <div>
               <SectionLabel text="Extendable" />
               <h3
-                className="text-[#0A2280] mt-6"
+                className="text-[#0A2280] dark:text-white mt-6"
                 style={{
                   fontSize: 'clamp(24px, 3vw, 38px)',
                   fontWeight: 300,
@@ -817,7 +811,7 @@ export default function MonkSmartXHubContent() {
               </h3>
             </div>
             <p
-              className="text-gray-600"
+              className="text-gray-600 dark:text-gray-400"
               style={{
                 fontSize: 'clamp(14px, 1.15vw, 16px)',
                 fontWeight: 400,

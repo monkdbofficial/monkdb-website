@@ -525,17 +525,22 @@ export default function Navbar() {
 
           {/* Right-side controls */}
           <div className="flex items-center gap-2 ml-auto z-10 relative">
-            <div className="hidden md:inline-flex">
-              <LanguageSwitcher
-                iconColor={linkColor}
-                panelBg={pillBg}
-                panelBorder={pillBorder}
-                panelText={panelText}
-                panelTextHover={panelTextHover}
-                variant="full"
-              />
-            </div>
+            {/* Language switcher hidden until all locales are translation-ready. */}
+            {false && (
+              <div className="hidden md:inline-flex">
+                <LanguageSwitcher
+                  iconColor={linkColor}
+                  panelBg={pillBg}
+                  panelBorder={pillBorder}
+                  panelText={panelText}
+                  panelTextHover={panelTextHover}
+                  variant="full"
+                />
+              </div>
+            )}
 
+            {/* Dark mode toggle disabled — site is forced to light mode.
+                Re-enable by uncommenting and restoring the toggle in app/theme.tsx.
             {mounted && (
               <button
                 aria-label={tNav('toggleTheme')}
@@ -550,6 +555,7 @@ export default function Navbar() {
                 )}
               </button>
             )}
+            */}
 
             <motion.a
               href="#demo"
@@ -844,12 +850,23 @@ export default function Navbar() {
       {/* ── MOBILE DRAWER ── */}
       <AnimatePresence>
         {mobileOpen && (
+          <>
+          {/* Backdrop overlay */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="fixed inset-0 z-[54] md:hidden"
+            style={{ backgroundColor: 'rgba(0,0,0,0.4)' }}
+            onClick={() => setMobileOpen(false)}
+          />
           <motion.div
             initial={{ opacity: 0, y: -14 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -14 }}
             transition={{ duration: 0.35, ease: SANAS_EASE }}
-            className="fixed left-3 right-3 sm:left-4 sm:right-4 z-40 md:hidden rounded-[24px] sm:rounded-[28px] overflow-hidden"
+            className="fixed left-3 right-3 sm:left-4 sm:right-4 z-[55] md:hidden rounded-[24px] sm:rounded-[28px] overflow-hidden"
             style={{
               top: scrolled ? '82px' : '94px',
               maxHeight: 'calc(100vh - 110px)',
@@ -1030,24 +1047,29 @@ export default function Navbar() {
                 {tNav('bookDemo')}
               </motion.a>
 
-              <div
-                className="flex items-center justify-center mt-2 border-t pt-3"
-                style={{ borderColor: pillBorder }}
-              >
-                <LanguageSwitcher
-                  iconColor={
-                    onHero || theme === 'dark'
-                      ? 'rgba(255,255,255,0.78)'
-                      : '#4B5563'
-                  }
-                  panelBg={pillBg}
-                  panelBorder={pillBorder}
-                  panelText={panelText}
-                  panelTextHover={panelTextHover}
-                  variant="full"
-                />
-              </div>
+              {/* Language switcher hidden until all locales are translation-ready. */}
+              {false && (
+                <div
+                  className="flex items-center justify-center mt-2 border-t pt-3"
+                  style={{ borderColor: pillBorder }}
+                >
+                  <LanguageSwitcher
+                    iconColor={
+                      onHero || theme === 'dark'
+                        ? 'rgba(255,255,255,0.78)'
+                        : '#4B5563'
+                    }
+                    panelBg={pillBg}
+                    panelBorder={pillBorder}
+                    panelText={panelText}
+                    panelTextHover={panelTextHover}
+                    variant="full"
+                  />
+                </div>
+              )}
 
+              {/* Dark mode toggle disabled — site is forced to light mode.
+                  Re-enable by uncommenting and restoring the toggle in app/theme.tsx.
               {mounted && (
                 <button
                   onClick={() => {
@@ -1066,8 +1088,10 @@ export default function Navbar() {
                   {theme === 'dark' ? tNav('lightMode') : tNav('darkMode')}
                 </button>
               )}
+              */}
             </nav>
           </motion.div>
+          </>
         )}
       </AnimatePresence>
     </>

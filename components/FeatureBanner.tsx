@@ -24,7 +24,7 @@ export default function FeatureBanner() {
       <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
         <div
           className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-5"
-          style={{ gridAutoRows: 'clamp(300px, 32vw, 460px)', perspective: '1200px' }}
+          style={{ gridAutoRows: 'clamp(260px, 32vw, 460px)', perspective: '1200px' }}
         >
 
           {/* SVG filter defs reused by Card 1 holographic image and Card 2 wave image */}

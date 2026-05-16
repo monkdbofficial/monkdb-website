@@ -14,11 +14,27 @@ const ThemeContext = createContext<ThemeContextValue | null>(null)
 const STORAGE_KEY = 'theme'
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
+  // Dark mode toggle is temporarily disabled. The site is forced to light mode.
+  // To re-enable, restore the commented block below and restore the toggle
+  // buttons in components/Navbar.tsx.
+  const [theme] = useState<Theme>('light')
+
+  // Ensure the `dark` class is never applied to <html>.
+  useEffect(() => {
+    document.documentElement.classList.remove('dark')
+    try {
+      localStorage.removeItem(STORAGE_KEY)
+    } catch {}
+  }, [])
+
+  const setTheme = (_t: Theme) => {
+    // no-op while dark mode is disabled
+  }
+
+  /*
+  // Original implementation (re-enable when dark mode is restored):
   const [theme, setThemeState] = useState<Theme>('light')
 
-  // Sync from localStorage on mount. First paint is always 'light' (the default),
-  // so dark-mode users may see a ~50ms flash on first load. We accept this so
-  // we don't have to inject an inline script (which React 19 warns about).
   useEffect(() => {
     try {
       const stored = localStorage.getItem(STORAGE_KEY) as Theme | null
@@ -36,6 +52,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     } catch {}
     document.documentElement.classList.toggle('dark', t === 'dark')
   }
+  */
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>

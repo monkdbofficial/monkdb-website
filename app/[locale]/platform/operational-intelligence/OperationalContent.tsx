@@ -365,11 +365,7 @@ export default function OperationalContent() {
             </span>
           </h2>
           <div
-            className="rounded-2xl overflow-hidden"
-            style={{
-              border: '1px solid rgba(10,34,128,0.12)',
-              background: 'white',
-            }}
+            className="rounded-2xl overflow-hidden card-surface"
           >
             <div
               className="grid grid-cols-[1fr_auto_1fr]"
@@ -719,15 +715,13 @@ export default function OperationalContent() {
                     delay: i * 0.07,
                     ease: EASE,
                   }}
-                  className="grid grid-cols-[110px_1fr_100px] items-center gap-4 rounded-xl"
+                  className="grid grid-cols-[110px_1fr_100px] items-center gap-4 rounded-xl card-surface"
                   style={{
-                    background: 'white',
-                    border: '1px solid rgba(10,34,128,0.10)',
                     padding: 'clamp(14px, 1.6vw, 20px) clamp(18px, 2vw, 24px)',
                   }}
                 >
                   <span
-                    className="text-[#0A2280]"
+                    className="text-[#0A2280] dark:text-white"
                     style={{
                       fontFamily:
                         'var(--font-mono, ui-monospace, monospace)',

@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { OUTCOMES_DETAIL } from '@/content/outcomesDetail'
 import OutcomeDetailContent from '@/components/OutcomeDetailContent'
-import { locales, SITE_URL, type Locale } from '@/i18n/config'
+import { buildSlugPageMetadata } from '@/i18n/pageMetadata'
 
 export function generateStaticParams() {
   return OUTCOMES_DETAIL.map((s) => ({ slug: s.slug }))
@@ -14,17 +14,12 @@ export async function generateMetadata({
   const { locale, slug } = await params
   const item = OUTCOMES_DETAIL.find((s) => s.slug === slug)
   if (!item) return {}
-  const path = `/outcomes/${slug}`
-  const canonical = `${SITE_URL}/${locale}${path}`
-  const languages: Record<string, string> = Object.fromEntries(
-    locales.map((l: Locale) => [l, `${SITE_URL}/${l}${path}`]),
-  )
-  languages['x-default'] = `${SITE_URL}/en${path}`
-  return {
-    title: `${item.title}. MonkDB`,
+  return buildSlugPageMetadata({
+    title: item.title,
     description: item.refined,
-    alternates: { canonical, languages },
-  }
+    path: `/outcomes/${slug}`,
+    locale,
+  })
 }
 
 export default async function Page({

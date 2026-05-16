@@ -191,14 +191,20 @@ export default function HubPageLayout(props: HubPageLayoutProps) {
                     }}
                   >
                     {/* Top corner number */}
-                    <div className="flex items-center justify-between mb-5">
+                    <div className="flex items-center justify-between mb-4">
                       <span
+                        className="inline-flex items-center justify-center rounded-md flex-shrink-0"
                         style={{
-                          fontSize: '11px',
-                          fontWeight: 600,
-                          letterSpacing: '0.12em',
-                          textTransform: 'uppercase',
+                          width: 32,
+                          height: 24,
+                          background: 'rgba(26,56,232,0.10)',
+                          border: '1px solid rgba(26,56,232,0.30)',
                           color: '#1A38E8',
+                          fontFamily:
+                            'var(--font-mono, ui-monospace, monospace)',
+                          fontSize: 11,
+                          fontWeight: 700,
+                          letterSpacing: '0.04em',
                         }}
                       >
                         {String(i + 1).padStart(2, '0')}
@@ -207,8 +213,8 @@ export default function HubPageLayout(props: HubPageLayoutProps) {
                         aria-hidden="true"
                         className="hub-card-arrow"
                         style={{
-                          width: '36px',
-                          height: '36px',
+                          width: '32px',
+                          height: '32px',
                           borderRadius: '50%',
                           background: '#F8F4F0',
                           display: 'inline-flex',
@@ -218,7 +224,7 @@ export default function HubPageLayout(props: HubPageLayoutProps) {
                           transition: 'all 300ms ease',
                         }}
                       >
-                        <ArrowUpRight size={16} />
+                        <ArrowUpRight size={14} />
                       </span>
                     </div>
                     <h3
