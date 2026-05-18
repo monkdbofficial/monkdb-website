@@ -22,6 +22,7 @@ import CTABanner from '@/components/CTABanner'
 import SectionLabel from '@/components/SectionLabel'
 import ScrollToTop from '@/components/ScrollToTop'
 import ScrollProgressBar from '@/components/ScrollProgressBar'
+import ResourceLibrary from '@/components/ResourceLibrary'
 import type { CoreSystem as Section } from '@/content/coreSystems'
 
 const EASE = [0.165, 0.84, 0.44, 1] as const
@@ -623,6 +624,9 @@ export default function ResourceContent({
           </div>
         </div>
       </section>
+
+      {/* ── Resource library (only on /resources/resources) ── */}
+      {item.slug === 'resources' && <ResourceLibrary />}
 
       {/* ── Related (other Learn surfaces) ── */}
       {related.length > 0 && (
