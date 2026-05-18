@@ -7,6 +7,7 @@ import { I18nProvider } from '@/i18n/I18nProvider'
 import { getDictionary } from '@/i18n/dictionaries'
 import Analytics, { GTMNoScript } from '@/components/Analytics'
 import StructuredData from '@/components/StructuredData'
+import AnnouncementBanner from '@/components/AnnouncementBanner'
 import {
   isLocale,
   locales,
@@ -126,12 +127,14 @@ export default async function RootLayout({
     >
       <body
         className="font-sans antialiased min-h-screen"
+        style={{ paddingTop: 'var(--banner-h, 0px)' }}
         suppressHydrationWarning
       >
         <StructuredData />
         <GTMNoScript />
         <Providers>
           <I18nProvider locale={locale as Locale} dict={dict}>
+            <AnnouncementBanner />
             {children}
           </I18nProvider>
         </Providers>

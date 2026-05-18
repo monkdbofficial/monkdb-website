@@ -1,4 +1,9 @@
 {
+  "banner": {
+    "prefix": "Hinweis:",
+    "text": "Diese Website befindet sich in aktiver Entwicklung. Einige Seiten und Inhalte können sich ändern.",
+    "dismiss": "Ankündigung schließen"
+  },
   "meta": {
     "title": "MonkDB, die AI-Native-Vereinigte Datenbank",
     "description": "MonkDB ist Ihre KI-native Lösung für nahtlose Datenintegration und handlungsfähige Einblicke.",

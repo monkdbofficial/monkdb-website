@@ -1,4 +1,9 @@
 {
+  "banner": {
+    "prefix": "Avis :",
+    "text": "Ce site est en cours de développement actif. Certaines pages et contenus peuvent évoluer.",
+    "dismiss": "Fermer l'annonce"
+  },
   "meta": {
     "title": "MonkDB, base de données unifiée AI-Native",
     "description": "MonkDB est votre solution native pour l'intégration de données et les informations exploitables. Vecteur, série temporelle, géospatiale, document, blob, recherche de texte complet, streaming SQL.",

@@ -373,7 +373,7 @@ export default function Navbar() {
         transition={{ duration: 0.8, delay: 0.1, ease: SANAS_EASE }}
         className="fixed z-50 pointer-events-none flex justify-center w-full"
         style={{
-          top: scrolled ? '16px' : '22px',
+          top: `calc(var(--banner-h, 0px) + ${scrolled ? '16px' : '22px'})`,
           transition: `top 600ms ${SANAS_EASE_CSS}`,
           padding: '0 12px',
         }}
@@ -626,7 +626,7 @@ export default function Navbar() {
             key={`wrap-${currentMenu.id}`}
             className="fixed z-40 hidden md:block"
             style={{
-              top: scrolled ? '96px' : '108px',
+              top: `calc(var(--banner-h, 0px) + ${scrolled ? '96px' : '108px'})`,
               left: 0,
               // Outer wrapper handles positioning — framer-motion's transform
               // on the inner element would otherwise wipe out translateX(-50%).
@@ -867,8 +867,8 @@ export default function Navbar() {
             transition={{ duration: 0.35, ease: SANAS_EASE }}
             className="fixed left-3 right-3 sm:left-4 sm:right-4 z-[55] md:hidden rounded-[24px] sm:rounded-[28px] overflow-hidden"
             style={{
-              top: scrolled ? '82px' : '94px',
-              maxHeight: 'calc(100vh - 110px)',
+              top: `calc(var(--banner-h, 0px) + ${scrolled ? '82px' : '94px'})`,
+              maxHeight: 'calc(100vh - var(--banner-h, 0px) - 110px)',
               overflowY: 'auto',
               backgroundColor: onHero
                 ? 'rgba(10,20,90,0.92)'
