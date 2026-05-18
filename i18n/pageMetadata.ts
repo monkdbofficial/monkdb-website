@@ -27,7 +27,6 @@ type PageKey =
   | 'developerJourney'
   | 'learn'
   | 'companyPress'
-  | 'companyCustomers'
   | 'companyPartners'
   | 'companyCareers'
   | 'companyContact'
@@ -50,7 +49,6 @@ const PATHS: Record<PageKey, string> = {
   developerJourney: '/developers/journey',
   learn: '/resources/learn',
   companyPress: '/company/press',
-  companyCustomers: '/company/customers',
   companyPartners: '/company/partners',
   companyCareers: '/company/careers',
   companyContact: '/company/contact',

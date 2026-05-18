@@ -203,7 +203,6 @@ function buildNavigation(
       items: [
         { label: t('companyAbout'), href: '/about' },
         { label: t('companyPress'), href: '/company/press' },
-        { label: t('companyCustomers'), href: '/company/customers' },
         { label: t('companyPartners'), href: '/company/partners' },
         { label: t('companyCareers'), href: '/company/careers' },
         { label: t('companyContact'), href: '/company/contact' },

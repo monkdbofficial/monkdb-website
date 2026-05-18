@@ -130,7 +130,6 @@ export const localizedRoutes = [
   '/outcomes/accelerate-decision-making',
   // Phase 3 — Company sub-pages (5)
   '/company/press',
-  '/company/customers',
   '/company/partners',
   '/company/careers',
   '/company/contact',
