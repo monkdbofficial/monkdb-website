@@ -42,9 +42,10 @@ function buildNavigation(
             { label: tExt('productMonkDB'), href: '/features' },
             { label: tExt('productMonkEdge'), href: '/products/monkedge' },
             { label: tExt('productMonkSmartX'), href: '/products/monksmartx' },
-            // Proxied to Cloudflare R2 via a next.config rewrite. noLocale=true
-            // keeps the URL as /downloads on every locale so the rewrite matches.
-            { label: tExt('productViewMonk'), href: '/downloads', noLocale: true },
+            // ViewMonk Workbench — the free downloadable visual interface.
+            // Lives under Products so it stays grouped with the rest of the
+            // product offerings rather than crowding the top-level nav.
+            { label: tExt('productViewMonk'), href: '/viewmonk' },
           ],
         },
         {

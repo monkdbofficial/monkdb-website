@@ -18,7 +18,7 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  // `downloads` and `releases` are proxied to Cloudflare R2 via next.config
-  // rewrites and must NOT be rewritten to a locale-prefixed path here.
-  matcher: ['/((?!_next|api|admin|downloads|releases|.*\\..*).*)'],
+  // `releases` is proxied to Cloudflare R2 via a next.config rewrite and must
+  // NOT be rewritten to a locale-prefixed path here.
+  matcher: ['/((?!_next|api|admin|releases|.*\\..*).*)'],
 }
