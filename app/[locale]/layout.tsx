@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { IBM_Plex_Sans, IBM_Plex_Mono } from 'next/font/google'
+import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
 import '../globals.css'
 import { Providers } from '../providers'
@@ -118,11 +119,20 @@ export default async function RootLayout({
   if (!isLocale(locale)) notFound()
   const dict = await getDictionary(locale as Locale)
 
+  // Server-side platform detection. Read the User-Agent header so the
+  // [data-platform] attribute is present in the SSR HTML — no FOUC, no
+  // hydration race, no dependency on navigator.userAgentData. The
+  // Windows-scoped CSS in app/globals.css uses this to shrink the page
+  // physically so 1920×1080 @ 125% DPI laptops render at Mac density.
+  const ua = (await headers()).get('user-agent') ?? ''
+  const platform = /Windows/i.test(ua) ? 'windows' : undefined
+
   return (
     <html
       lang={locale}
       suppressHydrationWarning
       data-scroll-behavior="smooth"
+      data-platform={platform}
       className={`${ibmPlexSans.variable} ${ibmPlexMono.variable}`}
     >
       <body

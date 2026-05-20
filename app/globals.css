@@ -412,3 +412,58 @@
   }
 }
 
+/* ─────────────────────────────────────────────────────────────────
+   WINDOWS GLOBAL DOWNSCALE — single source of truth
+   The vast majority of Windows users run 1920×1080 at 125% DPI on
+   non-retina displays, which makes every CSS pixel render ~25%
+   larger physically than on macOS retina. Combined with DirectWrite
+   font hinting (heavier rendering), the same px values that look
+   right on Mac feel oversized on Windows.
+
+   `zoom` shrinks the entire page proportionally so text, cards,
+   spacing, images, and alignment all preserve their relationships
+   while the physical render size matches Mac. macOS / iOS / Android
+   stay untouched because the attribute is only set when the UA is
+   Windows (see app/[locale]/layout.tsx).
+   ───────────────────────────────────────────────────────────────── */
+
+/* Windows base (100% DPI / standard density desktop) */
+html[data-platform="windows"] {
+  zoom: 0.88;
+}
+
+/* Windows 125% DPI scaling — most common Windows laptop config */
+@media (min-resolution: 1.2dppx) and (max-resolution: 1.35dppx) {
+  html[data-platform="windows"] {
+    zoom: 0.82;
+  }
+}
+
+/* Windows 150% DPI scaling */
+@media (min-resolution: 1.4dppx) and (max-resolution: 1.6dppx) {
+  html[data-platform="windows"] {
+    zoom: 0.78;
+  }
+}
+
+/* Windows 175%+ DPI (typically 4K displays) */
+@media (min-resolution: 1.7dppx) {
+  html[data-platform="windows"] {
+    zoom: 0.85;
+  }
+}
+
+/* Firefox does not support `zoom` — fall back to transform scale on
+   the body. transform doesn't reflow, but it keeps the page from
+   looking oversized. */
+@supports (-moz-appearance: none) {
+  html[data-platform="windows"] {
+    zoom: unset;
+  }
+  html[data-platform="windows"] body {
+    transform: scale(0.85);
+    transform-origin: top center;
+    width: 117.65%; /* 1/0.85 to fill the viewport after scale */
+    margin-left: -8.82%;
+  }
+}
