@@ -12,7 +12,10 @@ import { localizedHref } from '@/i18n/config'
 import LanguageSwitcher from './LanguageSwitcher'
 
 // ───────────────────────────── Nav data (from MonkDB Website Content.pdf) ──
-type NavLeaf = { label: string; href: string }
+// `noLocale` opts a link out of the locale prefix — used for routes that are
+// served via next.config rewrites (e.g. /downloads, proxied from Cloudflare R2)
+// and exist outside the [locale] tree.
+type NavLeaf = { label: string; href: string; noLocale?: boolean }
 type NavGroup = { title: string; items: NavLeaf[] }
 
 type NavItem =
@@ -39,6 +42,9 @@ function buildNavigation(
             { label: tExt('productMonkDB'), href: '/features' },
             { label: tExt('productMonkEdge'), href: '/products/monkedge' },
             { label: tExt('productMonkSmartX'), href: '/products/monksmartx' },
+            // Proxied to Cloudflare R2 via a next.config rewrite. noLocale=true
+            // keeps the URL as /downloads on every locale so the rewrite matches.
+            { label: tExt('productViewMonk'), href: '/downloads', noLocale: true },
           ],
         },
         {
@@ -216,6 +222,13 @@ function withLocale(href: string, locale: string) {
   return localizedHref(href, locale)
 }
 
+// Resolve a nav leaf's href, honoring the `noLocale` opt-out for routes
+// proxied outside the [locale] tree (e.g. /downloads).
+function leafHref(child: NavLeaf, locale: string) {
+  if (child.noLocale) return child.href
+  return withLocale(child.href, locale)
+}
+
 const SANAS_EASE = [0.165, 0.84, 0.44, 1] as const
 const SANAS_EASE_CSS = 'cubic-bezier(0.165, 0.84, 0.44, 1)'
 
@@ -314,11 +327,20 @@ export default function Navbar() {
     return pathname === target || pathname?.startsWith(target.split('#')[0])
   }
 
+  // Same active check, but uses leafHref so noLocale leaves match correctly.
+  const leafActive = (leaf: NavLeaf) => {
+    const target = leafHref(leaf, locale)
+    return (
+      pathname === target ||
+      (pathname?.startsWith(target.split('#')[0]) ?? false)
+    )
+  }
+
   const itemActive = (item: NavItem) => {
     if (item.kind === 'link') return isActive(item.href)
     if (item.kind === 'dropdown')
-      return item.items.some((c) => isActive(c.href))
-    return item.groups.some((g) => g.items.some((c) => isActive(c.href)))
+      return item.items.some((c) => leafActive(c))
+    return item.groups.some((g) => g.items.some((c) => leafActive(c)))
   }
 
   // Colors
@@ -700,7 +722,7 @@ export default function Navbar() {
                 style={{ listStyle: 'none', padding: 0, margin: 0 }}
               >
                 {currentMenu.items.map((child, idx) => {
-                  const active = isActive(child.href)
+                  const active = leafActive(child)
                   return (
                     <motion.li
                       key={child.label}
@@ -713,7 +735,7 @@ export default function Navbar() {
                       }}
                     >
                       <Link
-                        href={withLocale(child.href, locale)}
+                        href={leafHref(child, locale)}
                         onClick={() => setOpenMenu(null)}
                         className="block rounded-xl"
                         style={{
@@ -788,7 +810,7 @@ export default function Navbar() {
                       style={{ listStyle: 'none', padding: 0, margin: 0 }}
                     >
                       {group.items.map((child, idx) => {
-                        const active = isActive(child.href)
+                        const active = leafActive(child)
                         return (
                           <motion.li
                             key={child.label}
@@ -801,7 +823,7 @@ export default function Navbar() {
                             }}
                           >
                             <Link
-                              href={withLocale(child.href, locale)}
+                              href={leafHref(child, locale)}
                               onClick={() => setOpenMenu(null)}
                               className="block rounded-xl"
                               style={{
@@ -998,7 +1020,7 @@ export default function Navbar() {
                                 {group.items.map((child) => (
                                   <Link
                                     key={child.label}
-                                    href={withLocale(child.href, locale)}
+                                    href={leafHref(child, locale)}
                                     onClick={() => {
                                       setMobileOpen(false)
                                       setMobileExpanded(null)

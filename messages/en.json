@@ -727,6 +727,8 @@
     "productMonkEdgeDesc": "Execution at the source",
     "productMonkSmartX": "MonkSmartX",
     "productMonkSmartXDesc": "Domain-specific platforms",
+    "productViewMonk": "ViewMonk Workbench",
+    "productViewMonkDesc": "Visual workbench for MonkDB",
     "developers": "Developers",
     "useCasesGroup": "By Use Case",
     "industriesGroup": "By Industry",
