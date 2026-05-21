@@ -23,7 +23,7 @@ export default function ArchitecturePillars() {
   return (
     <section
       ref={ref}
-      className="relative bg-white dark:bg-[#0f1623] py-12 sm:py-20 lg:py-28"
+      className="relative bg-white dark:bg-[#0f1623] py-10 sm:py-14 lg:py-20"
     >
       <div className="relative z-10 max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
         {/* Section chapter line */}
@@ -31,7 +31,7 @@ export default function ArchitecturePillars() {
           initial={{ opacity: 0, y: 8 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.55, ease: EASE }}
-          className="flex items-center gap-4 mb-6 sm:mb-10 lg:mb-14"
+          className="flex items-center gap-4 mb-5 sm:mb-7 lg:mb-9"
         >
           <span
             style={{
@@ -57,7 +57,7 @@ export default function ArchitecturePillars() {
         </motion.div>
 
         {/* Editorial two-col intro */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-6 sm:gap-10 lg:gap-16 items-start mb-8 sm:mb-12 lg:mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-6 sm:gap-10 lg:gap-16 items-start mb-6 sm:mb-8 lg:mb-10">
           <motion.h2
             initial={{ opacity: 0, y: 18 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -69,6 +69,7 @@ export default function ArchitecturePillars() {
               letterSpacing: '-0.02em',
               lineHeight: 1.08,
               textWrap: 'balance',
+              maxWidth: 'clamp(280px, 100%, 640px)',
             }}
           >
             {t.titleLine1}
@@ -96,7 +97,7 @@ export default function ArchitecturePillars() {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.18, ease: EASE }}
-          className="relative rounded-[20px] sm:rounded-[24px] overflow-hidden mb-10 sm:mb-16 lg:mb-20"
+          className="relative rounded-[20px] sm:rounded-[24px] overflow-hidden mb-8 sm:mb-10 lg:mb-12"
           style={{
             background: '#ffffff',
             border: '1px solid rgba(10,34,128,0.08)',

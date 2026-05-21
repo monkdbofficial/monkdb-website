@@ -11,7 +11,8 @@
 import { motion } from 'framer-motion'
 import SmartXLayout from '@/components/SmartXLayout'
 
-const ACCENT = '#A855F7'
+// Deeper trading-violet. Replaces candy #A855F7 with an enterprise tone.
+const ACCENT = '#7C3AED'
 
 function TradeHero() {
   // Order book ladder
@@ -54,7 +55,7 @@ function TradeHero() {
               fontWeight: 600,
               letterSpacing: '0.16em',
               textTransform: 'uppercase',
-              color: '#F472B6',
+              color: '#C44E4E',
               marginBottom: '8px',
             }}
           >
@@ -81,12 +82,12 @@ function TradeHero() {
                 style={{
                   width: `${(row.sz / max) * 100}%`,
                   background:
-                    'linear-gradient(90deg, transparent, rgba(244,114,182,0.18))',
+                    'linear-gradient(90deg, transparent, rgba(196,78,78,0.18))',
                 }}
               />
               <span
                 className="relative"
-                style={{ color: '#F472B6', fontWeight: 600 }}
+                style={{ color: '#C44E4E', fontWeight: 600 }}
               >
                 {row.px.toFixed(2)}
               </span>
@@ -103,7 +104,7 @@ function TradeHero() {
               fontWeight: 600,
               letterSpacing: '0.16em',
               textTransform: 'uppercase',
-              color: '#34D399',
+              color: '#1FA975',
               marginBottom: '8px',
             }}
           >
@@ -130,12 +131,12 @@ function TradeHero() {
                 style={{
                   width: `${(row.sz / max) * 100}%`,
                   background:
-                    'linear-gradient(90deg, rgba(52,211,153,0.18), transparent)',
+                    'linear-gradient(90deg, rgba(31,169,117,0.18), transparent)',
                 }}
               />
               <span
                 className="relative"
-                style={{ color: '#34D399', fontWeight: 600 }}
+                style={{ color: '#1FA975', fontWeight: 600 }}
               >
                 {row.px.toFixed(2)}
               </span>
@@ -175,8 +176,8 @@ function LatencyBudget() {
     { name: 'Tick ingest', ms: 0.18, color: '#7FB3FF' },
     { name: 'Feature lookup', ms: 0.22, color: '#1E8AFF' },
     { name: 'Vector retrieval', ms: 0.31, color: ACCENT },
-    { name: 'Decision logic', ms: 0.16, color: '#F472B6' },
-    { name: 'Order publish', ms: 0.13, color: '#34D399' },
+    { name: 'Decision logic', ms: 0.16, color: '#C44E4E' },
+    { name: 'Order publish', ms: 0.13, color: '#1FA975' },
   ]
   const total = stages.reduce((a, b) => a + b.ms, 0)
   return (
@@ -329,7 +330,7 @@ export default function SmartTradeContent() {
         {
           iconName: 'chart-line',
           title: 'Tick ingest',
-          body: 'Direct feeds, news, and alternative data all stream into the same engine — no broker in between.',
+          body: 'Direct feeds, news, and alternative data all stream into the same engine. No broker in between.',
         },
         {
           iconName: 'layers',

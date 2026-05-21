@@ -377,19 +377,19 @@ export default function SovereignContent() {
       </section>
 
       {/* ── Five sovereignty pillars — manifesto cards on white ── */}
-      <section className="section-grid bg-white dark:bg-[#0f1623] py-14 sm:py-20 lg:py-28 relative">
+      <section className="section-grid bg-white dark:bg-[#0f1623] py-12 sm:py-16 lg:py-20 relative">
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
-          <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-6 sm:gap-10 lg:gap-16 items-end mb-12">
+          <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-6 sm:gap-10 lg:gap-16 items-end mb-8 sm:mb-10">
             <div>
               <SectionLabel text="The five promises" />
               <h2
-                className="text-gray-900 dark:text-white mt-6"
+                className="text-gray-900 dark:text-white"
                 style={{
                   fontSize: 'clamp(28px, 4vw, 56px)',
                   fontWeight: 300,
                   letterSpacing: '-0.02em',
                   lineHeight: 1.08,
-                  margin: '24px 0 0 0',
+                  margin: '20px 0 0 0',
                   textWrap: 'balance',
                   textDecoration: 'none',
                 }}
@@ -484,17 +484,19 @@ export default function SovereignContent() {
       </section>
 
       {/* ── Where data stays — deployment targets ── */}
-      <section className="bg-[#F8F4F0] dark:bg-[#0A1326] py-14 sm:py-20 lg:py-24">
+      <section className="bg-[#F8F4F0] dark:bg-[#0A1326] py-12 sm:py-16 lg:py-20">
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <SectionLabel text="Where data stays" />
           <h2
-            className="text-gray-900 dark:text-white mt-6 mb-10 sm:mb-12"
+            className="text-gray-900 dark:text-white"
             style={{
               fontSize: 'clamp(28px, 4vw, 56px)',
               fontWeight: 300,
               letterSpacing: '-0.02em',
               lineHeight: 1.08,
-              margin: '24px 0 0 0',
+              margin: '20px 0 clamp(28px, 3.2vw, 44px) 0',
+              maxWidth: 'clamp(560px, 78%, 1080px)',
+              textWrap: 'balance',
               textDecoration: 'none',
             }}
           >
@@ -596,7 +598,7 @@ export default function SovereignContent() {
 
       {/* ── Trust framework — built into the engine ── */}
       <section
-        className="relative overflow-hidden py-14 sm:py-20 lg:py-28"
+        className="relative overflow-hidden py-12 sm:py-16 lg:py-20"
         style={{
           background:
             'linear-gradient(180deg, #050D6A 0%, #07091A 100%)',
@@ -615,13 +617,14 @@ export default function SovereignContent() {
         <div className="relative z-10 max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <SectionLabel text="Trust framework" variant="dark" />
           <h2
-            className="text-white mt-6 mb-12 sm:mb-14"
+            className="text-white"
             style={{
               fontSize: 'clamp(28px, 4vw, 52px)',
               fontWeight: 300,
               letterSpacing: '-0.02em',
               lineHeight: 1.1,
-              margin: '24px 0 0 0',
+              margin: '20px 0 clamp(32px, 3.4vw, 56px) 0',
+              maxWidth: 'clamp(560px, 78%, 1080px)',
               textWrap: 'balance',
               textDecoration: 'none',
             }}
@@ -690,7 +693,7 @@ export default function SovereignContent() {
       </section>
 
       {/* ── Compliance + certifications wall ── */}
-      <section className="bg-white dark:bg-[#0f1623] py-14 sm:py-20 lg:py-24">
+      <section className="bg-white dark:bg-[#0f1623] py-12 sm:py-16 lg:py-20">
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <div className="grid grid-cols-1 lg:grid-cols-[0.42fr_0.58fr] gap-6 sm:gap-10 lg:gap-16 items-start">
             <div>
@@ -768,7 +771,7 @@ export default function SovereignContent() {
       </section>
 
       {/* ── Closing manifesto + sovereignty pillars ── */}
-      <section className="bg-[#F8F4F0] dark:bg-[#0A1326] py-14 sm:py-20 lg:py-24">
+      <section className="bg-[#F8F4F0] dark:bg-[#0A1326] py-12 sm:py-16 lg:py-20">
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-8 sm:gap-12 lg:gap-16 items-center">
             <motion.div

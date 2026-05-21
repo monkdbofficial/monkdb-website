@@ -59,27 +59,16 @@ export default function Hero() {
       className="relative w-full overflow-hidden flex items-center"
       style={{ minHeight: '100vh' }}
     >
-      {/* ── LIGHT BEAM ── */}
+      {/* ── LIGHT BEAM — subtle, single ── */}
       <div
         className="absolute pointer-events-none"
         style={{
-          top: '-10%', left: '30%',
-          width: '2px', height: '140%',
-          background: 'linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.12) 40%, rgba(255,255,255,0.18) 55%, rgba(255,255,255,0.06) 80%, transparent 100%)',
-          transform: 'rotate(-20deg)',
-          filter: 'blur(6px)',
-          animation: 'orb-c 16s ease-in-out infinite',
-        }}
-      />
-      <div
-        className="absolute pointer-events-none"
-        style={{
-          top: '-10%', left: '55%',
-          width: '1px', height: '120%',
-          background: 'linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.08) 35%, rgba(255,255,255,0.14) 55%, transparent 100%)',
-          transform: 'rotate(15deg)',
-          filter: 'blur(4px)',
-          animation: 'orb-a 20s ease-in-out infinite',
+          top: '-10%', left: '38%',
+          width: '1px', height: '140%',
+          background: 'linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.05) 45%, rgba(255,255,255,0.08) 55%, transparent 100%)',
+          transform: 'rotate(-18deg)',
+          filter: 'blur(8px)',
+          animation: 'orb-c 22s ease-in-out infinite',
         }}
       />
 
@@ -152,7 +141,7 @@ export default function Hero() {
             objectFit: 'cover',
             objectPosition: 'center',
             mixBlendMode: 'luminosity',
-            opacity: 0.92,
+            opacity: 0.55,
           }}
         />
       </div>
@@ -194,7 +183,7 @@ export default function Hero() {
 
       {/* ── MAIN CONTENT ── */}
       <div
-        className="relative z-10 w-full max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28 pt-[88px] sm:pt-[100px] lg:pt-[110px] pb-12 sm:pb-[70px] lg:pb-[80px]"
+        className="relative z-10 w-full max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28 pt-[120px] sm:pt-[140px] lg:pt-[150px] pb-12 sm:pb-[70px] lg:pb-[80px]"
       >
         <div style={{ maxWidth: '750px' }}>
 
@@ -267,17 +256,53 @@ export default function Hero() {
           <motion.div {...fadeUp(0.86)} className="flex flex-wrap gap-3 sm:gap-4 mb-8 sm:mb-10">
             <motion.a
               href="#about"
-              whileHover={{ scale: 1.03, y: -2 }}
-              whileTap={{ scale: 0.97 }}
-              style={{ backgroundColor: '#EDE8D8', color: '#0A2280', borderRadius: '999px', padding: '11px 24px', fontWeight: 600, fontSize: 'clamp(0.82rem, 1.1vw, 0.9rem)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 24px rgba(0,0,0,0.18)', textDecoration: 'none', whiteSpace: 'nowrap' }}
+              whileHover={{ y: -2, boxShadow: '0 12px 32px rgba(0,0,0,0.28), 0 2px 6px rgba(0,0,0,0.12)' }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ duration: 0.22, ease: [0.22, 0.61, 0.36, 1] }}
+              style={{
+                backgroundColor: '#ffffff',
+                color: '#0A2280',
+                borderRadius: '999px',
+                padding: '12px 26px',
+                fontWeight: 600,
+                fontSize: 'clamp(0.82rem, 1.1vw, 0.9rem)',
+                letterSpacing: '-0.005em',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 8,
+                justifyContent: 'center',
+                boxShadow: '0 8px 24px rgba(0,0,0,0.18), 0 1px 2px rgba(0,0,0,0.08)',
+                textDecoration: 'none',
+                whiteSpace: 'nowrap',
+              }}
             >
               {t.ctaPrimary}
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden>
+                <path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
             </motion.a>
             <motion.a
               href="#features-banner"
-              whileHover={{ scale: 1.03, y: -2 }}
-              whileTap={{ scale: 0.97 }}
-              style={{ backgroundColor: 'rgba(255,255,255,0.08)', color: '#ffffff', borderRadius: '999px', padding: '10px 22px', fontWeight: 500, fontSize: 'clamp(0.82rem, 1.1vw, 0.9rem)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(255,255,255,0.22)', backdropFilter: 'blur(8px)', textDecoration: 'none', whiteSpace: 'nowrap' }}
+              whileHover={{ y: -2, backgroundColor: 'rgba(255,255,255,0.14)' }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ duration: 0.22, ease: [0.22, 0.61, 0.36, 1] }}
+              style={{
+                backgroundColor: 'rgba(255,255,255,0.06)',
+                color: '#ffffff',
+                borderRadius: '999px',
+                padding: '11px 24px',
+                fontWeight: 500,
+                fontSize: 'clamp(0.82rem, 1.1vw, 0.9rem)',
+                letterSpacing: '-0.005em',
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                border: '1px solid rgba(255,255,255,0.24)',
+                backdropFilter: 'blur(10px)',
+                WebkitBackdropFilter: 'blur(10px)',
+                textDecoration: 'none',
+                whiteSpace: 'nowrap',
+              }}
             >
               {t.ctaSecondary}
             </motion.a>
@@ -296,20 +321,21 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1.3 + i * 0.06, duration: 0.4 }}
-                whileHover={{ y: -2, scale: 1.04 }}
-                className="inline-flex items-center gap-1.5 text-white/75 hover:text-white transition-colors cursor-default"
+                whileHover={{ y: -2, backgroundColor: 'rgba(255,255,255,0.16)', borderColor: 'rgba(255,255,255,0.42)' }}
+                className="inline-flex items-center gap-1.5 text-white/90 transition-colors cursor-default"
                 style={{
-                  fontSize: 'clamp(0.68rem, 0.85vw, 0.75rem)',
+                  fontSize: 'clamp(0.7rem, 0.85vw, 0.78rem)',
                   fontWeight: 500,
-                  padding: '4px 10px',
+                  padding: '5px 12px',
                   borderRadius: '999px',
-                  border: '1px solid rgba(255,255,255,0.18)',
-                  background: 'rgba(255,255,255,0.07)',
-                  backdropFilter: 'blur(8px)',
-                  letterSpacing: '0.02em',
+                  border: '1px solid rgba(255,255,255,0.28)',
+                  background: 'rgba(255,255,255,0.10)',
+                  backdropFilter: 'blur(10px)',
+                  WebkitBackdropFilter: 'blur(10px)',
+                  letterSpacing: '0.01em',
                 }}
               >
-                <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#1E8AFF', display: 'inline-block', flexShrink: 0 }} />
+                <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#7FB3FF', display: 'inline-block', flexShrink: 0, boxShadow: '0 0 6px rgba(127,179,255,0.7)' }} />
                 {chip}
               </motion.span>
             ))}
@@ -322,8 +348,8 @@ export default function Hero() {
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 1.2, ease: [0.25, 0.46, 0.45, 0.94] as const }}
-        className="absolute hidden lg:flex items-center gap-5 bg-white rounded-2xl p-4 shadow-2xl"
-        style={{ bottom: '8%', right: '40px', maxWidth: '420px' }}
+        className="absolute hidden xl:flex items-center gap-5 bg-white rounded-2xl p-4 shadow-2xl"
+        style={{ bottom: '8%', right: '40px', maxWidth: '380px' }}
       >
         <div className="flex-shrink-0 w-[130px] h-[100px] rounded-xl overflow-hidden relative" style={{ background: '#060818' }}>
           <img

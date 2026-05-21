@@ -35,8 +35,8 @@ const KIND_ICONS: Record<ResourceKind, LucideIcon> = {
 const KIND_ACCENTS: Record<ResourceKind, { accent: string; soft: string }> = {
   whitepaper: { accent: '#1A38E8', soft: '#7DA8FF' },
   github: { accent: '#0A2280', soft: '#7DA8FF' },
-  demo: { accent: '#0EA5E9', soft: '#7DD3FC' },
-  video: { accent: '#DC2626', soft: '#FCA5A5' },
+  demo: { accent: '#1E8AFF', soft: '#7FB3FF' },
+  video: { accent: '#0033A0', soft: '#7DA8FF' },
 }
 
 const KIND_CTA: Record<ResourceKind, { label: string; Icon: LucideIcon }> = {
@@ -200,7 +200,7 @@ export default function ResourceDetailContent({
       </section>
 
       {/* ── Body + embed ── */}
-      <section className="bg-white dark:bg-[#0f1623] py-14 sm:py-20 lg:py-24">
+      <section className="bg-white dark:bg-[#0f1623] py-12 sm:py-16 lg:py-20">
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-8 sm:gap-12 lg:gap-20 items-start">
             <div>
@@ -322,7 +322,7 @@ export default function ResourceDetailContent({
 
       {/* ── Related ── */}
       {related.length > 0 && (
-        <section className="bg-[#F8F4F0] dark:bg-[#0A1326] py-14 sm:py-20 lg:py-24">
+        <section className="bg-[#F8F4F0] dark:bg-[#0A1326] py-12 sm:py-16 lg:py-20">
           <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
             <SectionLabel text={`More ${RESOURCE_KIND_LABELS[item.kind].toLowerCase()}`} />
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 mt-10">

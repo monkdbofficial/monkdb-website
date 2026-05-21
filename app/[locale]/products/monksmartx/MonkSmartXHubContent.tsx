@@ -36,7 +36,9 @@ import ScrollProgressBar from '@/components/ScrollProgressBar'
 import { useI18n } from '@/i18n/I18nProvider'
 import { localizedHref } from '@/i18n/config'
 
-const ACCENT = '#8B5CF6'
+// Enterprise-violet on MonkDB navy. Deeper than #8B5CF6 candy violet,
+// reads as a portfolio mark while staying brand-coherent.
+const ACCENT = '#7C5AE0'
 const EASE = [0.165, 0.84, 0.44, 1] as const
 
 type Product = {
@@ -54,7 +56,7 @@ const PORTFOLIO: Product[] = [
     name: 'Monk SmartMine',
     industry: 'Mining',
     Icon: Pickaxe,
-    accent: '#D97706',
+    accent: '#B45309',
     body: 'Real-time operational intelligence for mining ecosystems. Ventilation-on-demand, predictive maintenance, safety.',
   },
   {
@@ -62,7 +64,7 @@ const PORTFOLIO: Product[] = [
     name: 'Monk SmartMobility',
     industry: 'Mobility',
     Icon: Truck,
-    accent: '#0EA5A8',
+    accent: '#0E8FA8',
     body: 'Connected and autonomous mobility at fleet and city scale. Dynamic routing, fleet optimization, predictive mobility.',
   },
   {
@@ -70,7 +72,7 @@ const PORTFOLIO: Product[] = [
     name: 'Monk SmartFinance',
     industry: 'BFSI',
     Icon: Banknote,
-    accent: '#10B981',
+    accent: '#0E8F66',
     body: 'Real-time financial intelligence and risk management. Fraud, risk scoring, AML, audit-grade lineage.',
   },
   {
@@ -78,7 +80,7 @@ const PORTFOLIO: Product[] = [
     name: 'Monk SmartTrade',
     industry: 'Trading',
     Icon: TrendingUp,
-    accent: '#A855F7',
+    accent: '#7C3AED',
     body: 'AI-native trading and execution systems. Multi-source signal fusion, risk-aware strategies, continuous learning.',
   },
   {
@@ -86,7 +88,7 @@ const PORTFOLIO: Product[] = [
     name: 'Monk SmartRetail',
     industry: 'Retail',
     Icon: ShoppingBag,
-    accent: '#F472B6',
+    accent: '#B14593',
     body: 'Real-time customer and operations intelligence. Personalization, demand forecasting, dynamic pricing.',
   },
   {
@@ -94,7 +96,7 @@ const PORTFOLIO: Product[] = [
     name: 'Monk SmartManufacturing',
     industry: 'Manufacturing',
     Icon: Factory,
-    accent: '#0EA5E9',
+    accent: '#1A38E8',
     body: 'Adaptive manufacturing systems. Predictive maintenance, process optimization, real-time control loops.',
   },
 ]
@@ -144,9 +146,9 @@ export default function MonkSmartXHubContent() {
         className="relative overflow-hidden"
         style={{
           background:
-            'linear-gradient(160deg, #1F0A36 0%, #0E0721 50%, #050D6A 100%)',
-          paddingTop: 'clamp(140px, 16vw, 220px)',
-          paddingBottom: 'clamp(80px, 10vw, 140px)',
+            'linear-gradient(160deg, #1B1244 0%, #0E0721 50%, #0A2280 100%)',
+          paddingTop: 'clamp(120px, 14vw, 200px)',
+          paddingBottom: 'clamp(64px, 8vw, 120px)',
         }}
       >
         <div
@@ -166,7 +168,7 @@ export default function MonkSmartXHubContent() {
           className="absolute inset-0 pointer-events-none"
           style={{
             backgroundImage:
-              'radial-gradient(circle, rgba(139,92,246,0.10) 1px, transparent 1px)',
+              'radial-gradient(circle, rgba(127,179,255,0.08) 1px, transparent 1px)',
             backgroundSize: '32px 32px',
             opacity: 0.55,
           }}
@@ -298,7 +300,7 @@ export default function MonkSmartXHubContent() {
                   inset: '34%',
                   borderRadius: '50%',
                   background:
-                    'linear-gradient(135deg, #6D28D9 0%, #1E1B4B 100%)',
+                    'linear-gradient(135deg, #5B3FB8 0%, #0A2280 100%)',
                   border: `1px solid ${ACCENT}AA`,
                   boxShadow: `0 0 60px ${ACCENT}55, inset 0 1px 0 rgba(255,255,255,0.18)`,
                   display: 'flex',
@@ -439,13 +441,14 @@ export default function MonkSmartXHubContent() {
             <div>
               <SectionLabel text="Why SmartX" />
               <h2
-                className="text-gray-900 dark:text-white mt-6"
+                className="text-gray-900 dark:text-white"
                 style={{
                   fontSize: 'clamp(28px, 4vw, 56px)',
                   fontWeight: 300,
                   letterSpacing: '-0.02em',
                   lineHeight: 1.08,
-                  margin: '24px 0 0 0',
+                  margin: '24px 0 clamp(28px, 3.5vw, 48px) 0',
+                  maxWidth: 'clamp(580px, 75vw, 1040px)',
                   textWrap: 'balance',
                   textDecoration: 'none',
                 }}
@@ -542,13 +545,15 @@ export default function MonkSmartXHubContent() {
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <SectionLabel text="The portfolio" />
           <h2
-            className="text-gray-900 dark:text-white mt-6 mb-10 sm:mb-12"
+            className="text-gray-900 dark:text-white"
             style={{
               fontSize: 'clamp(28px, 4vw, 56px)',
               fontWeight: 300,
               letterSpacing: '-0.02em',
               lineHeight: 1.08,
-              margin: '24px 0 0 0',
+              margin: '24px 0 clamp(28px, 3.5vw, 48px) 0',
+              maxWidth: 'clamp(580px, 75vw, 1040px)',
+              textWrap: 'balance',
               textDecoration: 'none',
             }}
           >
@@ -688,7 +693,7 @@ export default function MonkSmartXHubContent() {
         className="relative overflow-hidden py-14 sm:py-20"
         style={{
           background:
-            'linear-gradient(180deg, #050D6A 0%, #07091A 60%, #1E0E40 100%)',
+            'linear-gradient(180deg, #050D6A 0%, #07091A 60%, #1B1244 100%)',
         }}
       >
         <div
@@ -696,7 +701,7 @@ export default function MonkSmartXHubContent() {
           className="absolute inset-0 pointer-events-none"
           style={{
             backgroundImage:
-              'radial-gradient(circle, rgba(139,92,246,0.10) 1px, transparent 1px)',
+              'radial-gradient(circle, rgba(127,179,255,0.08) 1px, transparent 1px)',
             backgroundSize: '32px 32px',
             opacity: 0.55,
           }}
@@ -704,13 +709,14 @@ export default function MonkSmartXHubContent() {
         <div className="relative z-10 max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <SectionLabel text="Time to value" variant="dark" />
           <h2
-            className="text-white mt-6 mb-10 sm:mb-12"
+            className="text-white"
             style={{
               fontSize: 'clamp(28px, 4vw, 52px)',
               fontWeight: 300,
               letterSpacing: '-0.02em',
               lineHeight: 1.1,
-              margin: '24px 0 0 0',
+              margin: '24px 0 clamp(28px, 3.5vw, 48px) 0',
+              maxWidth: 'clamp(580px, 75vw, 1040px)',
               textWrap: 'balance',
               textDecoration: 'none',
             }}

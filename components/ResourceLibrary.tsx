@@ -33,8 +33,8 @@ const KIND_ICONS: Record<ResourceKind, LucideIcon> = {
 const KIND_ACCENTS: Record<ResourceKind, string> = {
   whitepaper: '#1A38E8',
   github: '#0A2280',
-  demo: '#0EA5E9',
-  video: '#DC2626',
+  demo: '#1E8AFF',
+  video: '#0033A0',
 }
 
 type Filter = ResourceKind | 'all'

@@ -379,6 +379,7 @@ export default function HomePerformance() {
               margin: 0,
               textWrap: 'balance',
               textDecoration: 'none',
+              maxWidth: 'clamp(280px, 100%, 640px)',
             }}
           >
             {t.headline ??
@@ -433,28 +434,31 @@ export default function HomePerformance() {
                   style={{
                     inset: '-22px',
                     background:
-                      'radial-gradient(circle, rgba(96,160,255,0.18) 0%, transparent 70%)',
-                    filter: 'blur(18px)',
+                      'radial-gradient(circle, rgba(26,56,232,0.10) 0%, transparent 70%)',
+                    filter: 'blur(20px)',
                   }}
                   animate={{
-                    scale: [1, 1.18, 1],
-                    opacity: [0.5, 1, 0.5],
+                    scale: [1, 1.14, 1],
+                    opacity: [0.45, 0.85, 0.45],
                   }}
                   transition={{
-                    duration: 3.4,
+                    duration: 3.8,
                     delay: i * 0.4,
                     repeat: Infinity,
                     ease: 'easeInOut',
                   }}
                 />
                 <span
-                  className="relative gradient-text-animate"
+                  className="relative"
                   style={{
                     fontSize: 'clamp(48px, 6vw, 88px)',
-                    fontWeight: 500,
+                    fontWeight: 700,
                     lineHeight: 1,
-                    letterSpacing: '-0.04em',
+                    letterSpacing: '-3px',
                     display: 'inline-block',
+                    color: 'transparent',
+                    WebkitTextStroke: '1.5px #0A2280',
+                    fontVariantNumeric: 'tabular-nums',
                   }}
                 >
                   {s.counter}

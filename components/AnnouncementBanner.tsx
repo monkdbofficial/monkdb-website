@@ -53,18 +53,42 @@ export default function AnnouncementBanner() {
       className="fixed top-0 left-0 right-0 z-[60] flex items-center justify-center"
       style={{
         height: `${BANNER_HEIGHT_PX}px`,
-        backgroundColor: '#1A38E8',
-        color: '#ffffff',
-        fontSize: 'clamp(12px, 1vw, 14px)',
+        backgroundColor: '#0A1020',
+        color: 'rgba(255,255,255,0.86)',
+        fontSize: 'clamp(12px, 0.95vw, 13px)',
         fontWeight: 400,
         letterSpacing: '0.01em',
         paddingLeft: '48px',
         paddingRight: '48px',
+        borderBottom: '1px solid rgba(255,255,255,0.08)',
       }}
     >
       <span className="text-center">
-        {t.prefix ?? 'Notice:'}{' '}
-        <span style={{ fontWeight: 600 }}>
+        <span
+          aria-hidden
+          style={{
+            display: 'inline-block',
+            width: 6,
+            height: 6,
+            borderRadius: 999,
+            backgroundColor: '#1E8AFF',
+            marginRight: 10,
+            transform: 'translateY(-1px)',
+            verticalAlign: 'middle',
+          }}
+        />
+        <span style={{ color: 'rgba(255,255,255,0.6)' }}>
+          {(t.prefix ?? 'Notice').replace(/[\s:：]+$/u, '')}
+        </span>
+        <span
+          style={{
+            margin: '0 10px',
+            color: 'rgba(255,255,255,0.25)',
+          }}
+        >
+          ·
+        </span>
+        <span style={{ fontWeight: 400, color: 'rgba(255,255,255,0.9)' }}>
           {t.text ??
             'This site is under active development. Some pages and content may change.'}
         </span>
@@ -75,16 +99,16 @@ export default function AnnouncementBanner() {
         aria-label={t.dismiss ?? 'Dismiss announcement'}
         className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 grid place-items-center rounded-full transition-colors"
         style={{
-          width: 24,
-          height: 24,
-          color: '#ffffff',
-          backgroundColor: 'rgba(255,255,255,0.12)',
+          width: 22,
+          height: 22,
+          color: 'rgba(255,255,255,0.75)',
+          backgroundColor: 'rgba(255,255,255,0.06)',
         }}
         onMouseEnter={(e) => {
-          e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.24)'
+          e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.14)'
         }}
         onMouseLeave={(e) => {
-          e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.12)'
+          e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.06)'
         }}
       >
         <svg

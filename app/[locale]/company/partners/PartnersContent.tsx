@@ -108,13 +108,15 @@ export default function PartnersContent() {
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <SectionLabel text="Tracks" />
           <h2
-            className="text-gray-900 dark:text-white mt-6 sm:mt-10 lg:mt-12 mb-10 sm:mb-12"
+            className="text-gray-900 dark:text-white"
             style={{
               fontSize: 'clamp(28px, 4vw, 56px)',
               fontWeight: 300,
               letterSpacing: '-0.02em',
               lineHeight: 1.08,
-              margin: '40px 0 0 0',
+              marginTop: 'clamp(24px, 3vw, 48px)',
+              marginBottom: 'clamp(28px, 3.5vw, 56px)',
+              maxWidth: 'clamp(580px, 75vw, 1040px)',
               textWrap: 'balance',
               textDecoration: 'none',
             }}
@@ -210,13 +212,16 @@ export default function PartnersContent() {
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <SectionLabel text="Program tiers" />
           <h2
-            className="text-gray-900 dark:text-white mt-6 sm:mt-10 lg:mt-12 mb-10 sm:mb-12"
+            className="text-gray-900 dark:text-white"
             style={{
               fontSize: 'clamp(26px, 3.6vw, 48px)',
               fontWeight: 300,
               letterSpacing: '-0.02em',
               lineHeight: 1.1,
-              margin: '40px 0 0 0',
+              marginTop: 'clamp(24px, 3vw, 48px)',
+              marginBottom: 'clamp(28px, 3.5vw, 48px)',
+              maxWidth: 'clamp(580px, 75vw, 1040px)',
+              textWrap: 'balance',
               textDecoration: 'none',
             }}
           >
@@ -313,13 +318,15 @@ export default function PartnersContent() {
             <div>
               <SectionLabel text="Benefits" />
               <h2
-                className="text-gray-900 dark:text-white mt-6 sm:mt-10 lg:mt-12 mb-8"
+                className="text-gray-900 dark:text-white"
                 style={{
                   fontSize: 'clamp(24px, 3.2vw, 40px)',
                   fontWeight: 300,
                   letterSpacing: '-0.02em',
                   lineHeight: 1.1,
-                  margin: '40px 0 0 0',
+                  marginTop: 'clamp(20px, 2.4vw, 40px)',
+                  marginBottom: 'clamp(28px, 3.5vw, 40px)',
+                  textWrap: 'balance',
                   textDecoration: 'none',
                 }}
               >

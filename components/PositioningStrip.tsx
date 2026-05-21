@@ -89,6 +89,7 @@ export default function PositioningStrip() {
               textWrap: 'balance',
               margin: 0,
               textDecoration: 'none',
+              maxWidth: 'clamp(280px, 100%, 640px)',
             }}
           >
             {t.headline?.split(' to ')[0] ?? 'From Data Systems'}{' '}

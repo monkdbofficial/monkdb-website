@@ -43,37 +43,37 @@ type Theme = {
 const THEMES: Record<SlugKey, Theme> = {
   resources: {
     index: '01',
-    accent: '#0EA5E9',
-    accentSoft: '#7DD3FC',
+    accent: '#1E8AFF',
+    accentSoft: '#7FB3FF',
     Icon: PlayCircle,
-    heroGradient: 'linear-gradient(160deg, #042F36 0%, #0C4A6E 55%, #0f1623 100%)',
+    heroGradient: 'linear-gradient(160deg, #050D6A 0%, #0A2280 55%, #0f1623 100%)',
     motif: 'reels',
     ctaLabel: 'Browse the resource library',
   },
   'customer-stories': {
     index: '02',
-    accent: '#10B981',
+    accent: '#34D399',
     accentSoft: '#6EE7B7',
     Icon: Quote,
-    heroGradient: 'linear-gradient(160deg, #022C22 0%, #064E3B 55%, #0f1623 100%)',
+    heroGradient: 'linear-gradient(160deg, #062E27 0%, #0A2280 55%, #0f1623 100%)',
     motif: 'testimonial',
     ctaLabel: 'See customer outcomes',
   },
   blog: {
     index: '03',
-    accent: '#8B5CF6',
-    accentSoft: '#C4B5FD',
+    accent: '#1A38E8',
+    accentSoft: '#7FB3FF',
     Icon: BookOpen,
-    heroGradient: 'linear-gradient(160deg, #2A1065 0%, #4C1D95 55%, #0f1623 100%)',
+    heroGradient: 'linear-gradient(160deg, #060E58 0%, #0A2280 55%, #0f1623 100%)',
     motif: 'article',
     ctaLabel: 'Subscribe to the blog',
   },
   events: {
     index: '04',
-    accent: '#F97316',
-    accentSoft: '#FDBA74',
+    accent: '#0033A0',
+    accentSoft: '#7FB3FF',
     Icon: Calendar,
-    heroGradient: 'linear-gradient(160deg, #431407 0%, #7C2D12 55%, #0f1623 100%)',
+    heroGradient: 'linear-gradient(160deg, #050D6A 0%, #0033A0 55%, #0f1623 100%)',
     motif: 'calendar',
     ctaLabel: 'See upcoming events',
   },
@@ -183,7 +183,7 @@ function TestimonialMotif({ theme }: { theme: Theme }) {
             marginTop: 'auto',
           }}
         >
-          — VP PLATFORM, TIER-1 BANK
+          VP PLATFORM, TIER-1 BANK
         </div>
       </div>
     </MotifWrapper>
@@ -497,19 +497,20 @@ export default function ResourceContent({
       </section>
 
       {/* ── What's inside ── */}
-      <section className="bg-white dark:bg-[#0f1623] py-14 sm:py-20 lg:py-24">
+      <section className="bg-white dark:bg-[#0f1623] py-12 sm:py-16 lg:py-20">
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-8 sm:gap-12 lg:gap-20 items-start mb-12">
             <div>
               <SectionLabel text="What's inside" />
               <h2
-                className="text-gray-900 dark:text-white mt-6"
+                className="text-gray-900 dark:text-white"
                 style={{
                   fontSize: 'clamp(28px, 4vw, 56px)',
                   fontWeight: 300,
                   letterSpacing: '-0.02em',
                   lineHeight: 1.08,
                   margin: '24px 0 0 0',
+                  maxWidth: 'clamp(580px, 75vw, 1040px)',
                   textWrap: 'balance',
                   textDecoration: 'none',
                 }}
@@ -630,7 +631,7 @@ export default function ResourceContent({
 
       {/* ── Related (other Learn surfaces) ── */}
       {related.length > 0 && (
-        <section className="bg-[#F8F4F0] dark:bg-[#0A1326] py-14 sm:py-20 lg:py-24">
+        <section className="bg-[#F8F4F0] dark:bg-[#0A1326] py-12 sm:py-16 lg:py-20">
           <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
             <SectionLabel text="More from Learn" />
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 mt-10">

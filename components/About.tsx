@@ -84,7 +84,7 @@ export default function About() {
 
             <h2
               className="leading-[1.1]"
-              style={{ fontSize: 'clamp(28px, 4vw, 62px)', marginBottom: 'clamp(24px, 3vw, 32px)', fontWeight: 300, letterSpacing: '-0.015em' }}
+              style={{ fontSize: 'clamp(28px, 4vw, 62px)', marginBottom: 'clamp(28px, 3.5vw, 48px)', fontWeight: 300, letterSpacing: '-0.015em', textWrap: 'balance', maxWidth: 'clamp(280px, 90%, 520px)' }}
             >
               <span className="text-gray-900 dark:text-white">{t.titlePart1}</span>
               <span className="gradient-text-animate" style={{ fontWeight: 500 }}>{t.titleAccent}</span>
@@ -99,22 +99,21 @@ export default function About() {
                   className="absolute rounded-full pointer-events-none"
                   style={{
                     inset: '-12px',
-                    background: 'radial-gradient(circle, rgba(96,160,255,0.15) 0%, transparent 70%)',
+                    background: 'radial-gradient(circle, rgba(26,56,232,0.08) 0%, transparent 70%)',
                     filter: 'blur(16px)',
                   }}
-                  animate={{ scale: [1, 1.2, 1], opacity: [0.6, 1, 0.6] }}
-                  transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+                  animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0.9, 0.5] }}
+                  transition={{ duration: 3.4, repeat: Infinity, ease: 'easeInOut' }}
                 />
                 <span
                   className="relative font-bold"
                   style={{
                     fontSize: 'clamp(42px, 5.5vw, 80px)',
                     lineHeight: 1,
-                    letterSpacing: '-2px',
-                    background: 'linear-gradient(135deg, #1A38E8, #60a0ff, #00c2ff)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    backgroundClip: 'text',
+                    letterSpacing: '-3px',
+                    color: 'transparent',
+                    WebkitTextStroke: '1.5px #0A2280',
+                    fontVariantNumeric: 'tabular-nums',
                   }}
                 >
                   <Counter to={270} isInView={isInView} />

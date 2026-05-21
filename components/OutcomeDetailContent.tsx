@@ -53,39 +53,39 @@ type OutcomeTheme = {
 
 const OUTCOME_THEMES: Record<string, OutcomeTheme> = {
   'reduce-cost': {
-    accent: '#10B981',
-    accentSoft: '#6EE7B7',
-    accentDeep: '#064E3B',
+    accent: '#1A38E8',
+    accentSoft: '#7FB3FF',
+    accentDeep: '#0A2280',
     heroGradient:
-      'linear-gradient(180deg, #022C22 0%, #07091A 60%, #022C22 100%)',
+      'linear-gradient(180deg, #050D6A 0%, #07091A 60%, #050D6A 100%)',
   },
   'improve-efficiency': {
-    accent: '#0EA5E9',
-    accentSoft: '#7DD3FC',
-    accentDeep: '#0C4A6E',
+    accent: '#1E8AFF',
+    accentSoft: '#7FB3FF',
+    accentDeep: '#0033A0',
     heroGradient:
-      'linear-gradient(180deg, #042F36 0%, #07091A 60%, #042F36 100%)',
+      'linear-gradient(180deg, #0C1F4A 0%, #07091A 60%, #0C1F4A 100%)',
   },
   'enhance-safety': {
-    accent: '#F97316',
-    accentSoft: '#FDBA74',
-    accentDeep: '#7C2D12',
+    accent: '#0033A0',
+    accentSoft: '#7FB3FF',
+    accentDeep: '#050D6A',
     heroGradient:
-      'linear-gradient(180deg, #431407 0%, #07091A 60%, #431407 100%)',
+      'linear-gradient(180deg, #050D6A 0%, #07091A 60%, #050D6A 100%)',
   },
   'enable-autonomy': {
-    accent: '#8B5CF6',
-    accentSoft: '#C4B5FD',
-    accentDeep: '#4C1D95',
+    accent: '#1A38E8',
+    accentSoft: '#7FB3FF',
+    accentDeep: '#0A2280',
     heroGradient:
-      'linear-gradient(180deg, #2A1065 0%, #07091A 60%, #2A1065 100%)',
+      'linear-gradient(180deg, #0A2280 0%, #07091A 60%, #0A2280 100%)',
   },
   'trust-compliance': {
-    accent: '#D4A574',
-    accentSoft: '#F2E5D0',
-    accentDeep: '#5A3A1A',
+    accent: '#0033A0',
+    accentSoft: '#7FB3FF',
+    accentDeep: '#0A2280',
     heroGradient:
-      'linear-gradient(180deg, #2D1B0A 0%, #1A0F08 60%, #2D1B0A 100%)',
+      'linear-gradient(180deg, #050D6A 0%, #07091A 60%, #050D6A 100%)',
   },
   'accelerate-decision-making': {
     accent: '#1A38E8',
@@ -298,13 +298,15 @@ export default function OutcomeDetailContent({
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <SectionLabel text="Proof" />
           <h2
-            className="text-gray-900 dark:text-white mt-6 sm:mt-10 lg:mt-12 mb-10 sm:mb-12 lg:mb-14"
+            className="text-gray-900 dark:text-white"
             style={{
               fontSize: 'clamp(28px, 4vw, 56px)',
               fontWeight: 300,
               letterSpacing: '-0.02em',
               lineHeight: 1.08,
-              margin: '40px 0 0 0',
+              marginTop: '40px',
+              marginBottom: 'clamp(28px, 3.5vw, 48px)',
+              maxWidth: 'clamp(580px, 75vw, 1040px)',
               textWrap: 'balance',
               textDecoration: 'none',
             }}
@@ -382,13 +384,15 @@ export default function OutcomeDetailContent({
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <SectionLabel text="By industry" />
           <h2
-            className="text-gray-900 dark:text-white mt-6 sm:mt-10 lg:mt-12 mb-8 sm:mb-10"
+            className="text-gray-900 dark:text-white"
             style={{
               fontSize: 'clamp(26px, 3.6vw, 48px)',
               fontWeight: 300,
               letterSpacing: '-0.02em',
               lineHeight: 1.1,
-              margin: '40px 0 0 0',
+              marginTop: '40px',
+              marginBottom: 'clamp(28px, 3.5vw, 48px)',
+              maxWidth: 'clamp(580px, 75vw, 1040px)',
               textWrap: 'balance',
               textDecoration: 'none',
             }}
@@ -484,13 +488,16 @@ export default function OutcomeDetailContent({
           <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
             <SectionLabel text="Drivers" />
             <h2
-              className="text-gray-900 dark:text-white mt-6 sm:mt-10 lg:mt-12 mb-8 sm:mb-10"
+              className="text-gray-900 dark:text-white"
               style={{
                 fontSize: 'clamp(24px, 3.2vw, 42px)',
                 fontWeight: 300,
                 letterSpacing: '-0.02em',
                 lineHeight: 1.1,
-                margin: '40px 0 0 0',
+                marginTop: '40px',
+                marginBottom: 'clamp(28px, 3.5vw, 48px)',
+                maxWidth: 'clamp(520px, 70vw, 920px)',
+                textWrap: 'balance',
                 textDecoration: 'none',
               }}
             >

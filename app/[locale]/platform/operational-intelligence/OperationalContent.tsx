@@ -344,17 +344,18 @@ export default function OperationalContent() {
       </section>
 
       {/* ── From → To shift table ── */}
-      <section className="bg-white dark:bg-[#0f1623] py-14 sm:py-20 lg:py-24 section-grid relative">
+      <section className="bg-white dark:bg-[#0f1623] py-12 sm:py-16 lg:py-20 section-grid relative">
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <SectionLabel text="Operational shift" />
           <h2
-            className="text-gray-900 dark:text-white mt-6 mb-10 sm:mb-12"
+            className="text-gray-900 dark:text-white"
             style={{
               fontSize: 'clamp(28px, 4vw, 56px)',
               fontWeight: 300,
               letterSpacing: '-0.02em',
               lineHeight: 1.08,
-              margin: '24px 0 0 0',
+              margin: '20px 0 clamp(28px, 3.2vw, 44px) 0',
+              maxWidth: 'clamp(560px, 78%, 1080px)',
               textWrap: 'balance',
               textDecoration: 'none',
             }}
@@ -491,7 +492,7 @@ export default function OperationalContent() {
       {/* ── Five stages of the loop — detailed cards ── */}
       <section
         ref={loopRef}
-        className="relative overflow-hidden py-14 sm:py-20 lg:py-28"
+        className="relative overflow-hidden py-12 sm:py-16 lg:py-20"
         style={{
           background:
             'linear-gradient(180deg, #050D6A 0%, #07091A 60%, #050D6A 100%)',
@@ -510,13 +511,14 @@ export default function OperationalContent() {
         <div className="relative z-10 max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <SectionLabel text="The continuous loop" variant="dark" />
           <h2
-            className="text-white mt-6 mb-12 sm:mb-14"
+            className="text-white"
             style={{
               fontSize: 'clamp(28px, 4vw, 56px)',
               fontWeight: 300,
               letterSpacing: '-0.02em',
               lineHeight: 1.08,
-              margin: '24px 0 0 0',
+              margin: '20px 0 clamp(32px, 3.4vw, 48px) 0',
+              maxWidth: 'clamp(560px, 78%, 1080px)',
               textWrap: 'balance',
               textDecoration: 'none',
             }}
@@ -636,7 +638,7 @@ export default function OperationalContent() {
       </section>
 
       {/* ── Performance proof — latency budget per stage ── */}
-      <section className="bg-[#F8F4F0] dark:bg-[#0A1326] py-14 sm:py-20 lg:py-24">
+      <section className="bg-[#F8F4F0] dark:bg-[#0A1326] py-12 sm:py-16 lg:py-20">
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <div className="grid grid-cols-1 lg:grid-cols-[0.42fr_0.58fr] gap-6 sm:gap-10 lg:gap-16 items-start">
             <div>
@@ -715,7 +717,7 @@ export default function OperationalContent() {
                     delay: i * 0.07,
                     ease: EASE,
                   }}
-                  className="grid grid-cols-[110px_1fr_100px] items-center gap-4 rounded-xl card-surface"
+                  className="grid grid-cols-[clamp(78px,18vw,110px)_1fr_clamp(76px,18vw,110px)] sm:grid-cols-[110px_1fr_100px] items-center gap-3 sm:gap-4 rounded-xl card-surface"
                   style={{
                     padding: 'clamp(14px, 1.6vw, 20px) clamp(18px, 2vw, 24px)',
                   }}
@@ -775,7 +777,7 @@ export default function OperationalContent() {
       </section>
 
       {/* ── Closing manifesto + outcomes ── */}
-      <section className="bg-white dark:bg-[#0f1623] py-14 sm:py-20 lg:py-24">
+      <section className="bg-white dark:bg-[#0f1623] py-12 sm:py-16 lg:py-20">
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-8 sm:gap-12 lg:gap-16 items-center">
             <motion.div

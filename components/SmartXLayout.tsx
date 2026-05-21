@@ -429,13 +429,14 @@ export default function SmartXLayout(props: SmartXLayoutProps) {
           <div className="relative z-10 max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
             <SectionLabel text="How it works" variant="dark" />
             <h2
-              className="text-white mt-6 sm:mt-10 lg:mt-12 mb-12 sm:mb-16"
+              className="text-white"
               style={{
                 fontSize: 'clamp(28px, 4vw, 56px)',
                 fontWeight: 300,
                 letterSpacing: '-0.02em',
                 lineHeight: 1.08,
-                margin: '40px 0 0 0',
+                margin: '40px 0 clamp(28px, 3.5vw, 48px) 0',
+                maxWidth: 'clamp(580px, 75vw, 1040px)',
                 textWrap: 'balance',
                 textDecoration: 'none',
               }}
@@ -630,13 +631,14 @@ export default function SmartXLayout(props: SmartXLayoutProps) {
           <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
             <SectionLabel text={props.midBlock.label} />
             <h2
-              className="text-gray-900 dark:text-white mt-6 sm:mt-10 lg:mt-12 mb-8 sm:mb-10"
+              className="text-gray-900 dark:text-white"
               style={{
                 fontSize: 'clamp(26px, 3.6vw, 48px)',
                 fontWeight: 300,
                 letterSpacing: '-0.02em',
                 lineHeight: 1.1,
-                margin: '40px 0 0 0',
+                margin: '40px 0 clamp(28px, 3.5vw, 48px) 0',
+                maxWidth: 'clamp(580px, 75vw, 940px)',
                 textWrap: 'balance',
                 textDecoration: 'none',
               }}
@@ -670,13 +672,14 @@ export default function SmartXLayout(props: SmartXLayoutProps) {
             <div>
               <SectionLabel text="Capabilities" />
               <h2
-                className="text-gray-900 dark:text-white mt-6"
+                className="text-gray-900 dark:text-white"
                 style={{
                   fontSize: 'clamp(28px, 4vw, 56px)',
                   fontWeight: 300,
                   letterSpacing: '-0.02em',
                   lineHeight: 1.08,
-                  margin: '24px 0 0 0',
+                  margin: '24px 0 clamp(28px, 3.5vw, 48px) 0',
+                  maxWidth: 'clamp(520px, 70vw, 880px)',
                   textWrap: 'balance',
                   textDecoration: 'none',
                 }}
@@ -890,13 +893,14 @@ export default function SmartXLayout(props: SmartXLayoutProps) {
               <div>
                 <SectionLabel text="Ecosystem" />
                 <h2
-                  className="text-gray-900 dark:text-white mt-6"
+                  className="text-gray-900 dark:text-white"
                   style={{
                     fontSize: 'clamp(26px, 3.4vw, 44px)',
                     fontWeight: 300,
                     letterSpacing: '-0.02em',
                     lineHeight: 1.1,
-                    margin: '24px 0 0 0',
+                    margin: '24px 0 clamp(28px, 3.5vw, 48px) 0',
+                    maxWidth: 'clamp(420px, 75%, 760px)',
                     textWrap: 'balance',
                     textDecoration: 'none',
                   }}

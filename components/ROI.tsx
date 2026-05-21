@@ -49,7 +49,7 @@ export default function ROI() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
             className="leading-tight"
-            style={{ fontSize: 'clamp(26px, 3.5vw, 52px)', fontWeight: 300, letterSpacing: '-0.01em', marginBottom: '32px' }}
+            style={{ fontSize: 'clamp(26px, 3.5vw, 52px)', fontWeight: 300, letterSpacing: '-0.01em', marginBottom: 'clamp(28px, 3.5vw, 40px)', textWrap: 'balance', maxWidth: 'clamp(280px, 100%, 640px)' }}
           >
             <span className="text-egyptian-blue dark:text-white">{t.titlePart1}</span>
             <br className="hidden lg:block" />

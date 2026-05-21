@@ -120,7 +120,8 @@ export default function HubPageLayout(props: HubPageLayoutProps) {
                     fontWeight: 300,
                     letterSpacing: '-0.01em',
                     lineHeight: 1.15,
-                    margin: 0,
+                    margin: '0 0 clamp(28px, 3.5vw, 48px) 0',
+                    maxWidth: 'clamp(580px, 75vw, 940px)',
                     textWrap: 'balance',
                     textDecoration: 'none',
                   }}
@@ -182,7 +183,7 @@ export default function HubPageLayout(props: HubPageLayoutProps) {
                     className="group block rounded-[24px] overflow-hidden h-full hub-card"
                     style={{
                       background: 'white',
-                      border: '1px solid rgba(10,20,60,0.08)',
+                      border: '1px solid rgba(10,34,128,0.08)',
                       padding: 'clamp(22px, 2.6vw, 30px)',
                       textDecoration: 'none',
                       transition:
@@ -204,7 +205,7 @@ export default function HubPageLayout(props: HubPageLayoutProps) {
                           fontFamily:
                             'var(--font-mono, ui-monospace, monospace)',
                           fontSize: 11,
-                          fontWeight: 700,
+                          fontWeight: 600,
                           letterSpacing: '0.04em',
                         }}
                       >
@@ -329,7 +330,9 @@ export default function HubPageLayout(props: HubPageLayoutProps) {
                       letterSpacing: '-0.01em',
                       lineHeight: 1.15,
                       margin: 0,
+                      maxWidth: 'clamp(420px, 90%, 720px)',
                       textWrap: 'balance',
+                      textDecoration: 'none',
                     }}
                   >
                     {props.closing.title}

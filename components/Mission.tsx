@@ -77,6 +77,7 @@ export default function Mission() {
               lineHeight: 1.2,
               letterSpacing: '-0.015em',
               textWrap: 'balance',
+              maxWidth: 'clamp(280px, 100%, 620px)',
             }}
           >
             {t.titleMain}{' '}

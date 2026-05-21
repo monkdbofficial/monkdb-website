@@ -40,9 +40,9 @@ const FALLBACK_TITLE: Record<string, string> = {
   about: 'About Us',
 }
 const FALLBACK_CRUMB: Record<string, string> = {
-  features: 'Core Systems',
-  'why-choose-us': 'Solutions',
-  architecture: 'Industries',
+  features: 'Platform',
+  'why-choose-us': 'Why MonkDB',
+  architecture: 'Platform',
   resources: 'Learn',
   about: 'Company',
 }

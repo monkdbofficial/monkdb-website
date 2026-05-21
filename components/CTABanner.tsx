@@ -32,7 +32,7 @@ export default function CTABanner({
   const resolvedButton = buttonText ?? t.button ?? 'Book a Demo'
   const resolvedHref = buttonHref ?? localizedHref('/company/contact', locale)
   return (
-    <section className="relative overflow-hidden py-16 sm:py-20 lg:py-28">
+    <section className="relative overflow-hidden py-12 sm:py-16 lg:py-20">
       {/* Background */}
       <div
         className="absolute inset-0"

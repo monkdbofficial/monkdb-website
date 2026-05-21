@@ -140,6 +140,7 @@ export default function HomeCapabilities() {
               margin: 0,
               textWrap: 'balance',
               textDecoration: 'none',
+              maxWidth: 'clamp(280px, 100%, 640px)',
             }}
           >
             {t.headline?.split(', ')[0] ?? 'Six engines'}

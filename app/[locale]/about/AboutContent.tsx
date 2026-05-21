@@ -2,7 +2,7 @@
 
 import { motion, useInView, animate } from 'framer-motion'
 import { useRef, useEffect } from 'react'
-import { ArrowUpRight, TimerReset, CirclePlay } from 'lucide-react'
+import { ArrowUpRight, TimerReset, CirclePlay, BrainCircuit, Layers, Zap, ShieldCheck } from 'lucide-react'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import ScrollProgressBar from '@/components/ScrollProgressBar'
@@ -288,7 +288,7 @@ export default function AboutPage() {
         className="section-grid bg-white dark:bg-[#0f1623] pt-10 sm:pt-14 lg:pt-20 pb-10 sm:pb-16 lg:pb-20"
       >
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
-          <div className="grid grid-cols-1 lg:grid-cols-[48%_1fr] gap-6 sm:gap-10 lg:gap-20 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-6 sm:gap-10 lg:gap-16 items-start">
 
             {/* Left */}
             <motion.div
@@ -296,15 +296,25 @@ export default function AboutPage() {
               animate={heroInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.65, ease: [0.25, 0.46, 0.45, 0.94] }}
             >
-              <span
-                className="font-semibold text-egyptian-blue dark:text-blue-400"
-                style={{ fontSize: '0.75rem', display: 'block', marginBottom: '10px', letterSpacing: '0.08em', textTransform: 'uppercase' }}
-              >
-                [{t.kicker ?? 'About Us'}]
-              </span>
+              <div className="flex items-center gap-3 mb-5 sm:mb-6">
+                <span
+                  className="font-semibold text-egyptian-blue dark:text-blue-400"
+                  style={{ fontSize: '0.75rem', letterSpacing: '0.08em', textTransform: 'uppercase', whiteSpace: 'nowrap' }}
+                >
+                  [{t.kicker ?? 'About Us'}]
+                </span>
+                <div
+                  style={{
+                    flex: 1,
+                    height: '1px',
+                    background:
+                      'linear-gradient(90deg, rgba(10,34,128,0.18), transparent)',
+                  }}
+                />
+              </div>
               <h1
                 className="text-gray-900 dark:text-white"
-                style={{ fontSize: 'clamp(28px, 4.5vw, 68px)', fontWeight: 300, lineHeight: 1.12, marginBottom: 0, textDecoration: 'none', letterSpacing: '-0.01em' }}
+                style={{ fontSize: 'clamp(28px, 3.6vw, 54px)', fontWeight: 300, lineHeight: 1.1, marginBottom: 0, textDecoration: 'none', letterSpacing: '-0.012em', textWrap: 'balance', maxWidth: 'clamp(280px, 95%, 560px)' }}
               >
                 {t.heroTitle ?? 'What makes MonkDB the best choice for your enterprise'}
               </h1>
@@ -330,12 +340,12 @@ export default function AboutPage() {
                 className="inline-flex items-center text-white font-semibold self-start"
                 style={{
                   background: '#1A38E8',
-                  borderRadius: '12px',
+                  borderRadius: '999px',
                   padding: 'clamp(12px, 1.2vw, 16px) clamp(20px, 2vw, 32px)',
                   fontSize: 'clamp(0.82rem, 1vw, 1rem)',
                   textDecoration: 'none',
                   gap: 'clamp(12px, 2vw, 28px)',
-                  boxShadow: '0 8px 24px rgba(26,56,232,0.25)',
+                  boxShadow: '0 8px 24px rgba(10,20,80,0.25)',
                 }}
               >
                 {t.heroCta ?? 'Discover'}
@@ -347,109 +357,193 @@ export default function AboutPage() {
       </section>
 
       {/* ══════════════════════════════════════════
-          SECTION 2 — BANNER (sky blue card + animated wave)
+          SECTION 2 — MANIFESTO + TRUST METRICS STRIP
+          (rebuilt concept: centered statement of intent + 4 proof points)
       ══════════════════════════════════════════ */}
-      <section className="py-6 sm:py-10 lg:py-14 bg-[#F8F4F0] dark:bg-[#0f1623]">
-        <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
+      <section className="relative py-12 sm:py-16 lg:py-24 overflow-hidden bg-[#F8F4F0] dark:bg-[#0f1623]">
+        {/* Subtle dot-grid background */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage:
+              'radial-gradient(circle, rgba(10,34,128,0.08) 1px, transparent 1px)',
+            backgroundSize: '24px 24px',
+            maskImage:
+              'radial-gradient(ellipse 70% 60% at 50% 50%, rgba(0,0,0,0.85) 0%, transparent 80%)',
+            WebkitMaskImage:
+              'radial-gradient(ellipse 70% 60% at 50% 50%, rgba(0,0,0,0.85) 0%, transparent 80%)',
+          }}
+        />
 
-          {/* Outer container — parchment base, clips everything inside */}
+        <div className="relative max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
+
+          {/* Mono section label */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="relative overflow-hidden"
-            style={{
-              minHeight: 'clamp(240px, 42vw, 580px)',
-              borderRadius: 'clamp(16px, 1.6vw, 28px)',
-              background: '#F8F4F0',
-            }}
+            className="flex items-center justify-center gap-3 mb-8 sm:mb-10"
           >
-            {/* Blue gradient layer — fills entire card */}
-            <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, #1A8FFF 0%, #2196FF 40%, #3AACFF 100%)' }}>
-              {/* Background wave image */}
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/AdobeStock_6193331721.svg"
-                alt=""
-                aria-hidden="true"
-                style={{
-                  position: 'absolute', inset: 0,
-                  width: '100%', height: '100%',
-                  objectFit: 'cover',
-                  objectPosition: 'center 70%',
-                  mixBlendMode: 'screen',
-                  opacity: 0.95,
-                  filter: 'saturate(1.4) brightness(1.05)',
-                  pointerEvents: 'none',
-                }}
-              />
-            </div>
-
-            {/* Content layer — top texts + Disco at bottom */}
-            <div className="absolute inset-0 flex flex-col justify-between" style={{ zIndex: 2 }}>
-              {/* Top two-column text */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4" style={{ padding: 'clamp(16px, 3.5vw, 52px)' }}>
-                <p
-                  className="leading-snug"
-                  style={{ fontSize: 'clamp(12px, 1.4vw, 20px)', fontWeight: 400, color: 'rgba(255,255,255,0.95)' }}
-                >
-                  {t.bannerLine1 ?? 'Let us build the future of data infrastructure, together'}
-                </p>
-                <p
-                  className="leading-snug"
-                  style={{ fontSize: 'clamp(12px, 1.4vw, 20px)', fontWeight: 400, color: 'rgba(255,255,255,0.95)' }}
-                >
-                  {t.bannerLine2 ?? 'Too many options, too little trust'}
-                </p>
-              </div>
-
-              {/* Disco — inside card, anchored to bottom-left */}
-              <div style={{ paddingLeft: 'clamp(16px, 3.5vw, 52px)', paddingBottom: 'clamp(16px, 2vw, 32px)', lineHeight: 1 }}>
-                <span
-                  className="font-bold select-none block"
-                  style={{ fontSize: 'clamp(36px, 11vw, 220px)', lineHeight: 0.88, letterSpacing: '-2px', color: '#ffffff' }}
-                >
-                  Disco
-                </span>
-              </div>
-            </div>
-
-            {/* Parchment overlay — concave tab at bottom-right */}
-            <div
-              aria-hidden="true"
-              className="absolute bottom-0 right-0 dark:bg-[#0f1623]"
+            <div style={{ width: 'clamp(40px, 8vw, 80px)', height: '1px', background: 'linear-gradient(90deg, transparent, rgba(10,34,128,0.35))' }} />
+            <span
               style={{
-                width: 'clamp(220px, 30%, 440px)',
-                height: 'clamp(76px, 17%, 120px)',
-                background: '#F8F4F0',
-                borderRadius: 'clamp(18px, 2vw, 34px) 0 0 0',
-                zIndex: 3,
-              }}
-            />
-
-            {/* Request Demo button — centred in the parchment tab */}
-            <motion.a
-              href={contactHref}
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-              className="absolute bottom-0 right-0 flex items-center gap-3"
-              style={{
-                width: 'clamp(220px, 30%, 440px)',
-                height: 'clamp(76px, 17%, 120px)',
-                justifyContent: 'center',
-                textDecoration: 'none',
-                zIndex: 4,
+                fontFamily: 'var(--font-mono, monospace)',
+                fontSize: '11px',
+                fontWeight: 600,
+                letterSpacing: '0.18em',
+                textTransform: 'uppercase',
+                color: '#1A38E8',
+                whiteSpace: 'nowrap',
               }}
             >
-              <CirclePlay size={28} color="#374151" strokeWidth={1.5} />
-              <span style={{ fontSize: 'clamp(15px, 1.4vw, 22px)', whiteSpace: 'nowrap', fontWeight: 600, color: '#374151' }}>
-                {t.bannerCta ?? 'Request Demo'}
-              </span>
-            </motion.a>
-
+              {t.manifestoKicker ?? 'Why MonkDB exists'}
+            </span>
+            <div style={{ width: 'clamp(40px, 8vw, 80px)', height: '1px', background: 'linear-gradient(90deg, rgba(10,34,128,0.35), transparent)' }} />
           </motion.div>
 
+          {/* Centered manifesto statement */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.7, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="text-center mx-auto"
+            style={{ maxWidth: 'clamp(320px, 90%, 960px)' }}
+          >
+            <p
+              className="text-gray-900 dark:text-white"
+              style={{
+                fontSize: 'clamp(22px, 2.8vw, 44px)',
+                fontWeight: 300,
+                lineHeight: 1.22,
+                letterSpacing: '-0.012em',
+                margin: 0,
+                textWrap: 'balance',
+              }}
+            >
+              {t.manifestoPart1 ?? 'Every other system stops at the database.'}{' '}
+              <span className="gradient-text-animate" style={{ fontWeight: 400 }}>
+                {t.manifestoAccent ?? 'MonkDB executes.'}
+              </span>{' '}
+              {t.manifestoPart2 ?? 'One engine. One trust boundary. Every workload your AI-native enterprise needs to run, in real time.'}
+            </p>
+          </motion.div>
+
+          {/* Trust metrics strip — 4 columns */}
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.7, delay: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="mt-12 sm:mt-14 lg:mt-16 grid grid-cols-2 lg:grid-cols-4 rounded-[20px] overflow-hidden"
+            style={{
+              background: '#ffffff',
+              border: '1px solid rgba(10,34,128,0.10)',
+              boxShadow: '0 12px 32px rgba(10,20,80,0.06), 0 2px 6px rgba(10,20,80,0.04)',
+            }}
+          >
+            {[
+              { value: t.trustStat1Value ?? '9', label: t.trustStat1Label ?? 'Workloads, one binary' },
+              { value: t.trustStat2Value ?? 'p99 < 5ms', label: t.trustStat2Label ?? 'Vector + SQL + streaming' },
+              { value: t.trustStat3Value ?? '100PB+', label: t.trustStat3Label ?? 'Cluster scale, proven' },
+              { value: t.trustStat4Value ?? 'SOC 2', label: t.trustStat4Label ?? 'ISO 27001, GDPR ready' },
+            ].map((m, i) => (
+              <div
+                key={m.label}
+                className="flex flex-col items-start justify-center"
+                style={{
+                  padding: 'clamp(20px, 2.6vw, 36px) clamp(20px, 2.4vw, 32px)',
+                  borderLeft:
+                    i % 4 !== 0
+                      ? '1px solid rgba(10,34,128,0.08)'
+                      : undefined,
+                  borderTop:
+                    i >= 2
+                      ? '1px solid rgba(10,34,128,0.08)'
+                      : undefined,
+                }}
+              >
+                <span
+                  className="text-gray-900 dark:text-white"
+                  style={{
+                    fontSize: 'clamp(22px, 2.4vw, 34px)',
+                    fontWeight: 300,
+                    letterSpacing: '-0.018em',
+                    lineHeight: 1.1,
+                    fontVariantNumeric: 'tabular-nums',
+                    color: '#0A2280',
+                  }}
+                >
+                  {m.value}
+                </span>
+                <span
+                  className="text-gray-500 dark:text-gray-400"
+                  style={{
+                    fontSize: 'clamp(12px, 0.95vw, 13px)',
+                    fontWeight: 500,
+                    letterSpacing: '0.01em',
+                    marginTop: 8,
+                    lineHeight: 1.4,
+                  }}
+                >
+                  {m.label}
+                </span>
+              </div>
+            ))}
+          </motion.div>
+
+          {/* Centered CTA */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.7, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="mt-10 sm:mt-12 flex items-center justify-center gap-3 flex-wrap"
+          >
+            <motion.a
+              href={contactHref}
+              whileHover={{ y: -2, boxShadow: '0 14px 32px rgba(10,20,80,0.22)' }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ duration: 0.22, ease: [0.22, 0.61, 0.36, 1] }}
+              className="inline-flex items-center gap-2"
+              style={{
+                background: '#1A38E8',
+                color: '#ffffff',
+                borderRadius: '999px',
+                padding: '12px 26px',
+                fontWeight: 600,
+                fontSize: 'clamp(0.82rem, 1vw, 0.9rem)',
+                letterSpacing: '-0.005em',
+                textDecoration: 'none',
+                boxShadow: '0 8px 22px rgba(10,20,80,0.18), 0 1px 2px rgba(10,20,80,0.08)',
+              }}
+            >
+              {t.bannerCta ?? 'Request Demo'}
+              <ArrowUpRight size={15} />
+            </motion.a>
+            <motion.a
+              href="#story"
+              whileHover={{ y: -2, backgroundColor: 'rgba(10,34,128,0.06)' }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ duration: 0.22, ease: [0.22, 0.61, 0.36, 1] }}
+              className="inline-flex items-center gap-2"
+              style={{
+                color: '#0A2280',
+                border: '1px solid rgba(10,34,128,0.2)',
+                background: 'transparent',
+                borderRadius: '999px',
+                padding: '11px 24px',
+                fontWeight: 500,
+                fontSize: 'clamp(0.82rem, 1vw, 0.9rem)',
+                letterSpacing: '-0.005em',
+                textDecoration: 'none',
+              }}
+            >
+              {t.manifestoSecondaryCta ?? 'Read our story'}
+            </motion.a>
+          </motion.div>
         </div>
       </section>
 
@@ -471,7 +565,7 @@ export default function AboutPage() {
               transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
               className="flex items-center justify-center order-2 lg:order-1"
             >
-              <div className="relative flex items-center justify-center w-full max-w-[180px] sm:max-w-[260px] lg:max-w-[400px] mx-auto">
+              <div className="relative flex items-center justify-center w-full max-w-[180px] sm:max-w-[260px] md:max-w-[320px] lg:max-w-[400px] mx-auto">
                 <img
                   src="/Vector.svg"
                   alt=""
@@ -492,33 +586,60 @@ export default function AboutPage() {
               <div className="flex flex-col gap-3">
                 <span
                   className="font-semibold text-egyptian-blue dark:text-blue-400"
-                  style={{ fontSize: '0.75rem', letterSpacing: '0.08em', textTransform: 'uppercase' }}
+                  style={{ fontSize: '0.75rem', display: 'block', marginBottom: '10px', letterSpacing: '0.08em', textTransform: 'uppercase' }}
                 >
                   [{t.storyKicker ?? 'Our Story'}]
                 </span>
                 <p
                   className="text-gray-900 dark:text-white"
-                  style={{ fontSize: 'clamp(18px, 2.4vw, 38px)', fontWeight: 300, lineHeight: 1.2, margin: 0, letterSpacing: '-0.01em' }}
+                  style={{ fontSize: 'clamp(18px, 2.4vw, 38px)', fontWeight: 300, lineHeight: 1.22, margin: 0, letterSpacing: '-0.01em', textWrap: 'balance' }}
                 >
                   {t.storyTextStart ?? 'At MonkDB,'}{' '}
-                  <span className="text-[#1A38E8] dark:text-blue-400">
+                  <span className="gradient-text-animate" style={{ fontWeight: 400 }}>
                     {t.storyTextAccent ?? 'our journey is deeply personal'}
                   </span>
                   {', '}{t.storyTextEnd ?? 'born from decades of experience in enterprise systems, data management, and AI.'}
                 </p>
               </div>
 
-              {/* MonkDB tag pills */}
-              <div className="flex flex-wrap gap-3 sm:gap-4">
-                {['monkdb', 'monkdb', 'monkdb'].map((_, i) => (
+              {/* Value-prop pills */}
+              <div className="flex flex-wrap gap-2 sm:gap-3">
+                {[
+                  t.storyPill1 ?? 'AI-native',
+                  t.storyPill2 ?? 'Sovereign by design',
+                  t.storyPill3 ?? 'Enterprise-grade',
+                ].map((label, i) => (
                   <motion.div
-                    key={i}
+                    key={label}
                     initial={{ opacity: 0, y: 10 }}
                     animate={storyInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.5, delay: 0.4 + i * 0.1 }}
-                    className="flex items-center justify-center rounded-xl border-2 border-[#1A38E8] dark:border-blue-400 px-6 py-3 sm:px-8 sm:py-4"
+                    className="inline-flex items-center gap-2"
+                    style={{
+                      padding: '8px 16px',
+                      borderRadius: '999px',
+                      border: '1px solid rgba(26,56,232,0.22)',
+                      background: 'rgba(26,56,232,0.04)',
+                    }}
                   >
-                    <img src="/logo.png" alt="MonkDB" style={{ height: '20px', width: 'auto', objectFit: 'contain' }} />
+                    <span
+                      style={{
+                        width: 5,
+                        height: 5,
+                        borderRadius: '50%',
+                        background: '#1A38E8',
+                      }}
+                    />
+                    <span
+                      style={{
+                        fontSize: 'clamp(12px, 0.95vw, 14px)',
+                        fontWeight: 500,
+                        color: '#0A2280',
+                        letterSpacing: '0.005em',
+                      }}
+                    >
+                      {label}
+                    </span>
                   </motion.div>
                 ))}
               </div>
@@ -551,7 +672,7 @@ export default function AboutPage() {
               </span>
               <h2
                 className="text-gray-900 dark:text-white"
-                style={{ fontSize: 'clamp(22px, 3vw, 48px)', fontWeight: 300, lineHeight: 1.15, letterSpacing: '-0.01em' }}
+                style={{ fontSize: 'clamp(22px, 3vw, 48px)', fontWeight: 300, lineHeight: 1.15, letterSpacing: '-0.01em', maxWidth: 'clamp(580px, 75vw, 1040px)', textWrap: 'balance' }}
               >
                 {t.servicesTitle ?? 'Special database features for your services'}
               </h2>
@@ -591,7 +712,7 @@ export default function AboutPage() {
               viewport={{ once: true, margin: '-60px' }}
               transition={{ duration: 0.6, delay: 0.05, ease: [0.25, 0.46, 0.45, 0.94] }}
               className="relative sm:col-span-1 lg:row-span-2 rounded-[20px] overflow-hidden flex flex-col"
-              style={{ minHeight: 'clamp(200px, 30vw, 460px)', background: '#1535CC' }}
+              style={{ minHeight: 'clamp(200px, 30vw, 460px)', background: 'linear-gradient(160deg, #0A2280 0%, #1A38E8 100%)' }}
             >
               <div className="flex-1 flex items-start justify-center pointer-events-none" style={{ overflow: 'hidden' }}>
                 <AnimatedSVGImage
@@ -599,8 +720,8 @@ export default function AboutPage() {
                   style={{ width: '90%', height: 'auto', objectFit: 'contain', display: 'block', marginTop: '-5%' }}
                 />
               </div>
-              <div style={{ padding: `0 clamp(20px, 2.5vw, 32px) clamp(20px, 2.5vw, 32px)`, paddingRight: 'clamp(80px, 20%, 110px)' }}>
-                <h3 className="text-white leading-snug" style={{ fontSize: 'clamp(18px, 1.8vw, 26px)', fontWeight: 400, marginBottom: '8px' }}>
+              <div style={{ padding: `0 clamp(20px, 2.5vw, 32px) clamp(20px, 2.5vw, 32px)`, paddingRight: 'clamp(78px, 16%, 100px)' }}>
+                <h3 className="text-white leading-snug" style={{ fontSize: 'clamp(15px, 1.4vw, 20px)', fontWeight: 400, marginBottom: '8px' }}>
                   {t.card1Title ?? 'Unified Data Platform'}
                 </h3>
                 <p className="text-blue-200 leading-relaxed" style={{ fontSize: 'clamp(13px, 1.1vw, 15px)', margin: 0, opacity: 0.85 }}>
@@ -633,7 +754,7 @@ export default function AboutPage() {
               viewport={{ once: true, margin: '-60px' }}
               transition={{ duration: 0.6, delay: 0.14, ease: [0.25, 0.46, 0.45, 0.94] }}
               className="relative sm:col-span-1 lg:row-span-2 rounded-[20px] overflow-hidden"
-              style={{ minHeight: 'clamp(200px, 30vw, 460px)', background: 'linear-gradient(160deg, #1A72D8 0%, #3A9AF0 100%)' }}
+              style={{ minHeight: 'clamp(200px, 30vw, 460px)', background: 'linear-gradient(160deg, #1A38E8 0%, #0A2280 100%)' }}
             >
               <div style={{ padding: 'clamp(24px, 3vw, 40px)' }}>
                 <h3 className="text-white leading-snug" style={{ fontSize: 'clamp(20px, 2.2vw, 32px)', fontWeight: 300, marginBottom: '12px', letterSpacing: '-0.01em' }}>
@@ -666,22 +787,25 @@ export default function AboutPage() {
               </motion.a>
             </motion.div>
 
-            {/* CARD 3 — light steel-blue, bold title only */}
+            {/* CARD 3 — compact navy, title + tagline */}
             <motion.div
               initial={{ opacity: 0, y: 28 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-60px' }}
               transition={{ duration: 0.6, delay: 0.22, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="relative rounded-[24px] flex flex-col justify-center overflow-hidden"
+              className="relative rounded-[24px] flex flex-col justify-center overflow-hidden gap-2"
               style={{
-                background: 'linear-gradient(135deg, #1A72D8 0%, #3A9AF0 100%)',
-                minHeight: 'clamp(100px, 12vw, 170px)',
+                background: 'linear-gradient(135deg, #1A38E8 0%, #0033A0 100%)',
+                minHeight: 'clamp(120px, 14vw, 200px)',
                 padding: 'clamp(20px, 2.5vw, 32px)',
               }}
             >
-              <h3 className="text-white leading-snug" style={{ fontSize: 'clamp(20px, 2vw, 28px)', fontWeight: 300, letterSpacing: '-0.01em' }}>
+              <h3 className="text-white leading-snug" style={{ fontSize: 'clamp(15px, 1.4vw, 20px)', fontWeight: 400, letterSpacing: '-0.005em', margin: 0 }}>
                 {t.card3Title ?? 'Neural Network Integration'}
               </h3>
+              <p className="text-blue-100" style={{ fontSize: 'clamp(12px, 1vw, 14px)', margin: 0, opacity: 0.78, lineHeight: 1.55 }}>
+                {t.card3Body ?? 'Embed models directly into the data plane. One runtime, zero glue.'}
+              </p>
             </motion.div>
 
             {/* CARD 4 — blue, 2148434727 1.svg woman photo (soft-light), Intersect icon, text */}
@@ -692,26 +816,40 @@ export default function AboutPage() {
               transition={{ duration: 0.6, delay: 0.30, ease: [0.25, 0.46, 0.45, 0.94] }}
               className="relative rounded-[24px] overflow-hidden flex flex-col justify-between"
               style={{
-                background: 'linear-gradient(160deg, #1A38E8 0%, #1E60F0 100%)',
+                background: 'linear-gradient(160deg, #1A38E8 0%, #0A2280 100%)',
                 minHeight: 'clamp(160px, 22vw, 340px)',
                 padding: 'clamp(20px, 2.5vw, 32px)',
               }}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/2148434727 1.svg"
-                alt=""
+              {/* Subtle radial highlight + dot grid */}
+              <div
                 aria-hidden="true"
-                className="absolute inset-0 w-full h-full pointer-events-none"
-                style={{ objectFit: 'cover', mixBlendMode: 'soft-light' }}
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background:
+                    'radial-gradient(ellipse 70% 80% at 100% 0%, rgba(96,160,255,0.22) 0%, transparent 60%)',
+                }}
+              />
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  backgroundImage:
+                    'radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px)',
+                  backgroundSize: '22px 22px',
+                  maskImage:
+                    'linear-gradient(180deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.12) 100%)',
+                  WebkitMaskImage:
+                    'linear-gradient(180deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.12) 100%)',
+                }}
               />
               <div className="relative z-10 flex flex-col justify-between h-full gap-4">
-                <TimerReset size={44} color="#fff" strokeWidth={1.5} />
+                <TimerReset size={36} color="#fff" strokeWidth={1.5} />
                 <div>
-                  <h3 className="text-white leading-tight" style={{ fontSize: 'clamp(22px, 2.5vw, 36px)', fontWeight: 300, marginBottom: '10px', letterSpacing: '-0.01em' }}>
+                  <h3 className="text-white leading-tight" style={{ fontSize: 'clamp(20px, 2.2vw, 30px)', fontWeight: 300, marginBottom: '10px', letterSpacing: '-0.01em' }}>
                     {t.card4Title ?? 'Neural Network Consulting'}
                   </h3>
-                  <p className="text-white leading-relaxed" style={{ fontSize: 'clamp(13px, 1.2vw, 16px)', margin: 0, opacity: 0.8, lineHeight: 1.65 }}>
+                  <p className="text-white leading-relaxed" style={{ fontSize: 'clamp(13px, 1.2vw, 16px)', margin: 0, opacity: 0.82, lineHeight: 1.65 }}>
                     {t.card4Body ?? ''}
                   </p>
                 </div>
@@ -725,7 +863,7 @@ export default function AboutPage() {
       {/* ══════════════════════════════════════════
           SECTION 6B — KEY DIFFERENTIATORS COMPARISON
       ══════════════════════════════════════════ */}
-      <section className="py-8 sm:py-12 lg:py-16 bg-white dark:bg-[#0f1623]">
+      <section className="py-10 sm:py-14 lg:py-20 bg-white dark:bg-[#0f1623]">
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
 
           {/* Section heading */}
@@ -735,10 +873,11 @@ export default function AboutPage() {
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="text-center mb-8 sm:mb-10 lg:mb-12"
+            style={{ marginBottom: 'clamp(28px, 3.5vw, 56px)' }}
           >
             <h2
-              className="dark:text-white"
-              style={{ fontSize: 'clamp(22px, 3vw, 48px)', fontWeight: 300, lineHeight: 1.15, letterSpacing: '-0.01em', marginBottom: '10px', color: '#0A2280' }}
+              className="dark:text-white mx-auto"
+              style={{ fontSize: 'clamp(22px, 3vw, 48px)', fontWeight: 300, lineHeight: 1.15, letterSpacing: '-0.01em', marginBottom: '10px', color: '#0A2280', maxWidth: 'clamp(580px, 75vw, 1040px)', textWrap: 'balance' }}
             >
               {t.whyMonkdbTitle ?? 'Why MonkDB'}
             </h2>
@@ -757,10 +896,10 @@ export default function AboutPage() {
             transition={{ duration: 0.65, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="relative overflow-hidden rounded-[16px] sm:rounded-[20px]"
             style={{
-              background: 'linear-gradient(135deg, #1650F0 0%, #1040E0 45%, #0D30C0 100%)',
-              padding: 'clamp(28px, 4vw, 56px) clamp(40px, 6vw, 80px)',
-              border: '1px solid rgba(100,180,255,0.35)',
-              boxShadow: '0 0 40px rgba(30,100,255,0.2), inset 0 0 60px rgba(60,140,255,0.06)',
+              background: 'linear-gradient(135deg, #1A38E8 0%, #0A2280 55%, #050D6A 100%)',
+              padding: 'clamp(28px, 4vw, 56px) clamp(24px, 5vw, 80px)',
+              border: '1px solid rgba(26,56,232,0.35)',
+              boxShadow: '0 0 40px rgba(26,56,232,0.2), inset 0 0 60px rgba(10,34,128,0.08)',
             }}
           >
             {/* Spider-net animation */}
@@ -776,14 +915,14 @@ export default function AboutPage() {
             <div className="relative z-10 overflow-x-auto">
 
               {/* Header row */}
-              <div className="relative flex items-center" style={{ paddingBottom: 'clamp(14px, 2vw, 22px)', minWidth: '360px' }}>
-                <div className="flex-1 text-white" style={{ fontSize: 'clamp(15px, 1.6vw, 20px)', fontWeight: 700 }}>
+              <div className="relative flex items-center" style={{ paddingBottom: 'clamp(14px, 2vw, 22px)' }}>
+                <div className="flex-1 text-white" style={{ fontSize: 'clamp(14px, 1.6vw, 20px)', fontWeight: 500, letterSpacing: '-0.005em' }}>
                   {t.keyDiffHeader ?? 'Key Differentiators'}
                 </div>
-                <div className="text-white text-center flex-shrink-0" style={{ width: 'clamp(100px, 13vw, 180px)', fontSize: 'clamp(14px, 1.5vw, 19px)', fontWeight: 700 }}>
+                <div className="text-white text-center flex-shrink-0" style={{ width: 'clamp(72px, 11vw, 160px)', fontSize: 'clamp(13px, 1.4vw, 18px)', fontWeight: 500 }}>
                   MonkDB
                 </div>
-                <div className="text-white text-center flex-shrink-0" style={{ width: 'clamp(120px, 15vw, 200px)', fontSize: 'clamp(14px, 1.5vw, 19px)', fontWeight: 700 }}>
+                <div className="text-white text-center flex-shrink-0" style={{ width: 'clamp(80px, 13vw, 180px)', fontSize: 'clamp(13px, 1.4vw, 18px)', fontWeight: 500 }}>
                   {t.legacyColHeader ?? 'Legacy Systems'}
                 </div>
               </div>
@@ -817,14 +956,14 @@ export default function AboutPage() {
                     {feature}
                   </span>
                   {/* MonkDB — green outline circle + green check (matches reference) */}
-                  <div className="flex justify-center flex-shrink-0" style={{ width: 'clamp(100px, 13vw, 180px)' }}>
+                  <div className="flex justify-center flex-shrink-0" style={{ width: 'clamp(72px, 11vw, 160px)' }}>
                     <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
                       <circle cx="14" cy="14" r="12" stroke="#22c55e" strokeWidth="1.8" fill="none" />
                       <path d="M9 14.5l3.5 3.5 6.5-7" stroke="#22c55e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </div>
                   {/* Legacy — white outline circle with X */}
-                  <div className="flex justify-center flex-shrink-0" style={{ width: 'clamp(120px, 15vw, 200px)' }}>
+                  <div className="flex justify-center flex-shrink-0" style={{ width: 'clamp(80px, 13vw, 180px)' }}>
                     <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
                       <circle cx="14" cy="14" r="12" stroke="rgba(255,255,255,0.5)" strokeWidth="1.8" fill="none" />
                       <path d="M10 10l8 8M18 10l-8 8" stroke="rgba(255,255,255,0.65)" strokeWidth="1.8" strokeLinecap="round" />
@@ -871,18 +1010,22 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-12">
             {[
               {
+                Icon: BrainCircuit,
                 title: t.diff1Title ?? 'AI-Native by Design',
                 description: t.diff1Desc ?? 'Built ground-up to support AI workloads, not retrofitted. Native vector embeddings live alongside relational and time-series data.',
               },
               {
+                Icon: Layers,
                 title: t.diff2Title ?? 'Unified and Multi-Modal',
                 description: t.diff2Desc ?? 'One engine for vector, relational, document, time-series, and geospatial data. Eliminate silos and reduce operational overhead by 60 percent.',
               },
               {
+                Icon: Zap,
                 title: t.diff3Title ?? 'Blazing Fast and Scalable',
                 description: t.diff3Desc ?? 'Sub-millisecond query latency with horizontal scale-out. Handle petabyte workloads without performance degradation.',
               },
               {
+                Icon: ShieldCheck,
                 title: t.diff4Title ?? 'Enterprise-Ready',
                 description: t.diff4Desc ?? 'SOC 2, GDPR, HIPAA compliant from day one. Role-based access, audit logs, and encryption at rest and in transit.',
               },
@@ -896,16 +1039,29 @@ export default function AboutPage() {
                 className="flex flex-col gap-4"
               >
                 {/* Icon */}
-                <img
-                  src="/Group.svg"
-                  alt=""
-                  aria-hidden="true"
-                  style={{ width: 44, height: 44, objectFit: 'contain', flexShrink: 0 }}
-                />
+                <div
+                  style={{
+                    width: 48,
+                    height: 48,
+                    borderRadius: '12px',
+                    background:
+                      'linear-gradient(180deg, rgba(26,56,232,0.10) 0%, rgba(26,56,232,0.03) 100%)',
+                    border: '1px solid rgba(26,56,232,0.22)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: '#1A38E8',
+                    flexShrink: 0,
+                    boxShadow:
+                      'inset 0 1px 0 rgba(255,255,255,0.7), 0 2px 4px rgba(10,20,80,0.05)',
+                  }}
+                >
+                  <feature.Icon size={22} strokeWidth={1.6} />
+                </div>
 
                 <h3
                   className="text-gray-900 dark:text-white leading-snug"
-                  style={{ fontSize: 'clamp(15px, 1.2vw, 18px)', fontWeight: 400, margin: 0 }}
+                  style={{ fontSize: 'clamp(15px, 1.2vw, 18px)', fontWeight: 500, margin: 0 }}
                 >
                   {feature.title}
                 </h3>
@@ -972,8 +1128,8 @@ export default function AboutPage() {
               transition={{ duration: 0.7, delay: 0.05, ease: [0.25, 0.46, 0.45, 0.94] }}
               className="relative rounded-[24px] overflow-hidden flex flex-col justify-between sm:col-span-2 lg:col-span-1"
               style={{
-                background: 'linear-gradient(145deg, #0d1117 0%, #0a1628 100%)',
-                minHeight: 'clamp(180px, 22vw, 340px)',
+                background: 'linear-gradient(145deg, #0A2280 0%, #0f1623 100%)',
+                minHeight: 'clamp(280px, 30vw, 380px)',
                 padding: 'clamp(20px, 3vw, 44px)',
                 border: '1px solid rgba(26,56,232,0.2)',
               }}

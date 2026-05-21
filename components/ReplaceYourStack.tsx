@@ -86,6 +86,7 @@ export default function ReplaceYourStack() {
               margin: 0,
               textWrap: 'balance',
               textDecoration: 'none',
+              maxWidth: 'clamp(280px, 100%, 640px)',
             }}
           >
             {t.headline?.split(' with ')[0] ?? 'Replace complexity'}{' '}

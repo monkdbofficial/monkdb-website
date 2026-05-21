@@ -21,14 +21,14 @@ type Feature = {
 }
 
 const featureChrome = [
-  { accent: '#60a0ff', accentDark: '#1A38E8', Icon: Layers,
-    gradient: 'linear-gradient(135deg, rgba(26,56,232,0.18) 0%, rgba(0,194,255,0.08) 100%)' },
-  { accent: '#00c2ff', accentDark: '#0EA5E9', Icon: Workflow,
-    gradient: 'linear-gradient(135deg, rgba(0,194,255,0.15) 0%, rgba(80,40,200,0.08) 100%)' },
-  { accent: '#a060ff', accentDark: '#6366F1', Icon: Zap,
-    gradient: 'linear-gradient(135deg, rgba(160,96,255,0.18) 0%, rgba(26,56,232,0.08) 100%)' },
-  { accent: '#ff6090', accentDark: '#0033A0', Icon: BrainCircuit,
-    gradient: 'linear-gradient(135deg, rgba(255,96,144,0.15) 0%, rgba(160,96,255,0.08) 100%)' },
+  { accent: '#1A38E8', accentDark: '#0A2280', Icon: Layers,
+    gradient: 'linear-gradient(135deg, rgba(26,56,232,0.06) 0%, rgba(10,34,128,0.02) 100%)' },
+  { accent: '#1E8AFF', accentDark: '#0033A0', Icon: Workflow,
+    gradient: 'linear-gradient(135deg, rgba(30,138,255,0.06) 0%, rgba(26,56,232,0.02) 100%)' },
+  { accent: '#0A2280', accentDark: '#0A2280', Icon: Zap,
+    gradient: 'linear-gradient(135deg, rgba(10,34,128,0.06) 0%, rgba(26,56,232,0.02) 100%)' },
+  { accent: '#0033A0', accentDark: '#0033A0', Icon: BrainCircuit,
+    gradient: 'linear-gradient(135deg, rgba(0,51,160,0.06) 0%, rgba(30,138,255,0.02) 100%)' },
 ]
 
 function TiltCard({ feature, index, isInView }: { feature: Feature; index: number; isInView: boolean }) {
@@ -70,49 +70,43 @@ function TiltCard({ feature, index, isInView }: { feature: Feature; index: numbe
     >
       <motion.div
         className="relative flex flex-col gap-4 p-6 rounded-2xl h-full overflow-hidden"
-        whileHover={{ boxShadow: `0 0 0 1px ${feature.accent}30, 0 20px 60px ${feature.accent}20, 0 8px 24px rgba(0,0,0,0.15)` }}
+        whileHover={{ boxShadow: `0 0 0 1px ${feature.accent}26, 0 10px 28px rgba(10,20,80,0.10), 0 2px 6px rgba(10,20,80,0.05)` }}
         transition={{ duration: 0.2 }}
       >
         {/* Card background */}
         <div
           className="absolute inset-0 rounded-2xl"
           style={{
-            background: feature.gradient,
-            border: `1px solid ${feature.accent}20`,
-          }}
-        />
-
-        {/* Shine layer */}
-        <div
-          className="absolute inset-0 rounded-2xl pointer-events-none"
-          style={{
-            background: 'linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 60%)',
+            background: `#ffffff, ${feature.gradient}`,
+            backgroundColor: '#ffffff',
+            backgroundImage: feature.gradient,
+            border: `1px solid rgba(10,34,128,0.08)`,
           }}
         />
 
         {/* Top highlight */}
         <div
           className="absolute top-0 left-0 right-0 h-px rounded-t-2xl"
-          style={{ background: `linear-gradient(90deg, transparent, ${feature.accent}40, transparent)` }}
+          style={{ background: `linear-gradient(90deg, transparent, ${feature.accent}33, transparent)` }}
         />
 
         {/* Content (lifted via translateZ for depth) */}
         <div style={{ position: 'relative', zIndex: 1, transform: 'translateZ(20px)' }}>
           {/* Icon */}
           <motion.div
-            whileHover={{ scale: 1.08, rotate: -4, transition: { duration: 0.25 } }}
+            whileHover={{ scale: 1.06, transition: { duration: 0.25 } }}
             style={{
-              width: 52, height: 52,
-              borderRadius: '14px',
-              background: `${feature.accent}15`,
-              border: `1px solid ${feature.accent}30`,
+              width: 48, height: 48,
+              borderRadius: '12px',
+              background: `linear-gradient(180deg, ${feature.accent}14 0%, ${feature.accent}05 100%)`,
+              border: `1px solid ${feature.accent}26`,
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               marginBottom: 4,
               color: feature.accentDark,
-              boxShadow: `inset 0 1px 0 rgba(255,255,255,0.08), 0 6px 16px ${feature.accent}1A`,
+              boxShadow: `inset 0 1px 0 rgba(255,255,255,0.7), 0 2px 4px rgba(10,20,80,0.05)`,
             }}
           >
-            <feature.Icon size={26} strokeWidth={1.6} />
+            <feature.Icon size={22} strokeWidth={1.6} />
           </motion.div>
 
           <h3
@@ -139,10 +133,9 @@ function TiltCard({ feature, index, isInView }: { feature: Feature; index: numbe
         <div
           className="absolute bottom-4 right-4"
           style={{
-            width: 8, height: 8, borderRadius: '50%',
+            width: 6, height: 6, borderRadius: '50%',
             background: feature.accent,
-            boxShadow: `0 0 12px ${feature.accent}`,
-            opacity: 0.7,
+            opacity: 0.55,
           }}
         />
       </motion.div>
@@ -202,7 +195,7 @@ export default function FeatureCards() {
           </div>
           <h2
             className="text-gray-900 dark:text-white"
-            style={{ fontSize: 'clamp(22px, 3vw, 40px)', fontWeight: 300, letterSpacing: '-0.01em', lineHeight: 1.15 }}
+            style={{ fontSize: 'clamp(22px, 3vw, 40px)', fontWeight: 300, letterSpacing: '-0.01em', lineHeight: 1.15, textWrap: 'balance', maxWidth: 'clamp(280px, 90%, 760px)' }}
           >
             {t.titlePart1}
             <span className="gradient-text-animate" style={{ fontWeight: 500 }}>MonkDB</span>

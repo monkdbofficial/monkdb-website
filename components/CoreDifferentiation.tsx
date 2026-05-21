@@ -597,14 +597,13 @@ export default function CoreDifferentiation() {
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.05, ease: EASE }}
-          className="mt-6 sm:mt-10 lg:mt-14"
           style={{
             fontSize: 'clamp(28px, 4vw, 64px)',
             fontWeight: 300,
             letterSpacing: '-0.02em',
             lineHeight: 1.08,
-            margin: '40px 0 0 0',
-            maxWidth: '1100px',
+            margin: 'clamp(28px, 3.5vw, 56px) 0 0 0',
+            maxWidth: 'clamp(580px, 90%, 1040px)',
             textWrap: 'balance',
             textDecoration: 'none',
           }}

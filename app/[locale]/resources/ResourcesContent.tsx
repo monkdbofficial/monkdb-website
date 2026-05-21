@@ -288,8 +288,8 @@ function ServicesHero({ t, contactHref }: { t: T; contactHref: string }) {
               style={{
                 minHeight: '170px',
                 backgroundImage: `
-                  linear-gradient(135deg, rgba(10,34,128,0.55) 0%, rgba(245,158,11,0.20) 100%),
-                  radial-gradient(ellipse at top right, #F59E0B 0%, #EA580C 40%, #7C2D12 100%)
+                  linear-gradient(135deg, rgba(10,34,128,0.45) 0%, rgba(26,56,232,0.25) 100%),
+                  radial-gradient(ellipse at top right, #1E8AFF 0%, #1A38E8 40%, #050D6A 100%)
                 `,
               }}
             >
@@ -318,16 +318,16 @@ function ServicesHero({ t, contactHref }: { t: T; contactHref: string }) {
 // ───────────────────────────────────────────────────────────────
 function MasterDataSection({ t }: { t: T }) {
   return (
-    <section className="py-14 sm:py-20 lg:py-24 bg-white dark:bg-[#0f1623]">
+    <section className="py-12 sm:py-16 lg:py-20 bg-white dark:bg-[#0f1623]">
       <div className={SECTION_CONTAINER}>
-        <div className="text-center mb-10 sm:mb-14">
+        <div className="text-center mb-10 sm:mb-14" style={{ marginBottom: 'clamp(28px, 3.5vw, 56px)' }}>
           <motion.h2
             initial={{ opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, ease: EASE }}
-            className="text-gray-900 dark:text-white"
-            style={H2_STYLE}
+            className="text-gray-900 dark:text-white mx-auto"
+            style={{ ...H2_STYLE, maxWidth: 'clamp(580px, 75vw, 1040px)', textWrap: 'balance' }}
           >
             {t.masterTitle ?? 'Master data, master scale'}
           </motion.h2>
@@ -379,16 +379,16 @@ function MasterDataSection({ t }: { t: T }) {
             maxWidth: '980px',
             aspectRatio: '16 / 9',
             background:
-              'linear-gradient(135deg, #E0E7FF 0%, #F0EBFF 50%, #FEF3C7 100%)',
+              'linear-gradient(135deg, #050D6A 0%, #0A2280 55%, #1A38E8 100%)',
           }}
         >
-          {/* Placeholder center "person" gradient glow */}
+          {/* Soft brand glow center */}
           <div
             className="absolute inset-0"
             style={{
               backgroundImage: `
-                radial-gradient(ellipse 40% 60% at 50% 55%, rgba(10,34,128,0.25) 0%, transparent 55%),
-                radial-gradient(ellipse 30% 40% at 50% 40%, rgba(255,255,255,0.4) 0%, transparent 60%)
+                radial-gradient(ellipse 50% 60% at 50% 55%, rgba(30,138,255,0.35) 0%, transparent 60%),
+                radial-gradient(ellipse 30% 40% at 50% 40%, rgba(255,255,255,0.10) 0%, transparent 60%)
               `,
             }}
           />
@@ -398,7 +398,7 @@ function MasterDataSection({ t }: { t: T }) {
             className="absolute inset-0 pointer-events-none"
             style={{
               backgroundImage:
-                'radial-gradient(circle, rgba(10,34,128,0.08) 1px, transparent 1px)',
+                'radial-gradient(circle, rgba(255,255,255,0.10) 1px, transparent 1px)',
               backgroundSize: '24px 24px',
             }}
           />
@@ -472,12 +472,12 @@ function MasterDataSection({ t }: { t: T }) {
                   height: 24,
                   borderRadius: '50%',
                   background:
-                    'linear-gradient(135deg, #F59E0B 0%, #EA580C 100%)',
+                    'linear-gradient(135deg, #1A38E8 0%, #0A2280 100%)',
                 }}
               />
               <div className="flex-1 min-w-0">
                 <p style={{ fontSize: '11px', fontWeight: 600 }}>
-                  Dana Mitchell
+                  {t.masterChatName ?? 'MonkDB Engineer'}
                 </p>
                 <p
                   className="text-gray-400"
@@ -491,7 +491,7 @@ function MasterDataSection({ t }: { t: T }) {
               className="rounded-xl p-2"
               style={{
                 background:
-                  'linear-gradient(135deg, #F5F3FF 0%, #EDE9FE 100%)',
+                  'linear-gradient(135deg, rgba(26,56,232,0.08) 0%, rgba(30,138,255,0.10) 100%)',
                 fontSize: '10.5px',
                 color: '#4B5563',
                 lineHeight: 1.4,
@@ -512,9 +512,9 @@ function MasterDataSection({ t }: { t: T }) {
               width: 44,
               height: 44,
               borderRadius: '50%',
-              backgroundColor: '#EF4444',
+              backgroundColor: '#0A2280',
               color: '#fff',
-              boxShadow: '0 10px 30px rgba(239,68,68,0.45)',
+              boxShadow: '0 10px 30px rgba(10,34,128,0.45)',
             }}
           >
             <Phone size={16} strokeWidth={2.2} />
@@ -562,16 +562,16 @@ function buildBlogPosts(t: T) {
 function BlogsSection({ t }: { t: T }) {
   const BLOG_POSTS = buildBlogPosts(t)
   return (
-    <section className="py-14 sm:py-20 lg:py-24 bg-white dark:bg-[#0f1623]">
+    <section className="py-12 sm:py-16 lg:py-20 bg-white dark:bg-[#0f1623]">
       <div className={SECTION_CONTAINER}>
-        <div className="text-center mb-10 sm:mb-14">
+        <div className="text-center mb-10 sm:mb-14" style={{ marginBottom: 'clamp(28px, 3.5vw, 56px)' }}>
           <motion.h2
             initial={{ opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, ease: EASE }}
-            className="text-gray-900 dark:text-white"
-            style={H2_STYLE}
+            className="text-gray-900 dark:text-white mx-auto"
+            style={{ ...H2_STYLE, maxWidth: 'clamp(580px, 75vw, 1040px)', textWrap: 'balance' }}
           >
             {t.blogsTitle ?? 'Our blogs'}
           </motion.h2>
@@ -605,7 +605,7 @@ function BlogsSection({ t }: { t: T }) {
                 style={{
                   aspectRatio: '4 / 3',
                   background: `
-                    linear-gradient(135deg, rgba(10,34,128,0.35) 0%, rgba(245,158,11,0.15) 100%),
+                    linear-gradient(135deg, rgba(10,34,128,0.35) 0%, rgba(30,138,255,0.20) 100%),
                     linear-gradient(180deg, #0A2280 0%, #1A38E8 100%)
                   `,
                 }}
@@ -682,16 +682,16 @@ function buildTransformCards(t: T) {
 function DataIntegritySection({ t }: { t: T }) {
   const TRANSFORM_CARDS = buildTransformCards(t)
   return (
-    <section className="py-14 sm:py-20 lg:py-24 bg-white dark:bg-[#0f1623]">
+    <section className="py-12 sm:py-16 lg:py-20 bg-white dark:bg-[#0f1623]">
       <div className={SECTION_CONTAINER}>
-        <div className="text-center mb-10 sm:mb-14">
+        <div className="text-center mb-10 sm:mb-14" style={{ marginBottom: 'clamp(28px, 3.5vw, 56px)' }}>
           <motion.h2
             initial={{ opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, ease: EASE }}
-            className="text-gray-900 dark:text-white"
-            style={H2_STYLE}
+            className="text-gray-900 dark:text-white mx-auto"
+            style={{ ...H2_STYLE, maxWidth: 'clamp(580px, 75vw, 1040px)', textWrap: 'balance' }}
           >
             {t.integrityTitle ?? 'Data integrity is the highest value in our work'}
           </motion.h2>
@@ -796,7 +796,7 @@ function WhatMakesMonkDBSection({ t }: { t: T }) {
     t.feature5 ?? 'Real-time prediction',
   ]
   return (
-    <section className="py-14 sm:py-20 lg:py-24 bg-white dark:bg-[#0f1623]">
+    <section className="py-12 sm:py-16 lg:py-20 bg-white dark:bg-[#0f1623]">
       <div className={SECTION_CONTAINER}>
         {/* Top band: left features list + right headline/copy */}
         <div className="grid grid-cols-1 lg:grid-cols-[0.8fr_1.2fr] gap-6 lg:gap-10 items-start mb-6 lg:mb-8">
@@ -851,8 +851,8 @@ function WhatMakesMonkDBSection({ t }: { t: T }) {
             transition={{ duration: 0.7, delay: 0.1, ease: EASE }}
           >
             <h2
-              className="text-[#0A2280] dark:text-white mb-5"
-              style={H2_STYLE}
+              className="text-[#0A2280] dark:text-white"
+              style={{ ...H2_STYLE, marginBottom: 'clamp(20px, 2vw, 28px)', textWrap: 'balance' }}
             >
               {t.whatMakesTitle ?? 'What makes MonkDB the best choice for your enterprise'}
             </h2>
@@ -982,8 +982,8 @@ function WhatMakesMonkDBSection({ t }: { t: T }) {
             style={{
               minHeight: 'clamp(300px, 30vw, 420px)',
               background: `
-                radial-gradient(ellipse 70% 50% at 50% 50%, rgba(167,139,250,0.3) 0%, transparent 60%),
-                linear-gradient(135deg, #1E1B4B 0%, #312E81 50%, #6B21A8 100%)
+                radial-gradient(ellipse 70% 50% at 50% 50%, rgba(30,138,255,0.30) 0%, transparent 60%),
+                linear-gradient(135deg, #050D6A 0%, #0A2280 50%, #0033A0 100%)
               `,
             }}
           >

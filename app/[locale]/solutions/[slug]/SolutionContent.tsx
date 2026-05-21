@@ -70,28 +70,28 @@ type Theme = {
 const THEMES: Record<SlugKey, Theme> = {
   'ai-ml': {
     index: '01',
-    accent: '#8B5CF6',
-    accentSoft: '#C4B5FD',
+    accent: '#1A38E8',
+    accentSoft: '#7FB3FF',
     Icon: Brain,
-    heroGradient: 'linear-gradient(160deg, #2A1065 0%, #4C1D95 55%, #0f1623 100%)',
+    heroGradient: 'linear-gradient(160deg, #050D6A 0%, #1A38E8 55%, #0f1623 100%)',
     motif: 'neural',
     centerLabel: 'AI · LIVE',
   },
   'real-time-streaming': {
     index: '02',
-    accent: '#06B6D4',
-    accentSoft: '#67E8F9',
+    accent: '#1E8AFF',
+    accentSoft: '#7FB3FF',
     Icon: Activity,
-    heroGradient: 'linear-gradient(160deg, #042F36 0%, #0E7490 55%, #0f1623 100%)',
+    heroGradient: 'linear-gradient(160deg, #06245E 0%, #0F3D8C 55%, #0f1623 100%)',
     motif: 'wave',
     centerLabel: 'STREAM',
   },
   'iceberg-tables': {
     index: '03',
-    accent: '#0284C7',
-    accentSoft: '#7DD3FC',
+    accent: '#1E8AFF',
+    accentSoft: '#7FB3FF',
     Icon: Layers,
-    heroGradient: 'linear-gradient(160deg, #0C1F4A 0%, #075985 55%, #0f1623 100%)',
+    heroGradient: 'linear-gradient(160deg, #0C1F4A 0%, #0033A0 55%, #0f1623 100%)',
     motif: 'layers',
     centerLabel: 'LAKEHOUSE',
   },
@@ -106,55 +106,55 @@ const THEMES: Record<SlugKey, Theme> = {
   },
   'autonomous-decisioning-systems': {
     index: '05',
-    accent: '#EC4899',
-    accentSoft: '#F9A8D4',
+    accent: '#0033A0',
+    accentSoft: '#7FB3FF',
     Icon: Zap,
-    heroGradient: 'linear-gradient(160deg, #500724 0%, #831843 55%, #0f1623 100%)',
+    heroGradient: 'linear-gradient(160deg, #060E58 0%, #0033A0 55%, #0f1623 100%)',
     motif: 'trigger',
     centerLabel: 'AUTO',
   },
   'energy-and-resource-optimization': {
     index: '06',
-    accent: '#10B981',
-    accentSoft: '#6EE7B7',
+    accent: '#0033A0',
+    accentSoft: '#7FB3FF',
     Icon: Gauge,
-    heroGradient: 'linear-gradient(160deg, #022C22 0%, #064E3B 55%, #0f1623 100%)',
+    heroGradient: 'linear-gradient(160deg, #050D6A 0%, #0033A0 55%, #0f1623 100%)',
     motif: 'gauge',
     centerLabel: 'OPTIMIZE',
   },
   'digital-twin-and-simulation': {
     index: '07',
-    accent: '#6366F1',
-    accentSoft: '#A5B4FC',
+    accent: '#1A38E8',
+    accentSoft: '#7FB3FF',
     Icon: Copy,
-    heroGradient: 'linear-gradient(160deg, #1E1B4B 0%, #312E81 55%, #0f1623 100%)',
+    heroGradient: 'linear-gradient(160deg, #050D6A 0%, #0A2280 55%, #0f1623 100%)',
     motif: 'twin',
     centerLabel: 'TWIN',
   },
   'edge-intelligence-and-distributed-ai': {
     index: '08',
-    accent: '#F97316',
-    accentSoft: '#FDBA74',
+    accent: '#1E8AFF',
+    accentSoft: '#7FB3FF',
     Icon: Cpu,
-    heroGradient: 'linear-gradient(160deg, #431407 0%, #7C2D12 55%, #0f1623 100%)',
+    heroGradient: 'linear-gradient(160deg, #0C1F4A 0%, #0033A0 55%, #0f1623 100%)',
     motif: 'mesh',
     centerLabel: 'EDGE AI',
   },
   'data-and-ai-modernization': {
     index: '09',
-    accent: '#0EA5E9',
-    accentSoft: '#7DD3FC',
+    accent: '#1E8AFF',
+    accentSoft: '#7FB3FF',
     Icon: ArrowRightLeft,
-    heroGradient: 'linear-gradient(160deg, #0C1F4A 0%, #0369A1 55%, #0f1623 100%)',
+    heroGradient: 'linear-gradient(160deg, #0C1F4A 0%, #1A38E8 55%, #0f1623 100%)',
     motif: 'migration',
     centerLabel: 'MODERN',
   },
   'ai-governance-and-trust': {
     index: '10',
-    accent: '#D4A574',
-    accentSoft: '#F2E5D0',
+    accent: '#0033A0',
+    accentSoft: '#7FB3FF',
     Icon: ShieldCheck,
-    heroGradient: 'linear-gradient(160deg, #2D1B0A 0%, #5A3A1A 55%, #1A0F08 100%)',
+    heroGradient: 'linear-gradient(160deg, #050D6A 0%, #0A2280 55%, #0f1623 100%)',
     motif: 'shield',
     centerLabel: 'TRUST',
   },
@@ -1137,8 +1137,8 @@ function MigrationMotif({ theme }: { theme: Theme }) {
               fontSize: 9,
               fontWeight: 600,
               letterSpacing: '0.12em',
-              color: 'rgba(255,255,255,0.6)',
-              textDecoration: 'line-through',
+              color: 'rgba(255,255,255,0.4)',
+              opacity: 0.7,
             }}
           >
             {s}
@@ -1433,19 +1433,20 @@ export default function SolutionContent({
       </section>
 
       {/* ── Why this matters ── */}
-      <section className="bg-white dark:bg-[#0f1623] py-14 sm:py-20 lg:py-24">
+      <section className="bg-white dark:bg-[#0f1623] py-12 sm:py-16 lg:py-20">
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-8 sm:gap-12 lg:gap-20 items-start">
             <div>
               <SectionLabel text="Why this matters" />
               <h2
-                className="text-gray-900 dark:text-white mt-6"
+                className="text-gray-900 dark:text-white"
                 style={{
                   fontSize: 'clamp(28px, 4vw, 56px)',
                   fontWeight: 300,
                   letterSpacing: '-0.02em',
                   lineHeight: 1.08,
                   margin: '24px 0 0 0',
+                  maxWidth: 'clamp(420px, 90%, 720px)',
                   textWrap: 'balance',
                   textDecoration: 'none',
                 }}
@@ -1507,17 +1508,19 @@ export default function SolutionContent({
       </section>
 
       {/* ── Capabilities — uniform dense cards ── */}
-      <section className="bg-[#F8F4F0] dark:bg-[#0A1326] py-14 sm:py-20 lg:py-24">
+      <section className="bg-[#F8F4F0] dark:bg-[#0A1326] py-12 sm:py-16 lg:py-20">
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <SectionLabel text="What you get" />
           <h2
-            className="text-gray-900 dark:text-white mt-6 mb-10 sm:mb-12"
+            className="text-gray-900 dark:text-white"
             style={{
               fontSize: 'clamp(28px, 4vw, 52px)',
               fontWeight: 300,
               letterSpacing: '-0.02em',
               lineHeight: 1.1,
-              margin: '24px 0 0 0',
+              marginTop: '20px',
+              marginBottom: 'clamp(28px, 3.5vw, 48px)',
+              maxWidth: 'clamp(580px, 75vw, 1040px)',
               textWrap: 'balance',
               textDecoration: 'none',
             }}
@@ -1607,7 +1610,7 @@ export default function SolutionContent({
 
       {/* ── How it works — 3-step flow ── */}
       <section
-        className="relative overflow-hidden py-14 sm:py-20 lg:py-24"
+        className="relative overflow-hidden py-12 sm:py-16 lg:py-20"
         style={{
           background:
             'linear-gradient(180deg, #050D6A 0%, #07091A 60%, #050D6A 100%)',
@@ -1625,13 +1628,15 @@ export default function SolutionContent({
         <div className="relative z-10 max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <SectionLabel text="How it works" variant="dark" />
           <h2
-            className="text-white mt-6 mb-10 sm:mb-12"
+            className="text-white"
             style={{
               fontSize: 'clamp(28px, 4vw, 52px)',
               fontWeight: 300,
               letterSpacing: '-0.02em',
               lineHeight: 1.1,
-              margin: '24px 0 0 0',
+              marginTop: '20px',
+              marginBottom: 'clamp(28px, 3.5vw, 48px)',
+              maxWidth: 'clamp(580px, 75vw, 1040px)',
               textWrap: 'balance',
               textDecoration: 'none',
             }}
@@ -1737,7 +1742,7 @@ export default function SolutionContent({
       </section>
 
       {/* ── Customer proof — quote + numbers ── */}
-      <section className="bg-white dark:bg-[#0f1623] py-14 sm:py-20 lg:py-24">
+      <section className="bg-white dark:bg-[#0f1623] py-12 sm:py-16 lg:py-20">
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-8 sm:gap-12 lg:gap-16 items-start">
             <motion.figure
@@ -1873,17 +1878,20 @@ export default function SolutionContent({
 
       {/* ── Related Solutions ── */}
       {related.length > 0 && (
-        <section className="bg-white dark:bg-[#0f1623] py-14 sm:py-20 lg:py-24">
+        <section className="bg-white dark:bg-[#0f1623] py-12 sm:py-16 lg:py-20">
           <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
             <SectionLabel text="Other solutions" />
             <h2
-              className="text-gray-900 dark:text-white mt-6 mb-10 sm:mb-12"
+              className="text-gray-900 dark:text-white"
               style={{
                 fontSize: 'clamp(28px, 4vw, 52px)',
                 fontWeight: 300,
                 letterSpacing: '-0.02em',
                 lineHeight: 1.1,
-                margin: '24px 0 0 0',
+                marginTop: '20px',
+                marginBottom: 'clamp(28px, 3.5vw, 48px)',
+                maxWidth: 'clamp(580px, 75vw, 1040px)',
+                textWrap: 'balance',
                 textDecoration: 'none',
               }}
             >

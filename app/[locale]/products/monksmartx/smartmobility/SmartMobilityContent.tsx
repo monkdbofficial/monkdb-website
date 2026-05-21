@@ -11,7 +11,8 @@
 import { motion } from 'framer-motion'
 import SmartXLayout from '@/components/SmartXLayout'
 
-const ACCENT = '#0EA5A8'
+// Deeper enterprise teal. Replaces the brighter #0EA5A8 for mobility.
+const ACCENT = '#0E8FA8'
 
 function MobilityHero() {
   // Render a city grid with 4 traveling dots along curved paths
@@ -145,8 +146,8 @@ function MobilityHero() {
             width: 10,
             height: 10,
             borderRadius: '2px',
-            background: '#FBBF24',
-            boxShadow: '0 0 10px #FBBF24',
+            background: '#B45309',
+            boxShadow: '0 0 10px rgba(180,83,9,0.7)',
           }}
           animate={{
             x: [-180, -90, 0, 90, 180, -180],
@@ -192,7 +193,7 @@ function DispatchBoard() {
     { id: 'TRK-9920', route: 'D → A', eta: '08:18', status: 'delayed' },
   ]
   const statusColor: Record<string, string> = {
-    'on-time': '#34D399',
+    'on-time': '#1FA975',
     rerouting: ACCENT,
     delayed: '#F59E0B',
   }
@@ -205,9 +206,11 @@ function DispatchBoard() {
         border: '1px solid rgba(127,179,255,0.18)',
       }}
     >
+      <div className="overflow-x-auto">
       <div
         className="grid grid-cols-[120px_1fr_120px_120px]"
         style={{
+          minWidth: 560,
           background: 'rgba(255,255,255,0.02)',
           padding: 'clamp(12px, 1.4vw, 16px) clamp(18px, 2.2vw, 28px)',
           borderBottom: '1px solid rgba(127,179,255,0.12)',
@@ -233,6 +236,7 @@ function DispatchBoard() {
           transition={{ duration: 0.4, delay: i * 0.06 }}
           className="grid grid-cols-[120px_1fr_120px_120px] items-center"
           style={{
+            minWidth: 560,
             padding: 'clamp(14px, 1.6vw, 18px) clamp(18px, 2.2vw, 28px)',
             borderBottom:
               i < rows.length - 1
@@ -269,6 +273,7 @@ function DispatchBoard() {
           </div>
         </motion.div>
       ))}
+      </div>
     </div>
   )
 }

@@ -97,13 +97,15 @@ export default function PressContent() {
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <SectionLabel text="Newsroom" />
           <h2
-            className="text-gray-900 dark:text-white mt-6 sm:mt-10 lg:mt-12 mb-10 sm:mb-12"
+            className="text-gray-900 dark:text-white"
             style={{
               fontSize: 'clamp(28px, 4vw, 56px)',
               fontWeight: 300,
               letterSpacing: '-0.02em',
               lineHeight: 1.08,
-              margin: '40px 0 0 0',
+              marginTop: 'clamp(24px, 3vw, 48px)',
+              marginBottom: 'clamp(28px, 3.5vw, 56px)',
+              maxWidth: 'clamp(580px, 75vw, 1040px)',
               textWrap: 'balance',
               textDecoration: 'none',
             }}

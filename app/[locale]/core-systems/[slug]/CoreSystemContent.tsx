@@ -61,31 +61,31 @@ const THEMES: Record<ThemeKey, Theme> = {
   },
   'real-time-processing-engine': {
     index: '02',
-    accent: '#0EA5E9',
-    accentSoft: '#7DD3FC',
+    accent: '#1E8AFF',
+    accentSoft: '#7FB3FF',
     Icon: Activity,
     heroGradient:
-      'linear-gradient(160deg, #042F36 0%, #0C4A6E 55%, #0f1623 100%)',
+      'linear-gradient(160deg, #051A52 0%, #0033A0 55%, #0f1623 100%)',
     heroNumber: 'II',
     motif: 'wave',
   },
   'ai-native-execution-engine': {
     index: '03',
-    accent: '#8B5CF6',
-    accentSoft: '#C4B5FD',
+    accent: '#4338CA',
+    accentSoft: '#9CA3F5',
     Icon: Brain,
     heroGradient:
-      'linear-gradient(160deg, #2A1065 0%, #4C1D95 55%, #0f1623 100%)',
+      'linear-gradient(160deg, #1E1B5C 0%, #312E81 55%, #0f1623 100%)',
     heroNumber: 'III',
     motif: 'neural',
   },
   'decision-action-engine': {
     index: '04',
-    accent: '#F97316',
-    accentSoft: '#FDBA74',
+    accent: '#0033A0',
+    accentSoft: '#7FB3FF',
     Icon: Zap,
     heroGradient:
-      'linear-gradient(160deg, #431407 0%, #7C2D12 55%, #0f1623 100%)',
+      'linear-gradient(160deg, #050D6A 0%, #0A2280 55%, #0f1623 100%)',
     heroNumber: 'IV',
     motif: 'loop',
   },
@@ -328,7 +328,7 @@ function NeuralMotif({ accent, soft }: { accent: string; soft: string }) {
         style={{
           inset: '36%',
           borderRadius: '50%',
-          background: `linear-gradient(135deg, ${accent} 0%, #2A1065 100%)`,
+          background: `linear-gradient(135deg, ${accent} 0%, #1E1B5C 100%)`,
           border: `1px solid ${soft}`,
           boxShadow: `0 0 70px ${accent}66`,
           display: 'flex',
@@ -430,7 +430,7 @@ function LoopMotif({ accent, soft }: { accent: string; soft: string }) {
         style={{
           inset: '36%',
           borderRadius: '50%',
-          background: `linear-gradient(135deg, ${accent} 0%, #7C2D12 100%)`,
+          background: `linear-gradient(135deg, ${accent} 0%, #0A2280 100%)`,
           border: `1px solid ${soft}`,
           boxShadow: `0 0 70px ${accent}66`,
           display: 'flex',
@@ -781,13 +781,14 @@ export default function CoreSystemContent({
             <div>
               <SectionLabel text="Why this matters" />
               <h2
-                className="text-gray-900 dark:text-white mt-6"
+                className="text-gray-900 dark:text-white"
                 style={{
                   fontSize: 'clamp(28px, 4vw, 56px)',
                   fontWeight: 300,
                   letterSpacing: '-0.02em',
                   lineHeight: 1.08,
-                  margin: '24px 0 0 0',
+                  margin: '24px 0 clamp(28px, 3.5vw, 48px) 0',
+                  maxWidth: 'clamp(580px, 75vw, 1040px)',
                   textWrap: 'balance',
                   textDecoration: 'none',
                 }}
@@ -853,13 +854,14 @@ export default function CoreSystemContent({
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <SectionLabel text="What you get" />
           <h2
-            className="text-gray-900 dark:text-white mt-6 mb-10 sm:mb-12"
+            className="text-gray-900 dark:text-white"
             style={{
               fontSize: 'clamp(28px, 4vw, 52px)',
               fontWeight: 300,
               letterSpacing: '-0.02em',
               lineHeight: 1.1,
-              margin: '24px 0 0 0',
+              margin: '24px 0 clamp(28px, 3.5vw, 48px) 0',
+              maxWidth: 'clamp(580px, 75vw, 1040px)',
               textWrap: 'balance',
               textDecoration: 'none',
             }}
@@ -896,7 +898,7 @@ export default function CoreSystemContent({
                       color: theme.accent,
                       fontFamily: 'var(--font-mono, ui-monospace, monospace)',
                       fontSize: 13,
-                      fontWeight: 700,
+                      fontWeight: 600,
                       letterSpacing: '-0.02em',
                     }}
                   >
@@ -956,13 +958,15 @@ export default function CoreSystemContent({
           <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
             <SectionLabel text="Other core systems" />
             <h2
-              className="text-gray-900 dark:text-white mt-6 mb-10 sm:mb-12"
+              className="text-gray-900 dark:text-white"
               style={{
                 fontSize: 'clamp(28px, 4vw, 52px)',
                 fontWeight: 300,
                 letterSpacing: '-0.02em',
                 lineHeight: 1.1,
-                margin: '24px 0 0 0',
+                margin: '24px 0 clamp(28px, 3.5vw, 48px) 0',
+                maxWidth: 'clamp(580px, 75vw, 1040px)',
+                textWrap: 'balance',
                 textDecoration: 'none',
               }}
             >

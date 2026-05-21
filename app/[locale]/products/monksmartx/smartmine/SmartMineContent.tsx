@@ -12,7 +12,8 @@
 import { motion } from 'framer-motion'
 import SmartXLayout from '@/components/SmartXLayout'
 
-const ACCENT = '#D97706' // copper / amber — mining
+// Deeper copper for mining. Replaces brighter #D97706 with an enterprise tone.
+const ACCENT = '#B45309'
 
 function MineHero() {
   return (
@@ -23,7 +24,7 @@ function MineHero() {
         background:
           'linear-gradient(180deg, #1A1305 0%, #2A1F0A 50%, #07091A 100%)',
         border: `1px solid ${ACCENT}40`,
-        boxShadow: '0 30px 80px rgba(217,119,6,0.18)',
+        boxShadow: '0 30px 80px rgba(180,83,9,0.18)',
       }}
     >
       {/* Surface horizon */}
@@ -45,9 +46,9 @@ function MineHero() {
           width: '8%',
           bottom: '0',
           background:
-            'linear-gradient(180deg, rgba(217,119,6,0.18) 0%, rgba(217,119,6,0.05) 100%)',
-          borderLeft: '1px dashed rgba(217,119,6,0.4)',
-          borderRight: '1px dashed rgba(217,119,6,0.4)',
+            'linear-gradient(180deg, rgba(180,83,9,0.18) 0%, rgba(180,83,9,0.05) 100%)',
+          borderLeft: '1px dashed rgba(180,83,9,0.4)',
+          borderRight: '1px dashed rgba(180,83,9,0.4)',
         }}
       />
       {/* Horizontal galleries */}
@@ -62,7 +63,7 @@ function MineHero() {
             right: i % 2 === 0 ? '52%' : '12%',
             height: '1px',
             background:
-              'linear-gradient(90deg, transparent, rgba(217,119,6,0.4), transparent)',
+              'linear-gradient(90deg, transparent, rgba(180,83,9,0.4), transparent)',
           }}
         />
       ))}
@@ -135,7 +136,7 @@ function VentilationDashboard() {
     { name: 'Zone D · Reserve', flow: 22, status: 'idle' },
   ]
   const statusColor: Record<string, string> = {
-    optimal: '#34D399',
+    optimal: '#1FA975',
     high: ACCENT,
     idle: 'rgba(127,179,255,0.35)',
   }
@@ -179,7 +180,7 @@ function VentilationDashboard() {
             fontWeight: 600,
             letterSpacing: '0.06em',
             textTransform: 'uppercase',
-            color: '#34D399',
+            color: '#1FA975',
           }}
         >
           <span
@@ -188,8 +189,8 @@ function VentilationDashboard() {
               width: 6,
               height: 6,
               borderRadius: '50%',
-              background: '#34D399',
-              boxShadow: '0 0 6px #34D399',
+              background: '#1FA975',
+              boxShadow: '0 0 6px #1FA975',
             }}
           />
           Live

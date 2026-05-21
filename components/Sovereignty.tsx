@@ -15,7 +15,7 @@ export default function Sovereignty() {
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden py-14 sm:py-24 lg:py-32"
+      className="relative overflow-hidden py-12 sm:py-16 lg:py-20"
       style={{
         background:
           'radial-gradient(ellipse 80% 80% at 50% 0%, #0A2280 0%, #050D6A 55%, #04082e 100%)',
@@ -140,7 +140,7 @@ export default function Sovereignty() {
           initial={{ opacity: 0, y: 8 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.55, ease: EASE }}
-          className="flex items-center gap-4 mb-8 sm:mb-12"
+          className="flex items-center gap-4 mb-6 sm:mb-8"
         >
           <span
             style={{

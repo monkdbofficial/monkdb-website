@@ -536,19 +536,21 @@ export default function MonkDBContent() {
       </section>
 
       {/* ── 9 workloads grid ── */}
-      <section className="section-grid bg-white dark:bg-[#0f1623] py-14 sm:py-20 lg:py-28 relative overflow-hidden">
+      <section className="section-grid bg-white dark:bg-[#0f1623] py-12 sm:py-16 lg:py-20 relative overflow-hidden">
         <div className="relative z-10 max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-6 sm:gap-10 lg:gap-16 items-end mb-12">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-6 sm:gap-10 lg:gap-16 items-end mb-8 sm:mb-10">
             <div>
               <SectionLabel text="The nine workloads" />
               <h2
-                className="text-gray-900 dark:text-white mt-6"
+                className="text-gray-900 dark:text-white"
                 style={{
                   fontSize: 'clamp(28px, 4vw, 56px)',
                   fontWeight: 300,
                   letterSpacing: '-0.02em',
                   lineHeight: 1.08,
-                  margin: '24px 0 0 0',
+                  marginTop: 'clamp(16px, 1.8vw, 24px)',
+                  marginBottom: 'clamp(28px, 3.5vw, 48px)',
+                  maxWidth: 'clamp(580px, 75vw, 1040px)',
                   textWrap: 'balance',
                   textDecoration: 'none',
                 }}
@@ -655,7 +657,7 @@ export default function MonkDBContent() {
 
       {/* ── Replace the stack — before / after comparison ── */}
       <section
-        className="relative overflow-hidden py-14 sm:py-20 lg:py-24 dark:bg-[#0A1326]"
+        className="relative overflow-hidden py-12 sm:py-16 lg:py-20 dark:bg-[#0A1326]"
         style={{
           borderTop: '1px solid rgba(10,34,128,0.10)',
         }}
@@ -663,13 +665,14 @@ export default function MonkDBContent() {
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <SectionLabel text="Replace the stack" />
           <h2
-            className="text-gray-900 mt-6 mb-12 sm:mb-16"
+            className="text-gray-900"
             style={{
               fontSize: 'clamp(28px, 4vw, 56px)',
               fontWeight: 300,
               letterSpacing: '-0.02em',
               lineHeight: 1.08,
-              margin: '24px 0 0 0',
+              margin: '24px 0 clamp(36px, 4vw, 64px) 0',
+              maxWidth: 'clamp(560px, 80%, 1100px)',
               textWrap: 'balance',
               textDecoration: 'none',
             }}
@@ -966,7 +969,7 @@ export default function MonkDBContent() {
       </section>
 
       {/* ── Core capabilities — bento ── */}
-      <section className="bg-white dark:bg-[#0f1623] py-14 sm:py-20 lg:py-28 relative overflow-hidden">
+      <section className="bg-white dark:bg-[#0f1623] py-12 sm:py-16 lg:py-20 relative overflow-hidden">
         <div
           aria-hidden="true"
           className="absolute pointer-events-none"
@@ -980,17 +983,19 @@ export default function MonkDBContent() {
           }}
         />
         <div className="relative z-10 max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-6 sm:gap-10 lg:gap-16 items-end mb-12">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-6 sm:gap-10 lg:gap-16 items-end mb-8 sm:mb-10">
             <div>
               <SectionLabel text="Core capabilities" />
               <h2
-                className="text-gray-900 dark:text-white mt-6"
+                className="text-gray-900 dark:text-white"
                 style={{
                   fontSize: 'clamp(28px, 4vw, 56px)',
                   fontWeight: 300,
                   letterSpacing: '-0.02em',
                   lineHeight: 1.08,
-                  margin: '24px 0 0 0',
+                  marginTop: 'clamp(16px, 1.8vw, 24px)',
+                  marginBottom: 'clamp(28px, 3.5vw, 48px)',
+                  maxWidth: 'clamp(580px, 75vw, 1040px)',
                   textWrap: 'balance',
                   textDecoration: 'none',
                 }}
@@ -1140,13 +1145,14 @@ export default function MonkDBContent() {
         <div className="relative z-10 max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <SectionLabel text="Architecture" variant="dark" />
           <h2
-            className="text-white mt-6 mb-10 sm:mb-12"
+            className="text-white"
             style={{
               fontSize: 'clamp(28px, 4vw, 52px)',
               fontWeight: 300,
               letterSpacing: '-0.02em',
               lineHeight: 1.1,
-              margin: '24px 0 0 0',
+              margin: '24px 0 clamp(32px, 3.4vw, 56px) 0',
+              maxWidth: 'clamp(560px, 78%, 1080px)',
               textWrap: 'balance',
               textDecoration: 'none',
             }}
@@ -1278,7 +1284,7 @@ export default function MonkDBContent() {
       </section>
 
       {/* ── Customer proof ── */}
-      <section className="bg-white dark:bg-[#0f1623] py-14 sm:py-20 lg:py-28">
+      <section className="bg-white dark:bg-[#0f1623] py-12 sm:py-16 lg:py-20">
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-8 sm:gap-12 lg:gap-16 items-start">
             <motion.figure

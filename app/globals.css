@@ -74,6 +74,8 @@
     overflow-x: hidden;
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
   }
 
   * {
@@ -83,6 +85,37 @@
   ::selection {
     background-color: #1A38E8;
     color: #ffffff;
+  }
+
+  /* Senior-level focus rings: visible only on keyboard navigation, branded color */
+  :focus {
+    outline: none;
+  }
+  :focus-visible {
+    outline: 2px solid #1A38E8;
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+  a:focus-visible,
+  button:focus-visible,
+  [role="button"]:focus-visible {
+    outline: 2px solid #1A38E8;
+    outline-offset: 3px;
+  }
+  .dark :focus-visible {
+    outline-color: #7FB3FF;
+  }
+}
+
+/* Reduced motion: turn off non-essential animation site-wide */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
@@ -176,14 +209,14 @@
   100% { transform: rotateY(360deg) rotateX(15deg); }
 }
 
-/* ── Gradient animated text ── */
+/* ── Gradient animated text — refined enterprise navy spectrum ── */
 .gradient-text-animate {
-  background: linear-gradient(135deg, #4080ff, #1A38E8, #00c2ff, #7040ff, #1A38E8);
+  background: linear-gradient(135deg, #1A38E8, #0033A0, #1E8AFF, #0A2280, #1A38E8);
   background-size: 300% 300%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: iridescent 6s ease infinite;
+  animation: iridescent 9s ease infinite;
 }
 
 /* ── Float gentle ── */

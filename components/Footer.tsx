@@ -87,7 +87,7 @@ const socialIcons = [
 
 function FooterHeading({ children }: { children: React.ReactNode }) {
   return (
-    <div className="text-gray-900 dark:text-white" style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '16px' }}>
+    <div className="text-gray-900 dark:text-white" style={{ fontSize: '0.85rem', fontWeight: 600, marginBottom: '16px', letterSpacing: '0.005em' }}>
       {children}
     </div>
   )

@@ -127,6 +127,8 @@ function SectionHeading({ children }: { children: ReactNode }) {
         fontWeight: 300,
         letterSpacing: '-0.01em',
         lineHeight: 1.15,
+        margin: 0,
+        maxWidth: 'clamp(420px, 80%, 960px)',
         textWrap: 'balance',
         textDecoration: 'none',
       }}

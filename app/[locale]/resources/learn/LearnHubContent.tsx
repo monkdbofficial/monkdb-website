@@ -73,13 +73,15 @@ export default function LearnHubContent() {
             initial={{ opacity: 0, y: 18 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, ease: EASE }}
-            className="text-gray-900 dark:text-white mt-6 sm:mt-10 lg:mt-12 mb-10 sm:mb-12 lg:mb-14"
+            className="text-gray-900 dark:text-white"
             style={{
               fontSize: 'clamp(28px, 4vw, 58px)',
               fontWeight: 300,
               letterSpacing: '-0.02em',
               lineHeight: 1.08,
-              margin: '40px 0 0 0',
+              marginTop: 'clamp(24px, 3vw, 48px)',
+              marginBottom: 'clamp(28px, 3.5vw, 56px)',
+              maxWidth: 'clamp(580px, 75vw, 1040px)',
               textWrap: 'balance',
               textDecoration: 'none',
             }}
@@ -266,13 +268,15 @@ export default function LearnHubContent() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.7, ease: EASE }}
-            className="text-white mt-6 sm:mt-10 lg:mt-12 mb-10 sm:mb-12"
+            className="text-white"
             style={{
               fontSize: 'clamp(26px, 3.6vw, 48px)',
               fontWeight: 300,
               letterSpacing: '-0.02em',
               lineHeight: 1.1,
-              margin: '40px 0 0 0',
+              marginTop: 'clamp(24px, 3vw, 48px)',
+              marginBottom: 'clamp(28px, 3.5vw, 48px)',
+              maxWidth: 'clamp(580px, 75vw, 1040px)',
               textWrap: 'balance',
               textDecoration: 'none',
             }}

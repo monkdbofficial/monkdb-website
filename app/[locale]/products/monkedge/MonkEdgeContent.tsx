@@ -40,7 +40,9 @@ import SectionLabel from '@/components/SectionLabel'
 import ScrollToTop from '@/components/ScrollToTop'
 import ScrollProgressBar from '@/components/ScrollProgressBar'
 
-const ACCENT = '#06B6D4'
+// Deeper teal-cyan accent. Tones down the candy cyan (#06B6D4)
+// to an enterprise-grade shade that reads on dark + parchment surfaces.
+const ACCENT = '#0E8FA8'
 const EASE = [0.165, 0.84, 0.44, 1] as const
 
 const STATS = [
@@ -54,7 +56,7 @@ const CAPABILITIES = [
   {
     Icon: Radio,
     title: 'Local data ingestion and processing',
-    body: 'Capture and process sensor, device, and event data in real time at the source — no broker, no buffering layer.',
+    body: 'Capture and process sensor, device, and event data in real time at the source. No broker, no buffering layer.',
     chip: 'Native protocols',
   },
   {
@@ -66,7 +68,7 @@ const CAPABILITIES = [
   {
     Icon: Zap,
     title: 'Autonomous execution',
-    body: 'Trigger actions instantly: adjust machine parameters, reroute vehicles, respond to anomalies — directly from the edge.',
+    body: 'Trigger actions instantly: adjust machine parameters, reroute vehicles, respond to anomalies, directly from the edge.',
     chip: 'In-engine triggers',
   },
   {
@@ -137,9 +139,9 @@ export default function MonkEdgeContent() {
         className="relative overflow-hidden"
         style={{
           background:
-            'linear-gradient(160deg, #042F36 0%, #07091A 60%, #050D6A 100%)',
-          paddingTop: 'clamp(140px, 16vw, 220px)',
-          paddingBottom: 'clamp(80px, 10vw, 140px)',
+            'linear-gradient(160deg, #050D6A 0%, #07091A 60%, #0A2280 100%)',
+          paddingTop: 'clamp(120px, 14vw, 200px)',
+          paddingBottom: 'clamp(64px, 8vw, 120px)',
         }}
       >
         <div
@@ -159,7 +161,7 @@ export default function MonkEdgeContent() {
           className="absolute inset-0 pointer-events-none"
           style={{
             backgroundImage:
-              'radial-gradient(circle, rgba(6,182,212,0.10) 1px, transparent 1px)',
+              'radial-gradient(circle, rgba(127,179,255,0.08) 1px, transparent 1px)',
             backgroundSize: '32px 32px',
             opacity: 0.55,
           }}
@@ -503,13 +505,14 @@ export default function MonkEdgeContent() {
             <div>
               <SectionLabel text="Capabilities" />
               <h2
-                className="text-gray-900 dark:text-white mt-6"
+                className="text-gray-900 dark:text-white"
                 style={{
                   fontSize: 'clamp(28px, 4vw, 56px)',
                   fontWeight: 300,
                   letterSpacing: '-0.02em',
                   lineHeight: 1.08,
-                  margin: '24px 0 0 0',
+                  margin: '24px 0 clamp(28px, 3.5vw, 48px) 0',
+                  maxWidth: 'clamp(580px, 75vw, 1040px)',
                   textWrap: 'balance',
                   textDecoration: 'none',
                 }}
@@ -645,18 +648,20 @@ export default function MonkEdgeContent() {
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <SectionLabel text="Where MonkEdge runs" />
           <h2
-            className="text-gray-900 dark:text-white mt-6 mb-10 sm:mb-12"
+            className="text-gray-900 dark:text-white"
             style={{
-              fontSize: 'clamp(28px, 4vw, 56px)',
+              fontSize: 'clamp(26px, 3.4vw, 46px)',
               fontWeight: 300,
-              letterSpacing: '-0.02em',
-              lineHeight: 1.08,
-              margin: '24px 0 0 0',
+              letterSpacing: '-0.015em',
+              lineHeight: 1.12,
+              margin: '20px 0 clamp(28px, 3.5vw, 48px) 0',
+              maxWidth: 'clamp(420px, 65%, 820px)',
+              textWrap: 'balance',
               textDecoration: 'none',
             }}
           >
             Six deployment realities,{' '}
-            <span style={{ color: ACCENT, fontWeight: 400 }}>
+            <span style={{ color: ACCENT, fontWeight: 400, display: 'block' }}>
               one execution layer
             </span>
           </h2>
@@ -750,13 +755,14 @@ export default function MonkEdgeContent() {
         <div className="relative z-10 max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <SectionLabel text="Sync model" variant="dark" />
           <h2
-            className="text-white mt-6 mb-10 sm:mb-12"
+            className="text-white"
             style={{
               fontSize: 'clamp(28px, 4vw, 52px)',
               fontWeight: 300,
               letterSpacing: '-0.02em',
               lineHeight: 1.1,
-              margin: '24px 0 0 0',
+              margin: '24px 0 clamp(28px, 3.5vw, 48px) 0',
+              maxWidth: 'clamp(580px, 75vw, 1040px)',
               textWrap: 'balance',
               textDecoration: 'none',
             }}

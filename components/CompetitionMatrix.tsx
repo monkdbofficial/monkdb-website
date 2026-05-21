@@ -407,7 +407,7 @@ export default function CompetitionMatrix() {
     <section
       id="competition"
       ref={ref}
-      className="relative bg-white dark:bg-[#0f1623] py-12 sm:py-20 lg:py-28"
+      className="relative bg-white dark:bg-[#0f1623] py-10 sm:py-14 lg:py-20"
     >
       <div className="relative z-10 max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
         {/* Section chapter line */}
@@ -415,7 +415,7 @@ export default function CompetitionMatrix() {
           initial={{ opacity: 0, y: 8 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.55, ease: EASE }}
-          className="flex items-center gap-4 mb-6 sm:mb-10 lg:mb-14"
+          className="flex items-center gap-4 mb-5 sm:mb-7 lg:mb-9"
         >
           <span
             style={{
@@ -453,6 +453,7 @@ export default function CompetitionMatrix() {
               letterSpacing: '-0.02em',
               lineHeight: 1.08,
               textWrap: 'balance',
+              maxWidth: 'clamp(280px, 100%, 640px)',
             }}
           >
             {t.titleLine1}

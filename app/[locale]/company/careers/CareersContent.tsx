@@ -125,13 +125,15 @@ export default function CareersContent() {
             <div>
               <SectionLabel text="Open roles" />
               <h2
-                className="text-gray-900 dark:text-white mt-6"
+                className="text-gray-900 dark:text-white"
                 style={{
                   fontSize: 'clamp(28px, 4vw, 56px)',
                   fontWeight: 300,
                   letterSpacing: '-0.02em',
                   lineHeight: 1.08,
-                  margin: '20px 0 0 0',
+                  marginTop: 'clamp(20px, 2.4vw, 32px)',
+                  marginBottom: 0,
+                  maxWidth: 'clamp(580px, 75vw, 1040px)',
                   textWrap: 'balance',
                   textDecoration: 'none',
                 }}
@@ -292,13 +294,16 @@ export default function CareersContent() {
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <SectionLabel text="How we work" />
           <h2
-            className="text-gray-900 dark:text-white mt-6 sm:mt-10 lg:mt-12 mb-10 sm:mb-12"
+            className="text-gray-900 dark:text-white"
             style={{
               fontSize: 'clamp(26px, 3.6vw, 48px)',
               fontWeight: 300,
               letterSpacing: '-0.02em',
               lineHeight: 1.1,
-              margin: '40px 0 0 0',
+              marginTop: 'clamp(24px, 3vw, 48px)',
+              marginBottom: 'clamp(28px, 3.5vw, 48px)',
+              maxWidth: 'clamp(580px, 75vw, 1040px)',
+              textWrap: 'balance',
               textDecoration: 'none',
             }}
           >
@@ -372,13 +377,16 @@ export default function CareersContent() {
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <SectionLabel text="Perks" />
           <h2
-            className="text-gray-900 dark:text-white mt-6 sm:mt-8 lg:mt-10 mb-8"
+            className="text-gray-900 dark:text-white"
             style={{
               fontSize: 'clamp(22px, 3vw, 36px)',
               fontWeight: 300,
               letterSpacing: '-0.02em',
               lineHeight: 1.1,
-              margin: '32px 0 0 0',
+              marginTop: 'clamp(20px, 2.4vw, 40px)',
+              marginBottom: 'clamp(28px, 3.5vw, 40px)',
+              maxWidth: 'clamp(580px, 75vw, 1040px)',
+              textWrap: 'balance',
               textDecoration: 'none',
             }}
           >
@@ -434,13 +442,16 @@ export default function CareersContent() {
         <div className="relative z-10 max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <SectionLabel text="Hiring process" variant="dark" />
           <h2
-            className="text-white mt-6 sm:mt-10 lg:mt-12 mb-10 sm:mb-12"
+            className="text-white"
             style={{
               fontSize: 'clamp(26px, 3.6vw, 44px)',
               fontWeight: 300,
               letterSpacing: '-0.02em',
               lineHeight: 1.1,
-              margin: '40px 0 0 0',
+              marginTop: 'clamp(24px, 3vw, 48px)',
+              marginBottom: 'clamp(28px, 3.5vw, 48px)',
+              maxWidth: 'clamp(580px, 75vw, 1040px)',
+              textWrap: 'balance',
               textDecoration: 'none',
             }}
           >

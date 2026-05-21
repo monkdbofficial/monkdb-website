@@ -46,7 +46,7 @@ export default function SolutionsHubContent() {
       {/* ── Intro ── */}
       <section
         ref={ref}
-        className="section-grid relative bg-white dark:bg-[#0f1623] py-12 sm:py-20 lg:py-24"
+        className="section-grid relative bg-white dark:bg-[#0f1623] py-10 sm:py-14 lg:py-20"
       >
         <div className="relative z-10 max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <SectionLabel text="Solutions" />
@@ -62,6 +62,7 @@ export default function SolutionsHubContent() {
                 letterSpacing: '-0.02em',
                 lineHeight: 1.08,
                 margin: 0,
+                maxWidth: 'clamp(420px, 95%, 820px)',
                 textWrap: 'balance',
                 textDecoration: 'none',
               }}
@@ -216,7 +217,7 @@ export default function SolutionsHubContent() {
       {/* ── Outcomes ── */}
       <section
         id="outcomes"
-        className="section-grid relative bg-white dark:bg-[#0f1623] py-12 sm:py-20 lg:py-24"
+        className="section-grid relative bg-white dark:bg-[#0f1623] py-10 sm:py-14 lg:py-20"
       >
         <div className="relative z-10 max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <SectionLabel text="Outcomes" />
@@ -231,6 +232,7 @@ export default function SolutionsHubContent() {
               fontWeight: 300,
               letterSpacing: '-0.02em',
               lineHeight: 1.08,
+              maxWidth: 'clamp(560px, 78%, 1080px)',
               textWrap: 'balance',
               textDecoration: 'none',
             }}
@@ -245,7 +247,7 @@ export default function SolutionsHubContent() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.6, delay: 0.1, ease: EASE }}
-            className="text-gray-600 dark:text-gray-400 mb-10 sm:mb-12"
+            className="text-gray-600 dark:text-gray-400 mb-6 sm:mb-8 lg:mb-10"
             style={{
               fontSize: 'clamp(15px, 1.2vw, 18px)',
               fontWeight: 400,

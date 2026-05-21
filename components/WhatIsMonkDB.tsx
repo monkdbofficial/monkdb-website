@@ -83,6 +83,7 @@ export default function WhatIsMonkDB() {
                 margin: 0,
                 textWrap: 'balance',
                 textDecoration: 'none',
+                maxWidth: 'clamp(280px, 100%, 560px)',
               }}
             >
               {t.headline?.split('Unified Execution')[0] ?? 'The AI-Native '}

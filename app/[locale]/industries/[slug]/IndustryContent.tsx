@@ -71,7 +71,7 @@ const THEMES: Record<SlugKey, Theme> = {
   'mining-and-manufacturing': {
     index: '01',
     accent: '#B45309',
-    accentSoft: '#FCD34D',
+    accentSoft: '#FBBF24',
     Icon: Pickaxe,
     heroGradient: 'linear-gradient(160deg, #1A1305 0%, #2A1F0A 55%, #0f1623 100%)',
     motif: 'mineShaft',
@@ -98,7 +98,7 @@ const THEMES: Record<SlugKey, Theme> = {
   'mining-and-metals': {
     index: '04',
     accent: '#A16207',
-    accentSoft: '#FDE68A',
+    accentSoft: '#FBBF24',
     Icon: Factory,
     heroGradient: 'linear-gradient(160deg, #1A0A05 0%, #3A1A08 55%, #0f1623 100%)',
     motif: 'smelter',
@@ -124,7 +124,7 @@ const THEMES: Record<SlugKey, Theme> = {
   },
   'energy-and-utilities': {
     index: '07',
-    accent: '#16A34A',
+    accent: '#15803D',
     accentSoft: '#86EFAC',
     Icon: Zap,
     heroGradient: 'linear-gradient(160deg, #052E16 0%, #14532D 55%, #0f1623 100%)',
@@ -142,10 +142,10 @@ const THEMES: Record<SlugKey, Theme> = {
   },
   'logistics-and-mobility': {
     index: '09',
-    accent: '#EA580C',
-    accentSoft: '#FDBA74',
+    accent: '#B45309',
+    accentSoft: '#FBBF24',
     Icon: Package,
-    heroGradient: 'linear-gradient(160deg, #431407 0%, #7C2D12 55%, #0f1623 100%)',
+    heroGradient: 'linear-gradient(160deg, #2D1B0A 0%, #5A3A1A 55%, #0f1623 100%)',
     motif: 'route',
     centerLabel: 'ROUTE',
   },
@@ -175,7 +175,7 @@ const EXTRAS: Record<SlugKey, Extras> = {
       {
         tag: 'SENSE',
         title: 'Capture every asset, every shift',
-        body: 'Drills, conveyors, vehicles, ventilation, vibration, gas — all streams in one engine.',
+        body: 'Drills, conveyors, vehicles, ventilation, vibration, gas, all streams in one engine.',
       },
       {
         tag: 'PREDICT',
@@ -1219,10 +1219,11 @@ export default function IndustryContent({
                   style={{
                     fontFamily: 'var(--font-mono, ui-monospace, monospace)',
                     fontSize: 'clamp(28px, 4vw, 56px)',
-                    fontWeight: 500,
+                    fontWeight: 700,
                     lineHeight: 1,
-                    letterSpacing: '-0.03em',
-                    color: theme.accentSoft,
+                    letterSpacing: '-0.02em',
+                    color: 'transparent',
+                    WebkitTextStroke: `1px ${theme.accentSoft}`,
                   }}
                 >
                   {s.value}
@@ -1247,19 +1248,20 @@ export default function IndustryContent({
       </section>
 
       {/* ── Why this matters ── */}
-      <section className="bg-white dark:bg-[#0f1623] py-14 sm:py-20 lg:py-24">
+      <section className="bg-white dark:bg-[#0f1623] py-12 sm:py-16 lg:py-20">
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-8 sm:gap-12 lg:gap-20 items-start">
             <div>
               <SectionLabel text="Why this matters" />
               <h2
-                className="text-gray-900 dark:text-white mt-6"
+                className="text-gray-900 dark:text-white"
                 style={{
                   fontSize: 'clamp(28px, 4vw, 56px)',
                   fontWeight: 300,
                   letterSpacing: '-0.02em',
                   lineHeight: 1.08,
                   margin: '24px 0 0 0',
+                  maxWidth: 'clamp(420px, 90%, 720px)',
                   textWrap: 'balance',
                   textDecoration: 'none',
                 }}
@@ -1318,17 +1320,19 @@ export default function IndustryContent({
       </section>
 
       {/* ── Capabilities ── */}
-      <section className="bg-[#F8F4F0] dark:bg-[#0A1326] py-14 sm:py-20 lg:py-24">
+      <section className="bg-[#F8F4F0] dark:bg-[#0A1326] py-12 sm:py-16 lg:py-20">
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <SectionLabel text="What you get" />
           <h2
-            className="text-gray-900 dark:text-white mt-6 mb-10 sm:mb-12"
+            className="text-gray-900 dark:text-white"
             style={{
               fontSize: 'clamp(28px, 4vw, 52px)',
               fontWeight: 300,
               letterSpacing: '-0.02em',
               lineHeight: 1.1,
-              margin: '24px 0 0 0',
+              marginTop: '20px',
+              marginBottom: 'clamp(28px, 3.5vw, 48px)',
+              maxWidth: 'clamp(580px, 75vw, 1040px)',
               textWrap: 'balance',
               textDecoration: 'none',
             }}
@@ -1362,7 +1366,7 @@ export default function IndustryContent({
                       color: theme.accent,
                       fontFamily: 'var(--font-mono, ui-monospace, monospace)',
                       fontSize: 13,
-                      fontWeight: 700,
+                      fontWeight: 600,
                     }}
                   >
                     {String(i + 1).padStart(2, '0')}
@@ -1416,7 +1420,7 @@ export default function IndustryContent({
 
       {/* ── How it works ── */}
       <section
-        className="relative overflow-hidden py-14 sm:py-20 lg:py-24"
+        className="relative overflow-hidden py-12 sm:py-16 lg:py-20"
         style={{
           background: 'linear-gradient(180deg, #050D6A 0%, #07091A 60%, #050D6A 100%)',
         }}
@@ -1433,13 +1437,15 @@ export default function IndustryContent({
         <div className="relative z-10 max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <SectionLabel text="How it works" variant="dark" />
           <h2
-            className="text-white mt-6 mb-10 sm:mb-12"
+            className="text-white"
             style={{
               fontSize: 'clamp(28px, 4vw, 52px)',
               fontWeight: 300,
               letterSpacing: '-0.02em',
               lineHeight: 1.1,
-              margin: '24px 0 0 0',
+              marginTop: '20px',
+              marginBottom: 'clamp(28px, 3.5vw, 48px)',
+              maxWidth: 'clamp(580px, 75vw, 1040px)',
               textWrap: 'balance',
               textDecoration: 'none',
             }}
@@ -1543,7 +1549,7 @@ export default function IndustryContent({
       </section>
 
       {/* ── Customer proof ── */}
-      <section className="bg-white dark:bg-[#0f1623] py-14 sm:py-20 lg:py-24">
+      <section className="bg-white dark:bg-[#0f1623] py-12 sm:py-16 lg:py-20">
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-8 sm:gap-12 lg:gap-16 items-start">
             <motion.figure
@@ -1648,10 +1654,11 @@ export default function IndustryContent({
                       style={{
                         fontFamily: 'var(--font-mono, ui-monospace, monospace)',
                         fontSize: 'clamp(28px, 3vw, 44px)',
-                        fontWeight: 500,
+                        fontWeight: 700,
                         lineHeight: 1,
-                        letterSpacing: '-0.03em',
-                        color: theme.accentSoft,
+                        letterSpacing: '-0.02em',
+                        color: 'transparent',
+                        WebkitTextStroke: `1px ${theme.accentSoft}`,
                       }}
                     >
                       {m.value}
@@ -1675,17 +1682,20 @@ export default function IndustryContent({
 
       {/* ── Other industries ── */}
       {related.length > 0 && (
-        <section className="bg-[#F8F4F0] dark:bg-[#0A1326] py-14 sm:py-20 lg:py-24">
+        <section className="bg-[#F8F4F0] dark:bg-[#0A1326] py-12 sm:py-16 lg:py-20">
           <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
             <SectionLabel text="Other industries" />
             <h2
-              className="text-gray-900 dark:text-white mt-6 mb-10 sm:mb-12"
+              className="text-gray-900 dark:text-white"
               style={{
                 fontSize: 'clamp(28px, 4vw, 52px)',
                 fontWeight: 300,
                 letterSpacing: '-0.02em',
                 lineHeight: 1.1,
-                margin: '24px 0 0 0',
+                marginTop: '20px',
+                marginBottom: 'clamp(28px, 3.5vw, 48px)',
+                maxWidth: 'clamp(580px, 75vw, 1040px)',
+                textWrap: 'balance',
                 textDecoration: 'none',
               }}
             >

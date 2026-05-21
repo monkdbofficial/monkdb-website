@@ -11,7 +11,8 @@
 import { motion } from 'framer-motion'
 import SmartXLayout from '@/components/SmartXLayout'
 
-const ACCENT = '#10B981'
+// Deeper finance-emerald. Replaces the candy #10B981.
+const ACCENT = '#0E8F66'
 
 function FinanceHero() {
   // Procedurally render a candlestick chart + a moving risk-score line
@@ -59,7 +60,7 @@ function FinanceHero() {
         ))}
         {/* candlesticks */}
         {candles.map((c, i) => {
-          const fill = c.dir === 'up' ? ACCENT : '#F87171'
+          const fill = c.dir === 'up' ? ACCENT : '#C44E4E'
           const yTop = 70 - c.h
           const yBodyTop = 70 - c.body
           return (
@@ -159,9 +160,9 @@ function FraudStream() {
     { ts: '09:32:14.555', amt: '$75.40', score: 0.02, action: 'allow' },
   ]
   const actionColor: Record<string, string> = {
-    allow: '#34D399',
+    allow: '#1FA975',
     review: '#FBBF24',
-    block: '#F87171',
+    block: '#C44E4E',
   }
   return (
     <div
@@ -188,7 +189,7 @@ function FraudStream() {
         }}
       >
         <span>Fraud detection · stream</span>
-        <span style={{ color: '#34D399' }}>p99 4.2 ms</span>
+        <span style={{ color: '#1FA975' }}>p99 4.2 ms</span>
       </div>
       {events.map((e, i) => (
         <motion.div
@@ -317,7 +318,7 @@ export default function SmartFinanceContent() {
         {
           iconName: 'layers',
           title: 'Score',
-          body: 'Hybrid retrieval against vectors, rules, and historical state — every event scored as it lands.',
+          body: 'Hybrid retrieval against vectors, rules, and historical state. Every event scored as it lands.',
         },
         {
           iconName: 'shield-alert',

@@ -267,7 +267,7 @@ export default function Navbar() {
     const handleScroll = () => {
       const y = window.scrollY
       setOnHero(pathname === homePath && y < window.innerHeight * 0.85)
-      setScrolled(y > 48)
+      setScrolled(y > 240)
       // Close any open dropdown on scroll — it would drift otherwise
       setOpenMenu(null)
     }
@@ -360,8 +360,8 @@ export default function Navbar() {
   const pillBg = onHero
     ? 'rgba(10,20,90,0.55)'
     : theme === 'dark'
-      ? 'rgba(15,22,35,0.72)'
-      : 'rgba(255,255,255,0.75)'
+      ? 'rgba(15,22,35,0.88)'
+      : 'rgba(255,255,255,0.92)'
 
   const pillBorder = onHero
     ? 'hsla(0, 0%, 100%, 0.12)'

@@ -11,7 +11,9 @@
 import { motion } from 'framer-motion'
 import SmartXLayout from '@/components/SmartXLayout'
 
-const ACCENT = '#F472B6'
+// Deeper berry / mulberry. Replaces the candy #F472B6 hot pink with a
+// muted enterprise tone that still differentiates retail.
+const ACCENT = '#B14593'
 
 function RetailHero() {
   // Procedural shelf heatmap: 6×6 grid where shade = SKU velocity
@@ -32,7 +34,7 @@ function RetailHero() {
       style={{
         aspectRatio: '4 / 3',
         background:
-          'linear-gradient(160deg, #2A0A1F 0%, #36102A 50%, #07091A 100%)',
+          'linear-gradient(160deg, #2A0F23 0%, #1B0A1A 50%, #07091A 100%)',
         border: `1px solid ${ACCENT}55`,
         boxShadow: `0 30px 80px ${ACCENT}33`,
       }}
@@ -58,8 +60,8 @@ function RetailHero() {
             transition={{ duration: 0.35, delay: i * 0.015 }}
             className="rounded-sm"
             style={{
-              background: `rgba(244,114,182,${0.05 + cell.intensity * 0.55})`,
-              border: '1px solid rgba(244,114,182,0.20)',
+              background: `rgba(177,69,147,${0.05 + cell.intensity * 0.55})`,
+              border: '1px solid rgba(177,69,147,0.20)',
             }}
           />
         ))}
@@ -77,8 +79,8 @@ function RetailHero() {
             width: 8,
             height: 8,
             borderRadius: '50%',
-            background: '#FBBF24',
-            boxShadow: '0 0 10px rgba(251,191,36,0.8)',
+            background: '#B45309',
+            boxShadow: '0 0 10px rgba(180,83,9,0.7)',
             transform: 'translate(-50%, -50%)',
           }}
           animate={{ left: c.x, top: c.y }}
@@ -143,12 +145,15 @@ function PriceGrid() {
       className="rounded-2xl overflow-hidden"
       style={{
         background: 'white',
-        border: '1px solid rgba(10,34,128,0.10)',
+        border: '1px solid rgba(10,34,128,0.08)',
+        boxShadow: '0 16px 40px rgba(10,20,80,0.06)',
       }}
     >
+      <div className="overflow-x-auto">
       <div
         className="grid grid-cols-[140px_1fr_120px_120px_140px]"
         style={{
+          minWidth: 720,
           background: '#F8F4F0',
           padding: 'clamp(12px, 1.4vw, 16px) clamp(18px, 2.2vw, 28px)',
           borderBottom: '1px solid rgba(10,34,128,0.10)',
@@ -172,7 +177,7 @@ function PriceGrid() {
           delta > 0 ? 'up' : delta < 0 ? 'down' : 'flat'
         const dirColor =
           direction === 'up'
-            ? '#34D399'
+            ? '#1FA975'
             : direction === 'down'
               ? ACCENT
               : 'rgba(10,34,128,0.4)'
@@ -185,6 +190,7 @@ function PriceGrid() {
             transition={{ duration: 0.4, delay: i * 0.05 }}
             className="grid grid-cols-[140px_1fr_120px_120px_140px] items-center"
             style={{
+              minWidth: 720,
               padding:
                 'clamp(12px, 1.4vw, 16px) clamp(18px, 2.2vw, 28px)',
               borderBottom:
@@ -244,6 +250,7 @@ function PriceGrid() {
           </motion.div>
         )
       })}
+      </div>
     </div>
   )
 }

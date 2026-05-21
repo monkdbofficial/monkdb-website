@@ -159,13 +159,15 @@ export default function ContactContent() {
             >
               <SectionLabel text="Talk to us" />
               <h2
-                className="text-[#0A2280] dark:text-white mt-6 mb-3"
+                className="text-[#0A2280] dark:text-white"
                 style={{
                   fontSize: 'clamp(24px, 3vw, 40px)',
                   fontWeight: 300,
                   letterSpacing: '-0.02em',
                   lineHeight: 1.1,
-                  margin: '24px 0 12px 0',
+                  marginTop: 'clamp(16px, 1.8vw, 28px)',
+                  marginBottom: 'clamp(12px, 1.4vw, 20px)',
+                  textWrap: 'balance',
                   textDecoration: 'none',
                 }}
               >
@@ -484,13 +486,16 @@ export default function ContactContent() {
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <SectionLabel text="Offices" />
           <h2
-            className="text-gray-900 dark:text-white mt-6 sm:mt-10 lg:mt-12 mb-8 sm:mb-10"
+            className="text-gray-900 dark:text-white"
             style={{
               fontSize: 'clamp(24px, 3.2vw, 40px)',
               fontWeight: 300,
               letterSpacing: '-0.02em',
               lineHeight: 1.1,
-              margin: '40px 0 0 0',
+              marginTop: 'clamp(20px, 2.4vw, 40px)',
+              marginBottom: 'clamp(28px, 3.5vw, 40px)',
+              maxWidth: 'clamp(580px, 75vw, 1040px)',
+              textWrap: 'balance',
               textDecoration: 'none',
             }}
           >
@@ -606,7 +611,6 @@ function Field({
           fontSize: '14px',
           color: '#0A2280',
           fontFamily: 'inherit',
-          outline: 'none',
           transition: 'border-color 200ms ease, background 200ms ease',
         }}
         onFocus={(e) => {
@@ -654,7 +658,6 @@ function SelectField({
           fontSize: '14px',
           color: '#0A2280',
           fontFamily: 'inherit',
-          outline: 'none',
           appearance: 'none',
           backgroundImage:
             'url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'14\' height=\'14\' fill=\'none\' viewBox=\'0 0 14 14\'%3e%3cpath stroke=\'%231A38E8\' stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2\' d=\'m3.5 5.25 3.5 3.5 3.5-3.5\'/%3e%3c/svg%3e")',
@@ -704,7 +707,6 @@ function TextAreaField({
           fontSize: '14px',
           color: '#0A2280',
           fontFamily: 'inherit',
-          outline: 'none',
           resize: 'vertical',
           minHeight: '120px',
         }}

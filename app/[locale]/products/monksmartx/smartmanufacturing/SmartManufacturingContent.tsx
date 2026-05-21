@@ -11,7 +11,8 @@
 import { motion } from 'framer-motion'
 import SmartXLayout from '@/components/SmartXLayout'
 
-const ACCENT = '#0EA5E9'
+// Brand-aligned steel-blue. Replaces candy sky-blue #0EA5E9 with MonkDB primary.
+const ACCENT = '#1A38E8'
 
 function ManufacturingHero() {
   const stages = [
@@ -69,7 +70,7 @@ function ManufacturingHero() {
         <motion.rect
           width="3.2"
           height="2.6"
-          fill="#FBBF24"
+          fill="#B45309"
           rx="0.4"
           animate={{ x: [10, 90, 10] }}
           transition={{
@@ -158,12 +159,15 @@ function OEEBreakdown() {
       className="rounded-2xl overflow-hidden"
       style={{
         background: 'white',
-        border: '1px solid rgba(10,34,128,0.10)',
+        border: '1px solid rgba(10,34,128,0.08)',
+        boxShadow: '0 16px 40px rgba(10,20,80,0.06)',
       }}
     >
+      <div className="overflow-x-auto">
       <div
         className="grid grid-cols-[100px_1fr_1fr_1fr_140px]"
         style={{
+          minWidth: 640,
           background: '#F8F4F0',
           padding: 'clamp(12px, 1.4vw, 16px) clamp(18px, 2.2vw, 28px)',
           borderBottom: '1px solid rgba(10,34,128,0.10)',
@@ -184,7 +188,7 @@ function OEEBreakdown() {
       {lines.map((l, i) => {
         const oeeColor =
           l.oee >= 85
-            ? '#34D399'
+            ? '#1FA975'
             : l.oee >= 75
               ? ACCENT
               : '#F59E0B'
@@ -197,6 +201,7 @@ function OEEBreakdown() {
             transition={{ duration: 0.4, delay: i * 0.05 }}
             className="grid grid-cols-[100px_1fr_1fr_1fr_140px] items-center"
             style={{
+              minWidth: 640,
               padding: 'clamp(14px, 1.6vw, 18px) clamp(18px, 2.2vw, 28px)',
               borderBottom:
                 i < lines.length - 1
@@ -263,6 +268,7 @@ function OEEBreakdown() {
           </motion.div>
         )
       })}
+      </div>
     </div>
   )
 }
