@@ -35,103 +35,106 @@ import CTABanner from '@/components/CTABanner'
 import SectionLabel from '@/components/SectionLabel'
 import ScrollToTop from '@/components/ScrollToTop'
 import ScrollProgressBar from '@/components/ScrollProgressBar'
+import { useI18n } from '@/i18n/I18nProvider'
 
 const ACCENT = '#D4A574' // gold / parchment for sovereignty
 const EASE = [0.165, 0.84, 0.44, 1] as const
 
-const PILLARS = [
-  {
-    Icon: Database,
-    title: 'Data Sovereignty is Native',
-    body: 'All data remains within your infrastructure. Cloud, on-prem, or edge. No forced movement, no external dependency, no compromise.',
-  },
-  {
-    Icon: Cpu,
-    title: 'AI Runs Where Data Lives',
-    body: 'Intelligence operates directly within MonkDB, ensuring security, performance, and contextual integrity at every layer.',
-  },
-  {
-    Icon: Eye,
-    title: 'Full Governance and Control',
-    body: 'Define access, enforce policies, and maintain auditability across data and AI workflows. Compliance is the default, not a layer.',
-  },
-  {
-    Icon: Layers,
-    title: 'Unified Architecture',
-    body: 'Eliminate fragmented stacks. Storage, processing, AI, and execution operate within one trusted system.',
-  },
-  {
-    Icon: Lock,
-    title: 'Sovereign by Design',
-    body: 'Sovereignty is built into the foundation. Not layered. Not bolted on. Not optional.',
-  },
-]
-
-const TRUST_FRAMEWORK = [
-  {
-    Icon: KeyRound,
-    title: 'Identity-aware execution',
-    body: 'Every query authenticates and authorizes before reading a single byte. RBAC, ABAC, and short-lived tokens at the engine layer.',
-  },
-  {
-    Icon: Fingerprint,
-    title: 'End-to-end lineage',
-    body: 'Data, transformation, model, and decision tied together in a continuous audit trail. Reproducibility by construction.',
-  },
-  {
-    Icon: Server,
-    title: 'Air-gapped deployment',
-    body: 'Deployable in fully isolated environments. No required outbound connectivity. No telemetry leakage.',
-  },
-]
-
-const DEPLOYMENT_TARGETS = [
-  {
-    Icon: Cloud,
-    code: '01',
-    label: 'Public cloud',
-    body: 'Fully managed across hyperscalers and sovereign cloud regions, with the same engine and policy plane.',
-    spec: 'AWS · Azure · GCP · sovereign clouds',
-  },
-  {
-    Icon: Server,
-    code: '02',
-    label: 'On-premises',
-    body: 'Air-gapped, classified, and regulated environments. Bare metal, private cloud, or virtualized estate.',
-    spec: 'Bare metal · private cloud · VMware',
-  },
-  {
-    Icon: Cpu,
-    code: '03',
-    label: 'Edge',
-    body: 'Same binary on plant floors, vehicles, field assets, and embedded systems with offline-first execution.',
-    spec: 'Plant floor · vehicle · field · embedded',
-  },
-  {
-    Icon: Globe2,
-    code: '04',
-    label: 'Sovereign region',
-    body: 'In-country deployments under data residency law. Custody, audit trail, and key control stay local.',
-    spec: 'In-country · regulated · classified',
-  },
-]
-
-const CERTS = [
-  'SOC 2 Type II',
-  'ISO 27001',
-  'ISO 27701',
-  'PCI DSS',
-  'HIPAA',
-  'GDPR',
-  'CCPA',
-  'FedRAMP-ready',
-  'IEC 62443',
-  'Air-gapped',
-]
-
 export default function SovereignContent() {
   const heroRef = useRef<HTMLDivElement>(null)
   const heroInView = useInView(heroRef, { once: true, margin: '-80px' })
+  const { dict } = useI18n()
+  const t = (((dict as Record<string, unknown>).platformSovereignContent) ?? {}) as Record<string, string>
+
+  const PILLARS = [
+    {
+      Icon: Database,
+      title: t.pillar1Title ?? 'Data Sovereignty is Native',
+      body: t.pillar1Body ?? 'All data remains within your infrastructure. Cloud, on-prem, or edge. No forced movement, no external dependency, no compromise.',
+    },
+    {
+      Icon: Cpu,
+      title: t.pillar2Title ?? 'AI Runs Where Data Lives',
+      body: t.pillar2Body ?? 'Intelligence operates directly within MonkDB, ensuring security, performance, and contextual integrity at every layer.',
+    },
+    {
+      Icon: Eye,
+      title: t.pillar3Title ?? 'Full Governance and Control',
+      body: t.pillar3Body ?? 'Define access, enforce policies, and maintain auditability across data and AI workflows. Compliance is the default, not a layer.',
+    },
+    {
+      Icon: Layers,
+      title: t.pillar4Title ?? 'Unified Architecture',
+      body: t.pillar4Body ?? 'Eliminate fragmented stacks. Storage, processing, AI, and execution operate within one trusted system.',
+    },
+    {
+      Icon: Lock,
+      title: t.pillar5Title ?? 'Sovereign by Design',
+      body: t.pillar5Body ?? 'Sovereignty is built into the foundation. Not layered. Not bolted on. Not optional.',
+    },
+  ]
+
+  const TRUST_FRAMEWORK = [
+    {
+      Icon: KeyRound,
+      title: t.trust1Title ?? 'Identity-aware execution',
+      body: t.trust1Body ?? 'Every query authenticates and authorizes before reading a single byte. RBAC, ABAC, and short-lived tokens at the engine layer.',
+    },
+    {
+      Icon: Fingerprint,
+      title: t.trust2Title ?? 'End-to-end lineage',
+      body: t.trust2Body ?? 'Data, transformation, model, and decision tied together in a continuous audit trail. Reproducibility by construction.',
+    },
+    {
+      Icon: Server,
+      title: t.trust3Title ?? 'Air-gapped deployment',
+      body: t.trust3Body ?? 'Deployable in fully isolated environments. No required outbound connectivity. No telemetry leakage.',
+    },
+  ]
+
+  const DEPLOYMENT_TARGETS = [
+    {
+      Icon: Cloud,
+      code: '01',
+      label: t.deploy1Label ?? 'Public cloud',
+      body: t.deploy1Body ?? 'Fully managed across hyperscalers and sovereign cloud regions, with the same engine and policy plane.',
+      spec: t.deploy1Spec ?? 'AWS · Azure · GCP · sovereign clouds',
+    },
+    {
+      Icon: Server,
+      code: '02',
+      label: t.deploy2Label ?? 'On-premises',
+      body: t.deploy2Body ?? 'Air-gapped, classified, and regulated environments. Bare metal, private cloud, or virtualized estate.',
+      spec: t.deploy2Spec ?? 'Bare metal · private cloud · VMware',
+    },
+    {
+      Icon: Cpu,
+      code: '03',
+      label: t.deploy3Label ?? 'Edge',
+      body: t.deploy3Body ?? 'Same binary on plant floors, vehicles, field assets, and embedded systems with offline-first execution.',
+      spec: t.deploy3Spec ?? 'Plant floor · vehicle · field · embedded',
+    },
+    {
+      Icon: Globe2,
+      code: '04',
+      label: t.deploy4Label ?? 'Sovereign region',
+      body: t.deploy4Body ?? 'In-country deployments under data residency law. Custody, audit trail, and key control stay local.',
+      spec: t.deploy4Spec ?? 'In-country · regulated · classified',
+    },
+  ]
+
+  const CERTS = [
+    'SOC 2 Type II',
+    'ISO 27001',
+    'ISO 27701',
+    'PCI DSS',
+    'HIPAA',
+    'GDPR',
+    'CCPA',
+    t.certFedRamp ?? 'FedRAMP-ready',
+    'IEC 62443',
+    t.certAirGapped ?? 'Air-gapped',
+  ]
 
   return (
     <main className="min-h-screen bg-white dark:bg-[#0f1623]">
@@ -193,7 +196,7 @@ export default function SovereignContent() {
                 }}
               >
                 <ShieldCheck size={13} strokeWidth={2} />
-                Strategic Pillar · I
+                {t.crumb ?? 'Strategic Pillar · I'}
               </span>
               <h1
                 className="text-white"
@@ -207,7 +210,7 @@ export default function SovereignContent() {
                   textDecoration: 'none',
                 }}
               >
-                Own Your Data.
+                {t.heroTitle1 ?? 'Own Your Data.'}
                 <br />
                 <span
                   style={{
@@ -221,7 +224,7 @@ export default function SovereignContent() {
                     fontWeight: 400,
                   }}
                 >
-                  Control Your Intelligence.
+                  {t.heroTitle2 ?? 'Control Your Intelligence.'}
                 </span>
               </h1>
               <div
@@ -245,8 +248,7 @@ export default function SovereignContent() {
                   maxWidth: '560px',
                 }}
               >
-                AI built on your data. Secure, sovereign, and fully under your
-                control.
+                {t.heroLead ?? 'AI built on your data. Secure, sovereign, and fully under your control.'}
               </p>
               <p
                 style={{
@@ -258,9 +260,7 @@ export default function SovereignContent() {
                   maxWidth: '520px',
                 }}
               >
-                The AI-Native Sovereign Platform ensures your data,
-                intelligence, and AI operations remain fully within your
-                control. No external dependency. No opaque architecture.
+                {t.heroBody ?? 'The AI-Native Sovereign Platform ensures your data, intelligence, and AI operations remain fully within your control. No external dependency. No opaque architecture.'}
               </p>
             </motion.div>
 
@@ -336,10 +336,10 @@ export default function SovereignContent() {
               />
               {/* Compass-point labels */}
               {[
-                { angle: 0, label: 'CLOUD' },
-                { angle: 90, label: 'EDGE' },
-                { angle: 180, label: 'ON-PREM' },
-                { angle: 270, label: 'AIR-GAP' },
+                { angle: 0, label: t.vaultCloud ?? 'CLOUD' },
+                { angle: 90, label: t.vaultEdge ?? 'EDGE' },
+                { angle: 180, label: t.vaultOnPrem ?? 'ON-PREM' },
+                { angle: 270, label: t.vaultAirGap ?? 'AIR-GAP' },
               ].map((p) => {
                 const rad = (p.angle * Math.PI) / 180
                 const r = 47
@@ -377,11 +377,11 @@ export default function SovereignContent() {
       </section>
 
       {/* ── Five sovereignty pillars — manifesto cards on white ── */}
-      <section className="section-grid bg-white dark:bg-[#0f1623] py-12 sm:py-16 lg:py-20 relative">
+      <section className="section-grid bg-white dark:bg-[#0f1623] py-10 sm:py-14 lg:py-20 relative">
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-6 sm:gap-10 lg:gap-16 items-end mb-8 sm:mb-10">
             <div>
-              <SectionLabel text="The five promises" />
+              <SectionLabel text={t.pillarsLabel ?? 'The five promises'} />
               <h2
                 className="text-gray-900 dark:text-white"
                 style={{
@@ -394,9 +394,9 @@ export default function SovereignContent() {
                   textDecoration: 'none',
                 }}
               >
-                Sovereignty,{' '}
+                {t.pillarsHeadline1 ?? 'Sovereignty,'}{' '}
                 <span style={{ color: ACCENT, fontWeight: 400 }}>
-                  by foundation
+                  {t.pillarsHeadlineAccent ?? 'by foundation'}
                 </span>
               </h2>
             </div>
@@ -409,9 +409,7 @@ export default function SovereignContent() {
                 maxWidth: '520px',
               }}
             >
-              Most platforms add governance after the fact, behind APIs and
-              external auditors. MonkDB makes it the foundation, so every
-              query, every model, and every decision inherits it by default.
+              {t.pillarsIntro ?? 'Most platforms add governance after the fact, behind APIs and external auditors. MonkDB makes it the foundation, so every query, every model, and every decision inherits it by default.'}
             </p>
           </div>
 
@@ -484,9 +482,9 @@ export default function SovereignContent() {
       </section>
 
       {/* ── Where data stays — deployment targets ── */}
-      <section className="bg-[#F8F4F0] dark:bg-[#0A1326] py-12 sm:py-16 lg:py-20">
+      <section className="bg-[#F8F4F0] dark:bg-[#0A1326] py-10 sm:py-14 lg:py-20">
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
-          <SectionLabel text="Where data stays" />
+          <SectionLabel text={t.deployLabel ?? 'Where data stays'} />
           <h2
             className="text-gray-900 dark:text-white"
             style={{
@@ -500,7 +498,7 @@ export default function SovereignContent() {
               textDecoration: 'none',
             }}
           >
-            One binary across every trust boundary
+            {t.deployHeadline ?? 'One binary across every trust boundary'}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
             {DEPLOYMENT_TARGETS.map((t, i) => (
@@ -598,7 +596,7 @@ export default function SovereignContent() {
 
       {/* ── Trust framework — built into the engine ── */}
       <section
-        className="relative overflow-hidden py-12 sm:py-16 lg:py-20"
+        className="relative overflow-hidden py-10 sm:py-14 lg:py-20"
         style={{
           background:
             'linear-gradient(180deg, #050D6A 0%, #07091A 100%)',
@@ -615,7 +613,7 @@ export default function SovereignContent() {
           }}
         />
         <div className="relative z-10 max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
-          <SectionLabel text="Trust framework" variant="dark" />
+          <SectionLabel text={t.trustLabel ?? 'Trust framework'} variant="dark" />
           <h2
             className="text-white"
             style={{
@@ -629,9 +627,9 @@ export default function SovereignContent() {
               textDecoration: 'none',
             }}
           >
-            Built into the engine,{' '}
+            {t.trustHeadline1 ?? 'Built into the engine,'}{' '}
             <span style={{ color: ACCENT, fontWeight: 400 }}>
-              not the audit log
+              {t.trustHeadlineAccent ?? 'not the audit log'}
             </span>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
@@ -693,30 +691,31 @@ export default function SovereignContent() {
       </section>
 
       {/* ── Compliance + certifications wall ── */}
-      <section className="bg-white dark:bg-[#0f1623] py-12 sm:py-16 lg:py-20">
+      <section className="bg-white dark:bg-[#0f1623] py-10 sm:py-14 lg:py-20">
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <div className="grid grid-cols-1 lg:grid-cols-[0.42fr_0.58fr] gap-6 sm:gap-10 lg:gap-16 items-start">
             <div>
-              <SectionLabel text="Certifications" />
+              <SectionLabel text={t.certsLabel ?? 'Certifications'} />
               <h2
-                className="text-gray-900 dark:text-white mt-6"
+                className="text-gray-900 dark:text-white"
                 style={{
                   fontSize: 'clamp(26px, 3.4vw, 44px)',
                   fontWeight: 300,
                   letterSpacing: '-0.02em',
                   lineHeight: 1.1,
                   margin: '24px 0 0 0',
+                  maxWidth: 'clamp(420px, 80%, 720px)',
                   textWrap: 'balance',
                   textDecoration: 'none',
                 }}
               >
-                Audit-grade by{' '}
+                {t.certsHeadline1 ?? 'Audit-grade by'}{' '}
                 <span style={{ color: ACCENT, fontWeight: 400 }}>
-                  default
+                  {t.certsHeadlineAccent ?? 'default'}
                 </span>
               </h2>
               <p
-                className="text-gray-600 dark:text-gray-400 mt-5"
+                className="text-gray-600 dark:text-gray-400"
                 style={{
                   fontSize: 'clamp(14px, 1.15vw, 16px)',
                   lineHeight: 1.7,
@@ -724,8 +723,7 @@ export default function SovereignContent() {
                   margin: '20px 0 0 0',
                 }}
               >
-                Certifications and attestations recognized by regulators,
-                customers, and procurement teams across regulated industries.
+                {t.certsBody ?? 'Certifications and attestations recognized by regulators, customers, and procurement teams across regulated industries.'}
               </p>
             </div>
             <ul
@@ -771,7 +769,7 @@ export default function SovereignContent() {
       </section>
 
       {/* ── Closing manifesto + sovereignty pillars ── */}
-      <section className="bg-[#F8F4F0] dark:bg-[#0A1326] py-12 sm:py-16 lg:py-20">
+      <section className="bg-[#F8F4F0] dark:bg-[#0A1326] py-10 sm:py-14 lg:py-20">
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-8 sm:gap-12 lg:gap-16 items-center">
             <motion.div
@@ -805,10 +803,9 @@ export default function SovereignContent() {
                   textWrap: 'balance',
                 }}
               >
-                The result is a system where enterprises confidently build and
-                scale AI{' '}
+                {t.closingBefore ?? 'The result is a system where enterprises confidently build and scale AI'}{' '}
                 <span style={{ color: ACCENT, fontWeight: 400 }}>
-                  without compromising on control, security, or independence
+                  {t.closingAccent ?? 'without compromising on control, security, or independence'}
                 </span>
                 .
               </p>
@@ -823,16 +820,16 @@ export default function SovereignContent() {
             >
               {[
                 {
-                  tag: 'CONTROL',
-                  body: 'Identity, policy, and key custody stay inside the trust boundary.',
+                  tag: t.closingTagControl ?? 'CONTROL',
+                  body: t.closingBodyControl ?? 'Identity, policy, and key custody stay inside the trust boundary.',
                 },
                 {
-                  tag: 'SECURITY',
-                  body: 'Audit-grade lineage and residency enforced at the engine, not bolted on.',
+                  tag: t.closingTagSecurity ?? 'SECURITY',
+                  body: t.closingBodySecurity ?? 'Audit-grade lineage and residency enforced at the engine, not bolted on.',
                 },
                 {
-                  tag: 'INDEPENDENCE',
-                  body: 'Same binary across cloud, on-prem, edge, and air-gapped sovereign regions.',
+                  tag: t.closingTagIndependence ?? 'INDEPENDENCE',
+                  body: t.closingBodyIndependence ?? 'Same binary across cloud, on-prem, edge, and air-gapped sovereign regions.',
                 },
               ].map((stage, i) => (
                 <li
@@ -890,7 +887,7 @@ export default function SovereignContent() {
         </div>
       </section>
 
-      <CTABanner heading="Own your data. Control your intelligence." />
+      <CTABanner heading={t.ctaHeading ?? 'Own your data. Control your intelligence.'} />
       <Footer />
       <ScrollToTop />
 

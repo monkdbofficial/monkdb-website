@@ -5,6 +5,7 @@ import { useRef } from 'react'
 import { ArrowUpRight } from 'lucide-react'
 import MonkDBFeature from './MonkDBFeature'
 import { useI18n } from '@/i18n/I18nProvider'
+import BgPattern from './effects/BgPattern'
 
 const EASE = [0.165, 0.84, 0.44, 1] as const
 
@@ -23,8 +24,9 @@ export default function ArchitecturePillars() {
   return (
     <section
       ref={ref}
-      className="relative bg-white dark:bg-[#0f1623] py-10 sm:py-14 lg:py-20"
+      className="relative overflow-hidden bg-white dark:bg-[#0f1623] py-10 sm:py-14 lg:py-20"
     >
+      <BgPattern variant="grid" mask="fade-edges" size={40} fill="rgba(26,56,232,0.07)" />
       <div className="relative z-10 max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
         {/* Section chapter line */}
         <motion.div

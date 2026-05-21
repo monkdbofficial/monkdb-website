@@ -9,6 +9,8 @@ import ScrollProgressBar from '@/components/ScrollProgressBar'
 import ScrollToTop from '@/components/ScrollToTop'
 import PageBanner from '@/components/PageBanner'
 import AnimatedSVGImage from '@/components/AnimatedSVGImage'
+import BgPattern from '@/components/effects/BgPattern'
+import { renderBrand } from '@/components/BrandAccent'
 import { useI18n } from '@/i18n/I18nProvider'
 import { localizedHref } from '@/i18n/config'
 
@@ -316,7 +318,7 @@ export default function AboutPage() {
                 className="text-gray-900 dark:text-white"
                 style={{ fontSize: 'clamp(28px, 3.6vw, 54px)', fontWeight: 300, lineHeight: 1.1, marginBottom: 0, textDecoration: 'none', letterSpacing: '-0.012em', textWrap: 'balance', maxWidth: 'clamp(280px, 95%, 560px)' }}
               >
-                {t.heroTitle ?? 'What makes MonkDB the best choice for your enterprise'}
+                {renderBrand(t.heroTitle ?? 'What makes MonkDB the best choice for your enterprise')}
               </h1>
             </motion.div>
 
@@ -357,193 +359,129 @@ export default function AboutPage() {
       </section>
 
       {/* ══════════════════════════════════════════
-          SECTION 2 — MANIFESTO + TRUST METRICS STRIP
-          (rebuilt concept: centered statement of intent + 4 proof points)
+          SECTION 2 — MANIFESTO + TRUST METRICS
+          Enterprise rebuild: two-column on desktop. Pull-quote left,
+          outline-stroke stat numerals right. No redundant CTAs.
       ══════════════════════════════════════════ */}
-      <section className="relative py-12 sm:py-16 lg:py-24 overflow-hidden bg-[#F8F4F0] dark:bg-[#0f1623]">
-        {/* Subtle dot-grid background */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            backgroundImage:
-              'radial-gradient(circle, rgba(10,34,128,0.08) 1px, transparent 1px)',
-            backgroundSize: '24px 24px',
-            maskImage:
-              'radial-gradient(ellipse 70% 60% at 50% 50%, rgba(0,0,0,0.85) 0%, transparent 80%)',
-            WebkitMaskImage:
-              'radial-gradient(ellipse 70% 60% at 50% 50%, rgba(0,0,0,0.85) 0%, transparent 80%)',
-          }}
+      <section className="relative py-10 sm:py-14 lg:py-20 overflow-hidden bg-[#F8F4F0] dark:bg-[#0f1623]">
+        <BgPattern
+          variant="grid"
+          mask="fade-edges"
+          size={56}
+          fill="rgba(10,34,128,0.06)"
         />
 
         <div className="relative max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
+          <div className="grid grid-cols-1 lg:grid-cols-[55%_1fr] gap-10 lg:gap-16 items-start">
 
-          {/* Mono section label */}
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="flex items-center justify-center gap-3 mb-8 sm:mb-10"
-          >
-            <div style={{ width: 'clamp(40px, 8vw, 80px)', height: '1px', background: 'linear-gradient(90deg, transparent, rgba(10,34,128,0.35))' }} />
-            <span
-              style={{
-                fontFamily: 'var(--font-mono, monospace)',
-                fontSize: '11px',
-                fontWeight: 600,
-                letterSpacing: '0.18em',
-                textTransform: 'uppercase',
-                color: '#1A38E8',
-                whiteSpace: 'nowrap',
-              }}
-            >
-              {t.manifestoKicker ?? 'Why MonkDB exists'}
-            </span>
-            <div style={{ width: 'clamp(40px, 8vw, 80px)', height: '1px', background: 'linear-gradient(90deg, rgba(10,34,128,0.35), transparent)' }} />
-          </motion.div>
-
-          {/* Centered manifesto statement */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.7, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="text-center mx-auto"
-            style={{ maxWidth: 'clamp(320px, 90%, 960px)' }}
-          >
-            <p
-              className="text-gray-900 dark:text-white"
-              style={{
-                fontSize: 'clamp(22px, 2.8vw, 44px)',
-                fontWeight: 300,
-                lineHeight: 1.22,
-                letterSpacing: '-0.012em',
-                margin: 0,
-                textWrap: 'balance',
-              }}
-            >
-              {t.manifestoPart1 ?? 'Every other system stops at the database.'}{' '}
-              <span className="gradient-text-animate" style={{ fontWeight: 400 }}>
-                {t.manifestoAccent ?? 'MonkDB executes.'}
-              </span>{' '}
-              {t.manifestoPart2 ?? 'One engine. One trust boundary. Every workload your AI-native enterprise needs to run, in real time.'}
-            </p>
-          </motion.div>
-
-          {/* Trust metrics strip — 4 columns */}
-          <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.7, delay: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="mt-12 sm:mt-14 lg:mt-16 grid grid-cols-2 lg:grid-cols-4 rounded-[20px] overflow-hidden"
-            style={{
-              background: '#ffffff',
-              border: '1px solid rgba(10,34,128,0.10)',
-              boxShadow: '0 12px 32px rgba(10,20,80,0.06), 0 2px 6px rgba(10,20,80,0.04)',
-            }}
-          >
-            {[
-              { value: t.trustStat1Value ?? '9', label: t.trustStat1Label ?? 'Workloads, one binary' },
-              { value: t.trustStat2Value ?? 'p99 < 5ms', label: t.trustStat2Label ?? 'Vector + SQL + streaming' },
-              { value: t.trustStat3Value ?? '100PB+', label: t.trustStat3Label ?? 'Cluster scale, proven' },
-              { value: t.trustStat4Value ?? 'SOC 2', label: t.trustStat4Label ?? 'ISO 27001, GDPR ready' },
-            ].map((m, i) => (
-              <div
-                key={m.label}
-                className="flex flex-col items-start justify-center"
-                style={{
-                  padding: 'clamp(20px, 2.6vw, 36px) clamp(20px, 2.4vw, 32px)',
-                  borderLeft:
-                    i % 4 !== 0
-                      ? '1px solid rgba(10,34,128,0.08)'
-                      : undefined,
-                  borderTop:
-                    i >= 2
-                      ? '1px solid rgba(10,34,128,0.08)'
-                      : undefined,
-                }}
+            {/* ── LEFT: eyebrow + manifesto statement ── */}
+            <div>
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+                className="flex items-center gap-3 mb-6 sm:mb-8"
               >
                 <span
-                  className="text-gray-900 dark:text-white"
                   style={{
-                    fontSize: 'clamp(22px, 2.4vw, 34px)',
-                    fontWeight: 300,
-                    letterSpacing: '-0.018em',
-                    lineHeight: 1.1,
-                    fontVariantNumeric: 'tabular-nums',
-                    color: '#0A2280',
+                    fontFamily: 'var(--font-mono, monospace)',
+                    fontSize: '11px',
+                    fontWeight: 600,
+                    letterSpacing: '0.18em',
+                    textTransform: 'uppercase',
+                    color: '#1A38E8',
+                    whiteSpace: 'nowrap',
                   }}
                 >
-                  {m.value}
+                  {t.manifestoKicker ?? 'Why MonkDB exists'}
                 </span>
-                <span
-                  className="text-gray-500 dark:text-gray-400"
+                <div
+                  aria-hidden="true"
                   style={{
-                    fontSize: 'clamp(12px, 0.95vw, 13px)',
-                    fontWeight: 500,
-                    letterSpacing: '0.01em',
-                    marginTop: 8,
-                    lineHeight: 1.4,
+                    flex: 1,
+                    height: '1px',
+                    background:
+                      'linear-gradient(90deg, rgba(10,34,128,0.28), transparent)',
                   }}
-                >
-                  {m.label}
-                </span>
-              </div>
-            ))}
-          </motion.div>
+                />
+              </motion.div>
 
-          {/* Centered CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.7, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="mt-10 sm:mt-12 flex items-center justify-center gap-3 flex-wrap"
-          >
-            <motion.a
-              href={contactHref}
-              whileHover={{ y: -2, boxShadow: '0 14px 32px rgba(10,20,80,0.22)' }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ duration: 0.22, ease: [0.22, 0.61, 0.36, 1] }}
-              className="inline-flex items-center gap-2"
-              style={{
-                background: '#1A38E8',
-                color: '#ffffff',
-                borderRadius: '999px',
-                padding: '12px 26px',
-                fontWeight: 600,
-                fontSize: 'clamp(0.82rem, 1vw, 0.9rem)',
-                letterSpacing: '-0.005em',
-                textDecoration: 'none',
-                boxShadow: '0 8px 22px rgba(10,20,80,0.18), 0 1px 2px rgba(10,20,80,0.08)',
-              }}
+              <motion.p
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{ duration: 0.7, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+                className="text-gray-900 dark:text-white"
+                style={{
+                  fontSize: 'clamp(24px, 3.2vw, 52px)',
+                  fontWeight: 300,
+                  lineHeight: 1.15,
+                  letterSpacing: '-0.018em',
+                  margin: 0,
+                  textWrap: 'balance',
+                  maxWidth: 'clamp(320px, 100%, 720px)',
+                }}
+              >
+                {t.manifestoPart1 ?? 'Every other system stops at the database.'}{' '}
+                <span className="gradient-text-animate" style={{ fontWeight: 400 }}>
+                  {t.manifestoAccent ?? 'MonkDB executes.'}
+                </span>{' '}
+                {t.manifestoPart2 ?? 'One engine. One trust boundary. Every workload your AI-native enterprise needs to run, in real time.'}
+              </motion.p>
+            </div>
+
+            {/* ── RIGHT: 4 trust metrics, outline-stroke numerals ── */}
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ duration: 0.7, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-8 sm:gap-x-10 sm:gap-y-12 lg:gap-x-12 lg:gap-y-14"
             >
-              {t.bannerCta ?? 'Request Demo'}
-              <ArrowUpRight size={15} />
-            </motion.a>
-            <motion.a
-              href="#story"
-              whileHover={{ y: -2, backgroundColor: 'rgba(10,34,128,0.06)' }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ duration: 0.22, ease: [0.22, 0.61, 0.36, 1] }}
-              className="inline-flex items-center gap-2"
-              style={{
-                color: '#0A2280',
-                border: '1px solid rgba(10,34,128,0.2)',
-                background: 'transparent',
-                borderRadius: '999px',
-                padding: '11px 24px',
-                fontWeight: 500,
-                fontSize: 'clamp(0.82rem, 1vw, 0.9rem)',
-                letterSpacing: '-0.005em',
-                textDecoration: 'none',
-              }}
-            >
-              {t.manifestoSecondaryCta ?? 'Read our story'}
-            </motion.a>
-          </motion.div>
+              {[
+                { value: t.trustStat1Value ?? '9', label: t.trustStat1Label ?? 'Workloads, one binary' },
+                { value: t.trustStat2Value ?? '<5ms', label: t.trustStat2Label ?? 'p99 vector + SQL + streaming' },
+                { value: t.trustStat3Value ?? '100PB+', label: t.trustStat3Label ?? 'Cluster scale, proven' },
+                { value: t.trustStat4Value ?? 'SOC 2', label: t.trustStat4Label ?? 'ISO 27001, GDPR ready' },
+              ].map((m) => (
+                <div
+                  key={m.label}
+                  className="flex flex-col items-start"
+                  style={{ borderTop: '1px solid rgba(10,34,128,0.18)', paddingTop: 'clamp(14px, 1.4vw, 20px)' }}
+                >
+                  <span
+                    aria-label={m.value}
+                    style={{
+                      fontSize: 'clamp(40px, 5.5vw, 86px)',
+                      fontWeight: 700,
+                      lineHeight: 1,
+                      letterSpacing: '-3px',
+                      color: 'transparent',
+                      WebkitTextStroke: '1px #1A38E8',
+                      fontVariantNumeric: 'tabular-nums',
+                    }}
+                  >
+                    {m.value}
+                  </span>
+                  <span
+                    className="text-gray-600 dark:text-gray-400"
+                    style={{
+                      fontSize: 'clamp(12px, 0.95vw, 14px)',
+                      fontWeight: 500,
+                      letterSpacing: '0.01em',
+                      lineHeight: 1.45,
+                      marginTop: 'clamp(10px, 1vw, 14px)',
+                      maxWidth: '220px',
+                    }}
+                  >
+                    {m.label}
+                  </span>
+                </div>
+              ))}
+            </motion.div>
+
+          </div>
         </div>
       </section>
 
@@ -558,21 +496,92 @@ export default function AboutPage() {
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <div className="grid grid-cols-1 lg:grid-cols-[45%_1fr] gap-8 sm:gap-12 lg:gap-20 items-center">
 
-            {/* Left: spinning ring */}
+            {/* Left: orbital data-plane diagram */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
+              initial={{ opacity: 0, scale: 0.92 }}
               animate={storyInView ? { opacity: 1, scale: 1 } : {}}
               transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
               className="flex items-center justify-center order-2 lg:order-1"
             >
-              <div className="relative flex items-center justify-center w-full max-w-[180px] sm:max-w-[260px] md:max-w-[320px] lg:max-w-[400px] mx-auto">
-                <img
-                  src="/Vector.svg"
-                  alt=""
+              <div className="relative flex items-center justify-center w-full max-w-[220px] sm:max-w-[300px] md:max-w-[340px] lg:max-w-[420px] mx-auto" style={{ aspectRatio: '1 / 1' }}>
+                {/* Animated halo */}
+                <motion.div
                   aria-hidden="true"
-                  className="w-full h-auto"
-                  style={{ willChange: 'transform', animation: storyInView ? 'spin-slow 18s linear infinite' : 'none' }}
+                  className="absolute rounded-full pointer-events-none"
+                  style={{
+                    inset: '12%',
+                    background:
+                      'radial-gradient(circle, rgba(26,56,232,0.10) 0%, transparent 70%)',
+                    filter: 'blur(24px)',
+                  }}
+                  animate={{ scale: [1, 1.08, 1], opacity: [0.5, 0.9, 0.5] }}
+                  transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}
                 />
+                <svg
+                  viewBox="0 0 400 400"
+                  className="relative w-full h-full"
+                  aria-hidden="true"
+                  style={{ overflow: 'visible' }}
+                >
+                  <defs>
+                    <linearGradient id="story-ring-grad" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stopColor="#1A38E8" stopOpacity="0.65" />
+                      <stop offset="60%" stopColor="#1A38E8" stopOpacity="0.18" />
+                      <stop offset="100%" stopColor="#1A38E8" stopOpacity="0.05" />
+                    </linearGradient>
+                    <radialGradient id="story-core-grad" cx="50%" cy="50%" r="50%">
+                      <stop offset="0%" stopColor="#1A38E8" />
+                      <stop offset="70%" stopColor="#0A2280" />
+                      <stop offset="100%" stopColor="#050D6A" />
+                    </radialGradient>
+                  </defs>
+
+                  {/* Slow-rotating outer ring + dashed mid ring */}
+                  <motion.g
+                    animate={storyInView ? { rotate: 360 } : {}}
+                    transition={{ duration: 60, repeat: Infinity, ease: 'linear' }}
+                    style={{ transformOrigin: '200px 200px' }}
+                  >
+                    <circle cx="200" cy="200" r="178" fill="none" stroke="url(#story-ring-grad)" strokeWidth="1.5" />
+                    <circle cx="200" cy="200" r="178" fill="none" stroke="rgba(26,56,232,0.18)" strokeWidth="0.75" strokeDasharray="2 6" />
+                  </motion.g>
+
+                  {/* Counter-rotating middle ring with orbital nodes */}
+                  <motion.g
+                    animate={storyInView ? { rotate: -360 } : {}}
+                    transition={{ duration: 42, repeat: Infinity, ease: 'linear' }}
+                    style={{ transformOrigin: '200px 200px' }}
+                  >
+                    <circle cx="200" cy="200" r="130" fill="none" stroke="rgba(26,56,232,0.22)" strokeWidth="1" strokeDasharray="3 5" />
+                    {/* 6 orbital nodes evenly placed on the middle ring — precomputed for SSR stability */}
+                    {[
+                      { cx: 330, cy: 200 },
+                      { cx: 265, cy: 87.42 },
+                      { cx: 135, cy: 87.42 },
+                      { cx: 70, cy: 200 },
+                      { cx: 135, cy: 312.58 },
+                      { cx: 265, cy: 312.58 },
+                    ].map((n, i) => (
+                      <g key={i}>
+                        <circle cx={n.cx} cy={n.cy} r="9" fill="rgba(255,255,255,1)" stroke="#1A38E8" strokeWidth="1.5" />
+                        <circle cx={n.cx} cy={n.cy} r="3.5" fill="#1A38E8" />
+                      </g>
+                    ))}
+                  </motion.g>
+
+                  {/* Static inner ring */}
+                  <circle cx="200" cy="200" r="84" fill="none" stroke="rgba(26,56,232,0.30)" strokeWidth="1.25" />
+
+                  {/* Core sphere */}
+                  <circle cx="200" cy="200" r="52" fill="url(#story-core-grad)" />
+                  <circle cx="200" cy="200" r="52" fill="none" stroke="rgba(127,179,255,0.45)" strokeWidth="1" />
+
+                  {/* Subtle hairline diameter ticks */}
+                  <line x1="22" y1="200" x2="62" y2="200" stroke="rgba(10,34,128,0.15)" strokeWidth="1" />
+                  <line x1="338" y1="200" x2="378" y2="200" stroke="rgba(10,34,128,0.15)" strokeWidth="1" />
+                  <line x1="200" y1="22" x2="200" y2="62" stroke="rgba(10,34,128,0.15)" strokeWidth="1" />
+                  <line x1="200" y1="338" x2="200" y2="378" stroke="rgba(10,34,128,0.15)" strokeWidth="1" />
+                </svg>
               </div>
             </motion.div>
 
@@ -594,7 +603,7 @@ export default function AboutPage() {
                   className="text-gray-900 dark:text-white"
                   style={{ fontSize: 'clamp(18px, 2.4vw, 38px)', fontWeight: 300, lineHeight: 1.22, margin: 0, letterSpacing: '-0.01em', textWrap: 'balance' }}
                 >
-                  {t.storyTextStart ?? 'At MonkDB,'}{' '}
+                  {renderBrand(t.storyTextStart ?? 'At MonkDB,')}{' '}
                   <span className="gradient-text-animate" style={{ fontWeight: 400 }}>
                     {t.storyTextAccent ?? 'our journey is deeply personal'}
                   </span>
@@ -879,7 +888,7 @@ export default function AboutPage() {
               className="dark:text-white mx-auto"
               style={{ fontSize: 'clamp(22px, 3vw, 48px)', fontWeight: 300, lineHeight: 1.15, letterSpacing: '-0.01em', marginBottom: '10px', color: '#0A2280', maxWidth: 'clamp(580px, 75vw, 1040px)', textWrap: 'balance' }}
             >
-              {t.whyMonkdbTitle ?? 'Why MonkDB'}
+              {renderBrand(t.whyMonkdbTitle ?? 'Why MonkDB')}
             </h2>
             <p
               className="text-gray-500 dark:text-gray-400"
@@ -999,7 +1008,7 @@ export default function AboutPage() {
               </span>
               <h2
                 className="text-gray-900 dark:text-white"
-                style={{ fontSize: 'clamp(22px, 3vw, 48px)', fontWeight: 300, lineHeight: 1.15, letterSpacing: '-0.01em' }}
+                style={{ fontSize: 'clamp(22px, 3vw, 48px)', fontWeight: 300, lineHeight: 1.15, letterSpacing: '-0.01em', maxWidth: 'clamp(580px, 75vw, 1040px)', textWrap: 'balance' }}
               >
                 {t.featuresTitle ?? 'The unique selling points and advantages of our service'}
               </h2>
@@ -1100,7 +1109,7 @@ export default function AboutPage() {
               </span>
               <h2
                 className="text-gray-900 dark:text-white"
-                style={{ fontSize: 'clamp(22px, 3vw, 48px)', fontWeight: 300, lineHeight: 1.15, letterSpacing: '-0.01em' }}
+                style={{ fontSize: 'clamp(22px, 3vw, 48px)', fontWeight: 300, lineHeight: 1.15, letterSpacing: '-0.01em', maxWidth: 'clamp(580px, 75vw, 1040px)', textWrap: 'balance' }}
               >
                 {t.achievementsTitle ?? 'Numbers that speak for themselves'}
               </h2>

@@ -26,6 +26,7 @@ import CTABanner from '@/components/CTABanner'
 import SectionLabel from '@/components/SectionLabel'
 import ScrollToTop from '@/components/ScrollToTop'
 import ScrollProgressBar from '@/components/ScrollProgressBar'
+import { useI18n } from '@/i18n/I18nProvider'
 import type { CoreSystem } from '@/content/coreSystems'
 
 const EASE = [0.165, 0.84, 0.44, 1] as const
@@ -655,6 +656,19 @@ export default function CoreSystemContent({
   const heroRef = useRef<HTMLDivElement>(null)
   const heroInView = useInView(heroRef, { once: true, margin: '-80px' })
   const theme = THEMES[item.slug as ThemeKey] ?? THEMES['unified-operational-engine']
+  const { dict } = useI18n()
+  const t = (((dict as Record<string, unknown>).coreSystemContent) ?? {}) as Record<string, string>
+  // Per-slug i18n overrides for static English copy in content/coreSystems.ts.
+  const slugDict = (((dict as Record<string, unknown>).coreSystemsContent as
+    | Record<string, unknown>
+    | undefined)?.[item.slug] ?? {}) as Record<string, string>
+  const title = slugDict.title ?? item.title
+  const subtitle = slugDict.subtitle ?? item.subtitle
+  const headline = slugDict.headline ?? item.headline
+  const overview = slugDict.overview ?? item.overview
+  const introTitle = slugDict.introTitle ?? item.introTitle
+  const introBody = slugDict.introBody ?? item.introBody
+  const ctaHeading = slugDict.ctaHeading ?? item.ctaHeading
 
   return (
     <main className="min-h-screen bg-white dark:bg-[#0f1623]">
@@ -711,7 +725,7 @@ export default function CoreSystemContent({
                 }}
               >
                 <theme.Icon size={13} strokeWidth={2} />
-                Core System · {theme.index}
+                {t.crumbPrefix ?? 'Core System'} · {theme.index}
               </span>
               <h1
                 className="text-white"
@@ -725,7 +739,7 @@ export default function CoreSystemContent({
                   textDecoration: 'none',
                 }}
               >
-                {item.title}
+                {title}
               </h1>
               <div
                 aria-hidden="true"
@@ -748,7 +762,7 @@ export default function CoreSystemContent({
                   maxWidth: 560,
                 }}
               >
-                {item.subtitle}
+                {subtitle}
               </p>
               <p
                 style={{
@@ -760,7 +774,7 @@ export default function CoreSystemContent({
                   maxWidth: 540,
                 }}
               >
-                {item.overview}
+                {overview}
               </p>
             </motion.div>
             <motion.div
@@ -775,11 +789,11 @@ export default function CoreSystemContent({
       </section>
 
       {/* ── Why this matters (light) ── */}
-      <section className="bg-white dark:bg-[#0f1623] py-14 sm:py-20 lg:py-24">
+      <section className="bg-white dark:bg-[#0f1623] py-10 sm:py-14 lg:py-20">
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-8 sm:gap-12 lg:gap-20 items-start">
             <div>
-              <SectionLabel text="Why this matters" />
+              <SectionLabel text={t.whyThisMatters ?? 'Why this matters'} />
               <h2
                 className="text-gray-900 dark:text-white"
                 style={{
@@ -793,7 +807,7 @@ export default function CoreSystemContent({
                   textDecoration: 'none',
                 }}
               >
-                {item.headline}
+                {headline}
               </h2>
             </div>
             <div className="lg:pt-8">
@@ -806,7 +820,7 @@ export default function CoreSystemContent({
                   marginBottom: 24,
                 }}
               >
-                {item.introBody}
+                {introBody}
               </p>
               <div
                 className="inline-flex items-center gap-3 rounded-xl"
@@ -840,7 +854,7 @@ export default function CoreSystemContent({
                       marginBottom: 2,
                     }}
                   >
-                    {item.introTitle}
+                    {introTitle}
                   </div>
                 </div>
               </div>
@@ -850,9 +864,9 @@ export default function CoreSystemContent({
       </section>
 
       {/* ── Capabilities (parchment, dense uniform cards) ── */}
-      <section className="bg-[#F8F4F0] dark:bg-[#0A1326] py-14 sm:py-20 lg:py-24">
+      <section className="bg-[#F8F4F0] dark:bg-[#0A1326] py-10 sm:py-14 lg:py-20">
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
-          <SectionLabel text="What you get" />
+          <SectionLabel text={t.whatYouGet ?? 'What you get'} />
           <h2
             className="text-gray-900 dark:text-white"
             style={{
@@ -866,9 +880,9 @@ export default function CoreSystemContent({
               textDecoration: 'none',
             }}
           >
-            Inside the{' '}
+            {t.insideThe ?? 'Inside the'}{' '}
             <span style={{ color: theme.accent, fontWeight: 400 }}>
-              {item.title.toLowerCase()}
+              {title.toLowerCase()}
             </span>
           </h2>
 
@@ -954,9 +968,9 @@ export default function CoreSystemContent({
 
       {/* ── Other Core Systems (related) ── */}
       {related.length > 0 && (
-        <section className="bg-white dark:bg-[#0f1623] py-14 sm:py-20 lg:py-24">
+        <section className="bg-white dark:bg-[#0f1623] py-10 sm:py-14 lg:py-20">
           <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
-            <SectionLabel text="Other core systems" />
+            <SectionLabel text={t.otherCoreSystems ?? 'Other core systems'} />
             <h2
               className="text-gray-900 dark:text-white"
               style={{
@@ -970,9 +984,9 @@ export default function CoreSystemContent({
                 textDecoration: 'none',
               }}
             >
-              Five more systems,{' '}
+              {t.otherHeadline1 ?? 'Five more systems,'}{' '}
               <span style={{ color: theme.accent, fontWeight: 400 }}>
-                one continuous architecture
+                {t.otherHeadlineAccent ?? 'one continuous architecture'}
               </span>
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
@@ -1012,7 +1026,7 @@ export default function CoreSystemContent({
                           background: theme.accent,
                         }}
                       />
-                      Core System
+                      {t.coreSystemTag ?? 'Core System'}
                     </span>
                     <ArrowRight
                       size={18}
@@ -1050,7 +1064,7 @@ export default function CoreSystemContent({
         </section>
       )}
 
-      <CTABanner heading={item.ctaHeading} />
+      <CTABanner heading={ctaHeading} />
       <Footer />
       <ScrollToTop />
 

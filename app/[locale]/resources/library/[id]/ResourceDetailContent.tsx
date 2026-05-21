@@ -22,6 +22,7 @@ import ScrollProgressBar from '@/components/ScrollProgressBar'
 import type { ResourceItem, ResourceKind } from '@/content/resourceLibrary'
 import { RESOURCE_KIND_LABELS } from '@/content/resourceLibrary'
 import { localizedHref, type Locale } from '@/i18n/config'
+import { useI18n } from '@/i18n/I18nProvider'
 
 const EASE = [0.165, 0.84, 0.44, 1] as const
 
@@ -39,11 +40,25 @@ const KIND_ACCENTS: Record<ResourceKind, { accent: string; soft: string }> = {
   video: { accent: '#0033A0', soft: '#7DA8FF' },
 }
 
-const KIND_CTA: Record<ResourceKind, { label: string; Icon: LucideIcon }> = {
-  whitepaper: { label: 'Download PDF', Icon: Download },
-  github: { label: 'View on GitHub', Icon: Github },
-  demo: { label: 'Open demo', Icon: ExternalLink },
-  video: { label: 'Watch on YouTube', Icon: Youtube },
+const KIND_CTA_ICON: Record<ResourceKind, LucideIcon> = {
+  whitepaper: Download,
+  github: Github,
+  demo: ExternalLink,
+  video: Youtube,
+}
+
+const KIND_CTA_FALLBACK: Record<ResourceKind, string> = {
+  whitepaper: 'Download PDF',
+  github: 'View on GitHub',
+  demo: 'Open demo',
+  video: 'Watch on YouTube',
+}
+
+const KIND_CTA_KEY: Record<ResourceKind, string> = {
+  whitepaper: 'ctaDownloadPdf',
+  github: 'ctaViewOnGithub',
+  demo: 'ctaOpenDemo',
+  video: 'ctaWatchOnYoutube',
 }
 
 function youtubeEmbedUrl(url: string): string | null {
@@ -77,7 +92,10 @@ export default function ResourceDetailContent({
 }) {
   const { accent, soft } = KIND_ACCENTS[item.kind]
   const KindIcon = KIND_ICONS[item.kind]
-  const { label: ctaLabel, Icon: CtaIcon } = KIND_CTA[item.kind]
+  const CtaIcon = KIND_CTA_ICON[item.kind]
+  const { dict } = useI18n()
+  const tDetail = (((dict as Record<string, unknown>).resourceDetail) ?? {}) as Record<string, string>
+  const ctaLabel = tDetail[KIND_CTA_KEY[item.kind]] ?? KIND_CTA_FALLBACK[item.kind]
   const embedUrl = item.kind === 'video' ? youtubeEmbedUrl(item.url) : null
   const backHref = localizedHref('/resources/resources', locale)
 
@@ -125,7 +143,7 @@ export default function ResourceDetailContent({
             }}
           >
             <ArrowLeft size={14} strokeWidth={2} />
-            Back to resource library
+            {tDetail.back ?? 'Back to resource library'}
           </Link>
 
           <motion.div
@@ -204,7 +222,7 @@ export default function ResourceDetailContent({
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-8 sm:gap-12 lg:gap-20 items-start">
             <div>
-              <SectionLabel text="About this resource" />
+              <SectionLabel text={tDetail.aboutEyebrow ?? 'About this resource'} />
               <h2
                 className="text-gray-900 dark:text-white mt-6"
                 style={{
@@ -217,7 +235,7 @@ export default function ResourceDetailContent({
                   textDecoration: 'none',
                 }}
               >
-                What you'll get
+                {tDetail.aboutTitle ?? "What you'll get"}
               </h2>
               <p
                 className="text-gray-600 dark:text-gray-400"
@@ -228,13 +246,13 @@ export default function ResourceDetailContent({
                 }}
               >
                 {item.kind === 'whitepaper' &&
-                  'A long-form PDF you can read in-browser or download to share with your team.'}
+                  (tDetail.kindWhitepaper ?? 'A long-form PDF you can read in-browser or download to share with your team.')}
                 {item.kind === 'github' &&
-                  'An open-source repository with code, issues, and a README explaining how it fits together.'}
+                  (tDetail.kindGithub ?? 'An open-source repository with code, issues, and a README explaining how it fits together.')}
                 {item.kind === 'demo' &&
-                  'A working environment that demonstrates the capability live, no install required.'}
+                  (tDetail.kindDemo ?? 'A working environment that demonstrates the capability live, no install required.')}
                 {item.kind === 'video' &&
-                  'A recorded walkthrough you can watch end-to-end or jump through with chapter markers.'}
+                  (tDetail.kindVideo ?? 'A recorded walkthrough you can watch end-to-end or jump through with chapter markers.')}
               </p>
             </div>
             <div>
@@ -324,7 +342,7 @@ export default function ResourceDetailContent({
       {related.length > 0 && (
         <section className="bg-[#F8F4F0] dark:bg-[#0A1326] py-12 sm:py-16 lg:py-20">
           <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
-            <SectionLabel text={`More ${RESOURCE_KIND_LABELS[item.kind].toLowerCase()}`} />
+            <SectionLabel text={`${tDetail.relatedPrefix ?? 'More'} ${RESOURCE_KIND_LABELS[item.kind].toLowerCase()}`} />
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 mt-10">
               {related.map((r, i) => {
                 const RIcon = KIND_ICONS[r.kind]

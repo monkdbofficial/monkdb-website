@@ -10,6 +10,7 @@
 
 import { motion } from 'framer-motion'
 import SmartXLayout from '@/components/SmartXLayout'
+import { useI18n } from '@/i18n/I18nProvider'
 
 // Brand-aligned steel-blue. Replaces candy sky-blue #0EA5E9 with MonkDB primary.
 const ACCENT = '#1A38E8'
@@ -274,12 +275,14 @@ function OEEBreakdown() {
 }
 
 export default function SmartManufacturingContent() {
+  const { dict } = useI18n()
+  const t = (((dict as Record<string, unknown>).monkSmartmanufacturing) ?? {}) as Record<string, string>
   return (
     <SmartXLayout
-      crumb="MonkSmartX"
+      crumb={t.crumb ?? 'MonkSmartX'}
       industryLabel="Manufacturing"
-      title="Monk SmartManufacturing"
-      subtitle="Adaptive and intelligent manufacturing systems."
+      title={t.title ?? 'Monk SmartManufacturing'}
+      subtitle={t.subtitle ?? 'Adaptive and intelligent manufacturing systems.'}
       lead="Machine, sensor, and operational data on one continuous engine. Predictive maintenance, process optimization, and supervisory loops that close in line, not in batch."
       heroIllustration={<ManufacturingHero />}
       accent={ACCENT}
@@ -374,7 +377,7 @@ export default function SmartManufacturingContent() {
         role: 'Plant Manager',
         org: 'Forge Steel',
       }}
-      ctaHeading="Build a line that adapts in real time."
+      ctaHeading={t.ctaHeading ?? 'Build a line that adapts in real time.'}
     />
   )
 }

@@ -3,6 +3,7 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { useI18n } from '@/i18n/I18nProvider'
+import BgPattern from './effects/BgPattern'
 
 export default function Mission() {
   const ref = useRef(null)
@@ -13,9 +14,10 @@ export default function Mission() {
   return (
     <section
       ref={ref}
-      className="bg-white dark:bg-[#0f1623] overflow-hidden section-grid py-10 sm:py-14 lg:py-16"
+      className="relative bg-white dark:bg-[#0f1623] overflow-hidden section-grid py-10 sm:py-14 lg:py-16"
     >
-      <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
+      <BgPattern variant="grid" mask="fade-edges" size={48} fill="rgba(26,56,232,0.06)" />
+      <div className="relative z-10 max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
       <div className="grid grid-cols-1 lg:grid-cols-[42%_1fr] gap-8 lg:gap-10 items-center">
 
         {/* ── LEFT: Vector.svg + pulsing sonar rings ── */}

@@ -97,7 +97,7 @@ export default function UseCaseDetailContent({
         relatedItems.length > 0
           ? {
               eyebrow: cta.relatedTitle ?? 'Related',
-              title: 'Other use cases on MonkDB',
+              title: cta.otherUseCasesTitle ?? 'Other use cases on MonkDB',
               items: relatedItems,
               exploreCta: cta.exploreMore ?? 'Explore',
             }

@@ -62,6 +62,7 @@ export default function FeatureBanner() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0, ease: 'easeOut' }}
             whileHover={{
+              y: -3,
               boxShadow:
                 '0 0 0 1.5px rgba(127,179,255,0.5), 0 22px 60px rgba(10,34,128,0.36)',
               transition: { duration: 0.25 },
@@ -184,11 +185,10 @@ export default function FeatureBanner() {
             initial={{ opacity: 0, y: 50 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.15, ease: 'easeOut' }}
-            whileHover={{ boxShadow: '0 0 0 1.5px rgba(96,160,255,0.5), 0 20px 60px rgba(80,60,220,0.4)', rotateY: -2, rotateX: 1, transition: { duration: 0.25 } }}
+            whileHover={{ y: -3, boxShadow: '0 0 0 1.5px rgba(96,160,255,0.5), 0 20px 60px rgba(80,60,220,0.4)', transition: { duration: 0.25 } }}
             className="relative rounded-3xl overflow-hidden flex flex-col min-w-0"
             style={{
               background: 'linear-gradient(145deg, #0e1fa0 0%, #1530cc 30%, #1e44f0 60%, #2855ff 100%)',
-              transformStyle: 'preserve-3d',
             }}
           >
             {/* Wave SVG — right side decorative element */}
@@ -228,10 +228,10 @@ export default function FeatureBanner() {
               <div className="flex items-center gap-3 mt-4 sm:mt-6">
                 <div className="flex -space-x-2.5">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="https://i.pravatar.cc/80?img=11" alt="User" width={40} height={40}
+                  <img src="https://i.pravatar.cc/80?img=11" alt={t.userAvatarAlt ?? 'User'} width={40} height={40}
                     className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border-[2.5px] border-white object-cover flex-shrink-0" />
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="https://i.pravatar.cc/80?img=33" alt="User" width={40} height={40}
+                  <img src="https://i.pravatar.cc/80?img=33" alt={t.userAvatarAlt ?? 'User'} width={40} height={40}
                     className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border-[2.5px] border-white object-cover flex-shrink-0" />
                 </div>
                 <div>
@@ -255,11 +255,10 @@ export default function FeatureBanner() {
             initial={{ opacity: 0, y: 50 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.3, ease: 'easeOut' }}
-            whileHover={{ boxShadow: '0 0 0 1.5px rgba(160,96,255,0.4), 0 20px 60px rgba(100,40,200,0.35)', rotateY: 2, rotateX: -1, transition: { duration: 0.25 } }}
+            whileHover={{ y: -3, boxShadow: '0 0 0 1.5px rgba(160,96,255,0.4), 0 20px 60px rgba(100,40,200,0.35)', transition: { duration: 0.25 } }}
             className="relative rounded-3xl overflow-hidden flex flex-col min-w-0 md:col-span-2 xl:col-span-1"
             style={{
               background: 'linear-gradient(145deg, #0e1880 0%, #1230cc 40%, #1a2ae0 70%, #2040ff 100%)',
-              transformStyle: 'preserve-3d',
             }}
           >
             {/* Dot grid — animated drift */}

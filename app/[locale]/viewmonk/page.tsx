@@ -1,6 +1,9 @@
+import type { Metadata } from 'next'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import DownloadsEmbed from './DownloadsEmbed'
+import { getDictionary } from '@/i18n/dictionaries'
+import type { Locale } from '@/i18n/config'
 
 // The ViewMonk download page HTML lives on Cloudflare R2 so that release
 // builds can replace it without touching this codebase. We fetch the body
@@ -44,10 +47,10 @@ function stripGlobalSelectors(css: string): string {
   )
 }
 
-async function fetchEmbed(): Promise<Embed> {
+async function fetchEmbed(loadFailedMsg: string): Promise<Embed> {
   const res = await fetch(R2_URL, { next: { revalidate } })
   if (!res.ok) {
-    return { style: '', body: '<p>Failed to load download page.</p>' }
+    return { style: '', body: `<p>${loadFailedMsg}</p>` }
   }
   const html = await res.text()
   const rawStyle = html.match(/<style>([\s\S]*?)<\/style>/)?.[1] ?? ''
@@ -59,14 +62,29 @@ async function fetchEmbed(): Promise<Embed> {
   return { style, body }
 }
 
-export const metadata = {
-  title: 'ViewMonk Workbench: Download',
-  description:
-    'Download ViewMonk Workbench. The enterprise grade visual interface for AI native distributed databases.',
+export async function generateMetadata({
+  params,
+}: PageProps<'/[locale]/viewmonk'>): Promise<Metadata> {
+  const { locale } = await params
+  const dict = await getDictionary(locale as Locale)
+  const t = ((dict as Record<string, unknown>).viewmonk ?? {}) as Record<string, string>
+  return {
+    title: t.metaTitle ?? 'ViewMonk Workbench: Download',
+    description:
+      t.metaDescription ??
+      'Download ViewMonk Workbench. The enterprise grade visual interface for AI native distributed databases.',
+  }
 }
 
-export default async function DownloadsPage() {
-  const { style, body } = await fetchEmbed()
+export default async function DownloadsPage({
+  params,
+}: PageProps<'/[locale]/viewmonk'>) {
+  const { locale } = await params
+  const dict = await getDictionary(locale as Locale)
+  const t = ((dict as Record<string, unknown>).viewmonk ?? {}) as Record<string, string>
+  const { style, body } = await fetchEmbed(
+    t.loadFailed ?? 'Failed to load download page.',
+  )
   return (
     <main className="min-h-screen">
       <Navbar />

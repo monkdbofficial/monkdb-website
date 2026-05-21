@@ -31,7 +31,6 @@ import {
   Brain,
   Zap,
   CheckCircle2,
-  ArrowRight,
 } from 'lucide-react'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
@@ -39,94 +38,97 @@ import CTABanner from '@/components/CTABanner'
 import SectionLabel from '@/components/SectionLabel'
 import ScrollToTop from '@/components/ScrollToTop'
 import ScrollProgressBar from '@/components/ScrollProgressBar'
+import { useI18n } from '@/i18n/I18nProvider'
 
 // Deeper teal-cyan accent. Tones down the candy cyan (#06B6D4)
 // to an enterprise-grade shade that reads on dark + parchment surfaces.
 const ACCENT = '#0E8FA8'
 const EASE = [0.165, 0.84, 0.44, 1] as const
 
-const STATS = [
-  { value: '<1 ms', label: 'Local decision latency' },
-  { value: 'Offline', label: 'First-class capability' },
-  { value: '∞', label: 'Edge nodes per deployment' },
-  { value: 'Same binary', label: 'Edge as cloud' },
-]
-
-const CAPABILITIES = [
-  {
-    Icon: Radio,
-    title: 'Local data ingestion and processing',
-    body: 'Capture and process sensor, device, and event data in real time at the source. No broker, no buffering layer.',
-    chip: 'Native protocols',
-  },
-  {
-    Icon: Brain,
-    title: 'Stateful AI at the edge',
-    body: 'Maintain continuous context locally. Vector search, hybrid retrieval, and live inference run without cloud dependency.',
-    chip: 'Vector + SQL · in-place',
-  },
-  {
-    Icon: Zap,
-    title: 'Autonomous execution',
-    body: 'Trigger actions instantly: adjust machine parameters, reroute vehicles, respond to anomalies, directly from the edge.',
-    chip: 'In-engine triggers',
-  },
-  {
-    Icon: WifiOff,
-    title: 'Offline-first capability',
-    body: 'Continue operating in low-connectivity or fully disconnected environments. Reconcile with central systems on reconnect.',
-    chip: 'Resilient · network-tolerant',
-  },
-  {
-    Icon: RefreshCw,
-    title: 'Seamless cloud-edge synchronization',
-    body: 'Maintain consistency between edge nodes and central deployments with conflict-aware reconciliation.',
-    chip: 'Bi-directional sync',
-  },
-]
-
-const SCENARIOS = [
-  {
-    Icon: Factory,
-    label: 'Plant floor',
-    body: 'Sub-millisecond control loops on production lines. PLCs, vision, and quality stay live during cloud outages.',
-    spec: 'OPC UA · Modbus · IEC 62443',
-  },
-  {
-    Icon: Truck,
-    label: 'Connected vehicles',
-    body: 'Per-vehicle context and route decisions made onboard. Fleet sync continues over intermittent links.',
-    spec: 'CAN · OBU · OTA',
-  },
-  {
-    Icon: ShoppingBag,
-    label: 'Retail and venues',
-    body: 'Floor-level personalization and inventory intelligence. Continues operating through internet outages.',
-    spec: 'POS · WMS · in-store sensors',
-  },
-  {
-    Icon: Train,
-    label: 'Transit and logistics',
-    body: 'Schedule, routing, and condition monitoring at the depot, vehicle, and waypoint, on the same data plane.',
-    spec: 'GPS · CAN · telematics',
-  },
-  {
-    Icon: Stethoscope,
-    label: 'Healthcare and field',
-    body: 'Clinical and field telemetry processed at the source under HIPAA and regional data residency.',
-    spec: 'FHIR · DICOM · HIPAA',
-  },
-  {
-    Icon: Cpu,
-    label: 'Embedded systems',
-    body: 'Same binary on small footprints. Keep AI and decisioning local where data is generated.',
-    spec: 'ARM · x86 · low-power',
-  },
-]
-
 export default function MonkEdgeContent() {
   const heroRef = useRef<HTMLDivElement>(null)
   const heroInView = useInView(heroRef, { once: true, margin: '-80px' })
+  const { dict } = useI18n()
+  const t = (((dict as Record<string, unknown>).monkedgeContent) ?? {}) as Record<string, string>
+
+  const STATS = [
+    { value: t.stat1Value ?? '<1 ms', label: t.stat1Label ?? 'Local decision latency' },
+    { value: t.stat2Value ?? 'Offline', label: t.stat2Label ?? 'First-class capability' },
+    { value: t.stat3Value ?? '∞', label: t.stat3Label ?? 'Edge nodes per deployment' },
+    { value: t.stat4Value ?? 'Same binary', label: t.stat4Label ?? 'Edge as cloud' },
+  ]
+
+  const CAPABILITIES = [
+    {
+      Icon: Radio,
+      title: t.cap1Title ?? 'Local data ingestion and processing',
+      body: t.cap1Body ?? 'Capture and process sensor, device, and event data in real time at the source. No broker, no buffering layer.',
+      chip: t.cap1Chip ?? 'Native protocols',
+    },
+    {
+      Icon: Brain,
+      title: t.cap2Title ?? 'Stateful AI at the edge',
+      body: t.cap2Body ?? 'Maintain continuous context locally. Vector search, hybrid retrieval, and live inference run without cloud dependency.',
+      chip: t.cap2Chip ?? 'Vector + SQL · in-place',
+    },
+    {
+      Icon: Zap,
+      title: t.cap3Title ?? 'Autonomous execution',
+      body: t.cap3Body ?? 'Trigger actions instantly: adjust machine parameters, reroute vehicles, respond to anomalies, directly from the edge.',
+      chip: t.cap3Chip ?? 'In-engine triggers',
+    },
+    {
+      Icon: WifiOff,
+      title: t.cap4Title ?? 'Offline-first capability',
+      body: t.cap4Body ?? 'Continue operating in low-connectivity or fully disconnected environments. Reconcile with central systems on reconnect.',
+      chip: t.cap4Chip ?? 'Resilient · network-tolerant',
+    },
+    {
+      Icon: RefreshCw,
+      title: t.cap5Title ?? 'Seamless cloud-edge synchronization',
+      body: t.cap5Body ?? 'Maintain consistency between edge nodes and central deployments with conflict-aware reconciliation.',
+      chip: t.cap5Chip ?? 'Bi-directional sync',
+    },
+  ]
+
+  const SCENARIOS = [
+    {
+      Icon: Factory,
+      label: t.scenario1Label ?? 'Plant floor',
+      body: t.scenario1Body ?? 'Sub-millisecond control loops on production lines. PLCs, vision, and quality stay live during cloud outages.',
+      spec: t.scenario1Spec ?? 'OPC UA · Modbus · IEC 62443',
+    },
+    {
+      Icon: Truck,
+      label: t.scenario2Label ?? 'Connected vehicles',
+      body: t.scenario2Body ?? 'Per-vehicle context and route decisions made onboard. Fleet sync continues over intermittent links.',
+      spec: t.scenario2Spec ?? 'CAN · OBU · OTA',
+    },
+    {
+      Icon: ShoppingBag,
+      label: t.scenario3Label ?? 'Retail and venues',
+      body: t.scenario3Body ?? 'Floor-level personalization and inventory intelligence. Continues operating through internet outages.',
+      spec: t.scenario3Spec ?? 'POS · WMS · in-store sensors',
+    },
+    {
+      Icon: Train,
+      label: t.scenario4Label ?? 'Transit and logistics',
+      body: t.scenario4Body ?? 'Schedule, routing, and condition monitoring at the depot, vehicle, and waypoint, on the same data plane.',
+      spec: t.scenario4Spec ?? 'GPS · CAN · telematics',
+    },
+    {
+      Icon: Stethoscope,
+      label: t.scenario5Label ?? 'Healthcare and field',
+      body: t.scenario5Body ?? 'Clinical and field telemetry processed at the source under HIPAA and regional data residency.',
+      spec: t.scenario5Spec ?? 'FHIR · DICOM · HIPAA',
+    },
+    {
+      Icon: Cpu,
+      label: t.scenario6Label ?? 'Embedded systems',
+      body: t.scenario6Body ?? 'Same binary on small footprints. Keep AI and decisioning local where data is generated.',
+      spec: t.scenario6Spec ?? 'ARM · x86 · low-power',
+    },
+  ]
 
   return (
     <main className="min-h-screen bg-white dark:bg-[#0f1623]">
@@ -186,7 +188,7 @@ export default function MonkEdgeContent() {
                 }}
               >
                 <Cpu size={13} strokeWidth={2} />
-                Products · MonkEdge
+                {t.crumb ?? 'Products · MonkEdge'}
               </span>
               <h1
                 className="text-white"
@@ -200,7 +202,7 @@ export default function MonkEdgeContent() {
                   textDecoration: 'none',
                 }}
               >
-                Where decisions
+                {t.heroTitle1 ?? 'Where decisions'}
                 <br />
                 <span
                   style={{
@@ -214,7 +216,7 @@ export default function MonkEdgeContent() {
                     fontWeight: 400,
                   }}
                 >
-                  happen at the source.
+                  {t.heroTitle2 ?? 'happen at the source.'}
                 </span>
               </h1>
               <div
@@ -238,8 +240,7 @@ export default function MonkEdgeContent() {
                   maxWidth: '560px',
                 }}
               >
-                Real-time intelligence and execution, at the edge. Sense,
-                decide, act locally, without round trips to the cloud.
+                {t.heroLead ?? 'Real-time intelligence and execution, at the edge. Sense, decide, act locally, without round trips to the cloud.'}
               </p>
               <p
                 style={{
@@ -251,10 +252,7 @@ export default function MonkEdgeContent() {
                   maxWidth: '520px',
                 }}
               >
-                MonkEdge extends the MonkDB engine beyond centralized systems.
-                Ingestion, AI, and execution operate locally even in
-                disconnected environments, then synchronize with central
-                deployments on reconnect.
+                {t.heroBody ?? 'MonkEdge extends the MonkDB engine beyond centralized systems. Ingestion, AI, and execution operate locally even in disconnected environments, then synchronize with central deployments on reconnect.'}
               </p>
             </motion.div>
 
@@ -318,7 +316,7 @@ export default function MonkEdgeContent() {
                     color: ACCENT,
                   }}
                 >
-                  CLOUD
+                  {t.topoCloudLabel ?? 'CLOUD'}
                 </span>
               </div>
               <motion.div
@@ -339,12 +337,12 @@ export default function MonkEdgeContent() {
 
               {/* Edge nodes — 6 around the ring */}
               {[
-                { angle: -90, label: 'PLANT', Icon: Factory },
-                { angle: -30, label: 'VEHICLE', Icon: Truck },
-                { angle: 30, label: 'STORE', Icon: ShoppingBag },
-                { angle: 90, label: 'FIELD', Icon: Stethoscope },
-                { angle: 150, label: 'TRANSIT', Icon: Train },
-                { angle: 210, label: 'IOT', Icon: Cpu },
+                { angle: -90, label: t.topoNode1 ?? 'PLANT', Icon: Factory },
+                { angle: -30, label: t.topoNode2 ?? 'VEHICLE', Icon: Truck },
+                { angle: 30, label: t.topoNode3 ?? 'STORE', Icon: ShoppingBag },
+                { angle: 90, label: t.topoNode4 ?? 'FIELD', Icon: Stethoscope },
+                { angle: 150, label: t.topoNode5 ?? 'TRANSIT', Icon: Train },
+                { angle: 210, label: t.topoNode6 ?? 'IOT', Icon: Cpu },
               ].map((node, i) => {
                 const rad = (node.angle * Math.PI) / 180
                 const r = 45
@@ -487,7 +485,7 @@ export default function MonkEdgeContent() {
       </section>
 
       {/* ── 5 capabilities — bento layout ── */}
-      <section className="section-grid bg-white dark:bg-[#0f1623] py-14 sm:py-20 lg:py-28 relative overflow-hidden">
+      <section className="section-grid bg-white dark:bg-[#0f1623] py-10 sm:py-14 lg:py-20 relative overflow-hidden">
         <div
           aria-hidden="true"
           className="absolute pointer-events-none"
@@ -503,7 +501,7 @@ export default function MonkEdgeContent() {
         <div className="relative z-10 max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-6 sm:gap-10 lg:gap-16 items-end mb-12">
             <div>
-              <SectionLabel text="Capabilities" />
+              <SectionLabel text={t.capabilitiesLabel ?? 'Capabilities'} />
               <h2
                 className="text-gray-900 dark:text-white"
                 style={{
@@ -517,9 +515,9 @@ export default function MonkEdgeContent() {
                   textDecoration: 'none',
                 }}
               >
-                MonkDB execution,{' '}
+                {t.capabilitiesHeadline1 ?? 'MonkDB execution,'}{' '}
                 <span style={{ color: ACCENT, fontWeight: 400 }}>
-                  on every node
+                  {t.capabilitiesHeadlineAccent ?? 'on every node'}
                 </span>
               </h2>
             </div>
@@ -532,9 +530,7 @@ export default function MonkEdgeContent() {
                 maxWidth: '520px',
               }}
             >
-              Same binary, same semantics. Whether the deployment is a
-              hyperscaler region, an industrial gateway, or a single embedded
-              chip, MonkEdge runs the full execution loop locally.
+              {t.capabilitiesIntro ?? 'Same binary, same semantics. Whether the deployment is a hyperscaler region, an industrial gateway, or a single embedded chip, MonkEdge runs the full execution loop locally.'}
             </p>
           </div>
 
@@ -644,9 +640,9 @@ export default function MonkEdgeContent() {
       </section>
 
       {/* ── Deployment scenarios — 6-card grid with industry icons ── */}
-      <section className="bg-[#F8F4F0] dark:bg-[#0A1326] py-14 sm:py-20 lg:py-24">
+      <section className="bg-[#F8F4F0] dark:bg-[#0A1326] py-10 sm:py-14 lg:py-20">
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
-          <SectionLabel text="Where MonkEdge runs" />
+          <SectionLabel text={t.scenariosLabel ?? 'Where MonkEdge runs'} />
           <h2
             className="text-gray-900 dark:text-white"
             style={{
@@ -660,9 +656,9 @@ export default function MonkEdgeContent() {
               textDecoration: 'none',
             }}
           >
-            Six deployment realities,{' '}
+            {t.scenariosHeadline1 ?? 'Six deployment realities,'}{' '}
             <span style={{ color: ACCENT, fontWeight: 400, display: 'block' }}>
-              one execution layer
+              {t.scenariosHeadlineAccent ?? 'one execution layer'}
             </span>
           </h2>
 
@@ -736,7 +732,7 @@ export default function MonkEdgeContent() {
 
       {/* ── Edge-to-cloud sync diagram strip ── */}
       <section
-        className="relative overflow-hidden py-14 sm:py-20"
+        className="relative overflow-hidden py-10 sm:py-14 lg:py-20"
         style={{
           background:
             'linear-gradient(180deg, #050D6A 0%, #07091A 60%, #050D6A 100%)',
@@ -753,7 +749,7 @@ export default function MonkEdgeContent() {
           }}
         />
         <div className="relative z-10 max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
-          <SectionLabel text="Sync model" variant="dark" />
+          <SectionLabel text={t.syncLabel ?? 'Sync model'} variant="dark" />
           <h2
             className="text-white"
             style={{
@@ -767,9 +763,9 @@ export default function MonkEdgeContent() {
               textDecoration: 'none',
             }}
           >
-            Edge runs first.{' '}
+            {t.syncHeadline1 ?? 'Edge runs first.'}{' '}
             <span style={{ color: ACCENT, fontWeight: 400 }}>
-              Cloud reconciles.
+              {t.syncHeadlineAccent ?? 'Cloud reconciles.'}
             </span>
           </h2>
 
@@ -790,18 +786,18 @@ export default function MonkEdgeContent() {
             {[
               {
                 Icon: Activity,
-                title: 'Local capture and act',
-                body: 'Sensors, events, and decisions happen on the edge node, in single-millisecond budgets.',
+                title: t.syncStep1Title ?? 'Local capture and act',
+                body: t.syncStep1Body ?? 'Sensors, events, and decisions happen on the edge node, in single-millisecond budgets.',
               },
               {
                 Icon: Wifi,
-                title: 'Eventual reconciliation',
-                body: 'Edge state syncs to the central engine when connectivity is available, with conflict-aware merging.',
+                title: t.syncStep2Title ?? 'Eventual reconciliation',
+                body: t.syncStep2Body ?? 'Edge state syncs to the central engine when connectivity is available, with conflict-aware merging.',
               },
               {
                 Icon: Cloud,
-                title: 'Global visibility',
-                body: 'Central deployments see every edge node’s state. Policy and model updates fan back out.',
+                title: t.syncStep3Title ?? 'Global visibility',
+                body: t.syncStep3Body ?? 'Central deployments see every edge node’s state. Policy and model updates fan back out.',
               },
             ].map((step, i) => (
               <motion.div
@@ -883,7 +879,7 @@ export default function MonkEdgeContent() {
       </section>
 
       {/* ── Customer proof ── */}
-      <section className="bg-white dark:bg-[#0f1623] py-14 sm:py-20 lg:py-28">
+      <section className="bg-white dark:bg-[#0f1623] py-10 sm:py-14 lg:py-20">
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-8 sm:gap-12 lg:gap-16 items-start">
             <motion.figure
@@ -919,9 +915,7 @@ export default function MonkEdgeContent() {
                   textWrap: 'balance',
                 }}
               >
-                The plant kept running through a six-hour outage on the cloud
-                side. Operators barely noticed because the engine never left
-                the floor.
+                {t.quoteText ?? 'The plant kept running through a six-hour outage on the cloud side. Operators barely noticed because the engine never left the floor.'}
               </blockquote>
               <figcaption
                 className="mt-8 flex items-center gap-3"
@@ -941,7 +935,7 @@ export default function MonkEdgeContent() {
                     background: ACCENT,
                   }}
                 />
-                Plant Operations Lead, Forge Steel
+                {t.quoteRole ?? 'Plant Operations Lead, Forge Steel'}
               </figcaption>
             </motion.figure>
 
@@ -977,7 +971,7 @@ export default function MonkEdgeContent() {
                     color: ACCENT,
                   }}
                 >
-                  Edge in numbers
+                  {t.proofPanelLabel ?? 'Edge in numbers'}
                 </span>
               </div>
               <ul
@@ -985,9 +979,9 @@ export default function MonkEdgeContent() {
                 style={{ listStyle: 'none', padding: 0, margin: 0 }}
               >
                 {[
-                  { v: '6 h', l: 'Outage rode through with no production loss' },
-                  { v: '12 K', l: 'Edge nodes in production across customers' },
-                  { v: 'Same', l: 'Binary on every deployment target' },
+                  { v: t.proofMetric1Value ?? '6 h', l: t.proofMetric1Label ?? 'Outage rode through with no production loss' },
+                  { v: t.proofMetric2Value ?? '12 K', l: t.proofMetric2Label ?? 'Edge nodes in production across customers' },
+                  { v: t.proofMetric3Value ?? 'Same', l: t.proofMetric3Label ?? 'Binary on every deployment target' },
                 ].map((m, i) => (
                   <li
                     key={m.l}
@@ -1064,7 +1058,7 @@ export default function MonkEdgeContent() {
                     color: ACCENT,
                   }}
                 >
-                  Edge ready
+                  {t.trustLabel ?? 'Edge ready'}
                 </div>
                 <div
                   className="text-[#0A2280]"
@@ -1074,7 +1068,7 @@ export default function MonkEdgeContent() {
                     lineHeight: 1.3,
                   }}
                 >
-                  Battle-tested across regulated and remote environments
+                  {t.trustHeading ?? 'Battle-tested across regulated and remote environments'}
                 </div>
               </div>
             </div>
@@ -1087,10 +1081,10 @@ export default function MonkEdgeContent() {
                 'ISO 27001',
                 'IEC 62443',
                 'ISA-95',
-                'Air-gapped',
-                'ARM + x86',
+                t.trustCertAirGapped ?? 'Air-gapped',
+                t.trustCertArmX86 ?? 'ARM + x86',
                 'OPC UA',
-                'Linux + RTOS',
+                t.trustCertLinuxRtos ?? 'Linux + RTOS',
               ].map((c) => (
                 <li
                   key={c}
@@ -1123,7 +1117,7 @@ export default function MonkEdgeContent() {
         </div>
       </section>
 
-      <CTABanner heading="Run intelligence where the data is born." />
+      <CTABanner heading={t.ctaHeading ?? 'Run intelligence where the data is born.'} />
       <Footer />
       <ScrollToTop />
 

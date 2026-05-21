@@ -35,6 +35,7 @@ import ScrollToTop from '@/components/ScrollToTop'
 import ScrollProgressBar from '@/components/ScrollProgressBar'
 import { useI18n } from '@/i18n/I18nProvider'
 import { localizedHref } from '@/i18n/config'
+import { renderBrand } from '@/components/BrandAccent'
 
 // Enterprise-violet on MonkDB navy. Deeper than #8B5CF6 candy violet,
 // reads as a portfolio mark while staying brand-coherent.
@@ -50,90 +51,91 @@ type Product = {
   body: string
 }
 
-const PORTFOLIO: Product[] = [
-  {
-    slug: 'smartmine',
-    name: 'Monk SmartMine',
-    industry: 'Mining',
-    Icon: Pickaxe,
-    accent: '#B45309',
-    body: 'Real-time operational intelligence for mining ecosystems. Ventilation-on-demand, predictive maintenance, safety.',
-  },
-  {
-    slug: 'smartmobility',
-    name: 'Monk SmartMobility',
-    industry: 'Mobility',
-    Icon: Truck,
-    accent: '#0E8FA8',
-    body: 'Connected and autonomous mobility at fleet and city scale. Dynamic routing, fleet optimization, predictive mobility.',
-  },
-  {
-    slug: 'smartfinance',
-    name: 'Monk SmartFinance',
-    industry: 'BFSI',
-    Icon: Banknote,
-    accent: '#0E8F66',
-    body: 'Real-time financial intelligence and risk management. Fraud, risk scoring, AML, audit-grade lineage.',
-  },
-  {
-    slug: 'smarttrade',
-    name: 'Monk SmartTrade',
-    industry: 'Trading',
-    Icon: TrendingUp,
-    accent: '#7C3AED',
-    body: 'AI-native trading and execution systems. Multi-source signal fusion, risk-aware strategies, continuous learning.',
-  },
-  {
-    slug: 'smartretail',
-    name: 'Monk SmartRetail',
-    industry: 'Retail',
-    Icon: ShoppingBag,
-    accent: '#B14593',
-    body: 'Real-time customer and operations intelligence. Personalization, demand forecasting, dynamic pricing.',
-  },
-  {
-    slug: 'smartmanufacturing',
-    name: 'Monk SmartManufacturing',
-    industry: 'Manufacturing',
-    Icon: Factory,
-    accent: '#1A38E8',
-    body: 'Adaptive manufacturing systems. Predictive maintenance, process optimization, real-time control loops.',
-  },
-]
-
-const VALUE_PILLARS = [
-  {
-    Icon: Sparkles,
-    title: 'Domain-specific data and workflows',
-    body: 'Pre-modeled schemas, ingestion paths, and workflows tuned to each industry.',
-  },
-  {
-    Icon: Layers,
-    title: 'Real-time operational context',
-    body: 'Live state for every entity that matters in the domain.',
-  },
-  {
-    Icon: Wand2,
-    title: 'Automated decisioning',
-    body: 'Models, rules, and policy that run continuously, not on demand.',
-  },
-  {
-    Icon: Cpu,
-    title: 'Direct business-system execution',
-    body: 'Actions land in the systems that operate the business, not a side dashboard.',
-  },
-]
-
-const TIME_TO_VALUE = [
-  { value: '2 wks', label: 'PoV scoping with the SmartX team' },
-  { value: '6–8 wks', label: 'Production-grade pilot deployment' },
-  { value: '~1 quarter', label: 'Time-to-ROI on representative customers' },
-]
-
 export default function MonkSmartXHubContent() {
-  const { locale } = useI18n()
+  const { locale, dict } = useI18n()
   const heroRef = useRef<HTMLDivElement>(null)
   const heroInView = useInView(heroRef, { once: true, margin: '-80px' })
+  const t = (((dict as Record<string, unknown>).monksmartxHubContent) ?? {}) as Record<string, string>
+
+  const PORTFOLIO: Product[] = [
+    {
+      slug: 'smartmine',
+      name: 'Monk SmartMine',
+      industry: t.industryMining ?? 'Mining',
+      Icon: Pickaxe,
+      accent: '#B45309',
+      body: t.product1Body ?? 'Real-time operational intelligence for mining ecosystems. Ventilation-on-demand, predictive maintenance, safety.',
+    },
+    {
+      slug: 'smartmobility',
+      name: 'Monk SmartMobility',
+      industry: t.industryMobility ?? 'Mobility',
+      Icon: Truck,
+      accent: '#0E8FA8',
+      body: t.product2Body ?? 'Connected and autonomous mobility at fleet and city scale. Dynamic routing, fleet optimization, predictive mobility.',
+    },
+    {
+      slug: 'smartfinance',
+      name: 'Monk SmartFinance',
+      industry: t.industryBfsi ?? 'BFSI',
+      Icon: Banknote,
+      accent: '#0E8F66',
+      body: t.product3Body ?? 'Real-time financial intelligence and risk management. Fraud, risk scoring, AML, audit-grade lineage.',
+    },
+    {
+      slug: 'smarttrade',
+      name: 'Monk SmartTrade',
+      industry: t.industryTrading ?? 'Trading',
+      Icon: TrendingUp,
+      accent: '#7C3AED',
+      body: t.product4Body ?? 'AI-native trading and execution systems. Multi-source signal fusion, risk-aware strategies, continuous learning.',
+    },
+    {
+      slug: 'smartretail',
+      name: 'Monk SmartRetail',
+      industry: t.industryRetail ?? 'Retail',
+      Icon: ShoppingBag,
+      accent: '#B14593',
+      body: t.product5Body ?? 'Real-time customer and operations intelligence. Personalization, demand forecasting, dynamic pricing.',
+    },
+    {
+      slug: 'smartmanufacturing',
+      name: 'Monk SmartManufacturing',
+      industry: t.industryManufacturing ?? 'Manufacturing',
+      Icon: Factory,
+      accent: '#1A38E8',
+      body: t.product6Body ?? 'Adaptive manufacturing systems. Predictive maintenance, process optimization, real-time control loops.',
+    },
+  ]
+
+  const VALUE_PILLARS = [
+    {
+      Icon: Sparkles,
+      title: t.value1Title ?? 'Domain-specific data and workflows',
+      body: t.value1Body ?? 'Pre-modeled schemas, ingestion paths, and workflows tuned to each industry.',
+    },
+    {
+      Icon: Layers,
+      title: t.value2Title ?? 'Real-time operational context',
+      body: t.value2Body ?? 'Live state for every entity that matters in the domain.',
+    },
+    {
+      Icon: Wand2,
+      title: t.value3Title ?? 'Automated decisioning',
+      body: t.value3Body ?? 'Models, rules, and policy that run continuously, not on demand.',
+    },
+    {
+      Icon: Cpu,
+      title: t.value4Title ?? 'Direct business-system execution',
+      body: t.value4Body ?? 'Actions land in the systems that operate the business, not a side dashboard.',
+    },
+  ]
+
+  const TIME_TO_VALUE = [
+    { value: t.ttv1Value ?? '2 wks', label: t.ttv1Label ?? 'PoV scoping with the SmartX team' },
+    { value: t.ttv2Value ?? '6–8 wks', label: t.ttv2Label ?? 'Production-grade pilot deployment' },
+    { value: t.ttv3Value ?? '~1 quarter', label: t.ttv3Label ?? 'Time-to-ROI on representative customers' },
+  ]
 
   return (
     <main className="min-h-screen bg-white dark:bg-[#0f1623]">
@@ -193,7 +195,7 @@ export default function MonkSmartXHubContent() {
                 }}
               >
                 <Boxes size={13} strokeWidth={2} />
-                Products · MonkSmartX
+                {t.crumb ?? 'Products · MonkSmartX'}
               </span>
               <h1
                 className="text-white"
@@ -207,7 +209,7 @@ export default function MonkSmartXHubContent() {
                   textDecoration: 'none',
                 }}
               >
-                Domain intelligence,
+                {t.heroTitle1 ?? 'Domain intelligence,'}
                 <br />
                 <span
                   style={{
@@ -221,7 +223,7 @@ export default function MonkSmartXHubContent() {
                     fontWeight: 400,
                   }}
                 >
-                  on MonkDB.
+                  {renderBrand(t.heroTitle2 ?? 'on MonkDB.')}
                 </span>
               </h1>
               <div
@@ -245,9 +247,7 @@ export default function MonkSmartXHubContent() {
                   maxWidth: '560px',
                 }}
               >
-                A suite of domain-driven intelligent platforms built on
-                MonkDB. Production-grade execution systems, tailored to every
-                industry.
+                {t.heroLead ?? 'A suite of domain-driven intelligent platforms built on MonkDB. Production-grade execution systems, tailored to every industry.'}
               </p>
               <p
                 style={{
@@ -259,9 +259,7 @@ export default function MonkSmartXHubContent() {
                   maxWidth: '520px',
                 }}
               >
-                MonkDB provides the unified foundation. MonkSmartX brings
-                industry-specific intelligence and execution. Adopt instead of
-                build.
+                {t.heroBody ?? 'MonkDB provides the unified foundation. MonkSmartX brings industry-specific intelligence and execution. Adopt instead of build.'}
               </p>
             </motion.div>
 
@@ -323,7 +321,7 @@ export default function MonkSmartXHubContent() {
                     letterSpacing: '-0.005em',
                   }}
                 >
-                  SmartX Suite
+                  {t.hubLabel ?? 'SmartX Suite'}
                 </span>
                 <span
                   style={{
@@ -336,7 +334,7 @@ export default function MonkSmartXHubContent() {
                     marginTop: 2,
                   }}
                 >
-                  6 PRODUCTS
+                  {t.hubProductCount ?? '6 PRODUCTS'}
                 </span>
               </div>
               <motion.div
@@ -423,7 +421,7 @@ export default function MonkSmartXHubContent() {
       </section>
 
       {/* ── Why SmartX — 4 value pillars ── */}
-      <section className="bg-white dark:bg-[#0f1623] py-14 sm:py-20 lg:py-24 section-grid relative">
+      <section className="bg-white dark:bg-[#0f1623] py-10 sm:py-14 lg:py-20 section-grid relative">
         <div
           aria-hidden="true"
           className="absolute pointer-events-none"
@@ -439,7 +437,7 @@ export default function MonkSmartXHubContent() {
         <div className="relative z-10 max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-6 sm:gap-10 lg:gap-16 items-end mb-12">
             <div>
-              <SectionLabel text="Why SmartX" />
+              <SectionLabel text={t.valuesLabel ?? 'Why SmartX'} />
               <h2
                 className="text-gray-900 dark:text-white"
                 style={{
@@ -453,9 +451,9 @@ export default function MonkSmartXHubContent() {
                   textDecoration: 'none',
                 }}
               >
-                Adopt instead of{' '}
+                {t.valuesHeadline1 ?? 'Adopt instead of'}{' '}
                 <span style={{ color: ACCENT, fontWeight: 400 }}>
-                  build from scratch
+                  {t.valuesHeadlineAccent ?? 'build from scratch'}
                 </span>
               </h2>
             </div>
@@ -468,9 +466,7 @@ export default function MonkSmartXHubContent() {
                 maxWidth: '520px',
               }}
             >
-              Every SmartX platform inherits the MonkDB unified data plane and
-              adds production-grade industry intelligence on top. You get the
-              foundation and the domain knowledge in one deployment.
+              {t.valuesIntro ?? 'Every SmartX platform inherits the MonkDB unified data plane and adds production-grade industry intelligence on top. You get the foundation and the domain knowledge in one deployment.'}
             </p>
           </div>
 
@@ -541,9 +537,9 @@ export default function MonkSmartXHubContent() {
       </section>
 
       {/* ── Portfolio — 6 product cards in a 3×2 grid ── */}
-      <section className="bg-[#F8F4F0] dark:bg-[#0A1326] py-14 sm:py-20 lg:py-24">
+      <section className="bg-[#F8F4F0] dark:bg-[#0A1326] py-10 sm:py-14 lg:py-20">
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
-          <SectionLabel text="The portfolio" />
+          <SectionLabel text={t.portfolioLabel ?? 'The portfolio'} />
           <h2
             className="text-gray-900 dark:text-white"
             style={{
@@ -557,9 +553,9 @@ export default function MonkSmartXHubContent() {
               textDecoration: 'none',
             }}
           >
-            Six production platforms,{' '}
+            {t.portfolioHeadline1 ?? 'Six production platforms,'}{' '}
             <span style={{ color: ACCENT, fontWeight: 400 }}>
-              all on MonkDB
+              {renderBrand(t.portfolioHeadlineAccent ?? 'all on MonkDB')}
             </span>
           </h2>
 
@@ -665,7 +661,7 @@ export default function MonkSmartXHubContent() {
                         fontWeight: 600,
                       }}
                     >
-                      <span>Explore</span>
+                      <span>{t.exploreLabel ?? 'Explore'}</span>
                       <span
                         aria-hidden="true"
                         className="smartx-portfolio-arrow inline-flex items-center justify-center"
@@ -690,7 +686,7 @@ export default function MonkSmartXHubContent() {
 
       {/* ── Time-to-value strip ── */}
       <section
-        className="relative overflow-hidden py-14 sm:py-20"
+        className="relative overflow-hidden py-10 sm:py-14 lg:py-20"
         style={{
           background:
             'linear-gradient(180deg, #050D6A 0%, #07091A 60%, #1B1244 100%)',
@@ -707,7 +703,7 @@ export default function MonkSmartXHubContent() {
           }}
         />
         <div className="relative z-10 max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
-          <SectionLabel text="Time to value" variant="dark" />
+          <SectionLabel text={t.ttvLabel ?? 'Time to value'} variant="dark" />
           <h2
             className="text-white"
             style={{
@@ -721,9 +717,9 @@ export default function MonkSmartXHubContent() {
               textDecoration: 'none',
             }}
           >
-            Production-grade in{' '}
+            {t.ttvHeadline1 ?? 'Production-grade in'}{' '}
             <span style={{ color: ACCENT, fontWeight: 400 }}>
-              one quarter
+              {t.ttvHeadlineAccent ?? 'one quarter'}
             </span>
           </h2>
 
@@ -789,7 +785,7 @@ export default function MonkSmartXHubContent() {
       </section>
 
       {/* ── Extendable platform message ── */}
-      <section className="bg-white dark:bg-[#0f1623] py-14 sm:py-20">
+      <section className="bg-white dark:bg-[#0f1623] py-10 sm:py-14 lg:py-20">
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <motion.div
             initial={{ opacity: 0, y: 14 }}
@@ -802,19 +798,20 @@ export default function MonkSmartXHubContent() {
             }}
           >
             <div>
-              <SectionLabel text="Extendable" />
+              <SectionLabel text={t.extendableLabel ?? 'Extendable'} />
               <h3
-                className="text-[#0A2280] dark:text-white mt-6"
+                className="text-[#0A2280] dark:text-white"
                 style={{
                   fontSize: 'clamp(24px, 3vw, 38px)',
                   fontWeight: 300,
                   letterSpacing: '-0.012em',
                   lineHeight: 1.2,
                   margin: '24px 0 0 0',
+                  maxWidth: 'clamp(420px, 80%, 640px)',
                   textWrap: 'balance',
                 }}
               >
-                MonkSmartX is not limited to predefined solutions.
+                {t.extendableTitle ?? 'MonkSmartX is not limited to predefined solutions.'}
               </h3>
             </div>
             <p
@@ -826,16 +823,13 @@ export default function MonkSmartXHubContent() {
                 margin: 0,
               }}
             >
-              New domain-specific platforms can be built rapidly on MonkDB,
-              extending intelligence and execution into any industry or
-              function. The same primitives, the same operational model, the
-              same trust boundary.
+              {t.extendableBody ?? 'New domain-specific platforms can be built rapidly on MonkDB, extending intelligence and execution into any industry or function. The same primitives, the same operational model, the same trust boundary.'}
             </p>
           </motion.div>
         </div>
       </section>
 
-      <CTABanner heading="Adopt domain intelligence. Skip the build." />
+      <CTABanner heading={t.ctaHeading ?? 'Adopt domain intelligence. Skip the build.'} />
       <Footer />
       <ScrollToTop />
 

@@ -65,8 +65,10 @@ import Navbar from './Navbar'
 import Footer from './Footer'
 import CTABanner from './CTABanner'
 import SectionLabel from './SectionLabel'
+import { renderBrand } from './BrandAccent'
 import ScrollToTop from './ScrollToTop'
 import ScrollProgressBar from './ScrollProgressBar'
+import { useI18n } from '@/i18n/I18nProvider'
 
 const EASE = [0.165, 0.84, 0.44, 1] as const
 
@@ -185,6 +187,8 @@ export type SmartXLayoutProps = {
 export default function SmartXLayout(props: SmartXLayoutProps) {
   const heroRef = useRef<HTMLDivElement>(null)
   const heroInView = useInView(heroRef, { once: true, margin: '-80px' })
+  const { dict } = useI18n()
+  const t = (((dict as Record<string, unknown>).smartxLayout) ?? {}) as Record<string, string>
 
   const accentSoft = `${props.accent}1A` // ~10% opacity hex
   const accentBg = `${props.accent}14`
@@ -292,7 +296,7 @@ export default function SmartXLayout(props: SmartXLayoutProps) {
                   textDecoration: 'none',
                 }}
               >
-                {props.title}
+                {renderBrand(props.title)}
               </h1>
               {/* accent rule */}
               <div
@@ -427,7 +431,7 @@ export default function SmartXLayout(props: SmartXLayoutProps) {
           />
 
           <div className="relative z-10 max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
-            <SectionLabel text="How it works" variant="dark" />
+            <SectionLabel text={t.howItWorksLabel ?? 'How it works'} variant="dark" />
             <h2
               className="text-white"
               style={{
@@ -441,7 +445,7 @@ export default function SmartXLayout(props: SmartXLayoutProps) {
                 textDecoration: 'none',
               }}
             >
-              The production loop, end to end
+              {t.howItWorksTitle ?? 'The production loop, end to end'}
             </h2>
 
             {/* Desktop horizontal flow */}
@@ -586,8 +590,8 @@ export default function SmartXLayout(props: SmartXLayoutProps) {
                       <h3
                         className="text-white"
                         style={{
-                          fontSize: '15px',
-                          fontWeight: 500,
+                          fontSize: 'clamp(15px, 1.4vw, 20px)',
+                          fontWeight: 400,
                           lineHeight: 1.25,
                           margin: 0,
                         }}
@@ -643,7 +647,7 @@ export default function SmartXLayout(props: SmartXLayoutProps) {
                 textDecoration: 'none',
               }}
             >
-              {props.midBlock.title}
+              {renderBrand(props.midBlock.title)}
             </h2>
             <div className="mt-8">{props.midBlock.body}</div>
           </div>
@@ -670,7 +674,7 @@ export default function SmartXLayout(props: SmartXLayoutProps) {
         <div className="relative z-10 max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-6 sm:gap-10 lg:gap-16 items-end mb-10 sm:mb-14">
             <div>
-              <SectionLabel text="Capabilities" />
+              <SectionLabel text={t.capabilitiesLabel ?? 'Capabilities'} />
               <h2
                 className="text-gray-900 dark:text-white"
                 style={{
@@ -684,9 +688,9 @@ export default function SmartXLayout(props: SmartXLayoutProps) {
                   textDecoration: 'none',
                 }}
               >
-                What you get{' '}
+                {t.capabilitiesHeadline1 ?? 'What you get'}{' '}
                 <span style={{ color: props.accent, fontWeight: 400 }}>
-                  on day one
+                  {t.capabilitiesHeadlineAccent ?? 'on day one'}
                 </span>
               </h2>
             </div>
@@ -700,8 +704,7 @@ export default function SmartXLayout(props: SmartXLayoutProps) {
                 maxWidth: '520px',
               }}
             >
-              Production-grade primitives, wired into a continuous engine. No
-              glue code, no second-system integration, no batch wait.
+              {t.capabilitiesIntro ?? 'Production-grade primitives, wired into a continuous engine. No glue code, no second-system integration, no batch wait.'}
             </p>
           </div>
 
@@ -797,7 +800,7 @@ export default function SmartXLayout(props: SmartXLayoutProps) {
                         margin: '0 0 10px 0',
                       }}
                     >
-                      {c.title}
+                      {renderBrand(c.title)}
                     </h3>
                     <p
                       className="text-gray-600 dark:text-gray-400"
@@ -861,7 +864,7 @@ export default function SmartXLayout(props: SmartXLayoutProps) {
                         color: 'rgba(10,34,128,0.4)',
                       }}
                     >
-                      Native
+                      {t.nativeTag ?? 'Native'}
                     </span>
                   </div>
                 </motion.div>
@@ -891,7 +894,7 @@ export default function SmartXLayout(props: SmartXLayoutProps) {
           <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
             <div className="grid grid-cols-1 lg:grid-cols-[0.45fr_0.55fr] gap-6 sm:gap-10 lg:gap-16 items-start">
               <div>
-                <SectionLabel text="Ecosystem" />
+                <SectionLabel text={t.ecosystemLabel ?? 'Ecosystem'} />
                 <h2
                   className="text-gray-900 dark:text-white"
                   style={{
@@ -905,11 +908,11 @@ export default function SmartXLayout(props: SmartXLayoutProps) {
                     textDecoration: 'none',
                   }}
                 >
-                  Plugs into the tools{' '}
+                  {t.ecosystemHeadline1 ?? 'Plugs into the tools'}{' '}
                   <span
                     style={{ color: props.accent, fontWeight: 400 }}
                   >
-                    you already run
+                    {t.ecosystemHeadlineAccent ?? 'you already run'}
                   </span>
                 </h2>
               </div>
@@ -984,7 +987,7 @@ export default function SmartXLayout(props: SmartXLayoutProps) {
       {/* ── Customer proof — quote + metrics box ── */}
       <section className="bg-white dark:bg-[#0f1623] py-14 sm:py-20 lg:py-28">
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
-          <SectionLabel text="In production" />
+          <SectionLabel text={t.inProductionLabel ?? 'In production'} />
           <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-8 sm:gap-12 lg:gap-16 items-start mt-6 sm:mt-10 lg:mt-12">
             <motion.figure
               initial={{ opacity: 0, y: 14 }}
@@ -1085,7 +1088,7 @@ export default function SmartXLayout(props: SmartXLayoutProps) {
                       color: props.accent,
                     }}
                   >
-                    Year-one impact
+                    {t.yearOneImpact ?? 'Year-one impact'}
                   </span>
                 </div>
                 <ul
@@ -1174,7 +1177,7 @@ export default function SmartXLayout(props: SmartXLayoutProps) {
                       color: props.accent,
                     }}
                   >
-                    Trust
+                    {t.trustLabel ?? 'Trust'}
                   </div>
                   <div
                     className="text-[#0A2280]"
@@ -1185,7 +1188,7 @@ export default function SmartXLayout(props: SmartXLayoutProps) {
                       letterSpacing: '-0.005em',
                     }}
                   >
-                    Built for regulated, sovereign deployments
+                    {t.trustHeading ?? 'Built for regulated, sovereign deployments'}
                   </div>
                 </div>
               </div>

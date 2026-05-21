@@ -14,14 +14,7 @@
  */
 
 import { useRef } from 'react'
-import {
-  motion,
-  useInView,
-  useMotionValue,
-  useSpring,
-  useTransform,
-} from 'framer-motion'
-import type { MouseEvent } from 'react'
+import { motion, useInView } from 'framer-motion'
 import SectionLabel from './SectionLabel'
 import { useI18n } from '@/i18n/I18nProvider'
 
@@ -393,68 +386,35 @@ function TiltCard({
   index: number
   active: boolean
 }) {
-  const cardRef = useRef<HTMLDivElement>(null)
-  const x = useMotionValue(0)
-  const y = useMotionValue(0)
-  const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [6, -6]), {
-    stiffness: 220,
-    damping: 26,
-  })
-  const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-6, 6]), {
-    stiffness: 220,
-    damping: 26,
-  })
-
-  function handleMouseMove(e: MouseEvent<HTMLDivElement>) {
-    const rect = cardRef.current?.getBoundingClientRect()
-    if (!rect) return
-    x.set((e.clientX - rect.left) / rect.width - 0.5)
-    y.set((e.clientY - rect.top) / rect.height - 0.5)
-  }
-  function handleMouseLeave() {
-    x.set(0)
-    y.set(0)
-  }
-
   return (
     <motion.div
-      ref={cardRef}
       initial={{ opacity: 0, y: 24 }}
       animate={active ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.7, delay: 0.3 + index * 0.1, ease: EASE }}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
+      whileHover={{ y: -3, transition: { duration: 0.25 } }}
+      className="cd-card relative rounded-2xl overflow-hidden"
       style={{
-        rotateX,
-        rotateY,
-        transformStyle: 'preserve-3d',
-        perspective: 900,
+        background:
+          'linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.015) 100%)',
+        border: '1px solid rgba(255,255,255,0.10)',
+        padding: 'clamp(22px, 2.4vw, 32px)',
+        backdropFilter: 'blur(8px)',
+        minHeight: 'clamp(340px, 30vw, 380px)',
       }}
     >
-      <motion.div
-        className="relative rounded-2xl overflow-hidden"
+      {/* Top accent rule */}
+      <span
+        aria-hidden="true"
+        className="absolute top-0 left-0 right-0"
         style={{
+          height: '1px',
           background:
-            'linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.015) 100%)',
-          border: '1px solid rgba(255,255,255,0.10)',
-          padding: 'clamp(22px, 2.4vw, 32px)',
-          backdropFilter: 'blur(8px)',
-          minHeight: 'clamp(340px, 30vw, 380px)',
+            'linear-gradient(90deg, transparent, rgba(127,179,255,0.55), transparent)',
         }}
-      >
-        {/* Top accent rule */}
-        <span
-          aria-hidden="true"
-          className="absolute top-0 left-0 right-0"
-          style={{
-            height: '1px',
-            background:
-              'linear-gradient(90deg, transparent, rgba(127,179,255,0.55), transparent)',
-          }}
-        />
+      />
 
-        {/* Lifted content */}
-        <div style={{ transform: 'translateZ(24px)', position: 'relative' }}>
+      {/* Content */}
+      <div style={{ position: 'relative' }}>
           {/* Mono index + tag */}
           <div className="flex items-center justify-between mb-4">
             <span
@@ -519,8 +479,7 @@ function TiltCard({
           >
             {card.body}
           </p>
-        </div>
-      </motion.div>
+      </div>
     </motion.div>
   )
 }
@@ -568,7 +527,7 @@ export default function CoreDifferentiation() {
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden py-12 sm:py-20 lg:py-28"
+      className="relative overflow-hidden py-10 sm:py-14 lg:py-20"
       style={{
         background:
           'linear-gradient(180deg, #050D6A 0%, #07091A 60%, #050D6A 100%)',

@@ -136,12 +136,25 @@ function SQLBlock() {
   )
 }
 
-const readinessProofs = [
-  ['1 process', '0 sidecars', '0 YAML files'],
-  ['C++20', 'Vectorized', 'ARM + x86_64'],
-  ['SQL', 'gRPC', 'REST', 'Kafka', 'JDBC'],
-  ['On-Prem', 'Air-Gapped', 'SOC 2', 'ISO 27001'],
-]
+// readinessProofs are partly tech terms (gRPC, REST, SQL, etc.) and partly
+// translatable. Each row is built at runtime so '1 process', 'Vectorized', etc.
+// can come from the dictionary.
+function buildReadinessProofs(t: Record<string, string>): string[][] {
+  return [
+    [
+      t.readinessProof1Item1 ?? '1 process',
+      t.readinessProof1Item2 ?? '0 sidecars',
+      t.readinessProof1Item3 ?? '0 YAML files',
+    ],
+    [
+      t.readinessProof2Item1 ?? 'C++20',
+      t.readinessProof2Item2 ?? 'Vectorized',
+      t.readinessProof2Item3 ?? 'ARM + x86_64',
+    ],
+    ['SQL', 'gRPC', 'REST', 'Kafka', 'JDBC'],
+    ['On-Prem', 'Air-Gapped', 'SOC 2', 'ISO 27001'],
+  ]
+}
 
 const EASE = [0.165, 0.84, 0.44, 1] as const
 
@@ -150,6 +163,7 @@ export default function AIReady() {
   const isInView = useInView(ref, { once: true, margin: '-80px' })
   const { dict } = useI18n()
   const t = (((dict as Record<string, unknown>).aiReady) ?? {}) as Record<string, string>
+  const readinessProofs = buildReadinessProofs(t)
   const readiness = [
     { n: '01', label: t.row1Label, headline: t.row1Headline, body: t.row1Body, proof: readinessProofs[0] },
     { n: '02', label: t.row2Label, headline: t.row2Headline, body: t.row2Body, proof: readinessProofs[1] },
@@ -242,14 +256,18 @@ export default function AIReady() {
               title: 'Monk AIO',
               sub: t.card1Sub,
               body: t.card1Body,
-              tags: ['Autonomous', 'Real-time', 'Sovereign'],
+              tags: [
+                t.monkAioTag1 ?? 'Autonomous',
+                t.monkAioTag2 ?? 'Real-time',
+                t.monkAioTag3 ?? 'Sovereign',
+              ],
             },
             {
               kicker: t.card2Kicker,
               title: 'SmartX Platforms',
               sub: t.card2Sub,
               body: t.card2Body,
-              tags: ['SmartMine', 'SmartMobility', 'SmartFinance', '+ more'],
+              tags: ['SmartMine', 'SmartMobility', 'SmartFinance', t.smartxMore ?? '+ more'],
             },
           ].map((card) => (
             <article

@@ -211,7 +211,7 @@ export default function Hero() {
           {/* H1 */}
           <h1
             className="text-white mb-4 sm:mb-7"
-            style={{ fontSize: 'clamp(34px, 6vw, 88px)', fontWeight: 300, lineHeight: 1.05, letterSpacing: '-0.02em' }}
+            style={{ fontSize: 'clamp(34px, 6vw, 88px)', fontWeight: 300, lineHeight: 1.05, letterSpacing: '-0.02em', textDecoration: 'none' }}
           >
             <span className="block overflow-hidden">
               {titleWordsLine1.map((w, i) => (
@@ -354,7 +354,7 @@ export default function Hero() {
         <div className="flex-shrink-0 w-[130px] h-[100px] rounded-xl overflow-hidden relative" style={{ background: '#060818' }}>
           <img
             src="/3d-shapes-glowing-with-bright-holographic-colors 1.svg"
-            alt="MonkDB visual"
+            alt={t.visualAlt ?? 'MonkDB visual'}
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 flex items-center justify-center gap-3">

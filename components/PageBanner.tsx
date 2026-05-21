@@ -19,6 +19,40 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { useI18n } from '@/i18n/I18nProvider'
 import { locales } from '@/i18n/config'
+import { renderBrand } from './BrandAccent'
+import FloatingShapes from './effects/FloatingShapes'
+import BeamsBackground from './effects/BeamsBackground'
+import FallingPattern from './effects/FallingPattern'
+import Aurora from './effects/Aurora'
+import Spotlight from './effects/Spotlight'
+import GridBeam from './effects/GridBeam'
+import Constellation from './effects/Constellation'
+
+export type PageBannerVariant =
+  | 'shapes'        // calm drifting pills (about / company)
+  | 'beams'         // diagonal canvas beams (why-choose-us / premium)
+  | 'falling'       // falling streaks (resources / developers / learn)
+  | 'aurora'        // flowing colour bands (industries / solutions)
+  | 'spotlight'     // single radial light sweep (features / products)
+  | 'grid'          // grid + travelling beam (architecture / platform)
+  | 'constellation' // node-link particle field (core-systems / distributed story)
+  | 'none'          // no variant overlay
+
+/** First path segment to default variant. */
+const ROUTE_VARIANT: Record<string, PageBannerVariant> = {
+  about: 'shapes',
+  company: 'shapes',
+  'why-choose-us': 'beams',
+  architecture: 'grid',
+  platform: 'grid',
+  'core-systems': 'constellation',
+  developers: 'falling',
+  resources: 'falling',
+  features: 'spotlight',
+  products: 'spotlight',
+  industries: 'aurora',
+  solutions: 'aurora',
+}
 
 const EASE = [0.165, 0.84, 0.44, 1] as const
 
@@ -57,21 +91,35 @@ const FALLBACK_SUBTITLE: Record<string, string> = {
     'Building the AI-native data infrastructure for regulated enterprises.',
 }
 
-// Route-specific meta chips. Tech keywords stay English globally.
-const META_MAP: Record<string, string[]> = {
-  features: ['9 Workloads', '1 Engine', 'ARM + x86_64'],
-  'why-choose-us': ['SOC 2 Type II', 'ISO 27001', 'GDPR'],
-  architecture: ['Cloud', 'On-Prem', 'Edge'],
-  resources: ['Documentation', 'Reference Architectures', 'Benchmarks'],
-  about: ['Founded 2023', 'Remote-first', 'Global'],
+// Route-specific meta chips. Tech keywords stay English globally; copy chips
+// (resources, about) are resolved at render time against the dictionary.
+function buildMetaMap(banners: Record<string, string>): Record<string, string[]> {
+  return {
+    features: ['9 Workloads', '1 Engine', 'ARM + x86_64'],
+    'why-choose-us': ['SOC 2 Type II', 'ISO 27001', 'GDPR'],
+    architecture: ['Cloud', 'On-Prem', 'Edge'],
+    resources: [
+      'Documentation',
+      banners.metaResourcesArchitectures ?? 'Reference Architectures',
+      banners.metaResourcesBenchmarks ?? 'Benchmarks',
+    ],
+    about: [
+      banners.metaAboutFounded ?? 'Founded 2023',
+      banners.metaAboutRemote ?? 'Remote-first',
+      banners.metaAboutGlobal ?? 'Global',
+    ],
+  }
 }
 
 export default function PageBanner({
   title: titleProp,
   subtitle,
+  variant,
 }: {
   title?: string
   subtitle?: string
+  /** Animated background variant. Auto-picked from the path when omitted. */
+  variant?: PageBannerVariant
 }) {
   const pathname = usePathname()
   const { dict } = useI18n()
@@ -99,8 +147,9 @@ export default function PageBanner({
     (keyBase ? banners[`${keyBase}Subtitle`] : undefined) ??
     FALLBACK_SUBTITLE[slug] ??
     ''
-  const metaChips = META_MAP[slug] || []
+  const metaChips = buildMetaMap(banners)[slug] || []
   const words = title.split(' ')
+  const resolvedVariant: PageBannerVariant = variant ?? ROUTE_VARIANT[slug] ?? 'shapes'
 
   return (
     <section
@@ -140,108 +189,34 @@ export default function PageBanner({
         }}
       />
 
-      {/* ── L1 · Photographic backdrop (Mask group, luminosity-blended) ── */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 pointer-events-none overflow-hidden"
-        style={{ mixBlendMode: 'luminosity', opacity: 0.55 }}
-      >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/Mask group.svg"
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover"
+      {/* ── Per-route variant animation (lifted + adapted from 21st.dev).
+            Enterprise rule: ONE animated visual signature per banner. The old
+            photographic backdrop, isometric grid, decorative vector ring and
+            noise overlay have been removed to let the variant breathe. ── */}
+      {resolvedVariant === 'shapes' && <FloatingShapes className="opacity-70" />}
+      {resolvedVariant === 'beams' && <BeamsBackground intensity="medium" />}
+      {resolvedVariant === 'falling' && (
+        <FallingPattern
+          color="rgba(127,179,255,0.45)"
+          backgroundColor="transparent"
+          blurIntensity="0.4em"
+          density={4}
+          className="opacity-55"
         />
-      </div>
-
-      {/* ── L2 · Isometric data-plane grid receding into horizon ── */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-x-0 bottom-0 pointer-events-none overflow-hidden"
-        style={{ height: '70%', perspective: '600px' }}
-      >
-        <div
-          className="pb-grid"
-          style={{
-            position: 'absolute',
-            inset: 0,
-            transform: 'rotateX(58deg) translateZ(-40px)',
-            transformOrigin: 'bottom center',
-            backgroundImage: `
-              linear-gradient(rgba(127,179,255,0.22) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(127,179,255,0.16) 1px, transparent 1px)
-            `,
-            backgroundSize: '60px 60px',
-            maskImage:
-              'linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 45%, transparent 85%)',
-            WebkitMaskImage:
-              'linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 45%, transparent 85%)',
-            animation: 'banner-grid-pan 6s linear infinite',
-          }}
+      )}
+      {resolvedVariant === 'aurora' && <Aurora intensity="medium" />}
+      {resolvedVariant === 'spotlight' && (
+        <Spotlight className="top-[-20%] left-[-10%] h-[200%] w-[120%]" />
+      )}
+      {resolvedVariant === 'grid' && <GridBeam className="opacity-90" />}
+      {resolvedVariant === 'constellation' && (
+        <Constellation
+          className="opacity-85"
+          particleCount={60}
+          speed={0.3}
+          connectionDistance={130}
         />
-      </div>
-
-      {/* ── L3 · Continuous SVG parallax waves — 6 layers, never pause ── */}
-      <svg
-        aria-hidden="true"
-        className="absolute left-0 right-0 bottom-0 pointer-events-none"
-        style={{ height: '58%', width: '100%' }}
-        viewBox="0 24 150 28"
-        preserveAspectRatio="none"
-      >
-        <defs>
-          <path
-            id="pb-wave-path"
-            d="M-160 44c30 0 58-18 88-18s58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"
-          />
-        </defs>
-        <g className="wave-parallax">
-          <use href="#pb-wave-path" x="48" y="0" fill="rgba(127,179,255,0.10)" />
-          <use href="#pb-wave-path" x="48" y="3" fill="rgba(127,179,255,0.13)" />
-          <use href="#pb-wave-path" x="48" y="5" fill="rgba(30,138,255,0.16)" />
-          <use href="#pb-wave-path" x="48" y="7" fill="rgba(26,56,232,0.20)" />
-          <use href="#pb-wave-path" x="48" y="9" fill="rgba(26,56,232,0.26)" />
-          <use href="#pb-wave-path" x="48" y="11" fill="rgba(10,34,128,0.34)" />
-        </g>
-      </svg>
-
-      {/* ── L4 · Right-side floating halo + decorative shape ── */}
-      <div
-        aria-hidden="true"
-        className="absolute pointer-events-none hidden md:block"
-        style={{
-          right: 'clamp(-60px, 2vw, 40px)',
-          top: '50%',
-          width: 'clamp(280px, 28vw, 460px)',
-          height: 'clamp(280px, 28vw, 460px)',
-          transform: 'translateY(-50%)',
-        }}
-      >
-        {/* Soft halo glow */}
-        <div
-          className="pb-halo absolute inset-0 rounded-full"
-          style={{
-            background:
-              'radial-gradient(circle, rgba(30,138,255,0.30) 0%, rgba(26,56,232,0.18) 45%, transparent 70%)',
-            filter: 'blur(28px)',
-            animation: 'banner-halo-breathe 7s ease-in-out infinite',
-          }}
-        />
-        {/* Floating shape (uses the Vector asset as a thin-stroked orbital ring) */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/Vector.svg"
-          alt=""
-          className="pb-shape absolute inset-0 w-full h-full"
-          style={{
-            objectFit: 'contain',
-            opacity: 0.35,
-            filter:
-              'drop-shadow(0 0 18px rgba(30,138,255,0.55)) drop-shadow(0 0 40px rgba(26,56,232,0.35))',
-            animation: 'banner-float-shape 22s linear infinite',
-          }}
-        />
-      </div>
+      )}
 
       {/* ── L5 · Subtle noise/grain overlay ── */}
       <div
@@ -270,7 +245,7 @@ export default function PageBanner({
         <div className="py-20 sm:py-24 lg:py-28">
           {/* Breadcrumb */}
           <motion.nav
-            aria-label="Breadcrumb"
+            aria-label={banners.breadcrumbAria ?? 'Breadcrumb'}
             className="flex items-center gap-3 mb-7 sm:mb-9"
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
@@ -332,6 +307,7 @@ export default function PageBanner({
               lineHeight: 1.04,
               textWrap: 'balance',
               maxWidth: 'min(960px, 62%)',
+              textDecoration: 'none',
             }}
           >
             {words.map((word, i) => (
@@ -350,7 +326,7 @@ export default function PageBanner({
                     ease: EASE,
                   }}
                 >
-                  {word}
+                  {renderBrand(word)}
                 </motion.span>
               </span>
             ))}
@@ -418,7 +394,7 @@ export default function PageBanner({
                 letterSpacing: '0.005em',
               }}
             >
-              {resolvedSubtitle}
+              {renderBrand(resolvedSubtitle)}
             </motion.p>
           )}
 

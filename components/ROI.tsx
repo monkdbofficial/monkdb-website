@@ -57,8 +57,8 @@ export default function ROI() {
             <span className="gradient-text-animate">MonkDB</span>
           </motion.h2>
 
-          {/* Stat pills — always 3 in a row */}
-          <div className="grid grid-cols-3 gap-2 sm:gap-3 lg:gap-4">
+          {/* Stat pills */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 lg:gap-4">
             {stats.map((s, i) => (
               <motion.div
                 key={s.label}

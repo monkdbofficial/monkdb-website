@@ -10,6 +10,7 @@
 
 import { motion } from 'framer-motion'
 import SmartXLayout from '@/components/SmartXLayout'
+import { useI18n } from '@/i18n/I18nProvider'
 
 // Deeper enterprise teal. Replaces the brighter #0EA5A8 for mobility.
 const ACCENT = '#0E8FA8'
@@ -279,12 +280,14 @@ function DispatchBoard() {
 }
 
 export default function SmartMobilityContent() {
+  const { dict } = useI18n()
+  const t = (((dict as Record<string, unknown>).monkSmartmobility) ?? {}) as Record<string, string>
   return (
     <SmartXLayout
-      crumb="MonkSmartX"
+      crumb={t.crumb ?? 'MonkSmartX'}
       industryLabel="Mobility"
-      title="Monk SmartMobility"
-      subtitle="Intelligent systems for connected and autonomous mobility."
+      title={t.title ?? 'Monk SmartMobility'}
+      subtitle={t.subtitle ?? 'Intelligent systems for connected and autonomous mobility.'}
       lead="Real-time location, traffic, and behavioural data unified on one continuous engine. Dynamic routing, fleet optimization, and predictive mobility for smart cities, logistics, and connected vehicles."
       heroIllustration={<MobilityHero />}
       accent={ACCENT}
@@ -372,7 +375,7 @@ export default function SmartMobilityContent() {
         role: 'Head of Platform',
         org: 'Drift Mobility',
       }}
-      ctaHeading="Coordinate networks at the speed of movement."
+      ctaHeading={t.ctaHeading ?? 'Coordinate networks at the speed of movement.'}
     />
   )
 }

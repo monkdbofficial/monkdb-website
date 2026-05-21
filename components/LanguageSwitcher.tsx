@@ -5,7 +5,7 @@ import { createPortal } from 'react-dom'
 import { usePathname, useRouter } from 'next/navigation'
 import { Globe, Check } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { locales, localeNames, localeFlags, type Locale } from '@/i18n/config'
+import { defaultLocale, locales, localeNames, localeFlags, type Locale } from '@/i18n/config'
 import { useI18n } from '@/i18n/I18nProvider'
 
 const SANAS_EASE = [0.165, 0.84, 0.44, 1] as const
@@ -88,12 +88,18 @@ export default function LanguageSwitcher({
     setOpen(false)
     if (next === locale) return
     const segments = pathname.split('/').filter(Boolean)
+    // Strip any existing locale prefix so we work with the bare path.
     if (segments.length > 0 && (locales as readonly string[]).includes(segments[0])) {
-      segments[0] = next
-    } else {
-      segments.unshift(next)
+      segments.shift()
     }
-    router.push('/' + segments.join('/'))
+    // Default locale renders unprefixed (canonical /about, not /en/about).
+    // The proxy rewrites unprefixed paths to /<defaultLocale> internally.
+    if (next === defaultLocale) {
+      const target = segments.length === 0 ? '/' : '/' + segments.join('/')
+      router.push(target)
+      return
+    }
+    router.push('/' + [next, ...segments].join('/'))
   }
 
   const panel = (

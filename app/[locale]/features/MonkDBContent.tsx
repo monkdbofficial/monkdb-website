@@ -43,118 +43,28 @@ import CTABanner from '@/components/CTABanner'
 import SectionLabel from '@/components/SectionLabel'
 import ScrollToTop from '@/components/ScrollToTop'
 import ScrollProgressBar from '@/components/ScrollProgressBar'
+import { useI18n } from '@/i18n/I18nProvider'
 
 const ACCENT = '#1A38E8'
 const ACCENT_DEEP = '#0A2280'
 const EASE = [0.165, 0.84, 0.44, 1] as const
 
-const STATS = [
-  { value: '9', label: 'Workloads unified' },
-  { value: '1', label: 'Binary, zero ops' },
-  { value: '<5 ms', label: 'Query latency P99' },
-  { value: 'ARM + x86', label: 'Anywhere it runs' },
-]
+// Workload codes stay English globally; titles/bodies are translatable.
+const WORKLOAD_META = [
+  { Icon: Database, code: 'OLTP' },
+  { Icon: Activity, code: 'TS' },
+  { Icon: Sparkles, code: 'VEC' },
+  { Icon: Search, code: 'FTS' },
+  { Icon: FileJson, code: 'DOC' },
+  { Icon: GitBranch, code: 'GRAPH' },
+  { Icon: Map, code: 'GEO' },
+  { Icon: KeyRound, code: 'KV' },
+  { Icon: Workflow, code: 'STREAM' },
+] as const
 
-const WORKLOADS = [
-  {
-    Icon: Database,
-    code: 'OLTP',
-    title: 'Relational',
-    body: 'ACID transactions, joins, and SQL across the unified plane.',
-  },
-  {
-    Icon: Activity,
-    code: 'TS',
-    title: 'Time-series',
-    body: 'High-cardinality metrics and event streams at line rate.',
-  },
-  {
-    Icon: Sparkles,
-    code: 'VEC',
-    title: 'Vector',
-    body: 'Embeddings, hybrid retrieval, and ANN search in the engine.',
-  },
-  {
-    Icon: Search,
-    code: 'FTS',
-    title: 'Full-text search',
-    body: 'Text indexes alongside structured and vector data, no extra system.',
-  },
-  {
-    Icon: FileJson,
-    code: 'DOC',
-    title: 'Document',
-    body: 'Native JSON ingestion, projection, and querying without schema drift.',
-  },
-  {
-    Icon: GitBranch,
-    code: 'GRAPH',
-    title: 'Graph',
-    body: 'Relationship traversal across entities, no separate graph engine.',
-  },
-  {
-    Icon: Map,
-    code: 'GEO',
-    title: 'Geospatial',
-    body: 'Spatial indexes and predicates for location-aware workloads.',
-  },
-  {
-    Icon: KeyRound,
-    code: 'KV',
-    title: 'Key-value',
-    body: 'Low-latency point reads and writes for state and cache patterns.',
-  },
-  {
-    Icon: Workflow,
-    code: 'STREAM',
-    title: 'Streaming',
-    body: 'In-flight processing alongside historical context, single query surface.',
-  },
-]
+const CAPABILITY_ICONS = [Layers, Brain, Cpu, Lock, Zap] as const
 
-const CAPABILITIES = [
-  {
-    Icon: Layers,
-    title: 'One unified data plane',
-    body: 'Relational, time-series, vector, search, document, graph, geospatial, KV, and streaming converge into one query surface and one storage layer.',
-    chip: 'One engine · one query',
-  },
-  {
-    Icon: Brain,
-    title: 'AI-native execution',
-    body: 'Vector search, hybrid retrieval, and live inference run inside the engine. No sidecar systems, no embedding drift, no glue services.',
-    chip: 'Vector + SQL · in-place',
-  },
-  {
-    Icon: Cpu,
-    title: 'Single binary, zero ops',
-    body: 'A C++ engine that runs the same on a laptop, a hyperscaler region, an air-gapped data center, or an industrial gateway. No cluster choreography.',
-    chip: 'Same binary everywhere',
-  },
-  {
-    Icon: Lock,
-    title: 'Sovereignty by construction',
-    body: 'Identity, policy, lineage, and residency are wired into every query before it executes. Audit-grade by default, not by audit project.',
-    chip: 'Governed at the kernel',
-  },
-  {
-    Icon: Zap,
-    title: 'Real-time over batch',
-    body: 'Streams, change data, and events processed in flight and served alongside historical context in millisecond budgets, not minutes.',
-    chip: 'Sub-5 ms decisioning',
-  },
-]
-
-const STACK_BEFORE = [
-  { label: 'Operational database', spec: 'Postgres / MySQL' },
-  { label: 'Data warehouse', spec: 'Snowflake / BigQuery' },
-  { label: 'Time-series store', spec: 'InfluxDB / Timescale' },
-  { label: 'Vector database', spec: 'Pinecone / Weaviate' },
-  { label: 'Search engine', spec: 'Elastic / OpenSearch' },
-  { label: 'Stream processor', spec: 'Kafka + Flink' },
-  { label: 'Glue layer', spec: 'ETL · CDC · pipelines' },
-]
-
+// Compliance tags stay English (regulated by their official names).
 const TRUST = [
   'SOC 2 Type II',
   'ISO 27001',
@@ -167,8 +77,44 @@ const TRUST = [
 ]
 
 export default function MonkDBContent() {
+  const { dict } = useI18n()
+  const t = (((dict as Record<string, unknown>).monkdbProduct) ?? {}) as Record<
+    string,
+    string
+  >
   const heroRef = useRef<HTMLDivElement>(null)
   const heroInView = useInView(heroRef, { once: true, margin: '-80px' })
+
+  const STATS = [
+    { value: '9', label: t.stat1Label ?? 'Workloads unified' },
+    { value: '1', label: t.stat2Label ?? 'Binary, zero ops' },
+    { value: '<5 ms', label: t.stat3Label ?? 'Query latency P99' },
+    { value: 'ARM + x86', label: t.stat4Label ?? 'Anywhere it runs' },
+  ]
+
+  const WORKLOADS = WORKLOAD_META.map((m, i) => ({
+    Icon: m.Icon,
+    code: m.code,
+    title: t[`workload${i + 1}Title`] ?? '',
+    body: t[`workload${i + 1}Body`] ?? '',
+  }))
+
+  const CAPABILITIES = CAPABILITY_ICONS.map((Icon, i) => ({
+    Icon,
+    title: t[`cap${i + 1}Title`] ?? '',
+    body: t[`cap${i + 1}Body`] ?? '',
+    chip: t[`cap${i + 1}Chip`] ?? '',
+  }))
+
+  const STACK_BEFORE = [
+    { label: t.stack1Label ?? 'Operational database', spec: t.stack1Spec ?? 'Postgres / MySQL' },
+    { label: t.stack2Label ?? 'Data warehouse', spec: t.stack2Spec ?? 'Snowflake / BigQuery' },
+    { label: t.stack3Label ?? 'Time-series store', spec: t.stack3Spec ?? 'InfluxDB / Timescale' },
+    { label: t.stack4Label ?? 'Vector database', spec: t.stack4Spec ?? 'Pinecone / Weaviate' },
+    { label: t.stack5Label ?? 'Search engine', spec: t.stack5Spec ?? 'Elastic / OpenSearch' },
+    { label: t.stack6Label ?? 'Stream processor', spec: t.stack6Spec ?? 'Kafka + Flink' },
+    { label: t.stack7Label ?? 'Glue layer', spec: t.stack7Spec ?? 'ETL · CDC · pipelines' },
+  ]
 
   return (
     <main className="min-h-screen bg-white dark:bg-[#0f1623]">
@@ -210,10 +156,10 @@ export default function MonkDBContent() {
         />
 
         <div className="relative z-10 max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
-          <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-16 items-start">
             <motion.div
               initial={{ opacity: 0, y: 24 }}
-              animate={heroInView ? { opacity: 1, y: 0 } : {}}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: EASE }}
             >
               <span
@@ -228,21 +174,20 @@ export default function MonkDBContent() {
                 }}
               >
                 <Database size={13} strokeWidth={2} />
-                Products · MonkDB
+                {t.heroKicker ?? 'Products · MonkDB'}
               </span>
               <h1
                 className="text-white"
                 style={{
-                  fontSize: 'clamp(44px, 6.5vw, 96px)',
+                  fontSize: 'clamp(40px, 5.8vw, 84px)',
                   fontWeight: 300,
-                  letterSpacing: '-0.03em',
-                  lineHeight: 1,
+                  letterSpacing: '-0.025em',
+                  lineHeight: 1.05,
                   margin: '0 0 28px 0',
-                  textWrap: 'balance',
                   textDecoration: 'none',
                 }}
               >
-                Nine workloads.
+                {t.heroLine1 ?? 'Nine workloads.'}
                 <br />
                 <span
                   style={{
@@ -256,7 +201,7 @@ export default function MonkDBContent() {
                     fontWeight: 400,
                   }}
                 >
-                  One engine.
+                  {t.heroLine2 ?? 'One engine.'}
                 </span>
               </h1>
               <div
@@ -280,9 +225,8 @@ export default function MonkDBContent() {
                   maxWidth: '560px',
                 }}
               >
-                The AI-Native Unified Database. A single binary that replaces
-                your relational, analytical, time-series, vector, search, and
-                streaming systems.
+                {t.heroLead ??
+                  'The AI-Native Unified Database. A single binary that replaces your relational, analytical, time-series, vector, search, and streaming systems.'}
               </p>
               <p
                 style={{
@@ -294,17 +238,15 @@ export default function MonkDBContent() {
                   maxWidth: '520px',
                 }}
               >
-                MonkDB unifies the data plane that AI systems and operational
-                workloads need. Identity, policy, and lineage run inside the
-                engine. Vector and SQL share the same query surface. The same
-                binary deploys from cloud to edge.
+                {t.heroSubLead ??
+                  'MonkDB unifies the data plane that AI systems and operational workloads need. Identity, policy, and lineage run inside the engine. Vector and SQL share the same query surface. The same binary deploys from cloud to edge.'}
               </p>
             </motion.div>
 
             {/* 9 workloads orbiting a central engine core */}
             <motion.div
               initial={{ opacity: 0, scale: 0.92 }}
-              animate={heroInView ? { opacity: 1, scale: 1 } : {}}
+              animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.9, delay: 0.2, ease: EASE }}
               className="relative"
               style={{ width: '100%', height: 'min(70vw, 480px)', aspectRatio: '1 / 1', maxWidth: 480, margin: '0 auto' }}
@@ -388,7 +330,7 @@ export default function MonkDBContent() {
                     marginTop: 2,
                   }}
                 >
-                  ENGINE
+                  {t.engineLabel ?? 'ENGINE'}
                 </span>
               </div>
 
@@ -403,9 +345,7 @@ export default function MonkDBContent() {
                   <motion.div
                     key={w.code}
                     initial={{ opacity: 0, scale: 0.6 }}
-                    animate={
-                      heroInView ? { opacity: 1, scale: 1 } : {}
-                    }
+                    animate={{ opacity: 1, scale: 1 }}
                     transition={{
                       duration: 0.5,
                       delay: 0.4 + i * 0.06,
@@ -540,7 +480,7 @@ export default function MonkDBContent() {
         <div className="relative z-10 max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-6 sm:gap-10 lg:gap-16 items-end mb-8 sm:mb-10">
             <div>
-              <SectionLabel text="The nine workloads" />
+              <SectionLabel text={t.workloadsLabel ?? 'The nine workloads'} />
               <h2
                 className="text-gray-900 dark:text-white"
                 style={{
@@ -555,9 +495,9 @@ export default function MonkDBContent() {
                   textDecoration: 'none',
                 }}
               >
-                Every data shape your AI stack needs,{' '}
+                {t.workloadsHeadlinePart1 ?? 'Every data shape your AI stack needs,'}{' '}
                 <span style={{ color: ACCENT, fontWeight: 400 }}>
-                  served from one engine
+                  {t.workloadsHeadlineAccent ?? 'served from one engine'}
                 </span>
               </h2>
             </div>
@@ -570,9 +510,8 @@ export default function MonkDBContent() {
                 maxWidth: '520px',
               }}
             >
-              Nine workloads, one query surface, one storage layer. No sidecar
-              systems, no embedding drift, no pipeline glue between data shapes
-              that your applications actually use together.
+              {t.workloadsLead ??
+                'Nine workloads, one query surface, one storage layer. No sidecar systems, no embedding drift, no pipeline glue between data shapes that your applications actually use together.'}
             </p>
           </div>
 
@@ -663,7 +602,7 @@ export default function MonkDBContent() {
         }}
       >
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
-          <SectionLabel text="Replace the stack" />
+          <SectionLabel text={t.replaceLabel ?? 'Replace the stack'} />
           <h2
             className="text-gray-900"
             style={{
@@ -677,9 +616,9 @@ export default function MonkDBContent() {
               textDecoration: 'none',
             }}
           >
-            Seven systems and a glue layer,{' '}
+            {t.replaceHeadlinePart1 ?? 'Seven systems and a glue layer,'}{' '}
             <span style={{ color: ACCENT, fontWeight: 400 }}>
-              collapsed into one binary.
+              {t.replaceHeadlineAccent ?? 'collapsed into one binary.'}
             </span>
           </h2>
 
@@ -721,7 +660,7 @@ export default function MonkDBContent() {
                     color: 'rgba(10,34,128,0.55)',
                   }}
                 >
-                  Before MonkDB
+                  {t.beforeLabel ?? 'Before MonkDB'}
                 </span>
               </div>
               <ul
@@ -773,7 +712,7 @@ export default function MonkDBContent() {
                     color: 'rgba(10,34,128,0.55)',
                   }}
                 >
-                  7 systems · multiple SLAs · pipeline glue
+                  {t.beforeSummary ?? '7 systems · multiple SLAs · pipeline glue'}
                 </span>
               </div>
             </motion.div>
@@ -862,7 +801,7 @@ export default function MonkDBContent() {
                     color: '#7FB3FF',
                   }}
                 >
-                  With MonkDB
+                  {t.afterLabel ?? 'With MonkDB'}
                 </span>
               </div>
               <div
@@ -896,7 +835,7 @@ export default function MonkDBContent() {
                       lineHeight: 1.2,
                     }}
                   >
-                    MonkDB
+                    <span className="gradient-text-animate" style={{ fontWeight: 400 }}>MonkDB</span>
                   </div>
                   <div
                     style={{
@@ -909,7 +848,7 @@ export default function MonkDBContent() {
                       marginTop: 2,
                     }}
                   >
-                    SINGLE BINARY · UNIFIED ENGINE
+                    {t.afterSubtitle ?? 'SINGLE BINARY · UNIFIED ENGINE'}
                   </div>
                 </div>
               </div>
@@ -918,11 +857,11 @@ export default function MonkDBContent() {
                 style={{ listStyle: 'none', padding: 0, margin: 0 }}
               >
                 {[
-                  'All nine workloads, one query surface',
-                  'Identity, policy, lineage at the kernel',
-                  'Vector and SQL share execution',
-                  'No pipeline glue, no embedding drift',
-                  'Same binary: cloud, on-prem, edge',
+                  t.afterBullet1 ?? 'All nine workloads, one query surface',
+                  t.afterBullet2 ?? 'Identity, policy, lineage at the kernel',
+                  t.afterBullet3 ?? 'Vector and SQL share execution',
+                  t.afterBullet4 ?? 'No pipeline glue, no embedding drift',
+                  t.afterBullet5 ?? 'Same binary: cloud, on-prem, edge',
                 ].map((line) => (
                   <li
                     key={line}
@@ -960,7 +899,7 @@ export default function MonkDBContent() {
                     color: '#7FB3FF',
                   }}
                 >
-                  1 system · 1 SLA · 0 glue
+                  {t.afterSummary ?? '1 system · 1 SLA · 0 glue'}
                 </span>
               </div>
             </motion.div>
@@ -985,7 +924,7 @@ export default function MonkDBContent() {
         <div className="relative z-10 max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-6 sm:gap-10 lg:gap-16 items-end mb-8 sm:mb-10">
             <div>
-              <SectionLabel text="Core capabilities" />
+              <SectionLabel text={t.capabilitiesLabel ?? 'Core capabilities'} />
               <h2
                 className="text-gray-900 dark:text-white"
                 style={{
@@ -1000,9 +939,9 @@ export default function MonkDBContent() {
                   textDecoration: 'none',
                 }}
               >
-                Built for the AI-agent era,{' '}
+                {t.capabilitiesHeadlinePart1 ?? 'Built for the AI-agent era,'}{' '}
                 <span style={{ color: ACCENT, fontWeight: 400 }}>
-                  governed at the kernel.
+                  {t.capabilitiesHeadlineAccent ?? 'governed at the kernel.'}
                 </span>
               </h2>
             </div>
@@ -1015,16 +954,15 @@ export default function MonkDBContent() {
                 maxWidth: '520px',
               }}
             >
-              The capabilities below are not optional add-ons. They are
-              properties of the engine: simple to operate, AI-native by
-              construction, sovereign by default, real-time over batch.
+              {t.capabilitiesLead ??
+                'The capabilities below are not optional add-ons. They are properties of the engine: simple to operate, AI-native by construction, sovereign by default, real-time over batch.'}
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
             {CAPABILITIES.map((c, i) => (
               <motion.div
-                key={c.title}
+                key={`cap-${i}`}
                 initial={{ opacity: 0, y: 18 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
@@ -1143,7 +1081,7 @@ export default function MonkDBContent() {
           }}
         />
         <div className="relative z-10 max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
-          <SectionLabel text="Architecture" variant="dark" />
+          <SectionLabel text={t.archLabel ?? 'Architecture'} variant="dark" />
           <h2
             className="text-white"
             style={{
@@ -1157,9 +1095,9 @@ export default function MonkDBContent() {
               textDecoration: 'none',
             }}
           >
-            Five layers,{' '}
+            {t.archHeadlinePart1 ?? 'Five layers,'}{' '}
             <span style={{ color: '#7FB3FF', fontWeight: 400 }}>
-              one binary.
+              {t.archHeadlineAccent ?? 'one binary.'}
             </span>
           </h2>
 
@@ -1168,32 +1106,42 @@ export default function MonkDBContent() {
               {
                 Icon: Brain,
                 tag: 'L5',
-                title: 'AI execution surface',
-                body: 'Vector search, hybrid retrieval, model serving, and agent state. All share the engine and policy plane.',
+                title: t.layer5Title ?? 'AI execution surface',
+                body:
+                  t.layer5Body ??
+                  'Vector search, hybrid retrieval, model serving, and agent state. All share the engine and policy plane.',
               },
               {
                 Icon: Lock,
                 tag: 'L4',
-                title: 'Governance kernel',
-                body: 'Identity, policy, lineage, and residency enforced before any query runs. Audit-grade by default.',
+                title: t.layer4Title ?? 'Governance kernel',
+                body:
+                  t.layer4Body ??
+                  'Identity, policy, lineage, and residency enforced before any query runs. Audit-grade by default.',
               },
               {
                 Icon: Boxes,
                 tag: 'L3',
-                title: 'Unified query plane',
-                body: 'One SQL surface across relational, vector, time-series, search, document, graph, geo, KV, and streams.',
+                title: t.layer3Title ?? 'Unified query plane',
+                body:
+                  t.layer3Body ??
+                  'One SQL surface across relational, vector, time-series, search, document, graph, geo, KV, and streams.',
               },
               {
                 Icon: Network,
                 tag: 'L2',
-                title: 'Real-time + historical fabric',
-                body: 'In-flight stream processing alongside historical context. No batch-first compromise.',
+                title: t.layer2Title ?? 'Real-time + historical fabric',
+                body:
+                  t.layer2Body ??
+                  'In-flight stream processing alongside historical context. No batch-first compromise.',
               },
               {
                 Icon: Cpu,
                 tag: 'L1',
-                title: 'Single-binary C++ engine',
-                body: 'High-performance core. ARM and x86. Cloud, on-prem, edge. Same binary, same semantics.',
+                title: t.layer1Title ?? 'Single-binary C++ engine',
+                body:
+                  t.layer1Body ??
+                  'High-performance core. ARM and x86. Cloud, on-prem, edge. Same binary, same semantics.',
               },
             ].map((layer, i) => (
               <motion.div
@@ -1275,7 +1223,7 @@ export default function MonkDBContent() {
                     color: 'rgba(127,179,255,0.55)',
                   }}
                 >
-                  Layer {layer.tag}
+                  {t.layerPrefix ?? 'Layer'} {layer.tag}
                 </span>
               </motion.div>
             ))}
@@ -1320,10 +1268,8 @@ export default function MonkDBContent() {
                   textWrap: 'balance',
                 }}
               >
-                We retired four systems and a CDC layer in one quarter. The
-                same engine now serves our analytics, vector search, and
-                operational queries. Latency dropped, on-call burden dropped,
-                cost dropped.
+                {t.quoteText ??
+                  'We retired four systems and a CDC layer in one quarter. The same engine now serves our analytics, vector search, and operational queries. Latency dropped, on-call burden dropped, cost dropped.'}
               </blockquote>
               <figcaption
                 className="mt-8 flex items-center gap-3"
@@ -1343,7 +1289,7 @@ export default function MonkDBContent() {
                     background: ACCENT,
                   }}
                 />
-                Head of Platform Engineering, Tier-1 Bank
+                {t.quoteAuthor ?? 'Head of Platform Engineering, Tier-1 Bank'}
               </figcaption>
             </motion.figure>
 
@@ -1379,7 +1325,7 @@ export default function MonkDBContent() {
                     color: '#7FB3FF',
                   }}
                 >
-                  MonkDB in numbers
+                  {t.numbersLabel ?? 'MonkDB in numbers'}
                 </span>
               </div>
               <ul
@@ -1389,10 +1335,10 @@ export default function MonkDBContent() {
                 {[
                   {
                     v: '5×',
-                    l: 'Systems retired in a single migration window',
+                    l: t.metric1Label ?? 'Systems retired in a single migration window',
                   },
-                  { v: '70%', l: 'Reduction in pipeline glue and ETL' },
-                  { v: '<5 ms', l: 'P99 query latency at production scale' },
+                  { v: '70%', l: t.metric2Label ?? 'Reduction in pipeline glue and ETL' },
+                  { v: '<5 ms', l: t.metric3Label ?? 'P99 query latency at production scale' },
                 ].map((m, i) => (
                   <li
                     key={m.l}
@@ -1469,7 +1415,7 @@ export default function MonkDBContent() {
                     color: ACCENT,
                   }}
                 >
-                  Production ready
+                  {t.trustLabel ?? 'Production ready'}
                 </div>
                 <div
                   className="text-[#0A2280]"
@@ -1479,7 +1425,7 @@ export default function MonkDBContent() {
                     lineHeight: 1.3,
                   }}
                 >
-                  Compliant, sovereign, and deployable everywhere
+                  {t.trustHeadline ?? 'Compliant, sovereign, and deployable everywhere'}
                 </div>
               </div>
             </div>
@@ -1519,7 +1465,7 @@ export default function MonkDBContent() {
         </div>
       </section>
 
-      <CTABanner heading="One engine. Every workload. Yours to run." />
+      <CTABanner heading={t.ctaHeading ?? 'One engine. Every workload. Yours to run.'} />
       <Footer />
       <ScrollToTop />
 

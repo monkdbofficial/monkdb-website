@@ -20,11 +20,13 @@ import Navbar from './Navbar'
 import Footer from './Footer'
 import PageBanner from './PageBanner'
 import CTABanner from './CTABanner'
-import HubDiagramBanner from './HubDiagramBanner'
+import { renderBrand } from './BrandAccent'
 import ScrollToTop from './ScrollToTop'
 import ScrollProgressBar from './ScrollProgressBar'
 import { useI18n } from '@/i18n/I18nProvider'
 import { localizedHref } from '@/i18n/config'
+
+type Dict = Record<string, unknown>
 
 const EASE = [0.25, 0.46, 0.45, 0.94] as const
 
@@ -42,19 +44,6 @@ export type HubPageLayoutProps = {
     title: string
     body: string
   }
-  /**
-   * Optional architecture / overview diagram from the docx. Renders as a
-   * full-width dark feature panel between the intro and the card grid.
-   */
-  diagram?: {
-    label: string
-    src: string
-    alt: string
-    width: number
-    height: number
-    caption?: string
-    tagline?: string
-  }
   cards: HubCard[]
   cardsExploreLabel?: string
   closing?: {
@@ -69,7 +58,8 @@ export type HubPageLayoutProps = {
 }
 
 export default function HubPageLayout(props: HubPageLayoutProps) {
-  const { locale } = useI18n()
+  const { locale, dict } = useI18n()
+  const t = (((dict as Dict).hubPageLayout) ?? {}) as Record<string, string>
 
   return (
     <main className="min-h-screen bg-white dark:bg-[#0f1623]">
@@ -126,7 +116,7 @@ export default function HubPageLayout(props: HubPageLayoutProps) {
                     textDecoration: 'none',
                   }}
                 >
-                  {props.intro.title}
+                  {renderBrand(props.intro.title)}
                 </h2>
               </div>
               <p
@@ -143,19 +133,6 @@ export default function HubPageLayout(props: HubPageLayoutProps) {
             </motion.div>
           </div>
         </section>
-      )}
-
-      {/* Optional architecture diagram from the docx */}
-      {props.diagram && (
-        <HubDiagramBanner
-          label={props.diagram.label}
-          src={props.diagram.src}
-          alt={props.diagram.alt}
-          width={props.diagram.width}
-          height={props.diagram.height}
-          caption={props.diagram.caption}
-          tagline={props.diagram.tagline}
-        />
       )}
 
       {/* Cards */}
@@ -239,7 +216,7 @@ export default function HubPageLayout(props: HubPageLayoutProps) {
                         letterSpacing: '-0.005em',
                       }}
                     >
-                      {card.title}
+                      {renderBrand(card.title)}
                     </h3>
                     <p
                       className="text-gray-600 flex-1"
@@ -260,7 +237,7 @@ export default function HubPageLayout(props: HubPageLayoutProps) {
                         fontWeight: 600,
                       }}
                     >
-                      {props.cardsExploreLabel ?? 'Explore'}
+                      {props.cardsExploreLabel ?? t.exploreCta ?? 'Explore'}
                     </div>
                   </Link>
                 </motion.div>
@@ -335,7 +312,7 @@ export default function HubPageLayout(props: HubPageLayoutProps) {
                       textDecoration: 'none',
                     }}
                   >
-                    {props.closing.title}
+                    {renderBrand(props.closing.title)}
                   </h2>
                 </div>
                 <p

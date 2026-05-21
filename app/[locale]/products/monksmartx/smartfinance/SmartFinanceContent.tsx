@@ -10,6 +10,7 @@
 
 import { motion } from 'framer-motion'
 import SmartXLayout from '@/components/SmartXLayout'
+import { useI18n } from '@/i18n/I18nProvider'
 
 // Deeper finance-emerald. Replaces the candy #10B981.
 const ACCENT = '#0E8F66'
@@ -263,12 +264,14 @@ function FraudStream() {
 }
 
 export default function SmartFinanceContent() {
+  const { dict } = useI18n()
+  const t = (((dict as Record<string, unknown>).monkSmartfinance) ?? {}) as Record<string, string>
   return (
     <SmartXLayout
-      crumb="MonkSmartX"
+      crumb={t.crumb ?? 'MonkSmartX'}
       industryLabel="BFSI · Capital Markets"
-      title="Monk SmartFinance"
-      subtitle="Real-time financial intelligence and risk management."
+      title={t.title ?? 'Monk SmartFinance'}
+      subtitle={t.subtitle ?? 'Real-time financial intelligence and risk management.'}
       lead="Transactional, behavioural, and market data unified on one engine. Score every event in line, govern every decision, and act before the transaction settles."
       heroIllustration={<FinanceHero />}
       accent={ACCENT}
@@ -363,7 +366,7 @@ export default function SmartFinanceContent() {
         role: 'Chief Technology Officer',
         org: 'Top-10 global bank',
       }}
-      ctaHeading="Decide before the transaction settles."
+      ctaHeading={t.ctaHeading ?? 'Decide before the transaction settles.'}
     />
   )
 }

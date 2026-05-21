@@ -31,59 +31,62 @@ import CTABanner from '@/components/CTABanner'
 import SectionLabel from '@/components/SectionLabel'
 import ScrollToTop from '@/components/ScrollToTop'
 import ScrollProgressBar from '@/components/ScrollProgressBar'
+import { useI18n } from '@/i18n/I18nProvider'
 
 const ACCENT = '#1E8AFF'
 const EASE = [0.165, 0.84, 0.44, 1] as const
-
-const STAGES = [
-  {
-    Icon: Activity,
-    title: 'Real-Time Data Ingestion',
-    body: 'Capture streams, events, transactions, and signals as they occur. No batching. No staging.',
-  },
-  {
-    Icon: BrainCircuit,
-    title: 'Continuous Context Building',
-    body: 'AI models and logic operate on live data, maintaining an always-updated understanding of system state.',
-  },
-  {
-    Icon: Sliders,
-    title: 'Instant Decisioning',
-    body: 'Insights generated in real time. Actionable intelligence embedded inside operations, not in a report.',
-  },
-  {
-    Icon: Send,
-    title: 'Built-In Execution',
-    body: 'Decisions trigger workflows and operational changes immediately, without external dependencies.',
-  },
-  {
-    Icon: Repeat,
-    title: 'Closed-Loop Learning',
-    body: 'Every action feeds back into the system, continuously improving intelligence and outcomes.',
-  },
-]
-
-const SHIFTS = [
-  { from: 'Reports', to: 'Real-time awareness' },
-  { from: 'Dashboards', to: 'Continuous intelligence' },
-  { from: 'Manual actions', to: 'Automated execution' },
-  { from: 'Delayed decisions', to: 'Instant response' },
-  { from: 'Reactive operations', to: 'Self-optimizing systems' },
-]
-
-const PERF_LANES = [
-  { label: 'Ingest', latency: '<1 ms', share: 18 },
-  { label: 'Context build', latency: '<2 ms', share: 22 },
-  { label: 'Decision', latency: '<2 ms', share: 26 },
-  { label: 'Execute', latency: '<1 ms', share: 18 },
-  { label: 'Learn', latency: 'Continuous', share: 16 },
-]
 
 export default function OperationalContent() {
   const heroRef = useRef<HTMLDivElement>(null)
   const heroInView = useInView(heroRef, { once: true, margin: '-80px' })
   const loopRef = useRef<HTMLDivElement>(null)
   const loopInView = useInView(loopRef, { once: true, margin: '-80px' })
+  const { dict } = useI18n()
+  const t = (((dict as Record<string, unknown>).platformOperationalContent) ?? {}) as Record<string, string>
+
+  const STAGES = [
+    {
+      Icon: Activity,
+      title: t.stage1Title ?? 'Real-Time Data Ingestion',
+      body: t.stage1Body ?? 'Capture streams, events, transactions, and signals as they occur. No batching. No staging.',
+    },
+    {
+      Icon: BrainCircuit,
+      title: t.stage2Title ?? 'Continuous Context Building',
+      body: t.stage2Body ?? 'AI models and logic operate on live data, maintaining an always-updated understanding of system state.',
+    },
+    {
+      Icon: Sliders,
+      title: t.stage3Title ?? 'Instant Decisioning',
+      body: t.stage3Body ?? 'Insights generated in real time. Actionable intelligence embedded inside operations, not in a report.',
+    },
+    {
+      Icon: Send,
+      title: t.stage4Title ?? 'Built-In Execution',
+      body: t.stage4Body ?? 'Decisions trigger workflows and operational changes immediately, without external dependencies.',
+    },
+    {
+      Icon: Repeat,
+      title: t.stage5Title ?? 'Closed-Loop Learning',
+      body: t.stage5Body ?? 'Every action feeds back into the system, continuously improving intelligence and outcomes.',
+    },
+  ]
+
+  const SHIFTS = [
+    { from: t.shift1From ?? 'Reports', to: t.shift1To ?? 'Real-time awareness' },
+    { from: t.shift2From ?? 'Dashboards', to: t.shift2To ?? 'Continuous intelligence' },
+    { from: t.shift3From ?? 'Manual actions', to: t.shift3To ?? 'Automated execution' },
+    { from: t.shift4From ?? 'Delayed decisions', to: t.shift4To ?? 'Instant response' },
+    { from: t.shift5From ?? 'Reactive operations', to: t.shift5To ?? 'Self-optimizing systems' },
+  ]
+
+  const PERF_LANES = [
+    { label: t.perfLane1Label ?? 'Ingest', latency: t.perfLane1Latency ?? '<1 ms', share: 18 },
+    { label: t.perfLane2Label ?? 'Context build', latency: t.perfLane2Latency ?? '<2 ms', share: 22 },
+    { label: t.perfLane3Label ?? 'Decision', latency: t.perfLane3Latency ?? '<2 ms', share: 26 },
+    { label: t.perfLane4Label ?? 'Execute', latency: t.perfLane4Latency ?? '<1 ms', share: 18 },
+    { label: t.perfLane5Label ?? 'Learn', latency: t.perfLane5Latency ?? 'Continuous', share: 16 },
+  ]
 
   return (
     <main className="min-h-screen bg-white dark:bg-[#0f1623]">
@@ -143,7 +146,7 @@ export default function OperationalContent() {
                 }}
               >
                 <Activity size={13} strokeWidth={2} />
-                Strategic Pillar · II
+                {t.crumb ?? 'Strategic Pillar · II'}
               </span>
               <h1
                 className="text-white"
@@ -157,7 +160,7 @@ export default function OperationalContent() {
                   textDecoration: 'none',
                 }}
               >
-                Run Your Business
+                {t.heroTitle1 ?? 'Run Your Business'}
                 <br />
                 <span
                   style={{
@@ -171,7 +174,7 @@ export default function OperationalContent() {
                     fontWeight: 400,
                   }}
                 >
-                  in Real Time.
+                  {t.heroTitle2 ?? 'in Real Time.'}
                 </span>
               </h1>
               <div
@@ -195,7 +198,7 @@ export default function OperationalContent() {
                   maxWidth: '560px',
                 }}
               >
-                From data, to decisions, to execution. Continuously.
+                {t.heroLead ?? 'From data, to decisions, to execution. Continuously.'}
               </p>
               <p
                 style={{
@@ -207,9 +210,7 @@ export default function OperationalContent() {
                   maxWidth: '520px',
                 }}
               >
-                The AI-Native Operational Intelligence System turns enterprises
-                from reactive organizations into continuously adaptive,
-                self-optimizing systems.
+                {t.heroBody ?? 'The AI-Native Operational Intelligence System turns enterprises from reactive organizations into continuously adaptive, self-optimizing systems.'}
               </p>
             </motion.div>
 
@@ -309,7 +310,7 @@ export default function OperationalContent() {
                     color: ACCENT,
                   }}
                 >
-                  Continuous
+                  {t.loopCenterLabel ?? 'Continuous'}
                 </span>
                 <span
                   className="text-white"
@@ -319,7 +320,7 @@ export default function OperationalContent() {
                     marginTop: '4px',
                   }}
                 >
-                  Loop
+                  {t.loopCenterTitle ?? 'Loop'}
                 </span>
               </div>
               {/* Pulse ring */}
@@ -344,9 +345,9 @@ export default function OperationalContent() {
       </section>
 
       {/* ── From → To shift table ── */}
-      <section className="bg-white dark:bg-[#0f1623] py-12 sm:py-16 lg:py-20 section-grid relative">
+      <section className="bg-white dark:bg-[#0f1623] py-10 sm:py-14 lg:py-20 section-grid relative">
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
-          <SectionLabel text="Operational shift" />
+          <SectionLabel text={t.shiftLabel ?? 'Operational shift'} />
           <h2
             className="text-gray-900 dark:text-white"
             style={{
@@ -360,9 +361,9 @@ export default function OperationalContent() {
               textDecoration: 'none',
             }}
           >
-            From the old way{' '}
+            {t.shiftHeadline1 ?? 'From the old way'}{' '}
             <span style={{ color: ACCENT, fontWeight: 400 }}>
-              to the operating system of now
+              {t.shiftHeadlineAccent ?? 'to the operating system of now'}
             </span>
           </h2>
           <div
@@ -388,7 +389,7 @@ export default function OperationalContent() {
                   color: 'rgba(10,34,128,0.55)',
                 }}
               >
-                From
+                {t.shiftFromHeader ?? 'From'}
               </div>
               <div
                 aria-hidden="true"
@@ -418,7 +419,7 @@ export default function OperationalContent() {
                   color: ACCENT,
                 }}
               >
-                To
+                {t.shiftToHeader ?? 'To'}
               </div>
             </div>
             {SHIFTS.map((s, i) => (
@@ -492,7 +493,7 @@ export default function OperationalContent() {
       {/* ── Five stages of the loop — detailed cards ── */}
       <section
         ref={loopRef}
-        className="relative overflow-hidden py-12 sm:py-16 lg:py-20"
+        className="relative overflow-hidden py-10 sm:py-14 lg:py-20"
         style={{
           background:
             'linear-gradient(180deg, #050D6A 0%, #07091A 60%, #050D6A 100%)',
@@ -509,7 +510,7 @@ export default function OperationalContent() {
           }}
         />
         <div className="relative z-10 max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
-          <SectionLabel text="The continuous loop" variant="dark" />
+          <SectionLabel text={t.loopLabel ?? 'The continuous loop'} variant="dark" />
           <h2
             className="text-white"
             style={{
@@ -523,9 +524,9 @@ export default function OperationalContent() {
               textDecoration: 'none',
             }}
           >
-            Five stages,{' '}
+            {t.loopHeadline1 ?? 'Five stages,'}{' '}
             <span style={{ color: ACCENT, fontWeight: 400 }}>
-              one operating system
+              {t.loopHeadlineAccent ?? 'one operating system'}
             </span>
           </h2>
 
@@ -638,30 +639,31 @@ export default function OperationalContent() {
       </section>
 
       {/* ── Performance proof — latency budget per stage ── */}
-      <section className="bg-[#F8F4F0] dark:bg-[#0A1326] py-12 sm:py-16 lg:py-20">
+      <section className="bg-[#F8F4F0] dark:bg-[#0A1326] py-10 sm:py-14 lg:py-20">
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <div className="grid grid-cols-1 lg:grid-cols-[0.42fr_0.58fr] gap-6 sm:gap-10 lg:gap-16 items-start">
             <div>
-              <SectionLabel text="Performance" />
+              <SectionLabel text={t.perfLabel ?? 'Performance'} />
               <h2
-                className="text-gray-900 dark:text-white mt-6"
+                className="text-gray-900 dark:text-white"
                 style={{
                   fontSize: 'clamp(26px, 3.4vw, 44px)',
                   fontWeight: 300,
                   letterSpacing: '-0.02em',
                   lineHeight: 1.1,
                   margin: '24px 0 0 0',
+                  maxWidth: 'clamp(420px, 80%, 720px)',
                   textWrap: 'balance',
                   textDecoration: 'none',
                 }}
               >
-                Sense to act,{' '}
+                {t.perfHeadline1 ?? 'Sense to act,'}{' '}
                 <span style={{ color: ACCENT, fontWeight: 400 }}>
-                  in milliseconds
+                  {t.perfHeadlineAccent ?? 'in milliseconds'}
                 </span>
               </h2>
               <p
-                className="text-gray-600 dark:text-gray-400 mt-5"
+                className="text-gray-600 dark:text-gray-400"
                 style={{
                   fontSize: 'clamp(14px, 1.15vw, 16px)',
                   lineHeight: 1.7,
@@ -669,9 +671,7 @@ export default function OperationalContent() {
                   margin: '20px 0 0 0',
                 }}
               >
-                The full operating loop runs in single-millisecond budgets.
-                Each stage is observable, controllable, and tunable inside the
-                engine.
+                {t.perfBody ?? 'The full operating loop runs in single-millisecond budgets. Each stage is observable, controllable, and tunable inside the engine.'}
               </p>
               <div className="flex items-center gap-6 mt-8">
                 <div
@@ -685,7 +685,7 @@ export default function OperationalContent() {
                     color: ACCENT,
                   }}
                 >
-                  <Timer size={14} strokeWidth={2} /> p99 ~6 ms full loop
+                  <Timer size={14} strokeWidth={2} /> {t.perfP99 ?? 'p99 ~6 ms full loop'}
                 </div>
                 <div
                   className="flex items-center gap-2"
@@ -698,7 +698,7 @@ export default function OperationalContent() {
                     color: '#0A2280',
                   }}
                 >
-                  <TrendingUp size={14} strokeWidth={2} /> Linear scaling
+                  <TrendingUp size={14} strokeWidth={2} /> {t.perfLinear ?? 'Linear scaling'}
                 </div>
               </div>
             </div>
@@ -777,7 +777,7 @@ export default function OperationalContent() {
       </section>
 
       {/* ── Closing manifesto + outcomes ── */}
-      <section className="bg-white dark:bg-[#0f1623] py-12 sm:py-16 lg:py-20">
+      <section className="bg-white dark:bg-[#0f1623] py-10 sm:py-14 lg:py-20">
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-8 sm:gap-12 lg:gap-16 items-center">
             <motion.div
@@ -811,9 +811,9 @@ export default function OperationalContent() {
                   textWrap: 'balance',
                 }}
               >
-                From reactive enterprise to{' '}
+                {t.closingBefore ?? 'From reactive enterprise to'}{' '}
                 <span style={{ color: ACCENT, fontWeight: 400 }}>
-                  continuously adaptive, self-optimizing system
+                  {t.closingAccent ?? 'continuously adaptive, self-optimizing system'}
                 </span>
                 .
               </p>
@@ -828,16 +828,16 @@ export default function OperationalContent() {
             >
               {[
                 {
-                  tag: 'SENSE',
-                  body: 'Streams, events, and signals captured the moment they happen.',
+                  tag: t.closingTagSense ?? 'SENSE',
+                  body: t.closingBodySense ?? 'Streams, events, and signals captured the moment they happen.',
                 },
                 {
-                  tag: 'DECIDE',
-                  body: 'Live context and policy resolved inside the engine, not in a side service.',
+                  tag: t.closingTagDecide ?? 'DECIDE',
+                  body: t.closingBodyDecide ?? 'Live context and policy resolved inside the engine, not in a side service.',
                 },
                 {
-                  tag: 'ACT',
-                  body: 'Workflows, state changes, and downstream systems triggered in milliseconds.',
+                  tag: t.closingTagAct ?? 'ACT',
+                  body: t.closingBodyAct ?? 'Workflows, state changes, and downstream systems triggered in milliseconds.',
                 },
               ].map((stage, i) => (
                 <li
@@ -897,7 +897,7 @@ export default function OperationalContent() {
         </div>
       </section>
 
-      <CTABanner heading="Run your business in real time." />
+      <CTABanner heading={t.ctaHeading ?? 'Run your business in real time.'} />
       <Footer />
       <ScrollToTop />
 

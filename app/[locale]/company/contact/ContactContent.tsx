@@ -23,57 +23,9 @@ import PageBanner from '@/components/PageBanner'
 import SectionLabel from '@/components/SectionLabel'
 import ScrollToTop from '@/components/ScrollToTop'
 import ScrollProgressBar from '@/components/ScrollProgressBar'
+import { useI18n } from '@/i18n/I18nProvider'
 
 const EASE = [0.165, 0.84, 0.44, 1] as const
-
-const REACH_OPTIONS = [
-  {
-    Icon: Briefcase,
-    title: 'Sales',
-    body: 'Talk to an engineer about your workload. We will scope a proof of value in your environment.',
-    email: 'sales@monkdb.com',
-  },
-  {
-    Icon: Users,
-    title: 'Customer support',
-    body: 'Already a customer? Reach support with priority routing.',
-    email: 'support@monkdb.com',
-  },
-  {
-    Icon: Building2,
-    title: 'Partnerships',
-    body: 'Cloud, technology, system integrator, or ISV partner inquiries.',
-    email: 'partners@monkdb.com',
-  },
-  {
-    Icon: Megaphone,
-    title: 'Press and analyst',
-    body: 'Briefings, interviews, and analyst coverage.',
-    email: 'press@monkdb.com',
-  },
-]
-
-const OFFICES = [
-  {
-    city: 'Hyderabad',
-    country: 'India',
-    address:
-      'WeWork Raheja Mindspace Building 9, Floor 13, Mindspace IT Park, Madhapur, Hyderabad 500081, Telangana',
-    role: 'Headquarters',
-  },
-  {
-    city: 'New York',
-    country: 'United States',
-    address: '100 Bowery, New York, NY 10013',
-    role: 'Americas hub',
-  },
-  {
-    city: 'London',
-    country: 'United Kingdom',
-    address: '1 Finsbury Avenue, London EC2M 2PA',
-    role: 'EMEA hub',
-  },
-]
 
 const INITIAL_FORM = {
   name: '',
@@ -92,6 +44,21 @@ export default function ContactContent() {
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [form, setForm] = useState(INITIAL_FORM)
+  const { dict } = useI18n()
+  const t = (((dict as Record<string, unknown>).contact) ?? {}) as Record<string, string>
+
+  const REACH_OPTIONS = [
+    { Icon: Briefcase, title: t.reachSales ?? 'Sales', body: t.reachSalesBody ?? 'Talk to an engineer about your workload. We will scope a proof of value in your environment.', email: 'sales@monkdb.com' },
+    { Icon: Users, title: t.reachSupport ?? 'Customer support', body: t.reachSupportBody ?? 'Already a customer? Reach support with priority routing.', email: 'support@monkdb.com' },
+    { Icon: Building2, title: t.reachPartnerships ?? 'Partnerships', body: t.reachPartnershipsBody ?? 'Cloud, technology, system integrator, or ISV partner inquiries.', email: 'partners@monkdb.com' },
+    { Icon: Megaphone, title: t.reachPress ?? 'Press and analyst', body: t.reachPressBody ?? 'Briefings, interviews, and analyst coverage.', email: 'press@monkdb.com' },
+  ]
+
+  const OFFICES = [
+    { city: t.officeHyderabadCity ?? 'Hyderabad', country: t.officeIndia ?? 'India', address: t.officeHyderabadAddress ?? 'WeWork Raheja Mindspace Building 9, Floor 13, Mindspace IT Park, Madhapur, Hyderabad 500081, Telangana', role: t.officeHqRole ?? 'Headquarters' },
+    { city: t.officeNewYorkCity ?? 'New York', country: t.officeUs ?? 'United States', address: t.officeNewYorkAddress ?? '100 Bowery, New York, NY 10013', role: t.officeAmericasRole ?? 'Americas hub' },
+    { city: t.officeLondonCity ?? 'London', country: t.officeUk ?? 'United Kingdom', address: t.officeLondonAddress ?? '1 Finsbury Avenue, London EC2M 2PA', role: t.officeEmeaRole ?? 'EMEA hub' },
+  ]
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
     const target = e.target
@@ -115,12 +82,12 @@ export default function ContactContent() {
       })
       const data = await res.json().catch(() => ({}))
       if (!res.ok) {
-        throw new Error(data.error ?? 'Failed to send message. Please try again.')
+        throw new Error(data.error ?? t.errorDefault ?? 'Failed to send message. Please try again.')
       }
       setSubmitted(true)
       setForm(INITIAL_FORM)
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Network error. Please try again.')
+      setError(err instanceof Error ? err.message : (t.errorNetwork ?? 'Network error. Please try again.'))
     } finally {
       setSubmitting(false)
     }
@@ -136,8 +103,8 @@ export default function ContactContent() {
       <ScrollProgressBar />
       <Navbar />
       <PageBanner
-        title="Contact"
-        subtitle="Talk to an engineer about your workload."
+        title={t.title ?? 'Contact'}
+        subtitle={t.subtitle ?? 'Talk to an engineer about your workload.'}
       />
 
       {/* Split: form left, sidebar right */}
@@ -157,7 +124,7 @@ export default function ContactContent() {
                 padding: 'clamp(28px, 3vw, 44px)',
               }}
             >
-              <SectionLabel text="Talk to us" />
+              <SectionLabel text={t.talkToUs ?? 'Talk to us'} />
               <h2
                 className="text-[#0A2280] dark:text-white"
                 style={{
@@ -171,7 +138,7 @@ export default function ContactContent() {
                   textDecoration: 'none',
                 }}
               >
-                Tell us about your workload
+                {t.formTitle ?? 'Tell us about your workload'}
               </h2>
               <p
                 className="text-gray-600 dark:text-gray-400"
@@ -182,22 +149,21 @@ export default function ContactContent() {
                   maxWidth: '520px',
                 }}
               >
-                We will route this to the right engineer and reply within one
-                business day.
+                {t.formIntro ?? 'We will route this to the right engineer and reply within one business day.'}
               </p>
 
               {!submitted ? (
                 <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <Field
-                      label="Name"
+                      label={t.fieldName ?? 'Name'}
                       name="name"
                       value={form.name}
                       onChange={handleChange}
                       required
                     />
                     <Field
-                      label="Company"
+                      label={t.fieldCompany ?? 'Company'}
                       name="company"
                       value={form.company}
                       onChange={handleChange}
@@ -206,7 +172,7 @@ export default function ContactContent() {
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <Field
-                      label="Work email"
+                      label={t.fieldEmail ?? 'Work email'}
                       name="email"
                       type="email"
                       value={form.email}
@@ -214,7 +180,7 @@ export default function ContactContent() {
                       required
                     />
                     <Field
-                      label="Phone"
+                      label={t.fieldPhone ?? 'Phone'}
                       name="phone"
                       type="tel"
                       value={form.phone}
@@ -222,28 +188,29 @@ export default function ContactContent() {
                     />
                   </div>
                   <Field
-                    label="Role"
+                    label={t.fieldRole ?? 'Role'}
                     name="role"
                     value={form.role}
                     onChange={handleChange}
                   />
                   <SelectField
-                    label="Primary workload"
+                    label={t.fieldWorkload ?? 'Primary workload'}
                     name="workload"
                     value={form.workload}
                     onChange={handleChange}
+                    placeholder={t.selectOne ?? 'Select one'}
                     options={[
-                      'Real-time analytics',
-                      'AI/ML on live data',
-                      'Vector and hybrid search',
-                      'Streaming SQL',
-                      'Edge intelligence',
-                      'Autonomous decisioning',
-                      'Other',
+                      t.workload1 ?? 'Real-time analytics',
+                      t.workload2 ?? 'AI/ML on live data',
+                      t.workload3 ?? 'Vector and hybrid search',
+                      t.workload4 ?? 'Streaming SQL',
+                      t.workload5 ?? 'Edge intelligence',
+                      t.workload6 ?? 'Autonomous decisioning',
+                      t.workloadOther ?? 'Other',
                     ]}
                   />
                   <TextAreaField
-                    label="What are you trying to build?"
+                    label={t.fieldMessage ?? 'What are you trying to build?'}
                     name="message"
                     value={form.message}
                     onChange={handleChange}
@@ -265,7 +232,7 @@ export default function ContactContent() {
                       }}
                     />
                     <span style={{ fontSize: 13, lineHeight: 1.55, color: '#4B5563' }}>
-                      I agree to receive product updates and communications from MonkDB.
+                      {t.consent ?? 'I agree to receive product updates and communications from MonkDB.'}
                     </span>
                   </label>
                   {/* Honeypot — hidden from real users, bots fill it, server rejects. */}
@@ -321,7 +288,7 @@ export default function ContactContent() {
                     }}
                   >
                     <Send size={14} strokeWidth={2.2} />
-                    {submitting ? 'Sending…' : 'Send message'}
+                    {submitting ? (t.sending ?? 'Sending…') : (t.send ?? 'Send message')}
                   </button>
                 </form>
               ) : (
@@ -345,7 +312,7 @@ export default function ContactContent() {
                       color: '#1A38E8',
                     }}
                   >
-                    Message received
+                    {t.receivedLabel ?? 'Message received'}
                   </span>
                   <h3
                     className="text-[#0A2280]"
@@ -357,7 +324,7 @@ export default function ContactContent() {
                       margin: '14px 0 12px 0',
                     }}
                   >
-                    Thank you. We will be in touch.
+                    {t.thankYou ?? 'Thank you. We will be in touch.'}
                   </h3>
                   <p
                     className="text-gray-600"
@@ -367,15 +334,14 @@ export default function ContactContent() {
                       margin: 0,
                     }}
                   >
-                    A MonkDB engineer will reach out within one business day.
-                    For anything urgent, email{' '}
+                    {t.thankYouBodyPrefix ?? 'A MonkDB engineer will reach out within one business day. For anything urgent, email'}{' '}
                     <a
                       href="mailto:sales@monkdb.com"
                       style={{ color: '#1A38E8', fontWeight: 500 }}
                     >
                       sales@monkdb.com
                     </a>
-                    .
+                    {t.thankYouBodySuffix ?? '.'}
                   </p>
                   <button
                     type="button"
@@ -392,7 +358,7 @@ export default function ContactContent() {
                       cursor: 'pointer',
                     }}
                   >
-                    Send another message
+                    {t.sendAnother ?? 'Send another message'}
                   </button>
                 </div>
               )}
@@ -484,7 +450,7 @@ export default function ContactContent() {
       {/* Offices */}
       <section className="bg-[#F8F4F0] dark:bg-[#0A1326] py-12 sm:py-16 lg:py-20">
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
-          <SectionLabel text="Offices" />
+          <SectionLabel text={t.officesLabel ?? 'Offices'} />
           <h2
             className="text-gray-900 dark:text-white"
             style={{
@@ -499,7 +465,7 @@ export default function ContactContent() {
               textDecoration: 'none',
             }}
           >
-            Where we are
+            {t.officesTitle ?? 'Where we are'}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
             {OFFICES.map((office, i) => (
@@ -629,10 +595,12 @@ function Field({
 function SelectField({
   label,
   options,
+  placeholder,
   ...rest
 }: {
   label: string
   options: string[]
+  placeholder?: string
 } & React.SelectHTMLAttributes<HTMLSelectElement>) {
   return (
     <label className="flex flex-col gap-1.5">
@@ -666,7 +634,7 @@ function SelectField({
           paddingRight: '36px',
         }}
       >
-        <option value="">Select one</option>
+        <option value="">{placeholder ?? 'Select one'}</option>
         {options.map((opt) => (
           <option key={opt} value={opt}>
             {opt}

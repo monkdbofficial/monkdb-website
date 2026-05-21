@@ -2,6 +2,7 @@
 
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
+import BgPattern from './effects/BgPattern'
 
 const pillItems = [
   { label: 'monkdb', variant: 'filled' },
@@ -68,9 +69,10 @@ export default function LogoMarquee() {
       initial={{ opacity: 0, y: 16 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
-      className="py-10 sm:py-14 lg:py-16 bg-white dark:bg-[#111827] overflow-hidden border-y border-gray-100 dark:border-white/5"
+      className="relative py-10 sm:py-14 lg:py-16 bg-white dark:bg-[#111827] overflow-hidden border-y border-gray-100 dark:border-white/5"
     >
-      <div className="mb-4 text-center">
+      <BgPattern variant="diagonal-stripes" mask="fade-x" size={28} fill="rgba(10,34,128,0.045)" />
+      <div className="relative z-10 mb-4 text-center">
         <span className="text-sm font-mono text-gray-400 dark:text-powder-blue/60 tracking-widest uppercase">
           Trusted by enterprise teams
         </span>

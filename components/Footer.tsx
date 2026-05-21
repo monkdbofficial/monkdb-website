@@ -117,6 +117,7 @@ export default function Footer() {
   const isInView = useInView(ref, { once: true, margin: '-60px' })
   const { dict, locale } = useI18n()
   const t = (((dict as Record<string, unknown>).footer) ?? {}) as Record<string, string>
+  const tExtra = (((dict as Record<string, unknown>).footerExtra) ?? {}) as Record<string, string>
   const aboutHref = localizedHref('/about', locale)
   const links = buildFooterLinks(t, aboutHref, locale)
   const { products, solutions, resources, community, partners, companyLinks } = links
@@ -167,7 +168,7 @@ export default function Footer() {
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="2">
                   <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
                 </svg>
-                <a href="#" className="hover:text-gray-900 transition-colors" style={{ textDecoration: 'none' }}>www.monkdb.com</a>
+                <a href="#" className="hover:text-gray-900 transition-colors" style={{ textDecoration: 'none' }}>{tExtra.websiteLabel ?? 'www.monkdb.com'}</a>
               </span>
             </div>
             {/* Social icons — rounded squares */}
@@ -311,7 +312,7 @@ export default function Footer() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/aws-partner-marketplace-seller 1.svg"
-                alt="AWS Partner Marketplace Seller"
+                alt={tExtra.awsBadgeAlt ?? 'AWS Partner Marketplace Seller'}
                 className="h-16 sm:h-20 lg:h-[90px] w-auto object-contain"
               />
             </a>

@@ -88,7 +88,7 @@ export default function HomeArchitecture() {
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden py-12 sm:py-20 lg:py-28"
+      className="relative overflow-hidden py-10 sm:py-14 lg:py-20"
       style={{
         background:
           'linear-gradient(180deg, #050D6A 0%, #07091A 50%, #050D6A 100%)',
@@ -255,7 +255,7 @@ export default function HomeArchitecture() {
               </p>
               {/* Spec chips */}
               <ul
-                className="flex flex-wrap justify-center gap-1.5 mt-4"
+                className="flex flex-wrap justify-center gap-1.5"
                 style={{ listStyle: 'none', padding: 0, margin: '14px 0 0 0', maxWidth: '200px' }}
               >
                 {s.specs.map((spec, j) => (
@@ -331,8 +331,8 @@ export default function HomeArchitecture() {
                 <h3
                   className="text-white"
                   style={{
-                    fontSize: '15px',
-                    fontWeight: 500,
+                    fontSize: 'clamp(15px, 1.4vw, 20px)',
+                    fontWeight: 400,
                     lineHeight: 1.25,
                     margin: 0,
                   }}
@@ -351,7 +351,7 @@ export default function HomeArchitecture() {
                   {s.body}
                 </p>
                 <ul
-                  className="flex flex-wrap gap-1.5 mt-2"
+                  className="flex flex-wrap gap-1.5"
                   style={{ listStyle: 'none', padding: 0, margin: '8px 0 0 0' }}
                 >
                   {s.specs.map((spec) => (

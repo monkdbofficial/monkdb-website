@@ -20,46 +20,35 @@ import Footer from '@/components/Footer'
 import PageBanner from '@/components/PageBanner'
 import CTABanner from '@/components/CTABanner'
 import SectionLabel from '@/components/SectionLabel'
-import HubDiagramBanner from '@/components/HubDiagramBanner'
 import ScrollToTop from '@/components/ScrollToTop'
 import ScrollProgressBar from '@/components/ScrollProgressBar'
 import { useI18n } from '@/i18n/I18nProvider'
 import { localizedHref } from '@/i18n/config'
 import { LEARN_SECTIONS } from '@/content/learn'
+import { renderBrand } from '@/components/BrandAccent'
 
 const EASE = [0.165, 0.84, 0.44, 1] as const
-
-const LEARNING_PATH = [
-  { step: '01', title: 'Start Here', body: 'Intro to MonkDB and core concepts.', Icon: Compass },
-  { step: '02', title: 'Build', body: 'Build your first MonkDB application.', Icon: Hammer },
-  { step: '03', title: 'Deploy', body: 'Take it to production with confidence.', Icon: Rocket },
-  { step: '04', title: 'Scale', body: 'Grow workloads across edge to cloud.', Icon: TrendingUp },
-  { step: '05', title: 'Optimize', body: 'Continuously improve outcomes.', Icon: Settings },
-]
 
 export default function LearnHubContent() {
   const ref = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
-  const { locale } = useI18n()
+  const { locale, dict } = useI18n()
+  const t = (((dict as Record<string, unknown>).learnHub) ?? {}) as Record<string, string>
+  const LEARNING_PATH = [
+    { step: '01', title: t.path1Title ?? 'Start Here', body: renderBrand(t.path1Body ?? 'Intro to MonkDB and core concepts.'), Icon: Compass },
+    { step: '02', title: t.path2Title ?? 'Build', body: renderBrand(t.path2Body ?? 'Build your first MonkDB application.'), Icon: Hammer },
+    { step: '03', title: t.path3Title ?? 'Deploy', body: t.path3Body ?? 'Take it to production with confidence.', Icon: Rocket },
+    { step: '04', title: t.path4Title ?? 'Scale', body: t.path4Body ?? 'Grow workloads across edge to cloud.', Icon: TrendingUp },
+    { step: '05', title: t.path5Title ?? 'Optimize', body: t.path5Body ?? 'Continuously improve outcomes.', Icon: Settings },
+  ]
 
   return (
     <main className="min-h-screen bg-white dark:bg-[#0f1623]">
       <ScrollProgressBar />
       <Navbar />
       <PageBanner
-        title="Learn. Build. Execute."
-        subtitle="Everything you need to understand, evaluate, and build with MonkDB. Across concepts, code, and real-world use."
-      />
-
-      {/* Reference diagram from docx image 4 */}
-      <HubDiagramBanner
-        label="Learn"
-        src="/diagram-learn.png"
-        alt="MonkDB Learn overview, five resources sections plus the developer learning path"
-        width={1379}
-        height={920}
-        caption="Five practical entry points across resources, documentation, customer stories, blog, and events. Plus a guided five-step learning path."
-        tagline="One System. One Truth. Real-Time Intelligence. Instant Action."
+        title={t.title ?? 'Learn. Build. Execute.'}
+        subtitle={t.subtitle ?? 'Everything you need to understand, evaluate, and build with MonkDB. Across concepts, code, and real-world use.'}
       />
 
       {/* 5 sub-section cards */}
@@ -68,7 +57,7 @@ export default function LearnHubContent() {
         className="bg-[#F8F4F0] dark:bg-[#0A1326] py-12 sm:py-20 lg:py-24"
       >
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
-          <SectionLabel text="Sections" />
+          <SectionLabel text={t.sectionsLabel ?? 'Sections'} />
           <motion.h2
             initial={{ opacity: 0, y: 18 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -86,9 +75,9 @@ export default function LearnHubContent() {
               textDecoration: 'none',
             }}
           >
-            Five entry points,{' '}
+            {t.sectionsTitlePart1 ?? 'Five entry points,'}{' '}
             <span className="gradient-text-animate" style={{ fontWeight: 400 }}>
-              one continuous platform
+              {t.sectionsTitlePart2 ?? 'one continuous platform'}
             </span>
           </motion.h2>
 
@@ -137,7 +126,7 @@ export default function LearnHubContent() {
                     margin: '0 0 10px 0',
                   }}
                 >
-                  Documentation
+                  {t.docTitle ?? 'Documentation'}
                 </h3>
                 <p
                   className="text-gray-600 dark:text-gray-400 flex-1"
@@ -148,7 +137,7 @@ export default function LearnHubContent() {
                     margin: 0,
                   }}
                 >
-                  Build faster with complete technical guidance. Getting started, APIs, SDKs, deployment, and architecture patterns.
+                  {t.docBody ?? 'Build faster with complete technical guidance. Getting started, APIs, SDKs, deployment, and architecture patterns.'}
                 </p>
                 <div
                   className="flex items-center gap-2 mt-5"
@@ -158,7 +147,7 @@ export default function LearnHubContent() {
                     fontWeight: 600,
                   }}
                 >
-                  Read the docs
+                  {t.docCta ?? 'Read the docs'}
                 </div>
               </Link>
             </motion.div>
@@ -234,7 +223,7 @@ export default function LearnHubContent() {
                         fontWeight: 600,
                       }}
                     >
-                      Explore
+                      {t.exploreCta ?? 'Explore'}
                     </div>
                   </Link>
                 </motion.div>
@@ -262,7 +251,7 @@ export default function LearnHubContent() {
           }}
         />
         <div className="relative z-10 max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
-          <SectionLabel text="Learning Path" variant="dark" />
+          <SectionLabel text={t.pathLabel ?? 'Learning Path'} variant="dark" />
           <motion.h2
             initial={{ opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -281,7 +270,7 @@ export default function LearnHubContent() {
               textDecoration: 'none',
             }}
           >
-            Start here. Build. Scale.
+            {t.pathTitle ?? 'Start here. Build. Scale.'}
           </motion.h2>
 
           <div
@@ -390,7 +379,7 @@ export default function LearnHubContent() {
               color: 'rgba(127,179,255,0.7)',
             }}
           >
-            From understanding to execution
+            {t.pathFootnote ?? 'From understanding to execution'}
           </p>
         </div>
       </section>
@@ -428,16 +417,15 @@ export default function LearnHubContent() {
                 marginRight: '12px',
               }}
             />
-            From understanding to execution, everything you need to build with
-            MonkDB starts here.
+            {t.finalLine ?? 'From understanding to execution, everything you need to build with MonkDB starts here.'}
           </motion.p>
         </div>
       </section>
 
       <CTABanner
-        heading="Start your MonkDB journey."
-        description="Pick an entry point. Or jump straight to the developer journey map."
-        buttonText="Request a demo"
+        heading={t.ctaHeading ?? 'Start your MonkDB journey.'}
+        description={t.ctaDescription ?? 'Pick an entry point. Or jump straight to the developer journey map.'}
+        buttonText={t.ctaButton ?? 'Request a demo'}
       />
       <Footer />
       <ScrollToTop />

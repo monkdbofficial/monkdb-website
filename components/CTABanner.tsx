@@ -11,6 +11,8 @@
 import { motion } from 'framer-motion'
 import { useI18n } from '@/i18n/I18nProvider'
 import { localizedHref } from '@/i18n/config'
+import BeamsBackground from './effects/BeamsBackground'
+import { renderBrand } from './BrandAccent'
 
 const SANAS_EASE = [0.165, 0.84, 0.44, 1] as const
 
@@ -32,7 +34,7 @@ export default function CTABanner({
   const resolvedButton = buttonText ?? t.button ?? 'Book a Demo'
   const resolvedHref = buttonHref ?? localizedHref('/company/contact', locale)
   return (
-    <section className="relative overflow-hidden py-12 sm:py-16 lg:py-20">
+    <section className="relative overflow-hidden pt-24 sm:pt-28 lg:pt-32 pb-14 sm:pb-16 lg:pb-20">
       {/* Background */}
       <div
         className="absolute inset-0"
@@ -46,16 +48,8 @@ export default function CTABanner({
         }}
       />
 
-      {/* Dot grid */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage:
-            'radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px)',
-          backgroundSize: '32px 32px',
-          opacity: 0.4,
-        }}
-      />
+      {/* Animated beams (lifted from 21st.dev/kokonutd/beams-background, navy-locked) */}
+      <BeamsBackground intensity="medium" />
 
       {/* Content */}
       <div className="relative z-10 max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28 flex flex-col items-center text-center">
@@ -74,7 +68,7 @@ export default function CTABanner({
             textWrap: 'balance',
           }}
         >
-          {resolvedHeading}
+          {renderBrand(resolvedHeading)}
         </motion.h2>
 
         <motion.p

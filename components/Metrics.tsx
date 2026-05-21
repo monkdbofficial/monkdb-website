@@ -4,6 +4,7 @@ import { motion, useInView, animate, useMotionValue, useTransform } from 'framer
 import { useEffect, useRef } from 'react'
 import { TrendingUp, Zap, Layers, ShieldCheck, type LucideIcon } from 'lucide-react'
 import { useI18n } from '@/i18n/I18nProvider'
+import BgPattern from './effects/BgPattern'
 
 type Metric = {
   // Numeric target (for count-up)
@@ -104,6 +105,7 @@ export default function Metrics() {
         borderColor: 'rgba(10,34,128,0.08)',
       }}
     >
+      <BgPattern variant="dots" mask="fade-y" size={24} fill="rgba(10,34,128,0.10)" />
       {/* Subtle parchment top-wash for depth */}
       <div
         aria-hidden="true"

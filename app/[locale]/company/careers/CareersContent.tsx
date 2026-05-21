@@ -28,85 +28,78 @@ import CTABanner from '@/components/CTABanner'
 import SectionLabel from '@/components/SectionLabel'
 import ScrollToTop from '@/components/ScrollToTop'
 import ScrollProgressBar from '@/components/ScrollProgressBar'
+import { useI18n } from '@/i18n/I18nProvider'
 
 const EASE = [0.165, 0.84, 0.44, 1] as const
 
-const TEAMS = [
-  {
-    name: 'Engineering',
-    Icon: Code2,
-    roles: [
-      { title: 'Staff Engineer, Storage', location: 'Remote (Global)', type: 'Full-time' },
-      { title: 'Distributed Systems Engineer', location: 'Hyderabad', type: 'Full-time' },
-      { title: 'Vector / AI Search Engineer', location: 'Remote (US)', type: 'Full-time' },
-      { title: 'Site Reliability Engineer', location: 'Remote (EU)', type: 'Full-time' },
-    ],
-  },
-  {
-    name: 'Product and Design',
-    Icon: Sparkles,
-    roles: [
-      { title: 'Senior Product Manager, Platform', location: 'Hyderabad / Remote', type: 'Full-time' },
-      { title: 'Senior Product Designer', location: 'Remote (Global)', type: 'Full-time' },
-      { title: 'Developer Advocate', location: 'Remote (Global)', type: 'Full-time' },
-    ],
-  },
-  {
-    name: 'Go-to-market',
-    Icon: Megaphone,
-    roles: [
-      { title: 'Account Executive, Enterprise', location: 'New York', type: 'Full-time' },
-      { title: 'Solutions Architect, BFSI', location: 'London', type: 'Full-time' },
-      { title: 'Customer Success Manager', location: 'Remote (APAC)', type: 'Full-time' },
-    ],
-  },
-  {
-    name: 'Operations',
-    Icon: Users,
-    roles: [
-      { title: 'Head of Talent', location: 'Hyderabad', type: 'Full-time' },
-      { title: 'Finance Manager', location: 'Hyderabad', type: 'Full-time' },
-    ],
-  },
-]
-
-const VALUES = [
-  {
-    name: 'Sovereignty by design',
-    body: 'We build for control. Every decision, from architecture to staffing, defaults to giving people and customers more agency, not less.',
-  },
-  {
-    name: 'Continuous over batch',
-    body: 'We work in real time. Decisions land fast, feedback loops close fast, and we keep the operating cadence high.',
-  },
-  {
-    name: 'Production over demos',
-    body: 'We optimize for what works at 3am in production, not what looks good in a deck. Real shipped software is the unit of progress.',
-  },
-  {
-    name: 'Distributed by default',
-    body: 'We are remote-first, async-aware, and bias toward written, durable communication so the best ideas surface anywhere.',
-  },
-]
-
-const PERKS = [
-  { Icon: Globe2, label: 'Remote-first across global timezones' },
-  { Icon: HeartPulse, label: 'Premium health insurance for you and family' },
-  { Icon: GraduationCap, label: 'Annual learning and conference budget' },
-  { Icon: Plane, label: 'Quarterly team offsites' },
-  { Icon: Coins, label: 'Meaningful equity from day one' },
-  { Icon: LaptopMinimal, label: 'Top-tier hardware and software stipend' },
-]
-
-const PROCESS = [
-  { step: '01', title: 'Apply', body: 'Send a CV and a short note about why MonkDB.' },
-  { step: '02', title: 'Intro chat', body: '30 minutes with our talent team to align on context.' },
-  { step: '03', title: 'Craft loop', body: 'Two role-specific conversations focused on real work.' },
-  { step: '04', title: 'Team meet', body: 'Spend time with future teammates and leaders.' },
-  { step: '05', title: 'Offer', body: 'Aligned compensation, role, and start date.' },
-]
-
 export default function CareersContent() {
+  const { dict } = useI18n()
+  const t = (((dict as Record<string, unknown>).careers) ?? {}) as Record<string, string>
+  const fullTime = t.fullTime ?? 'Full-time'
+
+  const TEAMS = [
+    {
+      name: t.teamEngineering ?? 'Engineering',
+      Icon: Code2,
+      roles: [
+        { title: t.role1 ?? 'Staff Engineer, Storage', location: t.locRemoteGlobal ?? 'Remote (Global)', type: fullTime },
+        { title: t.role2 ?? 'Distributed Systems Engineer', location: t.locHyderabad ?? 'Hyderabad', type: fullTime },
+        { title: t.role3 ?? 'Vector / AI Search Engineer', location: t.locRemoteUs ?? 'Remote (US)', type: fullTime },
+        { title: t.role4 ?? 'Site Reliability Engineer', location: t.locRemoteEu ?? 'Remote (EU)', type: fullTime },
+      ],
+    },
+    {
+      name: t.teamProduct ?? 'Product and Design',
+      Icon: Sparkles,
+      roles: [
+        { title: t.role5 ?? 'Senior Product Manager, Platform', location: t.locHyderabadRemote ?? 'Hyderabad / Remote', type: fullTime },
+        { title: t.role6 ?? 'Senior Product Designer', location: t.locRemoteGlobal ?? 'Remote (Global)', type: fullTime },
+        { title: t.role7 ?? 'Developer Advocate', location: t.locRemoteGlobal ?? 'Remote (Global)', type: fullTime },
+      ],
+    },
+    {
+      name: t.teamGtm ?? 'Go-to-market',
+      Icon: Megaphone,
+      roles: [
+        { title: t.role8 ?? 'Account Executive, Enterprise', location: t.locNewYork ?? 'New York', type: fullTime },
+        { title: t.role9 ?? 'Solutions Architect, BFSI', location: t.locLondon ?? 'London', type: fullTime },
+        { title: t.role10 ?? 'Customer Success Manager', location: t.locRemoteApac ?? 'Remote (APAC)', type: fullTime },
+      ],
+    },
+    {
+      name: t.teamOps ?? 'Operations',
+      Icon: Users,
+      roles: [
+        { title: t.role11 ?? 'Head of Talent', location: t.locHyderabad ?? 'Hyderabad', type: fullTime },
+        { title: t.role12 ?? 'Finance Manager', location: t.locHyderabad ?? 'Hyderabad', type: fullTime },
+      ],
+    },
+  ]
+
+  const VALUES = [
+    { name: t.value1Title ?? 'Sovereignty by design', body: t.value1Body ?? 'We build for control. Every decision, from architecture to staffing, defaults to giving people and customers more agency, not less.' },
+    { name: t.value2Title ?? 'Continuous over batch', body: t.value2Body ?? 'We work in real time. Decisions land fast, feedback loops close fast, and we keep the operating cadence high.' },
+    { name: t.value3Title ?? 'Production over demos', body: t.value3Body ?? 'We optimize for what works at 3am in production, not what looks good in a deck. Real shipped software is the unit of progress.' },
+    { name: t.value4Title ?? 'Distributed by default', body: t.value4Body ?? 'We are remote-first, async-aware, and bias toward written, durable communication so the best ideas surface anywhere.' },
+  ]
+
+  const PERKS = [
+    { Icon: Globe2, label: t.perk1 ?? 'Remote-first across global timezones' },
+    { Icon: HeartPulse, label: t.perk2 ?? 'Premium health insurance for you and family' },
+    { Icon: GraduationCap, label: t.perk3 ?? 'Annual learning and conference budget' },
+    { Icon: Plane, label: t.perk4 ?? 'Quarterly team offsites' },
+    { Icon: Coins, label: t.perk5 ?? 'Meaningful equity from day one' },
+    { Icon: LaptopMinimal, label: t.perk6 ?? 'Top-tier hardware and software stipend' },
+  ]
+
+  const PROCESS = [
+    { step: '01', title: t.process1Title ?? 'Apply', body: t.process1Body ?? 'Send a CV and a short note about why MonkDB.' },
+    { step: '02', title: t.process2Title ?? 'Intro chat', body: t.process2Body ?? '30 minutes with our talent team to align on context.' },
+    { step: '03', title: t.process3Title ?? 'Craft loop', body: t.process3Body ?? 'Two role-specific conversations focused on real work.' },
+    { step: '04', title: t.process4Title ?? 'Team meet', body: t.process4Body ?? 'Spend time with future teammates and leaders.' },
+    { step: '05', title: t.process5Title ?? 'Offer', body: t.process5Body ?? 'Aligned compensation, role, and start date.' },
+  ]
+
   const totalRoles = TEAMS.reduce((acc, t) => acc + t.roles.length, 0)
 
   return (
@@ -114,8 +107,8 @@ export default function CareersContent() {
       <ScrollProgressBar />
       <Navbar />
       <PageBanner
-        title="Careers"
-        subtitle="Build the AI-Native Operational Intelligence System with us."
+        title={t.title ?? 'Careers'}
+        subtitle={t.subtitle ?? 'Build the AI-Native Operational Intelligence System with us.'}
       />
 
       {/* Open roles strip */}
@@ -123,7 +116,7 @@ export default function CareersContent() {
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <div className="flex items-end justify-between flex-wrap gap-4 mb-10 sm:mb-12">
             <div>
-              <SectionLabel text="Open roles" />
+              <SectionLabel text={t.openRolesLabel ?? 'Open roles'} />
               <h2
                 className="text-gray-900 dark:text-white"
                 style={{
@@ -138,12 +131,12 @@ export default function CareersContent() {
                   textDecoration: 'none',
                 }}
               >
-                {totalRoles} roles open across{' '}
+                {totalRoles} {t.rolesTitlePart1 ?? 'roles open across'}{' '}
                 <span
                   className="gradient-text-animate"
                   style={{ fontWeight: 400 }}
                 >
-                  every team
+                  {t.rolesTitlePart2 ?? 'every team'}
                 </span>
               </h2>
             </div>
@@ -161,7 +154,7 @@ export default function CareersContent() {
                 border: '1px solid rgba(26,56,232,0.18)',
               }}
             >
-              Why MonkDB
+              {t.whyMonkdb ?? 'Why MonkDB'}
               <ArrowUpRight size={14} />
             </a>
           </div>
@@ -210,7 +203,7 @@ export default function CareersContent() {
                       color: 'rgba(10,34,128,0.5)',
                     }}
                   >
-                    {team.roles.length} OPEN
+                    {team.roles.length} {t.openCount ?? 'OPEN'}
                   </span>
                 </div>
                 <ul
@@ -274,7 +267,7 @@ export default function CareersContent() {
                           textDecoration: 'none',
                         }}
                       >
-                        Apply
+                        {t.apply ?? 'Apply'}
                         <ArrowUpRight size={13} />
                       </a>
                     </li>
@@ -292,7 +285,7 @@ export default function CareersContent() {
         className="bg-[#F8F4F0] dark:bg-[#0A1326] py-12 sm:py-20 lg:py-24"
       >
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
-          <SectionLabel text="How we work" />
+          <SectionLabel text={t.valuesLabel ?? 'How we work'} />
           <h2
             className="text-gray-900 dark:text-white"
             style={{
@@ -307,7 +300,7 @@ export default function CareersContent() {
               textDecoration: 'none',
             }}
           >
-            Four working principles
+            {t.valuesTitle ?? 'Four working principles'}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 items-stretch">
             {VALUES.map((v, i) => (
@@ -375,7 +368,7 @@ export default function CareersContent() {
       {/* Perks strip */}
       <section className="bg-white dark:bg-[#0f1623] py-12 sm:py-16 lg:py-20">
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
-          <SectionLabel text="Perks" />
+          <SectionLabel text={t.perksLabel ?? 'Perks'} />
           <h2
             className="text-gray-900 dark:text-white"
             style={{
@@ -390,7 +383,7 @@ export default function CareersContent() {
               textDecoration: 'none',
             }}
           >
-            What we offer
+            {t.perksTitle ?? 'What we offer'}
           </h2>
           <ul
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3"
@@ -440,7 +433,7 @@ export default function CareersContent() {
           }}
         />
         <div className="relative z-10 max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
-          <SectionLabel text="Hiring process" variant="dark" />
+          <SectionLabel text={t.processLabel ?? 'Hiring process'} variant="dark" />
           <h2
             className="text-white"
             style={{
@@ -455,7 +448,7 @@ export default function CareersContent() {
               textDecoration: 'none',
             }}
           >
-            What to expect
+            {t.processTitle ?? 'What to expect'}
           </h2>
           <ol
             className="grid grid-cols-1 sm:grid-cols-5 gap-3 sm:gap-4"
@@ -514,7 +507,7 @@ export default function CareersContent() {
         </div>
       </section>
 
-      <CTABanner heading="Build the next operating system for the enterprise." />
+      <CTABanner heading={t.ctaHeading ?? 'Build the next operating system for the enterprise.'} />
       <Footer />
       <ScrollToTop />
     </main>

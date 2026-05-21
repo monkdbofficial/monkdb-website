@@ -26,6 +26,7 @@ type NavItem =
 function buildNavigation(
   t: (key: string) => string,
   tExt: (key: string) => string,
+  tNavExtra: (key: string) => string,
 ): NavItem[] {
   return [
     { kind: 'link', label: t('home'), href: '/' },
@@ -193,13 +194,13 @@ function buildNavigation(
       id: 'learn',
       label: t('learn'),
       items: [
-        { label: 'Learn Hub', href: '/resources/learn' },
+        { label: tNavExtra('learnHub'), href: '/resources/learn' },
         { label: t('learn1'), href: '/resources/resources' },
         { label: t('learn2'), href: 'https://docs.monkdb.com' },
         { label: t('learn3'), href: '/resources/customer-stories' },
         { label: t('learn4'), href: '/resources/blog' },
         { label: t('learn5'), href: '/resources/events' },
-        { label: 'Developer Journey', href: '/developers/journey' },
+        { label: tNavExtra('developerJourney'), href: '/developers/journey' },
       ],
     },
 
@@ -258,7 +259,13 @@ export default function Navbar() {
       | undefined
     return ext?.[key] ?? key
   }
-  const navigation = buildNavigation(tNav, tNavExt)
+  const tNavExtra = (key: string) => {
+    const extra = (dict as Record<string, unknown>).navExtra as
+      | Record<string, string>
+      | undefined
+    return extra?.[key] ?? (key === 'learnHub' ? 'Learn Hub' : key === 'developerJourney' ? 'Developer Journey' : key)
+  }
+  const navigation = buildNavigation(tNav, tNavExt, tNavExtra)
   const homePath = localizedHref('/', locale)
 
   useEffect(() => {
@@ -424,7 +431,7 @@ export default function Navbar() {
           <Link href={homePath} className="flex-shrink-0 flex items-center z-10 relative">
             <Image
               src="/logo.png"
-              alt="MonkDB"
+              alt={((dict as Record<string, unknown>).footerExtra as Record<string, string> | undefined)?.logoAlt ?? 'MonkDB'}
               width={130}
               height={36}
               className="h-6 sm:h-7 w-auto object-contain"
@@ -546,20 +553,20 @@ export default function Navbar() {
           </div>
 
           {/* Right-side controls */}
-          <div className="flex items-center gap-2 ml-auto z-10 relative">
-            {/* Language switcher hidden until all locales are translation-ready. */}
-            {false && (
-              <div className="hidden md:inline-flex">
-                <LanguageSwitcher
-                  iconColor={linkColor}
-                  panelBg={pillBg}
-                  panelBorder={pillBorder}
-                  panelText={panelText}
-                  panelTextHover={panelTextHover}
-                  variant="full"
-                />
-              </div>
-            )}
+          <div
+            className="flex items-center gap-2 z-10 relative"
+            style={{ marginLeft: 'clamp(20px, 5vw, 48px)' }}
+          >
+            <div className="hidden md:inline-flex">
+              <LanguageSwitcher
+                iconColor={linkColor}
+                panelBg={pillBg}
+                panelBorder={pillBorder}
+                panelText={panelText}
+                panelTextHover={panelTextHover}
+                variant="full"
+              />
+            </div>
 
             {/* Dark mode toggle disabled — site is forced to light mode.
                 Re-enable by uncommenting and restoring the toggle in app/theme.tsx.
@@ -1069,26 +1076,23 @@ export default function Navbar() {
                 {tNav('bookDemo')}
               </motion.a>
 
-              {/* Language switcher hidden until all locales are translation-ready. */}
-              {false && (
-                <div
-                  className="flex items-center justify-center mt-2 border-t pt-3"
-                  style={{ borderColor: pillBorder }}
-                >
-                  <LanguageSwitcher
-                    iconColor={
-                      onHero || theme === 'dark'
-                        ? 'rgba(255,255,255,0.78)'
-                        : '#4B5563'
-                    }
-                    panelBg={pillBg}
-                    panelBorder={pillBorder}
-                    panelText={panelText}
-                    panelTextHover={panelTextHover}
-                    variant="full"
-                  />
-                </div>
-              )}
+              <div
+                className="flex items-center justify-center mt-2 border-t pt-3"
+                style={{ borderColor: pillBorder }}
+              >
+                <LanguageSwitcher
+                  iconColor={
+                    onHero || theme === 'dark'
+                      ? 'rgba(255,255,255,0.78)'
+                      : '#4B5563'
+                  }
+                  panelBg={pillBg}
+                  panelBorder={pillBorder}
+                  panelText={panelText}
+                  panelTextHover={panelTextHover}
+                  variant="full"
+                />
+              </div>
 
               {/* Dark mode toggle disabled — site is forced to light mode.
                   Re-enable by uncommenting and restoring the toggle in app/theme.tsx.

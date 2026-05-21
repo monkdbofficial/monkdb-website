@@ -21,92 +21,50 @@ import CTABanner from '@/components/CTABanner'
 import SectionLabel from '@/components/SectionLabel'
 import ScrollToTop from '@/components/ScrollToTop'
 import ScrollProgressBar from '@/components/ScrollProgressBar'
+import { useI18n } from '@/i18n/I18nProvider'
 
 const EASE = [0.165, 0.84, 0.44, 1] as const
 
-const TRACKS = [
-  {
-    Icon: Cloud,
-    name: 'Cloud Partners',
-    body: 'Hyperscalers and regional cloud platforms. Reference architectures across cloud, on-prem, and air-gapped deployments.',
-    examples: ['Hyperscalers', 'Regional clouds', 'Sovereign cloud providers'],
-  },
-  {
-    Icon: Plug,
-    name: 'Technology Partners',
-    body: 'Tools, platforms, and frameworks that integrate natively with MonkDB. From streaming to AI to observability.',
-    examples: ['Kafka, Pulsar', 'Spark, dbt, Airflow', 'LangChain, LlamaIndex'],
-  },
-  {
-    Icon: Briefcase,
-    name: 'System Integrators',
-    body: 'Global and boutique consultancies that deliver MonkDB at scale across industries.',
-    examples: ['Tier 1 SIs', 'Industry specialists', 'Public-sector firms'],
-  },
-  {
-    Icon: Code2,
-    name: 'ISV and OEM',
-    body: 'Software vendors embedding MonkDB inside their products as the data and AI execution plane.',
-    examples: ['Vertical SaaS', 'Industrial OEMs', 'OT platforms'],
-  },
-]
-
-const TIERS = [
-  {
-    label: 'Registered',
-    badge: '01',
-    perks: ['Self-serve docs', 'Community access', 'Quarterly newsletters'],
-  },
-  {
-    label: 'Select',
-    badge: '02',
-    perks: ['Joint solution briefs', 'Tech enablement', 'Co-marketing slots'],
-    accent: true,
-  },
-  {
-    label: 'Premier',
-    badge: '03',
-    perks: [
-      'Co-sell motions',
-      'Named technical AM',
-      'Joint customer success programs',
-    ],
-    accent: true,
-  },
-  {
-    label: 'Strategic',
-    badge: '04',
-    perks: [
-      'Joint product roadmap',
-      'Executive sponsorship',
-      'Long-term GTM commitments',
-    ],
-  },
-]
-
-const BENEFITS = [
-  'Production-grade enablement and certifications',
-  'Joint reference architectures across industries',
-  'Sandbox environments and co-developed PoVs',
-  'Co-marketing, conferences, and analyst briefings',
-  'Direct line to MonkDB engineering and product',
-  'Revenue share and co-sell programs',
-]
-
 export default function PartnersContent() {
+  const { dict } = useI18n()
+  const t = (((dict as Record<string, unknown>).partners) ?? {}) as Record<string, string>
+
+  const TRACKS = [
+    { Icon: Cloud, name: t.track1Name ?? 'Cloud Partners', body: t.track1Body ?? 'Hyperscalers and regional cloud platforms. Reference architectures across cloud, on-prem, and air-gapped deployments.', examples: [t.track1Ex1 ?? 'Hyperscalers', t.track1Ex2 ?? 'Regional clouds', t.track1Ex3 ?? 'Sovereign cloud providers'] },
+    { Icon: Plug, name: t.track2Name ?? 'Technology Partners', body: t.track2Body ?? 'Tools, platforms, and frameworks that integrate natively with MonkDB. From streaming to AI to observability.', examples: [t.track2Ex1 ?? 'Kafka, Pulsar', t.track2Ex2 ?? 'Spark, dbt, Airflow', t.track2Ex3 ?? 'LangChain, LlamaIndex'] },
+    { Icon: Briefcase, name: t.track3Name ?? 'System Integrators', body: t.track3Body ?? 'Global and boutique consultancies that deliver MonkDB at scale across industries.', examples: [t.track3Ex1 ?? 'Tier 1 SIs', t.track3Ex2 ?? 'Industry specialists', t.track3Ex3 ?? 'Public-sector firms'] },
+    { Icon: Code2, name: t.track4Name ?? 'ISV and OEM', body: t.track4Body ?? 'Software vendors embedding MonkDB inside their products as the data and AI execution plane.', examples: [t.track4Ex1 ?? 'Vertical SaaS', t.track4Ex2 ?? 'Industrial OEMs', t.track4Ex3 ?? 'OT platforms'] },
+  ]
+
+  const TIERS = [
+    { label: t.tier1Label ?? 'Registered', badge: '01', perks: [t.tier1Perk1 ?? 'Self-serve docs', t.tier1Perk2 ?? 'Community access', t.tier1Perk3 ?? 'Quarterly newsletters'] },
+    { label: t.tier2Label ?? 'Select', badge: '02', perks: [t.tier2Perk1 ?? 'Joint solution briefs', t.tier2Perk2 ?? 'Tech enablement', t.tier2Perk3 ?? 'Co-marketing slots'], accent: true },
+    { label: t.tier3Label ?? 'Premier', badge: '03', perks: [t.tier3Perk1 ?? 'Co-sell motions', t.tier3Perk2 ?? 'Named technical AM', t.tier3Perk3 ?? 'Joint customer success programs'], accent: true },
+    { label: t.tier4Label ?? 'Strategic', badge: '04', perks: [t.tier4Perk1 ?? 'Joint product roadmap', t.tier4Perk2 ?? 'Executive sponsorship', t.tier4Perk3 ?? 'Long-term GTM commitments'] },
+  ]
+
+  const BENEFITS = [
+    t.benefit1 ?? 'Production-grade enablement and certifications',
+    t.benefit2 ?? 'Joint reference architectures across industries',
+    t.benefit3 ?? 'Sandbox environments and co-developed PoVs',
+    t.benefit4 ?? 'Co-marketing, conferences, and analyst briefings',
+    t.benefit5 ?? 'Direct line to MonkDB engineering and product',
+    t.benefit6 ?? 'Revenue share and co-sell programs',
+  ]
+
   return (
     <main className="min-h-screen bg-white dark:bg-[#0f1623]">
       <ScrollProgressBar />
       <Navbar />
       <PageBanner
-        title="Partners"
-        subtitle="Build, deliver, and scale the AI-Native Operational Intelligence System with us."
+        title={t.title ?? 'Partners'}
+        subtitle={t.subtitle ?? 'Build, deliver, and scale the AI-Native Operational Intelligence System with us.'}
       />
 
       {/* 4 partner tracks */}
       <section className="section-grid bg-white dark:bg-[#0f1623] py-12 sm:py-20 lg:py-24">
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
-          <SectionLabel text="Tracks" />
+          <SectionLabel text={t.tracksLabel ?? 'Tracks'} />
           <h2
             className="text-gray-900 dark:text-white"
             style={{
@@ -121,9 +79,9 @@ export default function PartnersContent() {
               textDecoration: 'none',
             }}
           >
-            Four ways to{' '}
+            {t.tracksTitlePart1 ?? 'Four ways to'}{' '}
             <span className="gradient-text-animate" style={{ fontWeight: 400 }}>
-              partner with MonkDB
+              {t.tracksTitlePart2 ?? 'partner with MonkDB'}
             </span>
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
@@ -210,7 +168,7 @@ export default function PartnersContent() {
       {/* Tier ladder */}
       <section className="bg-[#F8F4F0] dark:bg-[#0A1326] py-12 sm:py-20 lg:py-24">
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
-          <SectionLabel text="Program tiers" />
+          <SectionLabel text={t.tiersLabel ?? 'Program tiers'} />
           <h2
             className="text-gray-900 dark:text-white"
             style={{
@@ -225,7 +183,7 @@ export default function PartnersContent() {
               textDecoration: 'none',
             }}
           >
-            From registered to strategic
+            {t.tiersTitle ?? 'From registered to strategic'}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
             {TIERS.map((tier, i) => (
@@ -261,7 +219,7 @@ export default function PartnersContent() {
                       color: tier.accent ? '#7FB3FF' : '#1A38E8',
                     }}
                   >
-                    Tier {tier.badge}
+                    {t.tierLabel ?? 'Tier'} {tier.badge}
                   </span>
                 </div>
                 <h3
@@ -316,7 +274,7 @@ export default function PartnersContent() {
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_0.6fr] gap-8 sm:gap-12 lg:gap-16 items-start">
             <div>
-              <SectionLabel text="Benefits" />
+              <SectionLabel text={t.benefitsLabel ?? 'Benefits'} />
               <h2
                 className="text-gray-900 dark:text-white"
                 style={{
@@ -330,7 +288,7 @@ export default function PartnersContent() {
                   textDecoration: 'none',
                 }}
               >
-                What you get as a partner
+                {t.benefitsTitle ?? 'What you get as a partner'}
               </h2>
               <ul
                 className="grid grid-cols-1 sm:grid-cols-2 gap-3"
@@ -393,7 +351,7 @@ export default function PartnersContent() {
                   color: '#7FB3FF',
                 }}
               >
-                Apply
+                {t.applyLabel ?? 'Apply'}
               </span>
               <h3
                 style={{
@@ -404,7 +362,7 @@ export default function PartnersContent() {
                   margin: '14px 0 14px 0',
                 }}
               >
-                Join the MonkDB Partner Program
+                {t.applyTitle ?? 'Join the MonkDB Partner Program'}
               </h3>
               <p
                 style={{
@@ -415,8 +373,7 @@ export default function PartnersContent() {
                   margin: '0 0 24px 0',
                 }}
               >
-                Submit a partner inquiry. Our team will be in touch within two
-                business days.
+                {t.applyBody ?? 'Submit a partner inquiry. Our team will be in touch within two business days.'}
               </p>
               <a
                 href="mailto:partners@monkdb.com"
@@ -431,7 +388,7 @@ export default function PartnersContent() {
                   textDecoration: 'none',
                 }}
               >
-                Become a partner
+                {t.applyCta ?? 'Become a partner'}
                 <ArrowUpRight size={14} />
               </a>
             </aside>
@@ -439,7 +396,7 @@ export default function PartnersContent() {
         </div>
       </section>
 
-      <CTABanner heading="Build with us. Sell with us. Win with us." />
+      <CTABanner heading={t.ctaHeading ?? 'Build with us. Sell with us. Win with us.'} />
       <Footer />
       <ScrollToTop />
     </main>

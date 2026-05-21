@@ -24,6 +24,7 @@ import ScrollToTop from '@/components/ScrollToTop'
 import ScrollProgressBar from '@/components/ScrollProgressBar'
 import ResourceLibrary from '@/components/ResourceLibrary'
 import type { CoreSystem as Section } from '@/content/coreSystems'
+import { useI18n } from '@/i18n/I18nProvider'
 
 const EASE = [0.165, 0.84, 0.44, 1] as const
 
@@ -37,7 +38,7 @@ type Theme = {
   Icon: LucideIcon
   heroGradient: string
   motif: Motif
-  ctaLabel: string
+  ctaLabelKey: 'resources' | 'customerStories' | 'blog' | 'events'
 }
 
 const THEMES: Record<SlugKey, Theme> = {
@@ -48,7 +49,7 @@ const THEMES: Record<SlugKey, Theme> = {
     Icon: PlayCircle,
     heroGradient: 'linear-gradient(160deg, #050D6A 0%, #0A2280 55%, #0f1623 100%)',
     motif: 'reels',
-    ctaLabel: 'Browse the resource library',
+    ctaLabelKey: 'resources',
   },
   'customer-stories': {
     index: '02',
@@ -57,7 +58,7 @@ const THEMES: Record<SlugKey, Theme> = {
     Icon: Quote,
     heroGradient: 'linear-gradient(160deg, #062E27 0%, #0A2280 55%, #0f1623 100%)',
     motif: 'testimonial',
-    ctaLabel: 'See customer outcomes',
+    ctaLabelKey: 'customerStories',
   },
   blog: {
     index: '03',
@@ -66,7 +67,7 @@ const THEMES: Record<SlugKey, Theme> = {
     Icon: BookOpen,
     heroGradient: 'linear-gradient(160deg, #060E58 0%, #0A2280 55%, #0f1623 100%)',
     motif: 'article',
-    ctaLabel: 'Subscribe to the blog',
+    ctaLabelKey: 'blog',
   },
   events: {
     index: '04',
@@ -75,8 +76,15 @@ const THEMES: Record<SlugKey, Theme> = {
     Icon: Calendar,
     heroGradient: 'linear-gradient(160deg, #050D6A 0%, #0033A0 55%, #0f1623 100%)',
     motif: 'calendar',
-    ctaLabel: 'See upcoming events',
+    ctaLabelKey: 'events',
   },
+}
+
+const THEME_CTA_FALLBACK: Record<Theme['ctaLabelKey'], string> = {
+  resources: 'Browse the resource library',
+  customerStories: 'See customer outcomes',
+  blog: 'Subscribe to the blog',
+  events: 'See upcoming events',
 }
 
 function MotifWrapper({ children }: { children: React.ReactNode }) {
@@ -140,7 +148,7 @@ function ReelsMotif({ theme }: { theme: Theme }) {
   )
 }
 
-function TestimonialMotif({ theme }: { theme: Theme }) {
+function TestimonialMotif({ theme, tq }: { theme: Theme; tq: Record<string, string> }) {
   /* Big quote card */
   return (
     <MotifWrapper>
@@ -171,7 +179,7 @@ function TestimonialMotif({ theme }: { theme: Theme }) {
             margin: 0,
           }}
         >
-          We retired four systems and a CDC layer in one quarter. Latency dropped, on-call burden dropped, cost dropped.
+          {tq.body ?? 'We retired four systems and a CDC layer in one quarter. Latency dropped, on-call burden dropped, cost dropped.'}
         </p>
         <div
           style={{
@@ -183,14 +191,14 @@ function TestimonialMotif({ theme }: { theme: Theme }) {
             marginTop: 'auto',
           }}
         >
-          VP PLATFORM, TIER-1 BANK
+          {tq.author ?? 'VP PLATFORM, TIER-1 BANK'}
         </div>
       </div>
     </MotifWrapper>
   )
 }
 
-function ArticleMotif({ theme }: { theme: Theme }) {
+function ArticleMotif({ theme, tq }: { theme: Theme; tq: Record<string, string> }) {
   /* Article card with header bar + lines */
   return (
     <MotifWrapper>
@@ -225,7 +233,7 @@ function ArticleMotif({ theme }: { theme: Theme }) {
               color: theme.accentSoft,
             }}
           >
-            POV / TECHNICAL
+            {tq.articleLabel ?? 'POV / TECHNICAL'}
           </span>
           <span
             style={{
@@ -234,7 +242,7 @@ function ArticleMotif({ theme }: { theme: Theme }) {
               color: theme.accent,
             }}
           >
-            06 MIN
+            {tq.articleDuration ?? '06 MIN'}
           </span>
         </div>
         <div
@@ -245,7 +253,7 @@ function ArticleMotif({ theme }: { theme: Theme }) {
             lineHeight: 1.3,
           }}
         >
-          AI is rewriting what a database is.
+          {tq.articleTitle ?? 'AI is rewriting what a database is.'}
         </div>
         {[1, 0.85, 0.72, 0.92, 0.6].map((w, i) => (
           <motion.div
@@ -268,7 +276,7 @@ function ArticleMotif({ theme }: { theme: Theme }) {
   )
 }
 
-function CalendarMotif({ theme }: { theme: Theme }) {
+function CalendarMotif({ theme, tq }: { theme: Theme; tq: Record<string, string> }) {
   /* 6-cell calendar grid */
   return (
     <MotifWrapper>
@@ -298,8 +306,8 @@ function CalendarMotif({ theme }: { theme: Theme }) {
             justifyContent: 'space-between',
           }}
         >
-          <span>UPCOMING</span>
-          <span style={{ color: theme.accent }}>MAY 2026</span>
+          <span>{tq.calendarUpcoming ?? 'UPCOMING'}</span>
+          <span style={{ color: theme.accent }}>{tq.calendarMonth ?? 'MAY 2026'}</span>
         </div>
         <div
           style={{
@@ -347,23 +355,23 @@ function CalendarMotif({ theme }: { theme: Theme }) {
               background: theme.accent,
             }}
           />
-          4 EVENTS THIS MONTH
+          {tq.calendarEvents ?? '4 EVENTS THIS MONTH'}
         </div>
       </div>
     </MotifWrapper>
   )
 }
 
-function HeroMotif({ theme }: { theme: Theme }) {
+function HeroMotif({ theme, tq }: { theme: Theme; tq: Record<string, string> }) {
   switch (theme.motif) {
     case 'reels':
       return <ReelsMotif theme={theme} />
     case 'testimonial':
-      return <TestimonialMotif theme={theme} />
+      return <TestimonialMotif theme={theme} tq={tq} />
     case 'article':
-      return <ArticleMotif theme={theme} />
+      return <ArticleMotif theme={theme} tq={tq} />
     case 'calendar':
-      return <CalendarMotif theme={theme} />
+      return <CalendarMotif theme={theme} tq={tq} />
   }
 }
 
@@ -377,6 +385,11 @@ export default function ResourceContent({
   const heroRef = useRef<HTMLDivElement>(null)
   const heroInView = useInView(heroRef, { once: true, margin: '-80px' })
   const theme = THEMES[item.slug as SlugKey] ?? THEMES.resources
+  const { dict } = useI18n()
+  const tq = (((dict as Record<string, unknown>).resourceQuote) ?? {}) as Record<string, string>
+  const tc = (((dict as Record<string, unknown>).resourceContent) ?? {}) as Record<string, string>
+  const tThemeCta = (((dict as Record<string, unknown>).themeCta) ?? {}) as Record<string, string>
+  const ctaLabel = tThemeCta[theme.ctaLabelKey] ?? THEME_CTA_FALLBACK[theme.ctaLabelKey]
 
   return (
     <main className="min-h-screen bg-white dark:bg-[#0f1623]">
@@ -433,7 +446,7 @@ export default function ResourceContent({
                 }}
               >
                 <theme.Icon size={13} strokeWidth={2} />
-                Learn · {theme.index}
+                {tc.learn ?? 'Learn'} · {theme.index}
               </span>
               <h1
                 className="text-white"
@@ -490,7 +503,7 @@ export default function ResourceContent({
               animate={heroInView ? { opacity: 1, scale: 1 } : {}}
               transition={{ duration: 0.9, delay: 0.2, ease: EASE }}
             >
-              <HeroMotif theme={theme} />
+              <HeroMotif theme={theme} tq={tq} />
             </motion.div>
           </div>
         </div>
@@ -501,7 +514,7 @@ export default function ResourceContent({
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-8 sm:gap-12 lg:gap-20 items-start mb-12">
             <div>
-              <SectionLabel text="What's inside" />
+              <SectionLabel text={tc.whatsInside ?? "What's inside"} />
               <h2
                 className="text-gray-900 dark:text-white"
                 style={{
@@ -572,7 +585,7 @@ export default function ResourceContent({
                       color: 'rgba(10,34,128,0.45)',
                     }}
                   >
-                    Category
+                    {tc.category ?? 'Category'}
                   </span>
                 </div>
                 <h3
@@ -619,7 +632,7 @@ export default function ResourceContent({
                 transition: 'transform 250ms ease, box-shadow 250ms ease',
               }}
             >
-              {theme.ctaLabel}
+              {ctaLabel}
               <ArrowRight size={18} strokeWidth={2} />
             </a>
           </div>
@@ -633,7 +646,7 @@ export default function ResourceContent({
       {related.length > 0 && (
         <section className="bg-[#F8F4F0] dark:bg-[#0A1326] py-12 sm:py-16 lg:py-20">
           <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
-            <SectionLabel text="More from Learn" />
+            <SectionLabel text={tc.moreFromLearn ?? 'More from Learn'} />
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 mt-10">
               {related.map((r, i) => (
                 <motion.a
@@ -663,7 +676,7 @@ export default function ResourceContent({
                         color: theme.accent,
                       }}
                     >
-                      Learn
+                      {tc.learn ?? 'Learn'}
                     </span>
                     <ArrowRight
                       size={18}

@@ -30,8 +30,10 @@ import Navbar from './Navbar'
 import Footer from './Footer'
 import PageBanner from './PageBanner'
 import CTABanner from './CTABanner'
+import { renderBrand } from './BrandAccent'
 import ScrollToTop from './ScrollToTop'
 import ScrollProgressBar from './ScrollProgressBar'
+import FallingPattern from './effects/FallingPattern'
 import { useI18n } from '@/i18n/I18nProvider'
 import { localizedHref } from '@/i18n/config'
 
@@ -174,7 +176,7 @@ function NarrativeSection({
               <Eyebrow text={section.eyebrow} color={eyebrowColor} />
             )}
             <div className={titleColor}>
-              <SectionHeading>{section.title}</SectionHeading>
+              <SectionHeading>{renderBrand(section.title)}</SectionHeading>
             </div>
           </div>
           <div className={`flex flex-col justify-center ${bodyColor}`}>
@@ -226,23 +228,20 @@ function CapabilitiesGrid({
             padding: 'clamp(28px, 4vw, 56px) clamp(20px, 3.5vw, 48px)',
           }}
         >
-          {/* Dot grid backdrop */}
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              backgroundImage:
-                'radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px)',
-              backgroundSize: '32px 32px',
-              opacity: 0.5,
-            }}
+          {/* Falling-streak backdrop (21st.dev/efferd/falling-pattern, navy-recolored) */}
+          <FallingPattern
+            color="rgba(127,179,255,0.45)"
+            backgroundColor="transparent"
+            blurIntensity="0.4em"
+            density={4}
+            className="opacity-60"
           />
           {/* Section header */}
           <div className="relative grid grid-cols-1 lg:grid-cols-[42%_1fr] gap-6 lg:gap-16 items-end mb-8 sm:mb-10 lg:mb-12">
             <div className="flex flex-col gap-4">
               {data.eyebrow && <Eyebrow text={data.eyebrow} color="#1E8AFF" />}
               <div className="text-white">
-                <SectionHeading>{data.title}</SectionHeading>
+                <SectionHeading>{renderBrand(data.title)}</SectionHeading>
               </div>
             </div>
             <div
@@ -305,7 +304,7 @@ function CapabilitiesGrid({
                     marginBottom: '10px',
                   }}
                 >
-                  {item.title}
+                  {renderBrand(item.title)}
                 </h3>
                 <p
                   className="text-white/65"
@@ -330,9 +329,11 @@ function CapabilitiesGrid({
 function RelatedGrid({
   data,
   locale,
+  exploreFallback,
 }: {
   data: NonNullable<DetailPageLayoutProps['related']>
   locale: string
+  exploreFallback: string
 }) {
   return (
     <section className="bg-[#F8F4F0] dark:bg-[#0A1326] py-10 sm:py-14 lg:py-20">
@@ -346,7 +347,7 @@ function RelatedGrid({
         >
           {data.eyebrow && <Eyebrow text={data.eyebrow} />}
           <div className="text-gray-900 dark:text-white">
-            <SectionHeading>{data.title}</SectionHeading>
+            <SectionHeading>{renderBrand(data.title)}</SectionHeading>
           </div>
         </motion.div>
 
@@ -386,7 +387,7 @@ function RelatedGrid({
                         marginBottom: '10px',
                       }}
                     >
-                      {item.title}
+                      {renderBrand(item.title)}
                     </h3>
                     <p
                       className="text-gray-600 flex-1"
@@ -408,7 +409,7 @@ function RelatedGrid({
                         letterSpacing: '0.005em',
                       }}
                     >
-                      {data.exploreCta ?? 'Explore'}
+                      {data.exploreCta ?? exploreFallback}
                       <ArrowUpRight size={15} />
                     </div>
                   </div>
@@ -427,7 +428,9 @@ function RelatedGrid({
 /* ─────────────────────────────────────────────────────────────────────────── */
 
 export default function DetailPageLayout(props: DetailPageLayoutProps) {
-  const { locale } = useI18n()
+  const { locale, dict } = useI18n()
+  const t = (((dict as Record<string, unknown>).detailPageLayout) ?? {}) as Record<string, string>
+  const exploreFallback = t.exploreCta ?? 'Explore'
 
   return (
     <main className="min-h-screen bg-white dark:bg-[#0f1623]">
@@ -457,7 +460,13 @@ export default function DetailPageLayout(props: DetailPageLayoutProps) {
       ))}
 
       {/* Related grid */}
-      {props.related && <RelatedGrid data={props.related} locale={locale} />}
+      {props.related && (
+        <RelatedGrid
+          data={props.related}
+          locale={locale}
+          exploreFallback={exploreFallback}
+        />
+      )}
 
       <CTABanner
         heading={props.ctaHeading}

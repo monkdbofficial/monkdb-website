@@ -200,7 +200,7 @@ export default function WhatIsMonkDB() {
             {/* Workload-touched chips above the terminal */}
             <div
               className="flex flex-wrap items-center gap-2 mb-3"
-              aria-label="Workloads touched by this query"
+              aria-label={t.touchedAria ?? 'Workloads touched by this query'}
             >
               <span
                 style={{
@@ -214,7 +214,7 @@ export default function WhatIsMonkDB() {
                   marginRight: '4px',
                 }}
               >
-                Touched
+                {t.touchedLabel ?? 'Touched'}
               </span>
               {queryWorkloads.map((w, i) => (
                 <motion.span
@@ -406,7 +406,7 @@ export default function WhatIsMonkDB() {
                 textTransform: 'uppercase',
               }}
             >
-              No federation. No glue code. No data movement.
+              {t.captionBelow ?? 'No federation. No glue code. No data movement.'}
             </p>
           </motion.div>
         </div>

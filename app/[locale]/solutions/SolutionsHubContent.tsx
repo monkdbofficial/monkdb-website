@@ -19,7 +19,6 @@ import Footer from '@/components/Footer'
 import PageBanner from '@/components/PageBanner'
 import CTABanner from '@/components/CTABanner'
 import SectionLabel from '@/components/SectionLabel'
-import HubDiagramBanner from '@/components/HubDiagramBanner'
 import ScrollToTop from '@/components/ScrollToTop'
 import ScrollProgressBar from '@/components/ScrollProgressBar'
 import { useI18n } from '@/i18n/I18nProvider'
@@ -32,15 +31,25 @@ const EASE = [0.165, 0.84, 0.44, 1] as const
 export default function SolutionsHubContent() {
   const ref = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
-  const { locale } = useI18n()
+  const { locale, dict } = useI18n()
+  const t = (((dict as Record<string, unknown>).solutionsHub) ?? {}) as Record<
+    string,
+    string
+  >
+  // Per-slug i18n overrides for static English copy in content/solutions.ts.
+  const solutionsDict = ((dict as Record<string, unknown>).solutionsContent ??
+    {}) as Record<string, Record<string, string> | undefined>
 
   return (
     <main className="min-h-screen bg-white dark:bg-[#0f1623]">
       <ScrollProgressBar />
       <Navbar />
       <PageBanner
-        title="Solutions"
-        subtitle="Capabilities you can build on a continuous, real-time platform."
+        title={t.bannerTitle ?? 'Solutions'}
+        subtitle={
+          t.bannerSubtitle ??
+          'Capabilities you can build on a continuous, real-time platform.'
+        }
       />
 
       {/* ── Intro ── */}
@@ -49,7 +58,7 @@ export default function SolutionsHubContent() {
         className="section-grid relative bg-white dark:bg-[#0f1623] py-10 sm:py-14 lg:py-20"
       >
         <div className="relative z-10 max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
-          <SectionLabel text="Solutions" />
+          <SectionLabel text={t.eyebrow ?? 'Solutions'} />
           <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-6 sm:gap-10 lg:gap-16 items-end mt-6 sm:mt-10 lg:mt-12">
             <motion.h2
               initial={{ opacity: 0, y: 18 }}
@@ -67,9 +76,9 @@ export default function SolutionsHubContent() {
                 textDecoration: 'none',
               }}
             >
-              From insight to action,{' '}
+              {t.headlinePart1 ?? 'From insight to action,'}{' '}
               <span className="gradient-text-animate" style={{ fontWeight: 400 }}>
-                in one engine
+                {t.headlineAccent ?? 'in one engine'}
               </span>
             </motion.h2>
             <motion.p
@@ -85,27 +94,15 @@ export default function SolutionsHubContent() {
                 maxWidth: '560px',
               }}
             >
-              Ten capability-level solutions that turn fragmented stacks into
-              one unified execution layer. Each is a production pattern proven
-              across industries.
+              {t.intro ??
+                'Ten capability-level solutions that turn fragmented stacks into one unified execution layer. Each is a production pattern proven across industries.'}
             </motion.p>
           </div>
         </div>
       </section>
 
-      {/* ── Solutions architecture diagram ── */}
-      <HubDiagramBanner
-        label="Overview"
-        src="/diagram-solutions.png"
-        alt="MonkDB Solutions overview, ten use cases mapped to six outcomes"
-        width={1379}
-        height={920}
-        caption="Real-time intelligence. Intelligent action. Measurable outcomes. Ten capability solutions mapped to six enterprise outcomes, all running on one unified platform."
-        tagline="One Platform. Every Workload."
-      />
-
       {/* ── 10 Solution cards ── */}
-      <section className="bg-[#F8F4F0] dark:bg-[#0A1326] py-12 sm:py-16 lg:py-20">
+      <section className="bg-[#F8F4F0] dark:bg-[#0A1326] py-10 sm:py-14 lg:py-20">
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
             {SOLUTIONS.map((s, i) => (
@@ -171,7 +168,7 @@ export default function SolutionsHubContent() {
                       margin: '0 0 8px 0',
                     }}
                   >
-                    {s.title}
+                    {solutionsDict[s.slug]?.title ?? s.title}
                   </h3>
                   <p
                     className="text-gray-600 dark:text-gray-400 flex-1"
@@ -182,7 +179,7 @@ export default function SolutionsHubContent() {
                       margin: 0,
                     }}
                   >
-                    {s.subtitle}
+                    {solutionsDict[s.slug]?.subtitle ?? s.subtitle}
                   </p>
                   <div
                     className="flex items-center justify-between mt-5"
@@ -192,7 +189,7 @@ export default function SolutionsHubContent() {
                       fontWeight: 600,
                     }}
                   >
-                    <span>Explore</span>
+                    <span>{t.exploreCta ?? 'Explore'}</span>
                     <span
                       aria-hidden="true"
                       className="sol-card-arrow inline-flex items-center justify-center"
@@ -220,7 +217,7 @@ export default function SolutionsHubContent() {
         className="section-grid relative bg-white dark:bg-[#0f1623] py-10 sm:py-14 lg:py-20"
       >
         <div className="relative z-10 max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
-          <SectionLabel text="Outcomes" />
+          <SectionLabel text={t.outcomesEyebrow ?? 'Outcomes'} />
           <motion.h2
             initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -237,9 +234,9 @@ export default function SolutionsHubContent() {
               textDecoration: 'none',
             }}
           >
-            From real-time data to{' '}
+            {t.outcomesHeadlinePart1 ?? 'From real-time data to'}{' '}
             <span className="gradient-text-animate" style={{ fontWeight: 400 }}>
-              real-world impact
+              {t.outcomesHeadlineAccent ?? 'real-world impact'}
             </span>
           </motion.h2>
           <motion.p
@@ -255,9 +252,8 @@ export default function SolutionsHubContent() {
               maxWidth: '720px',
             }}
           >
-            Every solution above maps to a concrete enterprise outcome. Buyers
-            adopt MonkDB because each capability earns its keep on at least one
-            of these.
+            {t.outcomesIntro ??
+              'Every solution above maps to a concrete enterprise outcome. Buyers adopt MonkDB because each capability earns its keep on at least one of these.'}
           </motion.p>
 
           {/* 6 outcome rows in a 3×2 grid, each row mapping label → refined wording */}
@@ -355,16 +351,19 @@ export default function SolutionsHubContent() {
                 marginRight: '12px',
               }}
             />
-            From Use Cases to Outcomes, MonkDB turns real-time data into
-            real-world impact.
+            {t.outcomesCallout ??
+              'From Use Cases to Outcomes, MonkDB turns real-time data into real-world impact.'}
           </motion.p>
         </div>
       </section>
 
       <CTABanner
-        heading="Pick the solution that fits your workload."
-        description="Talk to an engineer. We will scope a proof of value in your environment."
-        buttonText="Request a demo"
+        heading={t.ctaHeading ?? 'Pick the solution that fits your workload.'}
+        description={
+          t.ctaDescription ??
+          'Talk to an engineer. We will scope a proof of value in your environment.'
+        }
+        buttonText={t.ctaButton ?? 'Request a demo'}
       />
       <Footer />
       <ScrollToTop />

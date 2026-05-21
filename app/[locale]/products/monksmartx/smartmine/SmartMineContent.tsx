@@ -11,6 +11,7 @@
 
 import { motion } from 'framer-motion'
 import SmartXLayout from '@/components/SmartXLayout'
+import { useI18n } from '@/i18n/I18nProvider'
 
 // Deeper copper for mining. Replaces brighter #D97706 with an enterprise tone.
 const ACCENT = '#B45309'
@@ -284,12 +285,14 @@ function VentilationDashboard() {
 }
 
 export default function SmartMineContent() {
+  const { dict } = useI18n()
+  const t = (((dict as Record<string, unknown>).monkSmartmine) ?? {}) as Record<string, string>
   return (
     <SmartXLayout
-      crumb="MonkSmartX"
+      crumb={t.crumb ?? 'MonkSmartX'}
       industryLabel="Mining"
-      title="Monk SmartMine"
-      subtitle="Real-time operational intelligence for mining ecosystems."
+      title={t.title ?? 'Monk SmartMine'}
+      subtitle={t.subtitle ?? 'Real-time operational intelligence for mining ecosystems.'}
       lead="Sensor data, equipment telemetry, and environmental signals on a single live data plane. Ventilation-on-demand, predictive maintenance, and safety monitoring run as one continuous loop."
       heroIllustration={<MineHero />}
       accent={ACCENT}
@@ -377,7 +380,7 @@ export default function SmartMineContent() {
         role: 'VP Operations',
         org: 'Top global mining major',
       }}
-      ctaHeading="Run a mine that thinks for itself."
+      ctaHeading={t.ctaHeading ?? 'Run a mine that thinks for itself.'}
     />
   )
 }

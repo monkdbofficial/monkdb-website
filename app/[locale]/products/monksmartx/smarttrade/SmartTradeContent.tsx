@@ -10,6 +10,7 @@
 
 import { motion } from 'framer-motion'
 import SmartXLayout from '@/components/SmartXLayout'
+import { useI18n } from '@/i18n/I18nProvider'
 
 // Deeper trading-violet. Replaces candy #A855F7 with an enterprise tone.
 const ACCENT = '#7C3AED'
@@ -280,12 +281,14 @@ function LatencyBudget() {
 }
 
 export default function SmartTradeContent() {
+  const { dict } = useI18n()
+  const t = (((dict as Record<string, unknown>).monkSmarttrade) ?? {}) as Record<string, string>
   return (
     <SmartXLayout
-      crumb="MonkSmartX"
+      crumb={t.crumb ?? 'MonkSmartX'}
       industryLabel="Trading"
-      title="Monk SmartTrade"
-      subtitle="AI-native trading and execution systems."
+      title={t.title ?? 'Monk SmartTrade'}
+      subtitle={t.subtitle ?? 'AI-native trading and execution systems.'}
       lead="Market signals, sentiment, and trading data on a continuous engine. Strategies retrain on production state. Fills happen in single-millisecond decision paths."
       heroIllustration={<TradeHero />}
       accent={ACCENT}
@@ -380,7 +383,7 @@ export default function SmartTradeContent() {
         role: 'Head of Trading Systems',
         org: 'Tier-one prop desk',
       }}
-      ctaHeading="Run strategies that improve as markets move."
+      ctaHeading={t.ctaHeading ?? 'Run strategies that improve as markets move.'}
     />
   )
 }

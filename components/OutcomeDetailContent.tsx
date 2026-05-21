@@ -174,16 +174,29 @@ export default function OutcomeDetailContent({
   item: OutcomeDetail
   related: { title: string; refined: string; href: string }[]
 }) {
-  const { locale } = useI18n()
+  const { locale, dict } = useI18n()
   const introRef = useRef<HTMLDivElement>(null)
   const introInView = useInView(introRef, { once: true, margin: '-80px' })
   const theme = OUTCOME_THEMES[item.slug] ?? DEFAULT_OUTCOME_THEME
+  const t = (((dict as Record<string, unknown>).outcomeDetail) ?? {}) as Record<
+    string,
+    string
+  >
+  // Per-slug i18n overrides for static English copy in content/outcomesDetail.ts.
+  const slugDict = (((dict as Record<string, unknown>).outcomesDetailContent as
+    | Record<string, unknown>
+    | undefined)?.[item.slug] ?? {}) as Record<string, string>
+  const title = slugDict.title ?? item.title
+  const refined = slugDict.refined ?? item.refined
+  const metricCaption = slugDict.metricCaption ?? item.metric.caption
+  const story = slugDict.story ?? item.story
+  const ctaHeading = slugDict.ctaHeading ?? item.ctaHeading
 
   return (
     <main className="min-h-screen bg-white dark:bg-[#0f1623]">
       <ScrollProgressBar />
       <Navbar />
-      <PageBanner title={item.title} subtitle={item.refined} />
+      <PageBanner title={title} subtitle={refined} />
 
       {/* HERO STAT — large outline numeral with icon */}
       <section
@@ -214,7 +227,7 @@ export default function OutcomeDetailContent({
         />
 
         <div className="relative z-10 max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
-          <SectionLabel text="Outcome" variant="dark" />
+          <SectionLabel text={t.eyebrowOutcome ?? 'Outcome'} variant="dark" />
           <div className="grid grid-cols-1 lg:grid-cols-[0.55fr_0.45fr] gap-10 lg:gap-16 items-center mt-6 sm:mt-10 lg:mt-12">
             {/* Big stat */}
             <motion.div
@@ -265,7 +278,7 @@ export default function OutcomeDetailContent({
                   fontFamily: 'var(--font-mono, ui-monospace, monospace)',
                 }}
               >
-                {item.metric.caption}
+                {metricCaption}
               </p>
             </motion.div>
 
@@ -286,7 +299,7 @@ export default function OutcomeDetailContent({
                   textWrap: 'balance',
                 }}
               >
-                {item.story}
+                {story}
               </p>
             </motion.div>
           </div>
@@ -296,7 +309,7 @@ export default function OutcomeDetailContent({
       {/* PROOF — 3 column grid on light bg */}
       <section className="section-grid bg-white dark:bg-[#0f1623] py-12 sm:py-20 lg:py-24">
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
-          <SectionLabel text="Proof" />
+          <SectionLabel text={t.proofEyebrow ?? 'Proof'} />
           <h2
             className="text-gray-900 dark:text-white"
             style={{
@@ -311,9 +324,9 @@ export default function OutcomeDetailContent({
               textDecoration: 'none',
             }}
           >
-            Why this outcome lands{' '}
+            {t.proofHeadlinePart1 ?? 'Why this outcome lands'}{' '}
             <span style={{ fontWeight: 400, color: theme.accent }}>
-              with MonkDB
+              {t.proofHeadlineAccent ?? 'with MonkDB'}
             </span>
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5 items-stretch">
@@ -382,7 +395,7 @@ export default function OutcomeDetailContent({
       {/* INDUSTRY IMPACT TABLE */}
       <section className="bg-[#F8F4F0] dark:bg-[#0A1326] py-12 sm:py-20 lg:py-24">
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
-          <SectionLabel text="By industry" />
+          <SectionLabel text={t.byIndustryEyebrow ?? 'By industry'} />
           <h2
             className="text-gray-900 dark:text-white"
             style={{
@@ -397,7 +410,8 @@ export default function OutcomeDetailContent({
               textDecoration: 'none',
             }}
           >
-            How {item.title.toLowerCase()} shows up across industries
+            {t.byIndustryHeadlinePart1 ?? 'How'} {title.toLowerCase()}{' '}
+            {t.byIndustryHeadlinePart2 ?? 'shows up across industries'}
           </h2>
           <div
             className="rounded-2xl overflow-hidden"
@@ -425,7 +439,7 @@ export default function OutcomeDetailContent({
                     'clamp(14px, 1.6vw, 20px) clamp(18px, 2.2vw, 28px)',
                 }}
               >
-                Industry
+                {t.tableIndustry ?? 'Industry'}
               </div>
               <div
                 style={{
@@ -434,7 +448,7 @@ export default function OutcomeDetailContent({
                   borderLeft: '1px solid rgba(10,34,128,0.06)',
                 }}
               >
-                Result
+                {t.tableResult ?? 'Result'}
               </div>
             </div>
             {item.industries.map((row, i) => (
@@ -486,7 +500,7 @@ export default function OutcomeDetailContent({
       {item.driverSolutions.length > 0 && (
         <section className="bg-white dark:bg-[#0f1623] py-12 sm:py-16 lg:py-20">
           <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
-            <SectionLabel text="Drivers" />
+            <SectionLabel text={t.driversEyebrow ?? 'Drivers'} />
             <h2
               className="text-gray-900 dark:text-white"
               style={{
@@ -501,7 +515,7 @@ export default function OutcomeDetailContent({
                 textDecoration: 'none',
               }}
             >
-              Solutions that produce this outcome
+              {t.driversHeadline ?? 'Solutions that produce this outcome'}
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
               {item.driverSolutions.map((s) => (
@@ -553,7 +567,7 @@ export default function OutcomeDetailContent({
       {related.length > 0 && (
         <section className="bg-[#F8F4F0] dark:bg-[#0A1326] py-12 sm:py-16 lg:py-20">
           <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
-            <SectionLabel text="Other outcomes" />
+            <SectionLabel text={t.otherOutcomes ?? 'Other outcomes'} />
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5 mt-6 sm:mt-10 lg:mt-12">
               {related.map((r) => (
                 <Link
@@ -596,7 +610,7 @@ export default function OutcomeDetailContent({
         </section>
       )}
 
-      <CTABanner heading={item.ctaHeading} />
+      <CTABanner heading={ctaHeading} />
       <Footer />
       <ScrollToTop />
     </main>

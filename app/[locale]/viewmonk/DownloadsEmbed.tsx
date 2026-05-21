@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
+import { useI18n } from '@/i18n/I18nProvider'
 
 const COPY_SVG =
   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>'
@@ -23,6 +24,10 @@ export default function DownloadsEmbed({
   style: string
   body: string
 }) {
+  const { dict } = useI18n()
+  const t = (((dict as Record<string, unknown>).viewmonk) ?? {}) as Record<string, string>
+  const copyLabel = t.copy ?? 'Copy'
+  const copiedLabel = t.copied ?? 'Copied'
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       const target = e.target as HTMLElement | null
@@ -35,10 +40,10 @@ export default function DownloadsEmbed({
       const text = m[1]
       const done = () => {
         btn.classList.add('copied')
-        btn.innerHTML = `${CHECK_SVG}Copied`
+        btn.innerHTML = `${CHECK_SVG}${copiedLabel}`
         window.setTimeout(() => {
           btn.classList.remove('copied')
-          btn.innerHTML = `${COPY_SVG}Copy`
+          btn.innerHTML = `${COPY_SVG}${copyLabel}`
         }, 1800)
       }
       if (navigator.clipboard?.writeText) {
@@ -59,7 +64,7 @@ export default function DownloadsEmbed({
     }
     document.addEventListener('click', handler)
     return () => document.removeEventListener('click', handler)
-  }, [])
+  }, [copyLabel, copiedLabel])
 
   return (
     <>

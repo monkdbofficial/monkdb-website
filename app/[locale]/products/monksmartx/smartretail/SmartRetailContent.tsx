@@ -10,6 +10,7 @@
 
 import { motion } from 'framer-motion'
 import SmartXLayout from '@/components/SmartXLayout'
+import { useI18n } from '@/i18n/I18nProvider'
 
 // Deeper berry / mulberry. Replaces the candy #F472B6 hot pink with a
 // muted enterprise tone that still differentiates retail.
@@ -256,12 +257,14 @@ function PriceGrid() {
 }
 
 export default function SmartRetailContent() {
+  const { dict } = useI18n()
+  const t = (((dict as Record<string, unknown>).monkSmartretail) ?? {}) as Record<string, string>
   return (
     <SmartXLayout
-      crumb="MonkSmartX"
+      crumb={t.crumb ?? 'MonkSmartX'}
       industryLabel="Retail"
-      title="Monk SmartRetail"
-      subtitle="Real-time customer and operations intelligence."
+      title={t.title ?? 'Monk SmartRetail'}
+      subtitle={t.subtitle ?? 'Real-time customer and operations intelligence.'}
       lead="Behaviour, inventory, and transaction signals on one continuous engine. Personalize, forecast demand, and price dynamically across every shelf, channel, and shopper."
       heroIllustration={<RetailHero />}
       accent={ACCENT}
@@ -349,7 +352,7 @@ export default function SmartRetailContent() {
         role: 'VP Retail Technology',
         org: 'Plait Retail',
       }}
-      ctaHeading="Build retail that adapts to every shopper."
+      ctaHeading={t.ctaHeading ?? 'Build retail that adapts to every shopper.'}
     />
   )
 }

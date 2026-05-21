@@ -39,15 +39,16 @@ const KIND_ACCENTS: Record<ResourceKind, string> = {
 
 type Filter = ResourceKind | 'all'
 
-const FILTERS: { id: Filter; label: string }[] = [
-  { id: 'all', label: 'All' },
-  { id: 'whitepaper', label: RESOURCE_KIND_LABELS.whitepaper },
-  { id: 'github', label: RESOURCE_KIND_LABELS.github },
-  { id: 'demo', label: RESOURCE_KIND_LABELS.demo },
-  { id: 'video', label: RESOURCE_KIND_LABELS.video },
-]
-
 export default function ResourceLibrary() {
+  const { dict } = useI18n()
+  const tLib = (((dict as Record<string, unknown>).resourceLibrary) ?? {}) as Record<string, string>
+  const FILTERS: { id: Filter; label: string }[] = [
+    { id: 'all', label: tLib.filterAll ?? 'All' },
+    { id: 'whitepaper', label: tLib.kindWhitepaper ?? RESOURCE_KIND_LABELS.whitepaper },
+    { id: 'github', label: tLib.kindGithub ?? RESOURCE_KIND_LABELS.github },
+    { id: 'demo', label: tLib.kindDemo ?? RESOURCE_KIND_LABELS.demo },
+    { id: 'video', label: tLib.kindVideo ?? RESOURCE_KIND_LABELS.video },
+  ]
   const [filter, setFilter] = useState<Filter>('all')
   const [allItems, setAllItems] = useState<ResourceItem[]>([])
   const [loaded, setLoaded] = useState(false)
@@ -92,7 +93,7 @@ export default function ResourceLibrary() {
   return (
     <section className="bg-[#F8F4F0] dark:bg-[#0A1326] py-14 sm:py-20 lg:py-24">
       <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
-        <SectionLabel text="Resource Library" />
+        <SectionLabel text={tLib.label ?? 'Resource Library'} />
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-8 sm:gap-12 lg:gap-20 items-start mt-6 mb-10 lg:mb-12">
           <h2
             className="text-gray-900 dark:text-white"
@@ -105,7 +106,7 @@ export default function ResourceLibrary() {
               textWrap: 'balance',
             }}
           >
-            Browse the catalog
+            {tLib.browseTitle ?? 'Browse the catalog'}
           </h2>
           <p
             className="text-gray-600 dark:text-gray-400 lg:pt-6"
@@ -115,8 +116,7 @@ export default function ResourceLibrary() {
               margin: 0,
             }}
           >
-            White papers, open-source repositories, live product demos, and
-            recorded videos. Filter by type to find what you need.
+            {tLib.browseBody ?? 'White papers, open-source repositories, live product demos, and recorded videos. Filter by type to find what you need.'}
           </p>
         </div>
 
@@ -171,8 +171,8 @@ export default function ResourceLibrary() {
             style={{ padding: '40px 0', fontSize: 14 }}
           >
             {allItems.length === 0
-              ? 'No resources yet. Add some from /admin.'
-              : 'No resources match this filter yet.'}
+              ? (tLib.emptyAddSome ?? 'No resources yet. Add some from /admin.')
+              : (tLib.emptyFilter ?? 'No resources match this filter yet.')}
           </div>
         )}
       </div>
@@ -183,7 +183,14 @@ export default function ResourceLibrary() {
 function ResourceCard({ item, index }: { item: ResourceItem; index: number }) {
   const Icon = KIND_ICONS[item.kind]
   const accent = KIND_ACCENTS[item.kind]
-  const { locale } = useI18n()
+  const { locale, dict } = useI18n()
+  const tLib = (((dict as Record<string, unknown>).resourceLibrary) ?? {}) as Record<string, string>
+  const kindLabels: Record<ResourceKind, string> = {
+    whitepaper: tLib.kindWhitepaper ?? RESOURCE_KIND_LABELS.whitepaper,
+    github: tLib.kindGithub ?? RESOURCE_KIND_LABELS.github,
+    demo: tLib.kindDemo ?? RESOURCE_KIND_LABELS.demo,
+    video: tLib.kindVideo ?? RESOURCE_KIND_LABELS.video,
+  }
   const href = item.id
     ? localizedHref(`/resources/library/${item.id}`, locale)
     : item.url
@@ -240,7 +247,7 @@ function ResourceCard({ item, index }: { item: ResourceItem; index: number }) {
               textTransform: 'uppercase',
             }}
           >
-            {RESOURCE_KIND_LABELS[item.kind]}
+            {kindLabels[item.kind]}
           </span>
         </div>
         <h3
@@ -276,7 +283,7 @@ function ResourceCard({ item, index }: { item: ResourceItem; index: number }) {
               textTransform: 'uppercase',
             }}
           >
-            {item.meta ?? 'Learn more'}
+            {item.meta ?? tLib.learnMore ?? 'Learn more'}
           </span>
           <ArrowRight
             size={14}

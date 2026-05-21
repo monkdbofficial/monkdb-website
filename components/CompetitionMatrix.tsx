@@ -4,6 +4,7 @@ import React, { useRef, useState } from 'react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
 import { Check, X, Minus, Star, ChevronDown } from 'lucide-react'
 import { useI18n } from '@/i18n/I18nProvider'
+import BgPattern from './effects/BgPattern'
 
 // ── Cell value types ───────────────────────────────────────────────
 type Cell =
@@ -120,9 +121,11 @@ const EASE = [0.165, 0.84, 0.44, 1] as const
 function CellContent({
   cell,
   isMonk,
+  partialFallback = 'Partial',
 }: {
   cell: Cell
   isMonk: boolean
+  partialFallback?: string
 }) {
   if (cell.kind === 'yes') {
     return (
@@ -175,7 +178,7 @@ function CellContent({
         }}
       >
         <Minus size={11} strokeWidth={3} />
-        {cell.label || 'Partial'}
+        {cell.label || partialFallback}
       </span>
     )
   }
@@ -232,8 +235,8 @@ function MobileFeatureCard({ row, t }: { row: Row; t: Record<string, string> }) 
       <div className="mb-3">
         <h3
           style={{
-            fontSize: '15px',
-            fontWeight: 600,
+            fontSize: 'clamp(15px, 1.4vw, 20px)',
+            fontWeight: 400,
             color: '#111827',
             letterSpacing: '-0.005em',
             lineHeight: 1.3,
@@ -287,7 +290,7 @@ function MobileFeatureCard({ row, t }: { row: Row; t: Record<string, string> }) 
           </span>
         </div>
         <div className="flex-shrink-0">
-          <CellContent cell={monkCell} isMonk={true} />
+          <CellContent cell={monkCell} isMonk={true} partialFallback={t.partialLabel ?? 'Partial'} />
         </div>
       </div>
 
@@ -384,7 +387,7 @@ function MobileFeatureCard({ row, t }: { row: Row; t: Record<string, string> }) 
                     {name}
                   </span>
                   <div className="flex-shrink-0">
-                    <CellContent cell={cell} isMonk={false} />
+                    <CellContent cell={cell} isMonk={false} partialFallback={t.partialLabel ?? 'Partial'} />
                   </div>
                 </li>
               ))}
@@ -407,8 +410,9 @@ export default function CompetitionMatrix() {
     <section
       id="competition"
       ref={ref}
-      className="relative bg-white dark:bg-[#0f1623] py-10 sm:py-14 lg:py-20"
+      className="relative bg-white dark:bg-[#0f1623] py-10 sm:py-14 lg:py-20 overflow-hidden"
     >
+      <BgPattern variant="dots" mask="fade-edges" size={28} fill="rgba(10,34,128,0.10)" />
       <div className="relative z-10 max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
         {/* Section chapter line */}
         <motion.div
@@ -663,7 +667,7 @@ export default function CompetitionMatrix() {
                             : 'none',
                         }}
                       >
-                        <CellContent cell={cell} isMonk={isMonk} />
+                        <CellContent cell={cell} isMonk={isMonk} partialFallback={t.partialLabel ?? 'Partial'} />
                       </td>
                     )
                   })}

@@ -14,68 +14,14 @@ import CTABanner from '@/components/CTABanner'
 import SectionLabel from '@/components/SectionLabel'
 import ScrollToTop from '@/components/ScrollToTop'
 import ScrollProgressBar from '@/components/ScrollProgressBar'
+import { renderBrand } from '@/components/BrandAccent'
+import { useI18n } from '@/i18n/I18nProvider'
 
 const EASE = [0.165, 0.84, 0.44, 1] as const
 
-const ARTICLES = [
-  {
-    date: '2026-04-22',
-    label: 'Product',
-    title:
-      'MonkDB launches AI-Native Operational Intelligence System for the Fortune 500',
-    excerpt:
-      'A unified, sovereign data plane that consolidates six categories of databases, pipelines, vector stores, and AI inference layers into a single binary.',
-  },
-  {
-    date: '2026-03-14',
-    label: 'Customer',
-    title: 'Top 10 global bank cuts fraud detection latency to under 5 ms with MonkDB',
-    excerpt:
-      'Replacing five specialized systems with one engine, the bank now scores every transaction against vector and rule-based models in line.',
-  },
-  {
-    date: '2026-02-08',
-    label: 'Partnership',
-    title:
-      'MonkDB partners with leading hyperscalers to deliver air-gapped sovereign deployments',
-    excerpt:
-      'Joint reference architectures for cloud, on-prem, and edge environments now available across major regulated industries.',
-  },
-  {
-    date: '2026-01-21',
-    label: 'Engineering',
-    title:
-      'MonkDB ships native vector search alongside time-series and SQL in one query plane',
-    excerpt:
-      'Hybrid retrieval, ANN, BM25, and SQL filters compile into a single execution plan. No federation required.',
-  },
-  {
-    date: '2025-11-09',
-    label: 'Industry',
-    title:
-      'Mining major adopts MonkDB SmartMine for ventilation-on-demand and predictive maintenance',
-    excerpt:
-      'A continuous data plane across underground sensors and surface operations now drives autonomous decisions for safety and yield.',
-  },
-  {
-    date: '2025-09-30',
-    label: 'Research',
-    title: 'MonkDB whitepaper: Sovereignty as a foundational architecture layer',
-    excerpt:
-      'How embedding identity, lineage, and policy at the engine layer eliminates the audit-bolt-on tax for AI workloads.',
-  },
-]
-
-const PRESS_ASSETS = [
-  { label: 'Logo pack (PNG, SVG)', size: '4.2 MB' },
-  { label: 'Brand guidelines', size: '1.8 MB PDF' },
-  { label: 'Product screenshots', size: '12 MB' },
-  { label: 'Executive headshots', size: '8.4 MB' },
-]
-
-function formatDate(iso: string) {
+function formatDate(iso: string, locale: string) {
   const d = new Date(iso)
-  return d.toLocaleDateString('en-US', {
+  return d.toLocaleDateString(locale, {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
@@ -83,19 +29,38 @@ function formatDate(iso: string) {
 }
 
 export default function PressContent() {
+  const { dict, locale } = useI18n()
+  const t = (((dict as Record<string, unknown>).press) ?? {}) as Record<string, string>
+
+  const ARTICLES = [
+    { date: '2026-04-22', label: t.labelProduct ?? 'Product', title: t.article1Title ?? 'MonkDB launches AI-Native Operational Intelligence System for the Fortune 500', excerpt: t.article1Excerpt ?? 'A unified, sovereign data plane that consolidates six categories of databases, pipelines, vector stores, and AI inference layers into a single binary.' },
+    { date: '2026-03-14', label: t.labelCustomer ?? 'Customer', title: t.article2Title ?? 'Top 10 global bank cuts fraud detection latency to under 5 ms with MonkDB', excerpt: t.article2Excerpt ?? 'Replacing five specialized systems with one engine, the bank now scores every transaction against vector and rule-based models in line.' },
+    { date: '2026-02-08', label: t.labelPartnership ?? 'Partnership', title: t.article3Title ?? 'MonkDB partners with leading hyperscalers to deliver air-gapped sovereign deployments', excerpt: t.article3Excerpt ?? 'Joint reference architectures for cloud, on-prem, and edge environments now available across major regulated industries.' },
+    { date: '2026-01-21', label: t.labelEngineering ?? 'Engineering', title: t.article4Title ?? 'MonkDB ships native vector search alongside time-series and SQL in one query plane', excerpt: t.article4Excerpt ?? 'Hybrid retrieval, ANN, BM25, and SQL filters compile into a single execution plan. No federation required.' },
+    { date: '2025-11-09', label: t.labelIndustry ?? 'Industry', title: t.article5Title ?? 'Mining major adopts MonkDB SmartMine for ventilation-on-demand and predictive maintenance', excerpt: t.article5Excerpt ?? 'A continuous data plane across underground sensors and surface operations now drives autonomous decisions for safety and yield.' },
+    { date: '2025-09-30', label: t.labelResearch ?? 'Research', title: t.article6Title ?? 'MonkDB whitepaper: Sovereignty as a foundational architecture layer', excerpt: t.article6Excerpt ?? 'How embedding identity, lineage, and policy at the engine layer eliminates the audit-bolt-on tax for AI workloads.' },
+  ]
+
+  const PRESS_ASSETS = [
+    { label: t.asset1Label ?? 'Logo pack (PNG, SVG)', size: t.asset1Size ?? '4.2 MB' },
+    { label: t.asset2Label ?? 'Brand guidelines', size: t.asset2Size ?? '1.8 MB PDF' },
+    { label: t.asset3Label ?? 'Product screenshots', size: t.asset3Size ?? '12 MB' },
+    { label: t.asset4Label ?? 'Executive headshots', size: t.asset4Size ?? '8.4 MB' },
+  ]
+
   return (
     <main className="min-h-screen bg-white dark:bg-[#0f1623]">
       <ScrollProgressBar />
       <Navbar />
       <PageBanner
-        title="Press"
-        subtitle="Latest news, releases, and media resources from MonkDB."
+        title={t.title ?? 'Press'}
+        subtitle={t.subtitle ?? 'Latest news, releases, and media resources from MonkDB.'}
       />
 
       {/* Article feed — vertical timeline */}
       <section className="section-grid bg-white dark:bg-[#0f1623] py-12 sm:py-20 lg:py-24">
         <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
-          <SectionLabel text="Newsroom" />
+          <SectionLabel text={t.newsroomLabel ?? 'Newsroom'} />
           <h2
             className="text-gray-900 dark:text-white"
             style={{
@@ -110,9 +75,9 @@ export default function PressContent() {
               textDecoration: 'none',
             }}
           >
-            What we have been{' '}
+            {t.newsroomTitlePart1 ?? 'What we have been'}{' '}
             <span className="gradient-text-animate" style={{ fontWeight: 400 }}>
-              shipping and saying
+              {t.newsroomTitlePart2 ?? 'shipping and saying'}
             </span>
           </h2>
 
@@ -169,7 +134,7 @@ export default function PressContent() {
                         color: 'rgba(10,34,128,0.55)',
                       }}
                     >
-                      {formatDate(a.date)}
+                      {formatDate(a.date, locale === 'en' ? 'en-US' : locale)}
                     </time>
                     <span
                       style={{
@@ -199,7 +164,7 @@ export default function PressContent() {
                       margin: '0 0 8px 0',
                     }}
                   >
-                    {a.title}
+                    {renderBrand(a.title)}
                   </h3>
                   <p
                     className="text-gray-600 dark:text-gray-400"
@@ -238,7 +203,7 @@ export default function PressContent() {
                     color: '#1A38E8',
                   }}
                 >
-                  Media Kit
+                  {t.mediaKitLabel ?? 'Media Kit'}
                 </span>
                 <h3
                   className="text-[#0A2280]"
@@ -250,7 +215,7 @@ export default function PressContent() {
                     margin: '12px 0 16px 0',
                   }}
                 >
-                  Brand assets and resources
+                  {t.mediaKitTitle ?? 'Brand assets and resources'}
                 </h3>
                 <ul
                   className="flex flex-col gap-3"
@@ -317,7 +282,7 @@ export default function PressContent() {
                     color: '#7FB3FF',
                   }}
                 >
-                  Media inquiries
+                  {t.inquiriesLabel ?? 'Media inquiries'}
                 </span>
                 <h3
                   style={{
@@ -328,7 +293,7 @@ export default function PressContent() {
                     margin: '12px 0 12px 0',
                   }}
                 >
-                  Reach our communications team
+                  {t.inquiriesTitle ?? 'Reach our communications team'}
                 </h3>
                 <p
                   style={{
@@ -339,7 +304,7 @@ export default function PressContent() {
                     margin: '0 0 14px 0',
                   }}
                 >
-                  Press inquiries, briefings, and analyst meetings.
+                  {t.inquiriesBody ?? 'Press inquiries, briefings, and analyst meetings.'}
                 </p>
                 <a
                   href="mailto:press@monkdb.com"
@@ -364,7 +329,7 @@ export default function PressContent() {
         </div>
       </section>
 
-      <CTABanner heading="Stay close to MonkDB news." />
+      <CTABanner heading={t.ctaHeading ?? 'Stay close to MonkDB news.'} />
       <Footer />
       <ScrollToTop />
     </main>
