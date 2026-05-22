@@ -1,27 +1,9 @@
 'use client'
 
-import { motion, useInView, animate } from 'framer-motion'
-import { useRef, useEffect } from 'react'
+import { motion, useInView } from 'framer-motion'
+import { useRef } from 'react'
 import { ArrowUpRight } from 'lucide-react'
 import { useI18n } from '@/i18n/I18nProvider'
-
-function Counter({ to, isInView }: { to: number; isInView: boolean }) {
-  const ref = useRef<HTMLSpanElement>(null)
-
-  useEffect(() => {
-    if (!isInView || !ref.current) return
-    const controls = animate(0, to, {
-      duration: 2,
-      ease: [0.16, 1, 0.3, 1],
-      onUpdate(val) {
-        if (ref.current) ref.current.textContent = Math.floor(val) + 'k'
-      },
-    })
-    return () => controls.stop()
-  }, [isInView, to])
-
-  return <span ref={ref}>0k</span>
-}
 
 export default function About() {
   const ref = useRef(null)
@@ -91,45 +73,9 @@ export default function About() {
               <span className="text-gray-900 dark:text-white">{t.titlePart2}</span>
             </h2>
 
-            {/* Animated counter */}
-            <div className="flex flex-row items-center flex-wrap gap-4" style={{ rowGap: '8px' }}>
-              <div className="relative overflow-visible" style={{ flexShrink: 0 }}>
-                {/* Halo glow */}
-                <motion.div
-                  className="absolute rounded-full pointer-events-none"
-                  style={{
-                    inset: '-12px',
-                    background: 'radial-gradient(circle, rgba(26,56,232,0.08) 0%, transparent 70%)',
-                    filter: 'blur(16px)',
-                  }}
-                  animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0.9, 0.5] }}
-                  transition={{ duration: 3.4, repeat: Infinity, ease: 'easeInOut' }}
-                />
-                <span
-                  className="relative font-bold"
-                  style={{
-                    fontSize: 'clamp(42px, 5.5vw, 80px)',
-                    lineHeight: 1,
-                    letterSpacing: '-3px',
-                    color: 'transparent',
-                    WebkitTextStroke: '1.5px #0A2280',
-                    fontVariantNumeric: 'tabular-nums',
-                  }}
-                >
-                  <Counter to={270} isInView={isInView} />
-                </span>
-              </div>
-              <span
-                className="text-gray-700 dark:text-white font-medium leading-snug"
-                style={{ fontSize: 'clamp(13px, 1.2vw, 17px)', flexShrink: 0 }}
-              >
-                {t.counterLabel1}<br />{t.counterLabel2}
-              </span>
-            </div>
-
             {/* Divider */}
             <div style={{
-              height: 1, marginTop: 28,
+              height: 1, marginTop: 8,
               background: 'linear-gradient(90deg, rgba(26,56,232,0.3), rgba(96,160,255,0.15), transparent)',
               maxWidth: 320,
             }} />

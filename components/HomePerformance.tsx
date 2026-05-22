@@ -309,7 +309,7 @@ function ClusterStack({ active }: { active: boolean }) {
         fill="rgba(10,34,128,0.55)"
         letterSpacing="0.08em"
       >
-        12-NODE CLUSTER
+        MULTI-NODE CLUSTERS
       </text>
     </svg>
   )

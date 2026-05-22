@@ -308,7 +308,13 @@ export default function Footer() {
             </div>
 
             {/* AWS Partner badge */}
-            <a href="#" style={{ display: 'inline-flex', textDecoration: 'none' }}>
+            <a
+              href="https://aws.amazon.com/marketplace/pp/prodview-lcatixmedlbxw"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ display: 'inline-flex', textDecoration: 'none' }}
+              aria-label={tExtra.awsBadgeAlt ?? 'AWS Partner Marketplace Seller'}
+            >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/aws-partner-marketplace-seller 1.svg"

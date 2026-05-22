@@ -20,7 +20,6 @@ import {
   FileJson,
   GitBranch,
   Map,
-  KeyRound,
   Sparkles,
   Layers,
   Cpu,
@@ -58,7 +57,6 @@ const WORKLOAD_META = [
   { Icon: FileJson, code: 'DOC' },
   { Icon: GitBranch, code: 'GRAPH' },
   { Icon: Map, code: 'GEO' },
-  { Icon: KeyRound, code: 'KV' },
   { Icon: Workflow, code: 'STREAM' },
 ] as const
 
@@ -1125,7 +1123,7 @@ export default function MonkDBContent() {
                 title: t.layer3Title ?? 'Unified query plane',
                 body:
                   t.layer3Body ??
-                  'One SQL surface across relational, vector, time-series, search, document, graph, geo, KV, and streams.',
+                  'One SQL surface across relational, vector, time-series, search, document, graph, geo, and streams.',
               },
               {
                 Icon: Network,

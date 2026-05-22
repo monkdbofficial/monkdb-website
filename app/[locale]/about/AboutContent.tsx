@@ -443,7 +443,7 @@ export default function AboutPage() {
                 { value: t.trustStat1Value ?? '9', label: t.trustStat1Label ?? 'Workloads, one binary' },
                 { value: t.trustStat2Value ?? '<5ms', label: t.trustStat2Label ?? 'p99 vector + SQL + streaming' },
                 { value: t.trustStat3Value ?? '100PB+', label: t.trustStat3Label ?? 'Cluster scale, proven' },
-                { value: t.trustStat4Value ?? 'SOC 2', label: t.trustStat4Label ?? 'ISO 27001, GDPR ready' },
+                { value: t.trustStat4Value ?? 'Edge → Cloud', label: t.trustStat4Label ?? 'One binary, every deployment' },
               ].map((m) => (
                 <div
                   key={m.label}
@@ -1169,15 +1169,15 @@ export default function AboutPage() {
                       letterSpacing: '-3px',
                     }}
                   >
-                    <Counter to={270} suffix="k" />
+                    9
                   </span>
                 </div>
                 <div style={{ height: '1px', background: 'rgba(26,56,232,0.35)', marginBottom: '18px' }} />
                 <span className="text-white leading-snug block mb-3" style={{ fontSize: 'clamp(13px, 1.2vw, 17px)', fontWeight: 400 }}>
-                  {t.stat1Label1 ?? 'AI Solutions'}<br />{t.stat1Label2 ?? 'for our clients'}
+                  {t.stat1Label1 ?? 'Workloads'}<br />{t.stat1Label2 ?? 'one binary'}
                 </span>
                 <p className="text-gray-400 leading-relaxed mt-auto" style={{ fontSize: 'clamp(12px, 0.95vw, 14px)', margin: 0, lineHeight: 1.6 }}>
-                  {t.stat1Body ?? ''}
+                  {t.stat1Body ?? 'Vector, time-series, geospatial, document, blob, streaming SQL, full-text, graph, and multi-modal AI — all in a single execution engine.'}
                 </p>
               </div>
             </motion.div>

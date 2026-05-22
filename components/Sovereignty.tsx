@@ -10,7 +10,6 @@ export default function Sovereignty() {
   const EASE = [0.165, 0.84, 0.44, 1] as const
   const { dict } = useI18n()
   const t = (((dict as Record<string, unknown>).sovereignty) ?? {}) as Record<string, string>
-  const trustMarks = [t.trust1, t.trust2, t.trust3, t.trust4, t.trust5]
 
   return (
     <section
@@ -218,53 +217,6 @@ export default function Sovereignty() {
           </motion.div>
         </div>
 
-        {/* Trust marks row */}
-        <motion.ul
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.6, delay: 0.3, ease: EASE }}
-          className="mt-10 sm:mt-16 lg:mt-20 flex flex-wrap items-center gap-x-6 sm:gap-x-8 gap-y-4 pt-6 sm:pt-8 border-t"
-          style={{
-            borderColor: 'rgba(255,255,255,0.10)',
-            listStyle: 'none',
-          }}
-        >
-          {trustMarks.map((mark, i) => (
-            <motion.li
-              key={mark}
-              initial={{ opacity: 0, y: 6 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{
-                duration: 0.5,
-                delay: 0.4 + i * 0.06,
-                ease: EASE,
-              }}
-              style={{
-                fontFamily: 'var(--font-mono, monospace)',
-                fontSize: '11px',
-                fontWeight: 500,
-                letterSpacing: '0.12em',
-                textTransform: 'uppercase',
-                color: 'rgba(255,255,255,0.62)',
-              }}
-            >
-              <span
-                aria-hidden="true"
-                style={{
-                  display: 'inline-block',
-                  width: '4px',
-                  height: '4px',
-                  borderRadius: '50%',
-                  background: '#1E8AFF',
-                  boxShadow: '0 0 6px rgba(30,138,255,0.8)',
-                  marginRight: '10px',
-                  verticalAlign: 'middle',
-                }}
-              />
-              {mark}
-            </motion.li>
-          ))}
-        </motion.ul>
       </div>
 
       {/* Bottom hairline */}

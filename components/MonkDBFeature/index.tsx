@@ -25,7 +25,6 @@ import {
   Bot,
   Sparkles,
   CircuitBoard,
-  KeyRound,
   Share2,
   MemoryStick,
   type LucideIcon,
@@ -41,9 +40,7 @@ const featuresData: Tile[] = [
   { name: 'Document/JSON',    Icon: FileJson,    tint: '#059669' },
   { name: 'Geospatial',       Icon: MapPin,      tint: '#DC2626' },
   { name: 'Full Text Search', Icon: Search,      tint: '#4F46E5' },
-  { name: 'Key-Value',        Icon: KeyRound,    tint: '#0891B2' },
   { name: 'Graph',            Icon: Share2,      tint: '#BE185D' },
-  { name: 'In-Memory',        Icon: MemoryStick, tint: '#475569' },
   { name: 'Blob Store',       Icon: Package,     tint: '#EA580C' },
 ]
 

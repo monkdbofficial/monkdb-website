@@ -67,16 +67,16 @@ export default function HomeCapabilities() {
         t.cap1Body ??
         'Nine workloads in one binary. Query across them with standard SQL.',
       metric: t.cap1Metric ?? '9 workloads',
-      tags: tagsFor(1, ['Vector', 'Time-Series', 'Geospatial', 'Document']),
+      tags: tagsFor(1, ['Vector', 'Time-Series', 'Geospatial', 'Document', 'Streaming SQL', 'Blob', 'Full-Text', 'Graph', 'Multi-Modal AI']),
       Icon: Layers,
     },
     {
       title: t.cap2Title ?? 'Hybrid query engine',
       body:
         t.cap2Body ??
-        'Vector similarity, full-text search, time-series, and SQL filters in a single statement.',
+        'Vector similarity, graph traversals, and full-text search combined in a single statement.',
       metric: t.cap2Metric ?? '1 dialect',
-      tags: tagsFor(2, ['ANN', 'BM25', 'Spatial join', 'Window fns']),
+      tags: tagsFor(2, ['Vector', 'Graph', 'Full-Text']),
       Icon: Workflow,
     },
     {

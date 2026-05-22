@@ -32,22 +32,25 @@ const CMT = (s: string) => (
   <span style={{ color: '#6B7EA8', fontStyle: 'italic' }}>{s}</span>
 )
 
-/* The proof query — vector + time-series + geospatial + document, all at once */
+/* The proof query — vector + full-text + geo + SQL + doc/json + time-series, all at once */
 const sqlLines: ReactNode[] = [
-  <>{CMT('-- One query, four workloads, one engine')}</>,
+  <>{CMT('-- One query, six workloads, one engine')}</>,
   <>{KW('SELECT')}{' '}{FN('id')}{', '}{FN('name')}{','}</>,
   <>{'  v.embedding '}{FN('<=>')}{' '}{PARAM('$query_vec')}{' '}{KW('AS')}{' similarity,'}</>,
+  <>{'  '}{FN('match')}{'(d.body, '}{PARAM('$keywords')}{') '}{KW('AS')}{' relevance,'}</>,
   <>{'  '}{FN('ST_Distance')}{'(geo, '}{PARAM('$origin')}{') '}{KW('AS')}{' distance_m,'}</>,
+  <>{'  d.metadata->>'}{STR("'tier'")}{' '}{KW('AS')}{' tier,'}</>,
   <>{'  ts.value '}{KW('AS')}{' last_reading'}</>,
   <>{KW('FROM')}{' events e'}</>,
   <>{KW('JOIN')}{' vectors    v  '}{KW('ON')}{' v.event_id  = e.id'}</>,
+  <>{KW('JOIN')}{' documents  d  '}{KW('ON')}{' d.event_id  = e.id'}</>,
   <>{KW('JOIN')}{' timeseries ts '}{KW('ON')}{' ts.event_id = e.id'}</>,
   <>{KW('WHERE')}{' ts.ts > '}{FN('now')}{'() '}{KW('- INTERVAL')}{' '}{STR("'1 minute'")}</>,
   <>{'  '}{KW('AND')}{' v.embedding '}{FN('<=>')}{' '}{PARAM('$query_vec')}{' < '}{NUM('0.30')}</>,
   <>{KW('ORDER BY')}{' similarity '}{KW('ASC')}{' '}{KW('LIMIT')}{' '}{NUM('25')}{';'}</>,
 ]
 
-const queryWorkloads = ['Vector', 'Time-Series', 'Geospatial', 'SQL']
+const queryWorkloads = ['Vector', 'Full-Text', 'Geospatial', 'SQL', 'Document/JSON', 'Time-Series']
 
 export default function WhatIsMonkDB() {
   const ref = useRef<HTMLDivElement>(null)
@@ -130,8 +133,8 @@ export default function WhatIsMonkDB() {
                 t.chip5 ?? 'Blob',
                 t.chip6 ?? 'Streaming SQL',
                 t.chip7 ?? 'Full-Text',
-                t.chip8 ?? 'Key-Value',
                 t.chip9 ?? 'Graph',
+                t.chip10 ?? 'Multi-Modal AI',
               ].map((label, i) => (
                 <motion.li
                   key={label}
@@ -186,7 +189,7 @@ export default function WhatIsMonkDB() {
               }}
             >
               {t.exploreBody ??
-                'MonkDB consolidates vector, time-series, geospatial, document, blob, and streaming data into a single platform.'}
+                'MonkDB consolidates structured, unstructured, and semi-structured data into a single plane. It eliminates data movement and enables intelligence and execution directly where data resides, reducing latency and complexity.'}
             </p>
           </motion.div>
 

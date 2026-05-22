@@ -56,12 +56,12 @@ function buildRows(t: Record<string, string>): Row[] {
     },
     {
       feature: t.rowMultiModel,
-      sub: 'V, TS, GIS, FTS, DOC, SQL, BLOB, KV, G',
+      sub: 'V, TS, GIS, FTS, DOC, SQL, BLOB, G',
       cells: [
-        { kind: 'text', label: '9 / 9', tone: 'good' },
-        { kind: 'text', label: '5 / 9', tone: 'neutral' },
-        { kind: 'text', label: '6 / 9', tone: 'neutral' },
-        { kind: 'text', label: '6 / 9', tone: 'neutral' },
+        { kind: 'text', label: '8 / 8', tone: 'good' },
+        { kind: 'text', label: '5 / 8', tone: 'neutral' },
+        { kind: 'text', label: '6 / 8', tone: 'neutral' },
+        { kind: 'text', label: '6 / 8', tone: 'neutral' },
         { kind: 'text', label: '6 / 9', tone: 'neutral' },
         { kind: 'text', label: '7 / 9', tone: 'neutral' },
       ],

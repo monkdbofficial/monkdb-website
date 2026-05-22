@@ -26,9 +26,7 @@ const CHIPS = [
   'Document / JSON',
   'Streaming SQL',
   'Blob Storage',
-  'Key-Value',
   'Graph',
-  'In-Memory Layer',
   'Multi-Modal AI',
 ]
 
