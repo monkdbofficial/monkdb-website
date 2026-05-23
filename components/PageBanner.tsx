@@ -96,7 +96,7 @@ const FALLBACK_SUBTITLE: Record<string, string> = {
 function buildMetaMap(banners: Record<string, string>): Record<string, string[]> {
   return {
     features: ['9 Workloads', '1 Engine', 'ARM + x86_64'],
-    'why-choose-us': ['SOC 2 Type II', 'ISO 27001', 'GDPR'],
+    'why-choose-us': ['Air-gapped ready', 'On-prem', 'Self-hosted'],
     architecture: ['Cloud', 'On-Prem', 'Edge'],
     resources: [
       'Documentation',

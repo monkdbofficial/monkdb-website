@@ -14,14 +14,17 @@ const CMT = (s: string) => <span style={{ color: '#6B7EA8', fontStyle: 'italic' 
 
 // ── The SQL query — each line is (content, plain) for length-aware typing
 const sqlLines: { node: ReactNode; plain: string }[] = [
-  { node: <>{CMT('-- Nearest active users ranked by semantic similarity')}</>, plain: '-- Nearest active users ranked by semantic similarity' },
+  { node: <>{CMT('-- Nearest active users ranked across six modalities')}</>, plain: '-- Nearest active users ranked across six modalities' },
   { node: <>{KW('SELECT')}</>, plain: 'SELECT' },
   { node: <>{'  u.id, u.name,'}</>, plain: '  u.id, u.name,' },
-  { node: <>{'  v.embedding '}{FN('<=>')}{' '}{PARAM('$query_vec')}{'          '}{KW('AS')}{' cosine_dist,'}</>, plain: '  v.embedding <=> $query_vec          AS cosine_dist,' },
-  { node: <>{'  '}{FN('ST_Distance')}{'(u.geo, '}{PARAM('$origin')}{')'}{'         '}{KW('AS')}{' distance_m,'}</>, plain: '  ST_Distance(u.geo, $origin)         AS distance_m,' },
-  { node: <>{'  ts.value                            '}{KW('AS')}{' last_reading'}</>, plain: '  ts.value                            AS last_reading' },
+  { node: <>{'  v.embedding '}{FN('<=>')}{' '}{PARAM('$query_vec')}{'    '}{KW('AS')}{' cosine_dist,'}</>, plain: '  v.embedding <=> $query_vec    AS cosine_dist,' },
+  { node: <>{'  '}{FN('match')}{'(d.body, '}{PARAM('$keywords')}{') '}{KW('AS')}{' relevance,'}</>, plain: '  match(d.body, $keywords) AS relevance,' },
+  { node: <>{'  '}{FN('ST_Distance')}{'(u.geo, '}{PARAM('$origin')}{')   '}{KW('AS')}{' distance_m,'}</>, plain: '  ST_Distance(u.geo, $origin)   AS distance_m,' },
+  { node: <>{'  d.metadata->>'}{STR("'tier'")}{'                '}{KW('AS')}{' tier,'}</>, plain: "  d.metadata->>'tier'                AS tier," },
+  { node: <>{'  ts.value                       '}{KW('AS')}{' last_reading'}</>, plain: '  ts.value                       AS last_reading' },
   { node: <>{KW('FROM')}{' users u'}</>, plain: 'FROM users u' },
   { node: <>{KW('JOIN')}{' vectors    v  '}{KW('ON')}{' v.user_id  = u.id'}</>, plain: 'JOIN vectors    v  ON v.user_id  = u.id' },
+  { node: <>{KW('JOIN')}{' documents  d  '}{KW('ON')}{' d.user_id  = u.id'}</>, plain: 'JOIN documents  d  ON d.user_id  = u.id' },
   { node: <>{KW('JOIN')}{' timeseries ts '}{KW('ON')}{' ts.user_id = u.id'}</>, plain: 'JOIN timeseries ts ON ts.user_id = u.id' },
   { node: <>{KW('WHERE')}{' ts.ts > '}{FN('now')}{'() '}{KW('- INTERVAL')}{' '}{STR("'1 hour'")}</>, plain: "WHERE ts.ts > now() - INTERVAL '1 hour'" },
   { node: <>{'  '}{KW('AND')}{' v.embedding '}{FN('<=>')}{' '}{PARAM('$query_vec')}{' < '}{NUM('0.30')}</>, plain: '  AND v.embedding <=> $query_vec < 0.30' },
@@ -152,7 +155,7 @@ function buildReadinessProofs(t: Record<string, string>): string[][] {
       t.readinessProof2Item3 ?? 'ARM + x86_64',
     ],
     ['SQL', 'gRPC', 'REST', 'Kafka', 'JDBC'],
-    ['On-Prem', 'Air-Gapped', 'SOC 2', 'ISO 27001'],
+    ['Cloud', 'On-Prem', 'Edge', 'Air-Gapped'],
   ]
 }
 
@@ -712,7 +715,7 @@ export default function AIReady() {
                 background: 'rgba(26,56,232,0.08)',
               }}
             >
-              {['Vector', 'Geospatial', 'Time-Series', 'SQL'].map((mod) => (
+              {['Vector', 'Full-Text', 'Geospatial', 'SQL', 'Document', 'Time-Series'].map((mod) => (
                 <span
                   key={mod}
                   style={{

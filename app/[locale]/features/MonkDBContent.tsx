@@ -62,14 +62,13 @@ const WORKLOAD_META = [
 
 const CAPABILITY_ICONS = [Layers, Brain, Cpu, Lock, Zap] as const
 
-// Compliance tags stay English (regulated by their official names).
+// Capability tags (kept English).
 const TRUST = [
-  'SOC 2 Type II',
-  'ISO 27001',
-  'GDPR',
-  'HIPAA',
-  'PCI DSS',
-  'Air-gapped',
+  'Air-gapped ready',
+  'On-prem deployment',
+  'Self-hosted',
+  'Encrypted at rest',
+  'RBAC + audit lineage',
   'ARM + x86',
   'On-prem · Cloud · Edge',
 ]

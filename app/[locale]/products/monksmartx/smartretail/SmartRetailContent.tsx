@@ -346,7 +346,7 @@ export default function SmartRetailContent() {
         { value: '-31%', label: 'Stockouts on top SKUs' },
         { value: '<1 s', label: 'Per-SKU price recompute on demand signal' },
       ]}
-      certifications={['SOC 2 Type II', 'PCI DSS', 'ISO 27001', 'GDPR', 'CCPA']}
+      certifications={['Air-gapped ready', 'On-prem deployment', 'Self-hosted', 'Encrypted at rest']}
       quote={{
         text: 'Pricing decisions used to wait for an overnight batch. Now they ride the same data that customers see when they walk in.',
         role: 'VP Retail Technology',

@@ -371,12 +371,10 @@ export default function SmartTradeContent() {
         { value: '100%', label: 'Online learning, zero downtime' },
       ]}
       certifications={[
-        'SOC 2 Type II',
-        'ISO 27001',
-        'PCI DSS',
-        'MiFID II',
-        'CFTC',
-        'GDPR',
+        'Air-gapped ready',
+        'On-prem deployment',
+        'Self-hosted',
+        'Encrypted at rest',
       ]}
       quote={{
         text: 'When the entire decision path lives in one engine, the conversation about latency stops being about glue code and starts being about real strategy.',

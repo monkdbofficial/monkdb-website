@@ -374,7 +374,7 @@ export default function SmartMineContent() {
         { value: '0', label: 'Reportable safety incidents in 14 months' },
         { value: '14 mo', label: 'Time to ROI on the SmartMine deployment' },
       ]}
-      certifications={['SOC 2 Type II', 'ISO 27001', 'ISA-95', 'GDPR', 'Air-gapped']}
+      certifications={['Air-gapped ready', 'On-prem deployment', 'Self-hosted', 'Encrypted at rest']}
       quote={{
         text: 'Live air flow that follows people and equipment turned a static system into an adaptive one. The savings paid for the rollout in two quarters.',
         role: 'VP Operations',

@@ -354,12 +354,10 @@ export default function SmartFinanceContent() {
         { value: '99.99%', label: 'Audit traceability across decisions' },
       ]}
       certifications={[
-        'SOC 2 Type II',
-        'PCI DSS',
-        'ISO 27001',
-        'ISO 27701',
-        'GDPR',
-        'FFIEC',
+        'Air-gapped ready',
+        'On-prem deployment',
+        'Self-hosted',
+        'Encrypted at rest',
       ]}
       quote={{
         text: 'MonkDB collapsed our fraud stack from five systems to one. The engineering surface shrank, and decisions land before settlement.',

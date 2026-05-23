@@ -52,13 +52,14 @@ export default function HomeCapabilities() {
   >
 
   // Build the spec list. Each entry pulls 4 concrete tech keywords from i18n.
-  const tagsFor = (i: number, fallback: string[]) =>
-    [
-      t[`cap${i}Tag1`] ?? fallback[0],
-      t[`cap${i}Tag2`] ?? fallback[1],
-      t[`cap${i}Tag3`] ?? fallback[2],
-      t[`cap${i}Tag4`] ?? fallback[3],
-    ].filter(Boolean) as string[]
+  const tagsFor = (i: number, fallback: string[]) => {
+    const out: string[] = []
+    for (let n = 1; n <= 9; n++) {
+      const v = t[`cap${i}Tag${n}`] ?? fallback[n - 1]
+      if (v) out.push(v)
+    }
+    return out
+  }
 
   const caps: Cap[] = [
     {

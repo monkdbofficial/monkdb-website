@@ -1077,11 +1077,10 @@ export default function MonkEdgeContent() {
               style={{ listStyle: 'none', padding: 0, margin: 0 }}
             >
               {[
-                'SOC 2 Type II',
-                'ISO 27001',
-                'IEC 62443',
-                'ISA-95',
-                t.trustCertAirGapped ?? 'Air-gapped',
+                t.trustCertAirGapped ?? 'Air-gapped ready',
+                t.trustCertOnPrem ?? 'On-prem deployment',
+                t.trustCertSelfHosted ?? 'Self-hosted',
+                t.trustCertEncrypted ?? 'Encrypted at rest',
                 t.trustCertArmX86 ?? 'ARM + x86',
                 'OPC UA',
                 t.trustCertLinuxRtos ?? 'Linux + RTOS',

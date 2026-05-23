@@ -369,7 +369,7 @@ export default function SmartMobilityContent() {
         { value: '-19%', label: 'Fuel and energy cost reduction' },
         { value: '<200 ms', label: 'Time to recompute routes on live state' },
       ]}
-      certifications={['SOC 2 Type II', 'ISO 27001', 'ISO 21434', 'GDPR', 'TISAX']}
+      certifications={['Air-gapped ready', 'On-prem deployment', 'Self-hosted', 'Encrypted at rest']}
       quote={{
         text: 'Once routing decisions started happening at the vehicle, not after a hop through a central scheduler, everything got faster and lighter.',
         role: 'Head of Platform',

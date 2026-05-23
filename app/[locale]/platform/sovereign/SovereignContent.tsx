@@ -124,16 +124,12 @@ export default function SovereignContent() {
   ]
 
   const CERTS = [
-    'SOC 2 Type II',
-    'ISO 27001',
-    'ISO 27701',
-    'PCI DSS',
-    'HIPAA',
-    'GDPR',
-    'CCPA',
-    t.certFedRamp ?? 'FedRAMP-ready',
-    'IEC 62443',
-    t.certAirGapped ?? 'Air-gapped',
+    t.certAirGapped ?? 'Air-gapped ready',
+    t.certOnPrem ?? 'On-prem deployment',
+    t.certSelfHosted ?? 'Self-hosted',
+    t.certEncrypted ?? 'Encrypted at rest',
+    t.certRbac ?? 'RBAC + audit lineage',
+    t.certResidency ?? 'Data residency control',
   ]
 
   return (

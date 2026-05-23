@@ -1036,7 +1036,7 @@ export default function AboutPage() {
               {
                 Icon: ShieldCheck,
                 title: t.diff4Title ?? 'Enterprise-Ready',
-                description: t.diff4Desc ?? 'SOC 2, GDPR, HIPAA compliant from day one. Role-based access, audit logs, and encryption at rest and in transit.',
+                description: t.diff4Desc ?? 'Air-gapped deployment, role-based access, audit logs, and encryption at rest and in transit. Designed for regulated enterprises.',
               },
             ].map((feature, i) => (
               <motion.div

@@ -365,12 +365,10 @@ export default function SmartManufacturingContent() {
         { value: 'Edge', label: 'Plant + cloud, with reconnect-resilient sync' },
       ]}
       certifications={[
-        'SOC 2 Type II',
-        'ISO 27001',
-        'ISA-95',
-        'IEC 62443',
-        'GDPR',
-        'Air-gapped',
+        'Air-gapped ready',
+        'On-prem deployment',
+        'Self-hosted',
+        'Encrypted at rest',
       ]}
       quote={{
         text: 'Lines that used to require a batch reconciliation now self-tune. The control loop is short enough that we trust it with quality decisions.',
