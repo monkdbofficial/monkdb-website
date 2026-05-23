@@ -34,13 +34,11 @@ function buildFooterLinks(t: Record<string, string>, aboutHref: string, locale: 
       { label: 'MCP', href: '#' },
     ],
     community: [
-      { label: 'GitHub', href: '#' },
-      { label: t.communityContributing ?? 'Contributing', href: '#' },
-      { label: 'Slack', href: '#' },
-      { label: 'Linkedin', href: '#' },
-      { label: 'Youtube', href: '#' },
-      { label: 'X', href: '#' },
-      { label: 'Bluesky', href: '#' },
+      { label: 'GitHub', href: 'https://github.com/monkdbofficial' },
+      { label: t.communityContributing ?? 'Contributing', href: 'https://github.com/monkdbofficial' },
+      { label: 'LinkedIn', href: 'https://www.linkedin.com/company/monkdb' },
+      { label: 'YouTube', href: 'https://www.youtube.com/@monkdbofficial' },
+      { label: 'X', href: 'https://x.com/monkdbofficial' },
     ],
     partners: [
       { label: 'Greptime', href: '#' },
@@ -59,29 +57,28 @@ const SOCIAL_BG = '#1A38E8'
 
 const socialIcons = [
   {
-    label: 'Facebook',
+    label: 'GitHub',
+    href: 'https://github.com/monkdbofficial',
     bg: SOCIAL_BG,
-    path: 'M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z',
-  },
-  {
-    label: 'Twitter',
-    bg: SOCIAL_BG,
-    path: 'M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z',
+    path: 'M12 2C6.48 2 2 6.58 2 12.25c0 4.5 2.87 8.32 6.84 9.67.5.1.68-.22.68-.49 0-.24-.01-.87-.01-1.7-2.78.61-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.49-1.11-1.49-.91-.63.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.55-1.14-4.55-5.06 0-1.12.39-2.03 1.03-2.74-.1-.26-.45-1.29.1-2.69 0 0 .84-.28 2.75 1.05.8-.23 1.65-.34 2.5-.34s1.7.11 2.5.34c1.91-1.33 2.75-1.05 2.75-1.05.55 1.4.2 2.43.1 2.69.64.71 1.03 1.62 1.03 2.74 0 3.93-2.34 4.8-4.57 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.48-.01 2.82 0 .27.18.6.69.49C19.13 20.57 22 16.75 22 12.25 22 6.58 17.52 2 12 2z',
   },
   {
     label: 'LinkedIn',
+    href: 'https://www.linkedin.com/company/monkdb',
     bg: SOCIAL_BG,
     path: 'M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z M4 6a2 2 0 100-4 2 2 0 000 4z',
   },
   {
     label: 'YouTube',
+    href: 'https://www.youtube.com/@monkdbofficial',
     bg: SOCIAL_BG,
     path: 'M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58zM9.75 15.02V8.98L15.5 12l-5.75 3.02z',
   },
   {
-    label: 'Instagram',
+    label: 'X',
+    href: 'https://x.com/monkdbofficial',
     bg: SOCIAL_BG,
-    path: 'M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 01-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 017.8 2z',
+    path: 'M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z',
   },
 ]
 
@@ -96,17 +93,22 @@ function FooterHeading({ children }: { children: React.ReactNode }) {
 function FooterLinks({ links }: { links: { label: string; href: string }[] }) {
   return (
     <ul style={{ display: 'flex', flexDirection: 'column', gap: '10px', listStyle: 'none', padding: 0, margin: 0 }}>
-      {links.map((link) => (
-        <li key={link.label}>
-          <a
-            href={link.href}
-            className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
-            style={{ fontSize: '0.85rem', textDecoration: 'none' }}
-          >
-            {link.label}
-          </a>
-        </li>
-      ))}
+      {links.map((link) => {
+        const external = /^https?:\/\//i.test(link.href)
+        return (
+          <li key={link.label}>
+            <a
+              href={link.href}
+              target={external ? '_blank' : undefined}
+              rel={external ? 'noopener noreferrer' : undefined}
+              className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+              style={{ fontSize: '0.85rem', textDecoration: 'none' }}
+            >
+              {link.label}
+            </a>
+          </li>
+        )
+      })}
     </ul>
   )
 }
@@ -173,20 +175,26 @@ export default function Footer() {
             </div>
             {/* Social icons — rounded squares */}
             <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-              {socialIcons.map(({ label, bg, path }) => (
-                <motion.a
-                  key={label}
-                  href="#"
-                  aria-label={label}
-                  whileHover={{ scale: 1.08, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  style={{ width: 36, height: 36, borderRadius: '10px', background: bg, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, textDecoration: 'none' }}
-                >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d={path} />
-                  </svg>
-                </motion.a>
-              ))}
+              {socialIcons.map(({ label, href, bg, path }) => {
+                const external = /^https?:\/\//i.test(href)
+                const useFilledX = label === 'X' || label === 'GitHub'
+                return (
+                  <motion.a
+                    key={label}
+                    href={href}
+                    target={external ? '_blank' : undefined}
+                    rel={external ? 'noopener noreferrer' : undefined}
+                    aria-label={label}
+                    whileHover={{ scale: 1.08, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    style={{ width: 36, height: 36, borderRadius: '10px', background: bg, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, textDecoration: 'none' }}
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill={useFilledX ? 'white' : 'none'} stroke={useFilledX ? 'none' : 'white'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d={path} />
+                    </svg>
+                  </motion.a>
+                )
+              })}
             </div>
           </motion.div>
 
@@ -283,8 +291,9 @@ export default function Footer() {
               <strong className="text-gray-900 dark:text-white" style={{ fontWeight: 600 }}>MonkDB</strong> {t.description}
             </p>
 
-            {/* Slack + Discord badges */}
-            <div style={{ display: 'flex', gap: '10px', marginBottom: '18px', flexWrap: 'wrap' }}>
+            {/* GitHub + AWS Partner badges — single row (Slack + Discord commented out until workspaces are live) */}
+            <div style={{ display: 'flex', gap: '12px', marginBottom: '18px', flexWrap: 'wrap', alignItems: 'center' }}>
+              {/*
               <a
                 href="#"
                 style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '12px 20px', borderRadius: '12px', textDecoration: 'none', background: '#F5F0E8' }}
@@ -305,23 +314,36 @@ export default function Footer() {
                 </svg>
                 <span style={{ fontSize: '1rem', fontWeight: 700, color: '#5865F2' }}>Discord</span>
               </a>
-            </div>
+              */}
+              <a
+                href="https://github.com/monkdbofficial"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '12px 20px', borderRadius: '12px', textDecoration: 'none', background: '#F5F0E8' }}
+                className="hover:shadow-sm transition-shadow"
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="#1a1a1a">
+                  <path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.5 2.87 8.32 6.84 9.67.5.1.68-.22.68-.49 0-.24-.01-.87-.01-1.7-2.78.61-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.49-1.11-1.49-.91-.63.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.55-1.14-4.55-5.06 0-1.12.39-2.03 1.03-2.74-.1-.26-.45-1.29.1-2.69 0 0 .84-.28 2.75 1.05.8-.23 1.65-.34 2.5-.34s1.7.11 2.5.34c1.91-1.33 2.75-1.05 2.75-1.05.55 1.4.2 2.43.1 2.69.64.71 1.03 1.62 1.03 2.74 0 3.93-2.34 4.8-4.57 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.48-.01 2.82 0 .27.18.6.69.49C19.13 20.57 22 16.75 22 12.25 22 6.58 17.52 2 12 2z"/>
+                </svg>
+                <span style={{ fontSize: '1rem', fontWeight: 700, color: '#1a1a1a' }}>GitHub</span>
+              </a>
 
-            {/* AWS Partner badge */}
-            <a
-              href="https://aws.amazon.com/marketplace/pp/prodview-lcatixmedlbxw"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ display: 'inline-flex', textDecoration: 'none' }}
-              aria-label={tExtra.awsBadgeAlt ?? 'AWS Partner Marketplace Seller'}
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/aws-partner-marketplace-seller 1.svg"
-                alt={tExtra.awsBadgeAlt ?? 'AWS Partner Marketplace Seller'}
-                className="h-16 sm:h-20 lg:h-[90px] w-auto object-contain"
-              />
-            </a>
+              {/* AWS Partner badge */}
+              <a
+                href="https://aws.amazon.com/marketplace/pp/prodview-lcatixmedlbxw"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ display: 'inline-flex', textDecoration: 'none' }}
+                aria-label={tExtra.awsBadgeAlt ?? 'AWS Partner Marketplace Seller'}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/aws-partner-marketplace-seller 1.svg"
+                  alt={tExtra.awsBadgeAlt ?? 'AWS Partner Marketplace Seller'}
+                  className="h-14 sm:h-16 lg:h-[72px] w-auto object-contain"
+                />
+              </a>
+            </div>
           </motion.div>
 
         </div>
