@@ -11,6 +11,8 @@ import {
   LogOut,
   Pencil,
   X,
+  Briefcase,
+  Library,
   type LucideIcon,
 } from 'lucide-react'
 import type {
@@ -18,6 +20,8 @@ import type {
   ResourceKind,
 } from '@/content/resourceLibrary'
 import { RESOURCE_KIND_LABELS } from '@/content/resourceLibrary'
+import type { JobItem, JobTeam } from '@/content/jobs'
+import { JOB_TEAM_LABELS } from '@/content/jobs'
 
 const KIND_ICONS: Record<ResourceKind, LucideIcon> = {
   whitepaper: FileText,
@@ -34,12 +38,14 @@ const KIND_ACCENTS: Record<ResourceKind, string> = {
 }
 
 type AuthState = 'unknown' | 'in' | 'out'
+type AdminTab = 'resources' | 'jobs'
 
 export default function AdminPage() {
   const [auth, setAuth] = useState<AuthState>('unknown')
   const [password, setPassword] = useState('')
   const [loginError, setLoginError] = useState('')
   const [busy, setBusy] = useState(false)
+  const [tab, setTab] = useState<AdminTab>('resources')
 
   const [items, setItems] = useState<ResourceItem[]>([])
   const [loading, setLoading] = useState(false)
@@ -351,7 +357,7 @@ export default function AdminPage() {
               margin: '4px 0 0 0',
             }}
           >
-            Resource library
+            {tab === 'resources' ? 'Resource library' : 'Job listings'}
           </h1>
         </div>
         <button
@@ -382,6 +388,52 @@ export default function AdminPage() {
           gridTemplateColumns: '1fr',
         }}
       >
+        {/* Tabs */}
+        <nav
+          style={{
+            display: 'inline-flex',
+            gap: 8,
+            background: '#fff',
+            border: '1px solid rgba(10,34,128,0.10)',
+            borderRadius: 999,
+            padding: 6,
+            alignSelf: 'start',
+          }}
+        >
+          {(
+            [
+              { id: 'resources' as const, label: 'Resources', Icon: Library },
+              { id: 'jobs' as const, label: 'Jobs', Icon: Briefcase },
+            ]
+          ).map(({ id, label, Icon }) => {
+            const active = tab === id
+            return (
+              <button
+                key={id}
+                onClick={() => setTab(id)}
+                className="inline-flex items-center gap-2"
+                style={{
+                  borderRadius: 999,
+                  padding: '8px 16px',
+                  fontSize: 13,
+                  fontWeight: 500,
+                  background: active ? '#1A38E8' : 'transparent',
+                  color: active ? '#fff' : '#0A2280',
+                  border: 'none',
+                  cursor: 'pointer',
+                }}
+              >
+                <Icon size={14} strokeWidth={1.8} />
+                {label}
+              </button>
+            )
+          })}
+        </nav>
+
+        {tab === 'jobs' && <JobsAdminPanel />}
+
+        {tab === 'resources' && (
+          <>
         {/* Add form */}
         <section
           style={{
@@ -712,6 +764,8 @@ export default function AdminPage() {
             })}
           </ul>
         </section>
+          </>
+        )}
       </div>
     </div>
   )
@@ -751,5 +805,401 @@ function FormRow({
       </label>
       {children}
     </div>
+  )
+}
+
+/* ── Jobs admin panel ─────────────────────────────────────────────────── */
+
+function JobsAdminPanel() {
+  const [items, setItems] = useState<JobItem[]>([])
+  const [loading, setLoading] = useState(false)
+  const [listError, setListError] = useState('')
+
+  const [editingId, setEditingId] = useState<string | null>(null)
+  const [team, setTeam] = useState<JobTeam>('engineering')
+  const [title, setTitle] = useState('')
+  const [location, setLocation] = useState('')
+  const [type, setType] = useState('Full-time')
+  const [applyUrl, setApplyUrl] = useState('')
+  const [formError, setFormError] = useState('')
+  const [formOk, setFormOk] = useState('')
+
+  const resetForm = () => {
+    setEditingId(null)
+    setTeam('engineering')
+    setTitle('')
+    setLocation('')
+    setType('Full-time')
+    setApplyUrl('')
+    setFormError('')
+    setFormOk('')
+  }
+
+  const startEdit = (it: JobItem) => {
+    setEditingId(it.id)
+    setTeam(it.team)
+    setTitle(it.title)
+    setLocation(it.location)
+    setType(it.type)
+    setApplyUrl(it.applyUrl ?? '')
+    setFormError('')
+    setFormOk('')
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  }
+
+  const load = useCallback(async () => {
+    setLoading(true)
+    setListError('')
+    try {
+      const r = await fetch('/api/admin/jobs', { cache: 'no-store' })
+      const data = (await r.json()) as { items?: JobItem[] }
+      setItems(data.items ?? [])
+    } catch {
+      setListError('Failed to load jobs.')
+    } finally {
+      setLoading(false)
+    }
+  }, [])
+
+  useEffect(() => {
+    load()
+  }, [load])
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setFormError('')
+    setFormOk('')
+    if (!title.trim() || !location.trim()) {
+      setFormError('Title and location are required.')
+      return
+    }
+    try {
+      const payload = { team, title, location, type, applyUrl }
+      const r = editingId
+        ? await fetch('/api/admin/jobs', {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id: editingId, ...payload }),
+          })
+        : await fetch('/api/admin/jobs', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          })
+      const data = (await r.json()) as { item?: JobItem; error?: string }
+      if (!r.ok || !data.item) {
+        setFormError(data.error || 'Could not save.')
+        return
+      }
+      if (editingId) {
+        setItems((cur) =>
+          cur.map((it) => (it.id === data.item!.id ? data.item! : it)),
+        )
+        setFormOk(`Updated: ${data.item.title}`)
+        resetForm()
+      } else {
+        setItems((cur) => [data.item!, ...cur])
+        setFormOk(`Added: ${data.item.title}`)
+        setTitle('')
+        setLocation('')
+        setApplyUrl('')
+      }
+    } catch {
+      setFormError('Could not save.')
+    }
+  }
+
+  const handleDelete = async (id: string) => {
+    if (!confirm('Remove this job?')) return
+    try {
+      const r = await fetch(`/api/admin/jobs?id=${encodeURIComponent(id)}`, {
+        method: 'DELETE',
+      })
+      if (!r.ok) return
+      setItems((cur) => cur.filter((it) => it.id !== id))
+    } catch {
+      // ignore
+    }
+  }
+
+  return (
+    <>
+      <section
+        style={{
+          background: '#fff',
+          border: '1px solid rgba(10,34,128,0.10)',
+          borderRadius: 16,
+          padding: 'clamp(20px, 2.2vw, 28px)',
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            margin: '0 0 18px 0',
+          }}
+        >
+          <h2
+            className="text-[#0A2280]"
+            style={{ fontSize: 18, fontWeight: 500, margin: 0 }}
+          >
+            {editingId ? 'Edit job' : 'Add a job'}
+          </h2>
+          {editingId && (
+            <button
+              type="button"
+              onClick={resetForm}
+              className="inline-flex items-center gap-1"
+              style={{
+                borderRadius: 999,
+                padding: '6px 12px',
+                fontSize: 12,
+                fontWeight: 500,
+                background: 'rgba(10,34,128,0.06)',
+                color: '#0A2280',
+                border: '1px solid rgba(10,34,128,0.12)',
+                cursor: 'pointer',
+              }}
+            >
+              <X size={12} strokeWidth={2} /> Cancel edit
+            </button>
+          )}
+        </div>
+        <form onSubmit={handleSubmit} style={{ display: 'grid', gap: 14 }}>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))',
+              gap: 8,
+            }}
+          >
+            {(Object.keys(JOB_TEAM_LABELS) as JobTeam[]).map((k) => {
+              const active = team === k
+              return (
+                <button
+                  key={k}
+                  type="button"
+                  onClick={() => setTeam(k)}
+                  style={{
+                    borderRadius: 999,
+                    padding: '8px 14px',
+                    fontSize: 13,
+                    fontWeight: 500,
+                    background: active ? '#1A38E8' : 'rgba(10,34,128,0.06)',
+                    color: active ? '#fff' : '#0A2280',
+                    border: active
+                      ? '1px solid #1A38E8'
+                      : '1px solid rgba(10,34,128,0.12)',
+                    cursor: 'pointer',
+                  }}
+                >
+                  {JOB_TEAM_LABELS[k]}
+                </button>
+              )
+            })}
+          </div>
+
+          <FormRow label="Title">
+            <input
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="e.g. Staff Engineer, Storage"
+              style={inputStyle}
+            />
+          </FormRow>
+
+          <FormRow label="Location">
+            <input
+              type="text"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              placeholder="e.g. Remote (Global), Hyderabad, London"
+              style={inputStyle}
+            />
+          </FormRow>
+
+          <FormRow label="Type">
+            <input
+              type="text"
+              value={type}
+              onChange={(e) => setType(e.target.value)}
+              placeholder="Full-time / Contract / Internship"
+              style={inputStyle}
+            />
+          </FormRow>
+
+          <FormRow label="Apply URL (optional)">
+            <input
+              type="text"
+              value={applyUrl}
+              onChange={(e) => setApplyUrl(e.target.value)}
+              placeholder="https://… (defaults to mailto:careers@monkdb.com)"
+              style={inputStyle}
+            />
+          </FormRow>
+
+          {formError && (
+            <p style={{ fontSize: 12, color: '#DC2626', margin: 0 }}>
+              {formError}
+            </p>
+          )}
+          {formOk && (
+            <p style={{ fontSize: 12, color: '#059669', margin: 0 }}>
+              {formOk}
+            </p>
+          )}
+
+          <div>
+            <button
+              type="submit"
+              style={{
+                borderRadius: 999,
+                padding: '11px 24px',
+                fontWeight: 600,
+                fontSize: 14,
+                background: '#1A38E8',
+                color: '#fff',
+                border: 'none',
+                cursor: 'pointer',
+              }}
+            >
+              {editingId ? 'Update job' : 'Save job'}
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <section
+        style={{
+          background: '#fff',
+          border: '1px solid rgba(10,34,128,0.10)',
+          borderRadius: 16,
+          padding: 'clamp(20px, 2.2vw, 28px)',
+        }}
+      >
+        <h2
+          className="text-[#0A2280]"
+          style={{ fontSize: 18, fontWeight: 500, margin: '0 0 18px 0' }}
+        >
+          Current jobs ({items.length})
+        </h2>
+        {loading && <p style={{ fontSize: 13, color: '#6b7280' }}>Loading…</p>}
+        {listError && (
+          <p style={{ fontSize: 13, color: '#DC2626' }}>{listError}</p>
+        )}
+        {!loading && items.length === 0 && (
+          <p style={{ fontSize: 13, color: '#6b7280' }}>
+            No openings as of now. Add one above and it will appear on the careers page.
+          </p>
+        )}
+        <ul
+          style={{
+            listStyle: 'none',
+            padding: 0,
+            margin: 0,
+            display: 'grid',
+            gap: 10,
+          }}
+        >
+          {items.map((it) => (
+            <li
+              key={it.id}
+              style={{
+                display: 'grid',
+                gridTemplateColumns: '1fr auto',
+                gap: 14,
+                alignItems: 'start',
+                padding: 14,
+                border: '1px solid rgba(10,34,128,0.08)',
+                borderRadius: 12,
+                background: '#FAFAFA',
+              }}
+            >
+              <div style={{ minWidth: 0 }}>
+                <div
+                  style={{
+                    fontFamily: 'var(--font-mono, ui-monospace, monospace)',
+                    fontSize: 10.5,
+                    fontWeight: 600,
+                    letterSpacing: '0.16em',
+                    textTransform: 'uppercase',
+                    color: '#1A38E8',
+                    marginBottom: 4,
+                  }}
+                >
+                  {JOB_TEAM_LABELS[it.team]}
+                </div>
+                <div
+                  className="text-[#0A2280]"
+                  style={{ fontSize: 14, fontWeight: 500 }}
+                >
+                  {it.title}
+                </div>
+                <div
+                  style={{
+                    fontSize: 12,
+                    color: '#6b7280',
+                    margin: '2px 0 0 0',
+                  }}
+                >
+                  {it.location} · {it.type}
+                  {it.applyUrl ? ' · ' : ''}
+                  {it.applyUrl && (
+                    <a
+                      href={it.applyUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      style={{
+                        fontFamily:
+                          'var(--font-mono, ui-monospace, monospace)',
+                        fontSize: 11,
+                        color: '#1A38E8',
+                        textDecoration: 'none',
+                      }}
+                    >
+                      {it.applyUrl}
+                    </a>
+                  )}
+                </div>
+              </div>
+              <div style={{ display: 'flex', gap: 6 }}>
+                <button
+                  onClick={() => startEdit(it)}
+                  title="Edit"
+                  style={{
+                    border: '1px solid rgba(10,34,128,0.20)',
+                    background: 'rgba(26,56,232,0.06)',
+                    color: '#0A2280',
+                    borderRadius: 8,
+                    padding: '8px 10px',
+                    cursor: 'pointer',
+                  }}
+                >
+                  <Pencil size={14} strokeWidth={1.8} />
+                </button>
+                <button
+                  onClick={() => handleDelete(it.id)}
+                  title="Remove"
+                  style={{
+                    border: '1px solid rgba(220,38,38,0.30)',
+                    background: 'rgba(220,38,38,0.06)',
+                    color: '#DC2626',
+                    borderRadius: 8,
+                    padding: '8px 10px',
+                    cursor: 'pointer',
+                  }}
+                >
+                  <Trash2 size={14} strokeWidth={1.8} />
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </>
   )
 }

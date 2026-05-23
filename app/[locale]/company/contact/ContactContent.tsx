@@ -55,9 +55,7 @@ export default function ContactContent() {
   ]
 
   const OFFICES = [
-    { city: t.officeHyderabadCity ?? 'Hyderabad', country: t.officeIndia ?? 'India', address: t.officeHyderabadAddress ?? 'WeWork Raheja Mindspace Building 9, Floor 13, Mindspace IT Park, Madhapur, Hyderabad 500081, Telangana', role: t.officeHqRole ?? 'Headquarters' },
-    { city: t.officeNewYorkCity ?? 'New York', country: t.officeUs ?? 'United States', address: t.officeNewYorkAddress ?? '100 Bowery, New York, NY 10013', role: t.officeAmericasRole ?? 'Americas hub' },
-    { city: t.officeLondonCity ?? 'London', country: t.officeUk ?? 'United Kingdom', address: t.officeLondonAddress ?? '1 Finsbury Avenue, London EC2M 2PA', role: t.officeEmeaRole ?? 'EMEA hub' },
+    { city: t.officeHyderabadCity ?? 'Hyderabad', country: t.officeIndia ?? 'India', address: t.officeHyderabadAddress ?? 'WeWork Raheja Mindspace Building 9, Floor 13, Mindspace IT Park, Madhapur, Hyderabad 500081, India', role: t.officeHqRole ?? 'Headquarters' },
   ]
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
@@ -467,75 +465,147 @@ export default function ContactContent() {
           >
             {t.officesTitle ?? 'Where we are'}
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
-            {OFFICES.map((office, i) => (
-              <motion.div
-                key={office.city}
-                initial={{ opacity: 0, y: 14 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-40px' }}
-                transition={{ duration: 0.5, delay: i * 0.08, ease: EASE }}
-                className="rounded-2xl"
-                style={{
-                  background: 'white',
-                  border: '1px solid rgba(10,34,128,0.10)',
-                  padding: 'clamp(22px, 2.6vw, 30px)',
-                }}
-              >
-                <div className="flex items-center gap-2.5 mb-4">
-                  <MapPin size={16} style={{ color: '#1A38E8' }} />
-                  <span
+          <div
+            className="grid gap-4 sm:gap-5"
+            style={{
+              gridTemplateColumns:
+                OFFICES.length === 1
+                  ? 'minmax(0, 1100px)'
+                  : 'repeat(auto-fit, minmax(280px, 1fr))',
+              justifyContent: OFFICES.length === 1 ? 'center' : undefined,
+            }}
+          >
+            {OFFICES.map((office, i) => {
+              const mapQuery = encodeURIComponent(office.address)
+              const mapSrc = `https://www.google.com/maps?q=${mapQuery}&output=embed`
+              const directionsHref = `https://www.google.com/maps?q=${mapQuery}`
+              const singleOffice = OFFICES.length === 1
+              return (
+                <motion.div
+                  key={office.city}
+                  initial={{ opacity: 0, y: 14 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-40px' }}
+                  transition={{ duration: 0.5, delay: i * 0.08, ease: EASE }}
+                  className={`rounded-2xl overflow-hidden grid ${singleOffice ? 'lg:grid-cols-[1fr_1.1fr]' : 'grid-cols-1'}`}
+                  style={{
+                    background: 'white',
+                    border: '1px solid rgba(10,34,128,0.10)',
+                  }}
+                >
+                  {/* Info side */}
+                  <div
+                    className="flex flex-col"
+                    style={{ padding: 'clamp(22px, 2.6vw, 32px)' }}
+                  >
+                    <div className="flex items-center gap-2.5 mb-4">
+                      <MapPin size={16} style={{ color: '#1A38E8' }} />
+                      <span
+                        style={{
+                          fontFamily: 'var(--font-mono, ui-monospace, monospace)',
+                          fontSize: '10.5px',
+                          fontWeight: 600,
+                          letterSpacing: '0.16em',
+                          textTransform: 'uppercase',
+                          color: '#1A38E8',
+                        }}
+                      >
+                        {office.role}
+                      </span>
+                    </div>
+                    <h3
+                      className="text-[#0A2280]"
+                      style={{
+                        fontSize: 'clamp(20px, 2vw, 28px)',
+                        fontWeight: 400,
+                        letterSpacing: '-0.012em',
+                        lineHeight: 1.15,
+                        margin: '0 0 4px 0',
+                      }}
+                    >
+                      {office.city}
+                    </h3>
+                    {office.country && (
+                      <span
+                        style={{
+                          fontFamily: 'var(--font-mono, ui-monospace, monospace)',
+                          fontSize: '11.5px',
+                          fontWeight: 500,
+                          letterSpacing: '0.04em',
+                          textTransform: 'uppercase',
+                          color: 'rgba(10,34,128,0.55)',
+                        }}
+                      >
+                        {office.country}
+                      </span>
+                    )}
+                    <p
+                      className="text-gray-600"
+                      style={{
+                        fontSize: '13.5px',
+                        fontWeight: 400,
+                        lineHeight: 1.55,
+                        margin: '16px 0 0 0',
+                      }}
+                    >
+                      {office.address}
+                    </p>
+                    <a
+                      href={directionsHref}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 self-start mt-5"
+                      style={{
+                        color: '#1A38E8',
+                        fontWeight: 600,
+                        fontSize: '13px',
+                        textDecoration: 'none',
+                        padding: '8px 16px',
+                        borderRadius: '999px',
+                        background: 'rgba(26,56,232,0.06)',
+                        border: '1px solid rgba(26,56,232,0.18)',
+                      }}
+                    >
+                      <MapPin size={13} strokeWidth={2} />
+                      {t.getDirections ?? 'Get directions'}
+                    </a>
+                  </div>
+
+                  {/* Map side */}
+                  <div
+                    className="relative"
                     style={{
-                      fontFamily:
-                        'var(--font-mono, ui-monospace, monospace)',
-                      fontSize: '10.5px',
-                      fontWeight: 600,
-                      letterSpacing: '0.16em',
-                      textTransform: 'uppercase',
-                      color: '#1A38E8',
+                      minHeight: singleOffice
+                        ? 'clamp(220px, 30vw, 360px)'
+                        : 'clamp(180px, 26vw, 240px)',
+                      borderTop: singleOffice
+                        ? undefined
+                        : '1px solid rgba(10,34,128,0.08)',
+                      borderLeft: singleOffice
+                        ? '1px solid rgba(10,34,128,0.08)'
+                        : undefined,
+                      background:
+                        'linear-gradient(180deg, rgba(26,56,232,0.04) 0%, rgba(10,34,128,0.02) 100%)',
                     }}
                   >
-                    {office.role}
-                  </span>
-                </div>
-                <h3
-                  className="text-[#0A2280]"
-                  style={{
-                    fontSize: 'clamp(20px, 2vw, 28px)',
-                    fontWeight: 400,
-                    letterSpacing: '-0.012em',
-                    lineHeight: 1.15,
-                    margin: '0 0 4px 0',
-                  }}
-                >
-                  {office.city}
-                </h3>
-                <span
-                  style={{
-                    fontFamily:
-                      'var(--font-mono, ui-monospace, monospace)',
-                    fontSize: '11.5px',
-                    fontWeight: 500,
-                    letterSpacing: '0.04em',
-                    textTransform: 'uppercase',
-                    color: 'rgba(10,34,128,0.55)',
-                  }}
-                >
-                  {office.country}
-                </span>
-                <p
-                  className="text-gray-600 mt-4"
-                  style={{
-                    fontSize: '13.5px',
-                    fontWeight: 400,
-                    lineHeight: 1.55,
-                    margin: '14px 0 0 0',
-                  }}
-                >
-                  {office.address}
-                </p>
-              </motion.div>
-            ))}
+                    <iframe
+                      title={`${office.city} office map`}
+                      src={mapSrc}
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                      style={{
+                        position: 'absolute',
+                        inset: 0,
+                        width: '100%',
+                        height: '100%',
+                        border: 0,
+                        filter: 'saturate(0.92) contrast(1.02)',
+                      }}
+                    />
+                  </div>
+                </motion.div>
+              )
+            })}
           </div>
         </div>
       </section>

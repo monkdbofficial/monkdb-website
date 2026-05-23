@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { useI18n } from '@/i18n/I18nProvider'
+import { localizedHref } from '@/i18n/config'
 
 const wordReveal = {
   hidden: { opacity: 0, y: 40 },
@@ -47,8 +48,9 @@ const PARTICLES = [
 ]
 
 export default function Hero() {
-  const { dict } = useI18n()
+  const { dict, locale } = useI18n()
   const t = dict.hero as Record<string, string>
+  const contactHref = localizedHref('/company/contact', locale)
   const titleWordsLine1 = t.titleLine1.split(/\s+/).filter(Boolean)
   const titleWordsLine2 = t.titleLine2.split(/\s+/).filter(Boolean)
 
@@ -181,7 +183,7 @@ export default function Hero() {
 
       {/* ── MAIN CONTENT ── */}
       <div
-        className="relative z-10 w-full max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28 pt-[120px] sm:pt-[140px] lg:pt-[150px] pb-12 sm:pb-[70px] lg:pb-[80px]"
+        className="relative z-10 w-full max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28 pt-[120px] sm:pt-[140px] lg:pt-[150px] pb-8 sm:pb-12 lg:pb-14"
       >
         <div style={{ maxWidth: '750px' }}>
 
@@ -253,7 +255,7 @@ export default function Hero() {
           {/* CTA Buttons */}
           <motion.div {...fadeUp(0.86)} className="flex flex-wrap gap-3 sm:gap-4 mb-8 sm:mb-10">
             <motion.a
-              href="#about"
+              href={contactHref}
               whileHover={{ y: -2, boxShadow: '0 12px 32px rgba(0,0,0,0.28), 0 2px 6px rgba(0,0,0,0.12)' }}
               whileTap={{ scale: 0.98 }}
               transition={{ duration: 0.22, ease: [0.22, 0.61, 0.36, 1] }}

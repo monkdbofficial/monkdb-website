@@ -129,7 +129,7 @@
     "latencyLabel": "p99 query latency",
     "latencySublabel": "Vector and SQL in one plane",
     "workloadsLabel": "Workloads, one engine",
-    "workloadsSublabel": "Vector, time-series, geospatial, full-text, document, SQL, blob, key-value, graph",
+    "workloadsSublabel": "Vector, time-series, geospatial, full-text, document, SQL, blob, multi-modal AI, graph",
     "uptimeLabel": "Uptime SLA",
     "uptimeSublabel": "Air-gapped deployments included"
   },
@@ -240,7 +240,7 @@
     "legendSupported": "Supported",
     "legendPartial": "Partial",
     "legendNotSupported": "Not supported",
-    "footnote": "Based on publicly available vendor documentation. Multi-model legend: V (Vector), TS (Timeseries), GIS (Geospatial), FTS (Full-Text), DOC (Document), SQL (Streaming SQL), BLOB (Blob), KV (Key-Value), G (Graph).",
+    "footnote": "Based on publicly available vendor documentation. Multi-model legend: V (Vector), TS (Timeseries), GIS (Geospatial), FTS (Full-Text), DOC (Document), SQL (Streaming SQL), BLOB (Blob), MMA (Multi-Modal AI), G (Graph).",
     "rowDeployment": "Deployment",
     "rowDeploymentSub": "Where it runs",
     "rowProcessor": "Processor",
@@ -555,7 +555,7 @@
     "chip5": "Blob",
     "chip6": "Streaming SQL",
     "chip7": "Full-Text",
-    "chip8": "Key-Value",
+    "chip8": "Multi-Modal AI",
     "chip9": "Graph"
   },
   "homeCoreDiff": {
@@ -566,7 +566,7 @@
     "lead": "Traditional systems separate data, AI, and execution. MonkDB unifies them into a single system, enabling real-time intelligent operations without fragmentation.",
     "card1Tag": "Unified by Design",
     "card1Title": "All data types in one system",
-    "card1Body": "Vector, time-series, geospatial, document, blob, full-text, streaming SQL, key-value, graph. One engine. One query language.",
+    "card1Body": "Vector, time-series, geospatial, document, blob, full-text, streaming SQL, multi-modal AI, graph. One engine. One query language.",
     "card2Tag": "AI-Native Core",
     "card2Title": "Intelligence built into the engine",
     "card2Body": "Embeddings, vector search, hybrid retrieval, and live context, native to the data plane. No external AI layer to wire up.",

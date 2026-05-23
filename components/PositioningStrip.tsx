@@ -69,7 +69,7 @@ export default function PositioningStrip() {
   return (
     <section
       ref={ref}
-      className="section-grid relative bg-white dark:bg-[#0f1623] py-10 sm:py-14 lg:py-20"
+      className="section-grid relative bg-white dark:bg-[#0f1623] py-6 sm:py-10 lg:py-12"
     >
       <div className="relative z-10 max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
         <SectionLabel text={t.label ?? 'Positioning'} />

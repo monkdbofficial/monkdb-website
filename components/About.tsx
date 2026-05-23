@@ -16,7 +16,7 @@ export default function About() {
     <section
       id="about"
       ref={ref}
-      className="section-grid py-10 sm:py-14 lg:py-16"
+      className="section-grid py-6 sm:py-10 lg:py-12"
       style={{ background: 'linear-gradient(180deg, #ffffff 0%, #f4f6ff 50%, #ffffff 100%)' }}
     >
       {/* Subtle color orbs for light mode */}

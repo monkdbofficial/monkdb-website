@@ -6,6 +6,7 @@
  */
 
 import { motion } from 'framer-motion'
+import { useEffect, useState } from 'react'
 import {
   ArrowUpRight,
   MapPin,
@@ -20,6 +21,8 @@ import {
   Plane,
   Coins,
   LaptopMinimal,
+  Inbox,
+  type LucideIcon,
 } from 'lucide-react'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
@@ -29,52 +32,67 @@ import SectionLabel from '@/components/SectionLabel'
 import ScrollToTop from '@/components/ScrollToTop'
 import ScrollProgressBar from '@/components/ScrollProgressBar'
 import { useI18n } from '@/i18n/I18nProvider'
+import type { JobItem, JobTeam } from '@/content/jobs'
 
 const EASE = [0.165, 0.84, 0.44, 1] as const
+
+const TEAM_ICONS: Record<JobTeam, LucideIcon> = {
+  engineering: Code2,
+  product: Sparkles,
+  gtm: Megaphone,
+  operations: Users,
+}
+
+const TEAM_ORDER: JobTeam[] = ['engineering', 'product', 'gtm', 'operations']
 
 export default function CareersContent() {
   const { dict } = useI18n()
   const t = (((dict as Record<string, unknown>).careers) ?? {}) as Record<string, string>
-  const fullTime = t.fullTime ?? 'Full-time'
 
-  const TEAMS = [
-    {
-      name: t.teamEngineering ?? 'Engineering',
-      Icon: Code2,
-      roles: [
-        { title: t.role1 ?? 'Staff Engineer, Storage', location: t.locRemoteGlobal ?? 'Remote (Global)', type: fullTime },
-        { title: t.role2 ?? 'Distributed Systems Engineer', location: t.locHyderabad ?? 'Hyderabad', type: fullTime },
-        { title: t.role3 ?? 'Vector / AI Search Engineer', location: t.locRemoteUs ?? 'Remote (US)', type: fullTime },
-        { title: t.role4 ?? 'Site Reliability Engineer', location: t.locRemoteEu ?? 'Remote (EU)', type: fullTime },
-      ],
-    },
-    {
-      name: t.teamProduct ?? 'Product and Design',
-      Icon: Sparkles,
-      roles: [
-        { title: t.role5 ?? 'Senior Product Manager, Platform', location: t.locHyderabadRemote ?? 'Hyderabad / Remote', type: fullTime },
-        { title: t.role6 ?? 'Senior Product Designer', location: t.locRemoteGlobal ?? 'Remote (Global)', type: fullTime },
-        { title: t.role7 ?? 'Developer Advocate', location: t.locRemoteGlobal ?? 'Remote (Global)', type: fullTime },
-      ],
-    },
-    {
-      name: t.teamGtm ?? 'Go-to-market',
-      Icon: Megaphone,
-      roles: [
-        { title: t.role8 ?? 'Account Executive, Enterprise', location: t.locNewYork ?? 'New York', type: fullTime },
-        { title: t.role9 ?? 'Solutions Architect, BFSI', location: t.locLondon ?? 'London', type: fullTime },
-        { title: t.role10 ?? 'Customer Success Manager', location: t.locRemoteApac ?? 'Remote (APAC)', type: fullTime },
-      ],
-    },
-    {
-      name: t.teamOps ?? 'Operations',
-      Icon: Users,
-      roles: [
-        { title: t.role11 ?? 'Head of Talent', location: t.locHyderabad ?? 'Hyderabad', type: fullTime },
-        { title: t.role12 ?? 'Finance Manager', location: t.locHyderabad ?? 'Hyderabad', type: fullTime },
-      ],
-    },
-  ]
+  const [jobs, setJobs] = useState<JobItem[] | null>(null)
+
+  useEffect(() => {
+    let cancelled = false
+    fetch('/api/jobs', { cache: 'no-store' })
+      .then((r) => r.json())
+      .then((data: { items?: JobItem[] }) => {
+        if (!cancelled) setJobs(data.items ?? [])
+      })
+      .catch(() => {
+        if (!cancelled) setJobs([])
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
+  const teamLabel = (team: JobTeam): string => {
+    if (team === 'engineering') return t.teamEngineering ?? 'Engineering'
+    if (team === 'product') return t.teamProduct ?? 'Product and Design'
+    if (team === 'gtm') return t.teamGtm ?? 'Go-to-market'
+    return t.teamOps ?? 'Operations'
+  }
+
+  const TEAMS = (() => {
+    if (!jobs || jobs.length === 0) return []
+    const grouped: Record<JobTeam, JobItem[]> = {
+      engineering: [],
+      product: [],
+      gtm: [],
+      operations: [],
+    }
+    for (const j of jobs) {
+      const team = (TEAM_ORDER.includes(j.team) ? j.team : 'operations') as JobTeam
+      grouped[team].push(j)
+    }
+    return TEAM_ORDER
+      .filter((team) => grouped[team].length > 0)
+      .map((team) => ({
+        name: teamLabel(team),
+        Icon: TEAM_ICONS[team],
+        roles: grouped[team],
+      }))
+  })()
 
   const VALUES = [
     { name: t.value1Title ?? 'Sovereignty by design', body: t.value1Body ?? 'We build for control. Every decision, from architecture to staffing, defaults to giving people and customers more agency, not less.' },
@@ -100,7 +118,9 @@ export default function CareersContent() {
     { step: '05', title: t.process5Title ?? 'Offer', body: t.process5Body ?? 'Aligned compensation, role, and start date.' },
   ]
 
-  const totalRoles = TEAMS.reduce((acc, t) => acc + t.roles.length, 0)
+  const totalRoles = TEAMS.reduce((acc, team) => acc + team.roles.length, 0)
+  const loaded = jobs !== null
+  const hasRoles = loaded && totalRoles > 0
 
   return (
     <main className="min-h-screen bg-white dark:bg-[#0f1623]">
@@ -131,13 +151,27 @@ export default function CareersContent() {
                   textDecoration: 'none',
                 }}
               >
-                {totalRoles} {t.rolesTitlePart1 ?? 'roles open across'}{' '}
-                <span
-                  className="gradient-text-animate"
-                  style={{ fontWeight: 400 }}
-                >
-                  {t.rolesTitlePart2 ?? 'every team'}
-                </span>
+                {hasRoles ? (
+                  <>
+                    {totalRoles} {t.rolesTitlePart1 ?? 'roles open across'}{' '}
+                    <span
+                      className="gradient-text-animate"
+                      style={{ fontWeight: 400 }}
+                    >
+                      {t.rolesTitlePart2 ?? 'every team'}
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    {t.noOpeningsTitlePart1 ?? 'No openings'}{' '}
+                    <span
+                      className="gradient-text-animate"
+                      style={{ fontWeight: 400 }}
+                    >
+                      {t.noOpeningsTitlePart2 ?? 'as of now'}
+                    </span>
+                  </>
+                )}
               </h2>
             </div>
             <a
@@ -158,6 +192,60 @@ export default function CareersContent() {
               <ArrowUpRight size={14} />
             </a>
           </div>
+
+          {!hasRoles && loaded && (
+            <div
+              className="rounded-2xl flex flex-col items-start gap-4"
+              style={{
+                background: '#F8F4F0',
+                border: '1px solid rgba(10,34,128,0.10)',
+                padding: 'clamp(28px, 3.4vw, 48px)',
+              }}
+            >
+              <span
+                className="inline-flex items-center justify-center rounded-xl"
+                style={{
+                  width: 44,
+                  height: 44,
+                  background: 'rgba(26,56,232,0.10)',
+                  color: '#1A38E8',
+                  border: '1px solid rgba(26,56,232,0.20)',
+                }}
+              >
+                <Inbox size={20} strokeWidth={1.6} />
+              </span>
+              <p
+                className="text-gray-700 dark:text-gray-300"
+                style={{
+                  fontSize: 'clamp(15px, 1.2vw, 17px)',
+                  margin: 0,
+                  maxWidth: 560,
+                  lineHeight: 1.55,
+                }}
+              >
+                {t.noOpeningsBody ??
+                  'We are not actively hiring at the moment. If you would still love to work on MonkDB, send your CV to careers@monkdb.com and we will reach out the next time a relevant role opens.'}
+              </p>
+              <a
+                href="mailto:careers@monkdb.com"
+                className="inline-flex items-center gap-2"
+                style={{
+                  background: '#1A38E8',
+                  color: '#ffffff',
+                  borderRadius: '999px',
+                  padding: '11px 22px',
+                  fontWeight: 600,
+                  fontSize: '13px',
+                  textDecoration: 'none',
+                  letterSpacing: '-0.005em',
+                  boxShadow: '0 8px 22px rgba(10,20,80,0.18)',
+                }}
+              >
+                {t.noOpeningsCta ?? 'careers@monkdb.com'}
+                <ArrowUpRight size={14} />
+              </a>
+            </div>
+          )}
 
           <div className="flex flex-col gap-10 sm:gap-14">
             {TEAMS.map((team, ti) => (
@@ -212,7 +300,7 @@ export default function CareersContent() {
                 >
                   {team.roles.map((r) => (
                     <li
-                      key={r.title}
+                      key={r.id || r.title}
                       className="grid grid-cols-1 sm:grid-cols-[1fr_auto_auto_auto] items-center gap-3 sm:gap-6 rounded-xl"
                       style={{
                         background: 'white',
@@ -258,7 +346,9 @@ export default function CareersContent() {
                         {r.type}
                       </span>
                       <a
-                        href="mailto:careers@monkdb.com"
+                        href={r.applyUrl || 'mailto:careers@monkdb.com'}
+                        target={r.applyUrl ? '_blank' : undefined}
+                        rel={r.applyUrl ? 'noopener noreferrer' : undefined}
                         className="inline-flex items-center gap-2"
                         style={{
                           color: '#1A38E8',

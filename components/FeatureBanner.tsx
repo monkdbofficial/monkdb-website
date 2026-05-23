@@ -17,7 +17,7 @@ export default function FeatureBanner() {
     <section
       ref={ref}
       id="features-banner"
-      className="py-10 sm:py-14 lg:py-16 overflow-hidden"
+      className="py-6 sm:py-10 lg:py-12 overflow-hidden"
       style={{ background: 'linear-gradient(180deg, #ffffff 0%, #f0f3ff 100%)' }}
     >
 

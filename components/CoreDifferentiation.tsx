@@ -503,7 +503,7 @@ export default function CoreDifferentiation() {
       title: t.card1Title ?? 'All data types in one system',
       body:
         t.card1Body ??
-        'Vector, time-series, geospatial, document, blob, full-text, streaming SQL, key-value, graph. One engine. One query language.',
+        'Vector, time-series, geospatial, document, blob, full-text, streaming SQL, multi-modal AI, graph. One engine. One query language.',
       Viz: VizCollapse,
     },
     {
