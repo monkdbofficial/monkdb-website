@@ -9,12 +9,12 @@ export type Dictionary = typeof enDict
 
 const dictionaries: Record<Locale, () => Promise<Dictionary>> = {
   en: () => import('@/messages/en.json').then((m) => m.default),
-  es: () => import('@/messages/es.json').then((m) => m.default as Dictionary),
-  de: () => import('@/messages/de.json').then((m) => m.default as Dictionary),
-  fr: () => import('@/messages/fr.json').then((m) => m.default as Dictionary),
-  hi: () => import('@/messages/hi.json').then((m) => m.default as Dictionary),
-  ja: () => import('@/messages/ja.json').then((m) => m.default as Dictionary),
-  zh: () => import('@/messages/zh.json').then((m) => m.default as Dictionary),
+  es: () => import('@/messages/es.json').then((m) => m.default as unknown as Dictionary),
+  de: () => import('@/messages/de.json').then((m) => m.default as unknown as Dictionary),
+  fr: () => import('@/messages/fr.json').then((m) => m.default as unknown as Dictionary),
+  hi: () => import('@/messages/hi.json').then((m) => m.default as unknown as Dictionary),
+  ja: () => import('@/messages/ja.json').then((m) => m.default as unknown as Dictionary),
+  zh: () => import('@/messages/zh.json').then((m) => m.default as unknown as Dictionary),
 }
 
 export const getDictionary = async (locale: Locale): Promise<Dictionary> =>
