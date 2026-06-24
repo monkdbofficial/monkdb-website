@@ -99,10 +99,16 @@ export default function ResourceDetailContent({
   const embedUrl = item.kind === 'video' ? youtubeEmbedUrl(item.url) : null
   const backHref = localizedHref('/resources/resources', locale)
 
-  const bodyParagraphs = (item.body ?? '')
-    .split(/\n\s*\n/)
-    .map((p) => p.trim())
-    .filter(Boolean)
+  const bodyRaw = item.body ?? ''
+  // Bodies authored in the admin rich-text editor are stored as HTML.
+  const isHtmlBody = /<\/?[a-z][\s\S]*>/i.test(bodyRaw)
+  const bodyParagraphs = isHtmlBody
+    ? []
+    : bodyRaw
+        .split(/\n\s*\n/)
+        .map((p) => p.trim())
+        .filter(Boolean)
+  const hasBody = isHtmlBody || bodyParagraphs.length > 0
 
   return (
     <main className="min-h-screen bg-white dark:bg-[#0f1623]">
@@ -284,7 +290,13 @@ export default function ResourceDetailContent({
                 </div>
               ) : (
                 <div className="space-y-4">
-                  {bodyParagraphs.length > 0 ? (
+                  {isHtmlBody ? (
+                    <div
+                      className="richtext text-gray-600 dark:text-gray-400"
+                      style={{ fontSize: 'clamp(14px, 1.15vw, 16px)' }}
+                      dangerouslySetInnerHTML={{ __html: bodyRaw }}
+                    />
+                  ) : bodyParagraphs.length > 0 ? (
                     bodyParagraphs.map((p, i) => (
                       <p
                         key={i}
@@ -315,23 +327,31 @@ export default function ResourceDetailContent({
             </div>
           </div>
 
-          {embedUrl && bodyParagraphs.length > 0 && (
+          {embedUrl && hasBody && (
             <div className="mt-10 lg:mt-14 grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-8 sm:gap-12 lg:gap-20">
               <div />
               <div className="space-y-4">
-                {bodyParagraphs.map((p, i) => (
-                  <p
-                    key={i}
-                    className="text-gray-600 dark:text-gray-400"
-                    style={{
-                      fontSize: 'clamp(14px, 1.15vw, 16px)',
-                      lineHeight: 1.7,
-                      margin: 0,
-                    }}
-                  >
-                    {p}
-                  </p>
-                ))}
+                {isHtmlBody ? (
+                  <div
+                    className="richtext text-gray-600 dark:text-gray-400"
+                    style={{ fontSize: 'clamp(14px, 1.15vw, 16px)' }}
+                    dangerouslySetInnerHTML={{ __html: bodyRaw }}
+                  />
+                ) : (
+                  bodyParagraphs.map((p, i) => (
+                    <p
+                      key={i}
+                      className="text-gray-600 dark:text-gray-400"
+                      style={{
+                        fontSize: 'clamp(14px, 1.15vw, 16px)',
+                        lineHeight: 1.7,
+                        margin: 0,
+                      }}
+                    >
+                      {p}
+                    </p>
+                  ))
+                )}
               </div>
             </div>
           )}

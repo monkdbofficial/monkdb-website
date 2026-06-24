@@ -500,3 +500,94 @@ html[data-platform="windows"] {
     margin-left: -8.82%;
   }
 }
+
+/* ── Admin rich-text editor (TipTap) ──────────────────────────────────── */
+.admin-richtext {
+  min-height: 180px;
+  padding: 14px 16px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #1f2937;
+  outline: none;
+}
+.admin-richtext:focus { outline: none; }
+.admin-richtext p { margin: 0 0 0.75em 0; }
+.admin-richtext h2 { font-size: 1.5em; font-weight: 400; line-height: 1.25; margin: 0.6em 0 0.35em; color: #0A2280; }
+.admin-richtext h3 { font-size: 1.2em; font-weight: 500; line-height: 1.3; margin: 0.6em 0 0.3em; color: #0A2280; }
+.admin-richtext ul, .admin-richtext ol { margin: 0 0 0.75em 1.4em; padding: 0; }
+.admin-richtext li { margin: 0.2em 0; }
+.admin-richtext blockquote { border-left: 3px solid rgba(26,56,232,0.4); margin: 0 0 0.75em; padding: 0.2em 0 0.2em 1em; color: #4b5563; }
+.admin-richtext a { color: #1A38E8; text-decoration: underline; }
+.admin-richtext pre { background: #0f1623; color: #e5e7eb; border-radius: 10px; padding: 12px 14px; overflow-x: auto; font-size: 0.85em; margin: 0 0 0.75em; }
+.admin-richtext code { font-family: var(--font-mono, ui-monospace, monospace); }
+.admin-richtext p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: #9ca3af;
+  pointer-events: none;
+  height: 0;
+}
+
+/* ── Public render of stored rich-text HTML ───────────────────────────── */
+.richtext { line-height: 1.8; }
+.richtext p { margin: 0 0 1em 0; }
+.richtext h2 { font-size: clamp(20px, 2.4vw, 30px); font-weight: 300; letter-spacing: -0.01em; line-height: 1.2; margin: 1.2em 0 0.5em; }
+.richtext h3 { font-size: clamp(17px, 1.6vw, 22px); font-weight: 400; line-height: 1.3; margin: 1em 0 0.4em; }
+.richtext ul, .richtext ol { margin: 0 0 1em 1.5em; padding: 0; }
+.richtext li { margin: 0.35em 0; }
+.richtext blockquote { border-left: 3px solid rgba(26,56,232,0.4); margin: 0 0 1em; padding: 0.4em 0 0.4em 1.1em; color: #4b5563; font-style: italic; }
+.richtext a { color: #1A38E8; text-decoration: underline; }
+.richtext pre { background: #0f1623; color: #e5e7eb; border-radius: 12px; padding: 16px 18px; overflow-x: auto; font-size: 0.9em; margin: 0 0 1em; }
+
+/* ── Admin console — enterprise interaction layer ─────────────────────── */
+.admin-scope input,
+.admin-scope textarea,
+.admin-scope select {
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.admin-scope input:focus,
+.admin-scope textarea:focus,
+.admin-scope select:focus {
+  border-color: #1A38E8 !important;
+  box-shadow: 0 0 0 3px rgba(26, 56, 232, 0.14) !important;
+}
+.admin-scope ::placeholder { color: #9aa3b2; }
+
+.admin-card {
+  box-shadow: 0 1px 2px rgba(10, 20, 80, 0.04), 0 8px 24px rgba(10, 20, 80, 0.04);
+  transition: box-shadow 0.18s ease, transform 0.18s ease, border-color 0.18s ease;
+}
+.admin-stat { cursor: pointer; }
+.admin-stat:hover {
+  box-shadow: 0 14px 34px rgba(10, 20, 80, 0.12);
+  transform: translateY(-3px);
+  border-color: rgba(26, 56, 232, 0.22) !important;
+}
+
+.admin-row { transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease; }
+.admin-row:hover {
+  background: #fff !important;
+  border-color: rgba(26, 56, 232, 0.22) !important;
+  box-shadow: 0 6px 18px rgba(10, 20, 80, 0.06);
+}
+
+.admin-navitem { transition: background 0.15s ease, color 0.15s ease; }
+.admin-navitem:hover { background: rgba(255, 255, 255, 0.08) !important; color: #fff !important; }
+
+.admin-iconbtn { transition: transform 0.12s ease, background 0.15s ease, border-color 0.15s ease; }
+.admin-iconbtn:hover { transform: translateY(-1px); }
+
+.admin-primary { transition: transform 0.12s ease, box-shadow 0.18s ease, filter 0.15s ease; }
+.admin-primary:hover { transform: translateY(-1px); box-shadow: 0 12px 26px rgba(26, 56, 232, 0.34); }
+.admin-primary:active { transform: translateY(0); }
+
+.admin-chip { transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.12s ease; }
+.admin-chip:hover { transform: translateY(-1px); }
+
+.admin-quick { transition: background 0.15s ease, border-color 0.15s ease, transform 0.12s ease; }
+.admin-quick:hover { background: rgba(26, 56, 232, 0.12) !important; transform: translateY(-1px); }
+
+/* Press newsroom timeline items fade in on mount (CSS, no JS observer). */
+@keyframes pressItemIn { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: none; } }
+.press-item-in { animation: pressItemIn 0.5s ease both; }
+@media (prefers-reduced-motion: reduce) { .press-item-in { animation: none; } }

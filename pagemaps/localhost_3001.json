@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "origin": "http://localhost:3001",
+  "updated_at": "2026-06-24T11:36:04.696Z",
+  "nodes": {
+    "/admin": {
+      "key": "/admin",
+      "url": "http://localhost:3001/admin",
+      "visits": 1,
+      "first_seen": "2026-06-24T10:07:43.236Z",
+      "last_seen": "2026-06-24T10:07:43.236Z",
+      "title": "Admin. MonkDB",
+      "heading": "Admin sign-in",
+      "landmarks": {
+        "table": false,
+        "buttons": [
+          "Sign in"
+        ]
+      },
+      "role": "other"
+    },
+    "/company/press": {
+      "key": "/company/press",
+      "url": "http://localhost:3001/company/press",
+      "visits": 1,
+      "first_seen": "2026-06-24T11:36:04.093Z",
+      "last_seen": "2026-06-24T11:36:04.093Z",
+      "title": "Press. MonkDB",
+      "heading": "Press",
+      "landmarks": {
+        "table": false,
+        "buttons": [
+          "Products",
+          "Core Systems",
+          "Solutions",
+          "Industries",
+          "Learn",
+          "Company"
+        ]
+      },
+      "role": "other"
+    }
+  },
+  "edges": {}
+}

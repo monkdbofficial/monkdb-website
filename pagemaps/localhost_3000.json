@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "origin": "http://localhost:3000",
+  "updated_at": "2026-06-24T11:12:48.009Z",
+  "nodes": {
+    "/admin": {
+      "key": "/admin",
+      "url": "http://localhost:3000/admin",
+      "visits": 1,
+      "first_seen": "2026-06-24T11:12:47.405Z",
+      "last_seen": "2026-06-24T11:12:47.405Z",
+      "title": "Admin. MonkDB",
+      "heading": "Dashboard",
+      "landmarks": {
+        "table": false,
+        "buttons": [
+          "Dashboard",
+          "Resources",
+          "Jobs",
+          "Press",
+          "Media Kit",
+          "Settings"
+        ]
+      },
+      "role": "other"
+    }
+  },
+  "edges": {}
+}
