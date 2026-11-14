@@ -62,6 +62,7 @@ export const localizedRoutes = [
   '/architecture',
   '/features',
   '/resources',
+  '/blog/monkdb-iiot-startup-to-watch-2026',
   '/why-choose-us',
   // Phase 1 — full pages from the website content deck.
   '/solutions/use-cases',

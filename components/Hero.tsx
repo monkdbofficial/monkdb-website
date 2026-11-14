@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { useI18n } from '@/i18n/I18nProvider'
 import { localizedHref } from '@/i18n/config'
+import { ArrowUpRight, Award } from 'lucide-react'
 
 const wordReveal = {
   hidden: { opacity: 0, y: 40 },
@@ -340,6 +341,39 @@ export default function Hero() {
               </motion.span>
             ))}
           </motion.div>
+
+          {/* Independent industry recognition, kept within the hero */}
+          <motion.a
+            {...fadeUp(1.35)}
+            href="https://demystifyingplm.com/best-iiot-platforms-2026"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Read DemystifyingPLM's 2026 IIoT Startups to Watch guide featuring MonkDB"
+            className="group mt-4 flex w-full max-w-[560px] items-center gap-3 overflow-hidden rounded-xl border border-white/25 bg-white/[0.10] p-3.5 text-white no-underline shadow-[0_8px_24px_rgba(8,32,120,0.10)] backdrop-blur-xl transition duration-200 hover:border-white/40 hover:bg-white/[0.15] sm:mt-5 sm:gap-4 sm:p-4"
+          >
+            <span aria-hidden="true" className="h-12 w-1 shrink-0 rounded-full bg-gradient-to-b from-white/90 to-sky-200/60 sm:h-14" />
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-white/20 bg-white/[0.12] text-white sm:h-10 sm:w-10">
+              <Award size={17} strokeWidth={1.7} />
+            </span>
+            <span className="flex min-w-0 flex-1 flex-col gap-1">
+              <span className="text-[9px] font-semibold uppercase tracking-[0.15em] text-white/75 sm:text-[10px]">
+                INDUSTRY SPOTLIGHT · 2026
+              </span>
+              <span className="text-[13px] font-semibold leading-snug tracking-[-0.01em] text-white sm:text-sm">
+                MonkDB recognized by DemystifyingPLM as a 2026 IIoT startup to watch
+              </span>
+              <span className="mt-0.5 inline-flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[10px] font-medium leading-snug text-white underline decoration-white/40 underline-offset-2 sm:text-[11px]">
+                Read the feature <span aria-hidden="true">↗</span>
+                <span className="font-normal text-white/70">
+                  demystifyingplm.com/best-iiot-platforms-2026
+                </span>
+              </span>
+            </span>
+            <span aria-hidden="true" className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/25 text-white/90 transition group-hover:border-white/50 group-hover:bg-white/[0.10] sm:h-9 sm:w-9">
+              <ArrowUpRight className="transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" size={15} strokeWidth={1.8} />
+            </span>
+          </motion.a>
+
         </div>
       </div>
 

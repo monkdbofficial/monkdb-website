@@ -546,8 +546,9 @@ function MasterDataSection({ t }: { t: T }) {
 // ───────────────────────────────────────────────────────────────
 // 3. OUR BLOGS
 // ───────────────────────────────────────────────────────────────
-function buildBlogPosts(t: T) {
+function buildBlogPosts(t: T): { title: string; read: string; tag: string; href?: string }[] {
   return [
+    { title: 'MonkDB recognized among 2026 IIoT startups to watch', read: '4 min read', tag: 'Industry', href: '/blog/monkdb-iiot-startup-to-watch-2026' },
     { title: t.blog1Title ?? 'How we cut query latency 68 percent with a unified engine', read: '6 min read', tag: 'Performance' },
     { title: t.blog2Title ?? 'Sovereign deployments, a practical playbook', read: '8 min read', tag: 'Architecture' },
     { title: t.blog3Title ?? 'Vector and SQL in a single plane, why it matters', read: '5 min read', tag: 'AI' },
@@ -559,7 +560,7 @@ function buildBlogPosts(t: T) {
   ]
 }
 
-function BlogsSection({ t }: { t: T }) {
+function BlogsSection({ t, locale }: { t: T; locale: string }) {
   const BLOG_POSTS = buildBlogPosts(t)
   return (
     <section className="py-12 sm:py-16 lg:py-20 bg-white dark:bg-[#0f1623]">
@@ -596,7 +597,7 @@ function BlogsSection({ t }: { t: T }) {
                 ease: EASE,
               }}
               whileHover={{ y: -4 }}
-              className="rounded-[20px] overflow-hidden cursor-pointer"
+              className="relative rounded-[20px] overflow-hidden cursor-pointer"
               style={{ background: '#F8F4F0' }}
             >
               {/* Thumb */}
@@ -661,6 +662,13 @@ function BlogsSection({ t }: { t: T }) {
                   </span>
                 </div>
               </div>
+              {post.href && (
+                <Link
+                  href={localizedHref(post.href, locale)}
+                  aria-label={`Read: ${post.title}`}
+                  className="absolute inset-0 z-[1] rounded-[20px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1A38E8]"
+                />
+              )}
             </motion.article>
           ))}
         </div>
@@ -1068,7 +1076,7 @@ export default function ResourcesPage() {
 
       <ServicesHero t={t} contactHref={contactHref} />
       <MasterDataSection t={t} />
-      <BlogsSection t={t} />
+      <BlogsSection t={t} locale={locale} />
       <DataIntegritySection t={t} />
       <WhatMakesMonkDBSection t={t} />
 

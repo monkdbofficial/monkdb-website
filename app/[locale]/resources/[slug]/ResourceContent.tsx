@@ -17,6 +17,7 @@ import {
   ArrowUpRight,
   type LucideIcon,
 } from 'lucide-react'
+import Link from 'next/link'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import CTABanner from '@/components/CTABanner'
@@ -26,6 +27,7 @@ import ScrollProgressBar from '@/components/ScrollProgressBar'
 import ResourceLibrary from '@/components/ResourceLibrary'
 import type { CoreSystem as Section } from '@/content/coreSystems'
 import { useI18n } from '@/i18n/I18nProvider'
+import { localizedHref } from '@/i18n/config'
 
 const EASE = [0.165, 0.84, 0.44, 1] as const
 
@@ -386,7 +388,7 @@ export default function ResourceContent({
   const heroRef = useRef<HTMLDivElement>(null)
   const heroInView = useInView(heroRef, { once: true, margin: '-80px' })
   const theme = THEMES[item.slug as SlugKey] ?? THEMES.resources
-  const { dict } = useI18n()
+  const { dict, locale } = useI18n()
   const tq = (((dict as Record<string, unknown>).resourceQuote) ?? {}) as Record<string, string>
   const tc = (((dict as Record<string, unknown>).resourceContent) ?? {}) as Record<string, string>
   const tThemeCta = (((dict as Record<string, unknown>).themeCta) ?? {}) as Record<string, string>
@@ -618,24 +620,39 @@ export default function ResourceContent({
           {item.slug === 'blog' && (
             <section className="mt-12 sm:mt-16" aria-labelledby="featured-industry-article">
               <SectionLabel text="Featured industry coverage" />
-              <article className="mt-6 max-w-5xl rounded-2xl border border-blue-900/10 bg-[#F8F4F0] p-6 sm:p-8 dark:bg-[#111d30]">
-                <p className="mb-3 text-xs font-medium uppercase tracking-widest text-[#1A38E8] dark:text-blue-300">
-                  IIoT · Startups to Watch · 2026
-                </p>
-                <h2 id="featured-industry-article" className="text-2xl font-medium leading-tight text-[#0A2280] dark:text-white sm:text-3xl">
-                  DemystifyingPLM names MonkDB among IIoT Startups to Watch
-                </h2>
-                <p className="mt-4 max-w-4xl leading-relaxed text-gray-600 dark:text-gray-300">
-                  The independent guide describes MonkDB as a self-funded, AI-native operational database from India, bringing SQL, time-series, streaming, document, vector and graph data into one engine. It highlights MonkDB’s AWS Marketplace listing and its role as a data layer alongside MES, ERP, quality and engineering systems.
-                </p>
-                <a
-                  href="https://demystifyingplm.com/best-iiot-platforms-2026"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#1A38E8] px-5 py-3 font-semibold text-white no-underline transition hover:bg-[#0A2280]"
-                >
-                  Read the full DemystifyingPLM article <ArrowUpRight size={16} />
-                </a>
+              <article className="group relative mt-6 max-w-5xl rounded-2xl border border-blue-900/10 bg-[#F8F4F0] p-6 transition duration-200 hover:border-[#1A38E8]/30 hover:shadow-lg sm:p-8 dark:bg-[#111d30]">
+                <Link
+                  href={localizedHref('/blog/monkdb-iiot-startup-to-watch-2026', locale)}
+                  aria-label="Open MonkDB’s blog post about the DemystifyingPLM IIoT startups to watch feature"
+                  className="absolute inset-0 z-0 rounded-2xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1A38E8]"
+                />
+                <div className="relative z-10 pointer-events-none">
+                  <p className="mb-3 text-xs font-medium uppercase tracking-widest text-[#1A38E8] dark:text-blue-300">
+                    IIoT · Startups to Watch · 2026
+                  </p>
+                  <h2 id="featured-industry-article" className="text-2xl font-medium leading-tight text-[#0A2280] dark:text-white sm:text-3xl">
+                    DemystifyingPLM names MonkDB among IIoT Startups to Watch
+                  </h2>
+                  <p className="mt-4 max-w-4xl leading-relaxed text-gray-600 dark:text-gray-300">
+                    The independent guide describes MonkDB as a self-funded, AI-native operational database from India, bringing SQL, time-series, streaming, document, vector and graph data into one engine. It highlights MonkDB’s AWS Marketplace listing and its role as a data layer alongside MES, ERP, quality and engineering systems.
+                  </p>
+                  <div className="mt-6 flex flex-wrap gap-3">
+                    <Link
+                      href={localizedHref('/blog/monkdb-iiot-startup-to-watch-2026', locale)}
+                      className="pointer-events-auto relative z-20 inline-flex items-center gap-2 rounded-full bg-[#1A38E8] px-5 py-3 font-semibold text-white no-underline transition hover:bg-[#0A2280]"
+                    >
+                      Read MonkDB’s blog post <ArrowRight size={16} />
+                    </Link>
+                    <a
+                      href="https://demystifyingplm.com/best-iiot-platforms-2026"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="pointer-events-auto relative z-20 inline-flex items-center gap-2 rounded-full border border-[#1A38E8]/25 px-5 py-3 font-semibold text-[#1A38E8] no-underline transition hover:bg-white/70 dark:text-blue-300"
+                    >
+                      Read original coverage <ArrowUpRight size={16} />
+                    </a>
+                  </div>
+                </div>
               </article>
             </section>
           )}
