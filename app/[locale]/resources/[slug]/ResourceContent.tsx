@@ -14,6 +14,7 @@ import {
   BookOpen,
   Calendar,
   ArrowRight,
+  ArrowUpRight,
   type LucideIcon,
 } from 'lucide-react'
 import Navbar from '@/components/Navbar'
@@ -613,6 +614,31 @@ export default function ResourceContent({
               </motion.div>
             ))}
           </div>
+
+          {item.slug === 'blog' && (
+            <section className="mt-12 sm:mt-16" aria-labelledby="featured-industry-article">
+              <SectionLabel text="Featured industry coverage" />
+              <article className="mt-6 max-w-5xl rounded-2xl border border-blue-900/10 bg-[#F8F4F0] p-6 sm:p-8 dark:bg-[#111d30]">
+                <p className="mb-3 text-xs font-medium uppercase tracking-widest text-[#1A38E8] dark:text-blue-300">
+                  IIoT · Startups to Watch · 2026
+                </p>
+                <h2 id="featured-industry-article" className="text-2xl font-medium leading-tight text-[#0A2280] dark:text-white sm:text-3xl">
+                  DemystifyingPLM names MonkDB among IIoT Startups to Watch
+                </h2>
+                <p className="mt-4 max-w-4xl leading-relaxed text-gray-600 dark:text-gray-300">
+                  The independent guide describes MonkDB as a self-funded, AI-native operational database from India, bringing SQL, time-series, streaming, document, vector and graph data into one engine. It highlights MonkDB’s AWS Marketplace listing and its role as a data layer alongside MES, ERP, quality and engineering systems.
+                </p>
+                <a
+                  href="https://demystifyingplm.com/best-iiot-platforms-2026"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#1A38E8] px-5 py-3 font-semibold text-white no-underline transition hover:bg-[#0A2280]"
+                >
+                  Read the full DemystifyingPLM article <ArrowUpRight size={16} />
+                </a>
+              </article>
+            </section>
+          )}
 
           <div className="mt-10 sm:mt-12 flex justify-center">
             <a
