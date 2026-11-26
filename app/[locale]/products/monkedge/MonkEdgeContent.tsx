@@ -902,7 +902,7 @@ export default function MonkEdgeContent() {
                   fontFamily: 'serif',
                 }}
               >
-                "
+                &quot;
               </span>
               <blockquote
                 className="text-[#0A2280] dark:text-white"

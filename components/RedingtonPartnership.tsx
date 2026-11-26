@@ -1,4 +1,5 @@
 import { ArrowUpRight } from 'lucide-react'
+import Link from 'next/link'
 
 export default function RedingtonPartnership() {
   return (
@@ -19,9 +20,9 @@ export default function RedingtonPartnership() {
         <div className="flex min-w-0 flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between xl:justify-end">
           <p className="max-w-xl text-sm leading-5 text-slate-600 xl:hidden dark:text-slate-300">MonkDB is now on the Redington AI Exchange</p>
           <p className="hidden max-w-[390px] text-xs leading-5 text-slate-500 xl:block dark:text-slate-400">Connected data, context and AI capabilities for enterprise transformation.</p>
-          <a href="/company/partners" className="inline-flex shrink-0 items-center gap-1 text-xs font-semibold text-[#1A38E8] hover:underline">
+          <Link href="/company/partners" className="inline-flex shrink-0 items-center gap-1 text-xs font-semibold text-[#1A38E8] hover:underline">
             Learn more <ArrowUpRight size={14} />
-          </a>
+          </Link>
         </div>
       </div>
     </section>

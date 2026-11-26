@@ -1,4 +1,4 @@
-https://www.monkdb.com/company/press'use client'
+'use client'
 
 /**
  * Press — chronological news feed + media kit + media inquiries.
