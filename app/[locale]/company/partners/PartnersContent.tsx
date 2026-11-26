@@ -25,9 +25,9 @@ export default function PartnersContent() {
   const [partnerType, setPartnerType] = useState('All partners')
   const [partnerSearch, setPartnerSearch] = useState('')
   const PARTNER_TYPES = ['All partners', 'Distributor', 'System Integrator', 'Technology']
-  const PARTNERS: { name: string; type: string; description: string; highlights: string[]; logo?: string; wordmark?: string; href: string }[] = [
+  const PARTNERS: { name: string; type: string; description: string; highlights: string[]; logo: string; href: string }[] = [
     { name: 'Redington', type: 'Distributor', description: 'MonkDB is available on the Redington AI Exchange. Redington connects the platform with its established enterprise and channel ecosystem.', highlights: ['Redington AI Exchange', 'Enterprise distribution', 'Channel ecosystem'], logo: '/rd.png', href: 'https://aiexchange.redingtongroup.com' },
-    { name: 'Spritle', type: 'System Integrator', description: 'Spritle works with enterprise teams to design, integrate, and deliver AI solutions with MonkDB in production environments.', highlights: ['Enterprise AI engineering', 'System integration', 'Production delivery'], wordmark: 'spritle', href: 'https://www.spritle.com/' },
+    { name: 'Spritle', type: 'System Integrator', description: 'Spritle works with enterprise teams to design, integrate, and deliver AI solutions with MonkDB in production environments.', highlights: ['Enterprise AI engineering', 'System integration', 'Production delivery'], logo: '/spritle.png', href: 'https://www.spritle.com/' },
   ]
   const matchingPartners = PARTNERS.filter((partner) =>
     (partnerType === 'All partners' || partner.type === partnerType) &&
@@ -84,7 +84,7 @@ export default function PartnersContent() {
                   {matchingPartners.map((partner) => (
                     <article key={partner.name} className="flex min-w-0 flex-col rounded-xl border border-slate-200 bg-white p-5 shadow-[0_8px_28px_rgba(10,34,128,0.035)] transition-all hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-[0_14px_36px_rgba(10,34,128,0.08)] sm:p-6 dark:border-white/10 dark:bg-[#111D35] dark:hover:border-white/20">
                       <div className="flex h-[116px] items-center justify-between gap-4 rounded-lg bg-white px-5 sm:px-7">
-                        {partner.logo ? <img src={partner.logo} alt={`${partner.name} logo`} className="h-auto max-h-14 w-full max-w-[240px] object-contain object-left" /> : <span className="text-3xl font-semibold tracking-tight text-[#111827]">{partner.wordmark}</span>}
+                        <img src={partner.logo} alt={`${partner.name} logo`} className="h-auto max-h-14 w-full max-w-[240px] object-contain object-left" />
                         <span className="shrink-0 rounded-full bg-[#EEF2FF] px-3 py-1.5 text-xs font-semibold text-[#1A38E8]">{partner.type}</span>
                       </div>
                       <div className="mt-5 min-w-0">
