@@ -32,22 +32,6 @@ const CHIPS = [
   'Multi-Modal AI',
 ]
 
-// Pre-defined particles — no Math.random to avoid hydration issues
-const PARTICLES = [
-  { left: '5%',  delay: 0,   dur: 14, size: 3   },
-  { left: '13%', delay: 2.8, dur: 11, size: 2.5 },
-  { left: '24%', delay: 0.6, dur: 16, size: 4   },
-  { left: '38%', delay: 3.2, dur: 13, size: 2   },
-  { left: '50%', delay: 1.4, dur: 15, size: 3   },
-  { left: '62%', delay: 4.1, dur: 12, size: 2.5 },
-  { left: '74%', delay: 0.9, dur: 14, size: 3   },
-  { left: '86%', delay: 2.2, dur: 11, size: 2   },
-  { left: '30%', delay: 5.0, dur: 13, size: 2.5 },
-  { left: '79%', delay: 3.7, dur: 16, size: 3   },
-  { left: '45%', delay: 6.2, dur: 12, size: 2   },
-  { left: '92%', delay: 1.8, dur: 15, size: 4   },
-]
-
 export default function Hero() {
   const { dict, locale } = useI18n()
   const t = dict.hero as Record<string, string>
@@ -60,19 +44,6 @@ export default function Hero() {
       className="relative w-full overflow-hidden flex items-center"
       style={{ minHeight: '100vh' }}
     >
-      {/* ── LIGHT BEAM — subtle, single ── */}
-      <div
-        className="absolute pointer-events-none"
-        style={{
-          top: '-10%', left: '38%',
-          width: '1px', height: '140%',
-          background: 'linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.05) 45%, rgba(255,255,255,0.08) 55%, transparent 100%)',
-          transform: 'rotate(-18deg)',
-          filter: 'blur(8px)',
-          animation: 'orb-c 22s ease-in-out infinite',
-        }}
-      />
-
       {/* ── BLUE BASE GRADIENT ── */}
       <div
         className="absolute inset-0"
@@ -87,52 +58,17 @@ export default function Hero() {
         }}
       />
 
-      {/* ── ANIMATED GRADIENT ORBS ── */}
-      <div
-        className="absolute pointer-events-none rounded-full"
-        style={{
-          width: 'clamp(360px, 55vw, 700px)', height: 'clamp(360px, 55vw, 700px)',
-          background: 'radial-gradient(circle, rgba(60,120,255,0.42) 0%, transparent 60%)',
-          filter: 'blur(80px)',
-          top: '-30%', left: '-18%',
-          animation: 'orb-a 22s ease-in-out infinite',
-        }}
-      />
-      <div
-        className="absolute pointer-events-none rounded-full"
-        style={{
-          width: 'clamp(300px, 45vw, 550px)', height: 'clamp(300px, 45vw, 550px)',
-          background: 'radial-gradient(circle, rgba(80,40,200,0.35) 0%, transparent 60%)',
-          filter: 'blur(70px)',
-          bottom: '-25%', right: '-12%',
-          animation: 'orb-b 18s ease-in-out infinite',
-        }}
-      />
-      <div
-        className="absolute pointer-events-none rounded-full hidden sm:block"
-        style={{
-          width: 380, height: 380,
-          background: 'radial-gradient(circle, rgba(100,160,255,0.32) 0%, transparent 65%)',
-          filter: 'blur(50px)',
-          top: '15%', right: '22%',
-          animation: 'orb-c 14s ease-in-out infinite',
-        }}
-      />
-
-      {/* ── MASK GROUP SVG (Sree's pattern) — animated float ── */}
+      {/* ── STATIC TEXTURE: keep the hero light on low-power devices ── */}
       <div
         className="absolute inset-0 pointer-events-none overflow-hidden"
         style={{ backgroundColor: '#1A38E8' }}
       >
-        <motion.img
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
           src="/Mask group.svg"
           alt=""
-          initial={{ scale: 1.05 }}
-          animate={{
-            y: [0, -18, 0],
-            scale: [1.05, 1.08, 1.05],
-          }}
-          transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+          loading="eager"
+          decoding="async"
           style={{
             position: 'absolute',
             top: '0',
@@ -147,40 +83,14 @@ export default function Hero() {
         />
       </div>
 
-      {/* ── BLUE COLOR OVERLAY ── */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{ backgroundColor: '#1535CC', mixBlendMode: 'color', opacity: 0.72 }}
-      />
-
-      {/* ── ANIMATED DOT GRID OVERLAY (hero version — white dots) ── */}
+      {/* ── DOT GRID OVERLAY ── */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.18) 1.5px, transparent 1.5px)',
           backgroundSize: '32px 32px',
-          animation: 'grid-drift 10s linear infinite',
         }}
       />
-
-      {/* ── RISING PARTICLES ── */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {PARTICLES.map((p, i) => (
-          <div
-            key={i}
-            className="absolute rounded-full"
-            style={{
-              left: p.left,
-              bottom: '-8px',
-              width: p.size,
-              height: p.size,
-              background: 'rgba(255,255,255,0.9)',
-              boxShadow: '0 0 8px rgba(255,255,255,0.7), 0 0 16px rgba(180,200,255,0.4)',
-              animation: `particle-rise ${p.dur}s ${p.delay}s linear infinite`,
-            }}
-          />
-        ))}
-      </div>
 
       {/* ── MAIN CONTENT ── */}
       <div
@@ -387,21 +297,19 @@ export default function Hero() {
       >
         <div className="flex-shrink-0 w-[130px] h-[100px] rounded-xl overflow-hidden relative" style={{ background: '#060818' }}>
           <img
-            src="/3d-shapes-glowing-with-bright-holographic-colors 1.svg"
+            src="/hero-illustration.webp"
             alt={t.visualAlt ?? 'MonkDB visual'}
             className="w-full h-full object-cover"
+            loading="lazy"
+            decoding="async"
           />
           <div className="absolute inset-0 flex items-center justify-center gap-3">
             <button className="text-white/90 hover:text-white transition-colors">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z" /></svg>
             </button>
-            <motion.button
-              className="w-8 h-8 rounded-full bg-white/25 flex items-center justify-center backdrop-blur-sm border border-white/40 text-white"
-              animate={{ scale: [1, 1.12, 1] }}
-              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-            >
+            <span className="w-8 h-8 rounded-full bg-white/25 flex items-center justify-center backdrop-blur-sm border border-white/40 text-white">
               <svg width="10" height="12" viewBox="0 0 9 11" fill="currentColor"><path d="M1 1l7 4.5-7 4.5V1z" /></svg>
-            </motion.button>
+            </span>
             <button className="text-white/90 hover:text-white transition-colors">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zm2-8.14 5.02 2.14L8 14.14V9.86z" /></svg>
             </button>
@@ -416,20 +324,12 @@ export default function Hero() {
       </motion.div>
 
       {/* ── SCROLL INDICATOR ── */}
-      <motion.div
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-1.5"
-        initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1 }}
-      >
-        <motion.div className="w-5 h-8 rounded-full border border-white/25 flex items-start justify-center pt-1.5">
-          <motion.div
-            className="w-[3px] h-[8px] rounded-full bg-white/60"
-            animate={{ y: [0, 10, 0], opacity: [1, 0, 1] }}
-            transition={{ duration: 1.6, repeat: Infinity }}
-          />
-        </motion.div>
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-1.5">
+        <div className="w-5 h-8 rounded-full border border-white/25 flex items-start justify-center pt-1.5">
+          <span className="w-[3px] h-[8px] rounded-full bg-white/60" />
+        </div>
         <span className="text-white/30 text-[10px] tracking-widest uppercase">{t.scroll}</span>
-      </motion.div>
+      </div>
     </section>
   )
 }

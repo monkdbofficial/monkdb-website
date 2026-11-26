@@ -1,6 +1,7 @@
 import Navbar from '@/components/Navbar'
 import Hero from '@/components/Hero'
 import PositioningStrip from '@/components/PositioningStrip'
+import RedingtonPartnership from '@/components/RedingtonPartnership'
 import Metrics from '@/components/Metrics'
 import FeatureBanner from '@/components/FeatureBanner'
 import About from '@/components/About'
@@ -87,6 +88,9 @@ export default function Home() {
 
       {/* 18. ROI — kept */}
       <ROI />
+
+      {/* Strategic partnership announcement near the end of the page */}
+      <RedingtonPartnership />
 
       {/* 19. CTA — docx Final: "Stop managing data. Start running systems." */}
       <CTABanner />

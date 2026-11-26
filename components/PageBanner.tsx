@@ -115,11 +115,14 @@ export default function PageBanner({
   title: titleProp,
   subtitle,
   variant,
+  compact = false,
 }: {
   title?: string
   subtitle?: string
   /** Animated background variant. Auto-picked from the path when omitted. */
   variant?: PageBannerVariant
+  /** Shorter layout for directory and index pages. */
+  compact?: boolean
 }) {
   const pathname = usePathname()
   const { dict } = useI18n()
@@ -155,7 +158,7 @@ export default function PageBanner({
     <section
       className="relative w-full overflow-hidden"
       style={{
-        minHeight: 'clamp(260px, 28vw, 380px)',
+        minHeight: compact ? 'clamp(220px, 22vw, 300px)' : 'clamp(260px, 28vw, 380px)',
         backgroundColor: '#0A2280',
       }}
     >
@@ -242,11 +245,11 @@ export default function PageBanner({
 
       {/* ── CONTENT ── */}
       <div className="relative z-10 max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28">
-        <div className="py-20 sm:py-24 lg:py-28">
+        <div className={compact ? 'py-12 sm:py-14 lg:py-16' : 'py-20 sm:py-24 lg:py-28'}>
           {/* Breadcrumb */}
           <motion.nav
             aria-label={banners.breadcrumbAria ?? 'Breadcrumb'}
-            className="flex items-center gap-3 mb-7 sm:mb-9"
+            className={`flex items-center gap-3 ${compact ? 'mb-4 sm:mb-5' : 'mb-7 sm:mb-9'}`}
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.05, ease: EASE }}
@@ -301,12 +304,12 @@ export default function PageBanner({
           <h1
             className="text-white"
             style={{
-              fontSize: 'clamp(36px, 6vw, 84px)',
+              fontSize: compact ? 'clamp(36px, 4.8vw, 64px)' : 'clamp(36px, 6vw, 84px)',
               fontWeight: 300,
               letterSpacing: '-0.025em',
               lineHeight: 1.04,
               textWrap: 'balance',
-              maxWidth: 'min(960px, 62%)',
+              maxWidth: compact ? 'min(960px, 90%)' : 'min(960px, 62%)',
               textDecoration: 'none',
             }}
           >
@@ -345,7 +348,7 @@ export default function PageBanner({
             style={{
               height: '2px',
               width: '56px',
-              marginTop: '24px',
+              marginTop: compact ? '16px' : '24px',
               borderRadius: '2px',
               background:
                 'linear-gradient(90deg, #1A38E8 0%, #1E8AFF 100%)',
@@ -388,7 +391,7 @@ export default function PageBanner({
                 fontSize: 'clamp(15px, 1.2vw, 18px)',
                 fontWeight: 400,
                 color: 'rgba(255,255,255,0.72)',
-                marginTop: '18px',
+                marginTop: compact ? '12px' : '18px',
                 lineHeight: 1.55,
                 maxWidth: '620px',
                 letterSpacing: '0.005em',

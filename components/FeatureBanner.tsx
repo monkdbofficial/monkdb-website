@@ -87,12 +87,15 @@ export default function FeatureBanner() {
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/3d-shapes-glowing-with-bright-holographic-colors 1.svg"
+                src="/hero-illustration.webp"
                 alt=""
                 className="w-full h-full"
+                loading="lazy"
+                decoding="async"
                 style={{
                   objectFit: 'cover',
                   objectPosition: 'left center',
+                  mixBlendMode: 'color-dodge',
                   filter:
                     'url(#card1-blue-tint) brightness(1.4) contrast(1.6) saturate(1.8)',
                 }}
@@ -198,6 +201,8 @@ export default function FeatureBanner() {
               alt=""
               aria-hidden="true"
               className="absolute pointer-events-none"
+              loading="lazy"
+              decoding="async"
               style={{ right: 0, top: 0, height: '100%', width: 'auto', maxWidth: '70%', objectFit: 'cover', filter: 'url(#card2-wave-tint) brightness(1.1)' }}
             />
 
@@ -228,10 +233,10 @@ export default function FeatureBanner() {
               <div className="flex items-center gap-3 mt-4 sm:mt-6">
                 <div className="flex -space-x-2.5">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="https://i.pravatar.cc/80?img=11" alt={t.userAvatarAlt ?? 'User'} width={40} height={40}
+                  <img src="https://i.pravatar.cc/80?img=11" alt={t.userAvatarAlt ?? 'User'} width={40} height={40} loading="lazy" decoding="async"
                     className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border-[2.5px] border-white object-cover flex-shrink-0" />
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="https://i.pravatar.cc/80?img=33" alt={t.userAvatarAlt ?? 'User'} width={40} height={40}
+                  <img src="https://i.pravatar.cc/80?img=33" alt={t.userAvatarAlt ?? 'User'} width={40} height={40} loading="lazy" decoding="async"
                     className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border-[2.5px] border-white object-cover flex-shrink-0" />
                 </div>
                 <div>
@@ -261,12 +266,11 @@ export default function FeatureBanner() {
               background: 'linear-gradient(145deg, #0e1880 0%, #1230cc 40%, #1a2ae0 70%, #2040ff 100%)',
             }}
           >
-            {/* Dot grid — animated drift */}
+            {/* Static dot grid */}
             <div className="absolute inset-0 pointer-events-none"
               style={{
                 backgroundImage: 'radial-gradient(rgba(255,255,255,0.18) 1.5px, transparent 1.5px)',
                 backgroundSize: '18px 18px',
-                animation: 'grid-drift 8s linear infinite',
               }} />
 
             <div className="relative z-10 p-5 sm:p-7 flex flex-col h-full justify-between">

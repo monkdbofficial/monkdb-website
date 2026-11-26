@@ -1,4 +1,4 @@
-'use client'
+https://www.monkdb.com/company/press'use client'
 
 /**
  * Press — chronological news feed + media kit + media inquiries.
@@ -63,14 +63,24 @@ export default function PressContent() {
   // Press releases are managed entirely from the admin panel and stored in
   // MongoDB. The page renders exactly what is in the database.
   const loading = press === null
-  const ARTICLES: Article[] = (press ?? []).map((p) => ({
+  const ARTICLES: Article[] = [
+    ...(press ?? []).map((p) => ({
     date: p.date,
     label: PRESS_CATEGORY_LABELS[p.category] ?? p.category,
     title: p.title,
     excerpt: p.excerpt,
     imageUrl: p.imageUrl,
     linkUrl: p.linkUrl,
-  }))
+    })),
+    {
+      date: '2026-11-02',
+      label: 'Industry mention',
+      title: 'MonkDB featured in the Best IIoT Platforms 2026 guide',
+      excerpt:
+        'DemystifyingPLM includes MonkDB in its “Startups to Watch” section, describing its AI-native, multi-model operational database and potential role alongside manufacturing systems. The guide notes that MonkDB is not yet rated and that it has not reviewed production references or historian benchmarks.',
+      linkUrl: 'https://demystifyingplm.com/best-iiot-platforms-2026',
+    },
+  ]
 
   const [assets, setAssets] = useState<PressAssetItem[] | null>(null)
 

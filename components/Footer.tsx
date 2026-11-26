@@ -40,10 +40,6 @@ function buildFooterLinks(t: Record<string, string>, aboutHref: string, locale: 
       { label: 'YouTube', href: 'https://www.youtube.com/@monkdbofficial' },
       { label: 'X', href: 'https://x.com/monkdbofficial' },
     ],
-    partners: [
-      { label: 'Greptime', href: '#' },
-      { label: 'AutoMQ', href: '#' },
-    ],
     companyLinks: [
       { label: t.companyAbout ?? 'About Us', href: aboutHref },
       { label: t.companyContact ?? 'Contact Us', href: localizedHref('/company/contact', locale) },
@@ -122,7 +118,7 @@ export default function Footer() {
   const tExtra = (((dict as Record<string, unknown>).footerExtra) ?? {}) as Record<string, string>
   const aboutHref = localizedHref('/about', locale)
   const links = buildFooterLinks(t, aboutHref, locale)
-  const { products, solutions, resources, community, partners, companyLinks } = links
+  const { products, solutions, resources, community, companyLinks } = links
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault()
@@ -238,7 +234,14 @@ export default function Footer() {
             </div>
             <div>
               <FooterHeading>{t.partners}</FooterHeading>
-              <FooterLinks links={partners} />
+              <a
+                href={localizedHref('/company/partners', locale)}
+                aria-label="Redington strategic partnership"
+                className="mt-4 inline-flex items-center rounded-lg border border-gray-200 bg-white px-3 py-2 transition-colors hover:border-gray-300 dark:border-white/10"
+              >
+                <img src="/rd.png" alt="Redington" className="h-auto w-[112px] object-contain" />
+              </a>
+              <p className="mt-1.5 text-[10px] font-medium uppercase tracking-[0.12em] text-gray-400">Strategic partner</p>
             </div>
           </motion.div>
 
